@@ -1,0 +1,50 @@
+{
+  "project_name": "INSERT_PROJECT_NAME",
+  "status": "active",
+  "entry_type": "greenfield",
+  "current_layer": "product",
+  "layer_statuses": {
+    "product": "pending",
+    "design": "pending",
+    "engineering": "pending",
+    "quality": "pending",
+    "devops": "pending"
+  },
+  "active_skills": [],
+  "retry_count": {
+    "product": 0,
+    "design": 0,
+    "engineering": 0,
+    "quality": 0,
+    "devops": 0
+  },
+  "completed_artifacts": [],
+  "completed_files": [],
+  "history": [
+    {
+      "layer": "init",
+      "timestamp": "ISO_DATE",
+      "action": "Project initialized by Astesia",
+      "agent_note": ""
+    }
+  ],
+  "decisions": [],
+  "blocking_issues": [],
+  "metadata": {
+    "tech_stack": {
+      "runtime": "",
+      "framework": "",
+      "database": "",
+      "frontend": ""
+    },
+    "created_at": "ISO_DATE",
+    "last_updated": "ISO_DATE"
+  },
+  "context_paths": {
+    "brd": "./.astesia/brd.md",
+    "design_system": "./.astesia/design-system.md",
+    "architecture": "./.astesia/architecture.md",
+    "test_plan": "./.astesia/qa-test-plan.md",
+    "system_map": "./.astesia/system-map.md"
+  }
+}

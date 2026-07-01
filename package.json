@@ -1,0 +1,15 @@
+{
+  "name": "astesia-os",
+  "version": "1.0.0",
+  "description": "Astesia Multi-Layer Autonomous AI Framework",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "ai",
+    "agentic",
+    "orchestrator",
+    "sdlc"
+  ],
+  "author": "Astesia Orchestrator",
+  "license": "ISC"
+}

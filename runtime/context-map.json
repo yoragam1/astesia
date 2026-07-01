@@ -1,0 +1,60 @@
+{
+  "product": [
+    "skills/product/brd-generation",
+    "skills/product/cuj-mapping",
+    "skills/product/reverse-engineering",
+    "skills/product/template-caching"
+  ],
+  "design": [
+    "skills/design/ux-systems",
+    "skills/design/component-tokens"
+  ],
+  "engineering": [
+    "skills/architecture/layered-architecture",
+    "skills/architecture/adr-management",
+    "skills/backend/hono-rest-api",
+    "skills/backend/elysia-rest-api",
+    "skills/backend/golang-rest-api",
+    "skills/backend/python-fastapi",
+    "skills/backend/laravel-api",
+    "skills/backend/drizzle-orm",
+    "skills/engineering/brownfield-entry",
+    "skills/engineering/zod-validation",
+    "skills/engineering/sveltekit-frontend",
+    "skills/engineering/vue-frontend",
+    "skills/engineering/react-frontend",
+    "skills/engineering/react-native-mobile",
+    "skills/engineering/frontend-integration",
+    "skills/engineering/self-healing",
+    "skills/engineering/tdd-workflow",
+    "skills/engineering/context-navigation",
+    "skills/engineering/cost-reducer",
+    "skills/engineering/zero-downtime-migration",
+    "skills/engineering/ponytail-executor",
+    "skills/engineering/multi-model-routing",
+    "skills/engineering/worktree-isolation",
+    "skills/engineering/blast-radius",
+    "skills/engineering/hybrid-search",
+    "skills/engineering/task-waves"
+  ],
+  "quality": [
+    "skills/quality/e2e-testing",
+    "skills/quality/security-review",
+    "skills/quality/vitest-unit-testing",
+    "skills/quality/visual-qa",
+    "skills/quality/architectural-linter",
+    "skills/quality/anti-silent-failure",
+    "skills/quality/ponytail-review",
+    "skills/quality/ponytail-audit",
+    "skills/quality/debt-scanner"
+  ],
+  "devops": [
+    "skills/devops/docker-optimization",
+    "skills/devops/github-actions",
+    "skills/devops/docker-compose",
+    "skills/devops/trigger-dev",
+    "skills/devops/n8n-automation",
+    "skills/devops/budget-circuit-breaker",
+    "skills/devops/dynamic-plugins"
+  ]
+}
