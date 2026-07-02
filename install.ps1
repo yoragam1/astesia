@@ -24,9 +24,18 @@ $PluginJson = @"
 "@
 Set-Content -Path "$DestDir\plugin.json" -Value $PluginJson
 
-# 2. Generate AGENTS.md with absolute paths to the Source Directory
+# 2. Append AGENTS.md rules to the Global Customization Root (~/.gemini/config/AGENTS.md)
+$GlobalAgentsMd = "$AgConfigDir\AGENTS.md"
+
+Write-Host "Injecting Astesia rules into Global AGENTS.md..."
+if (Test-Path $GlobalAgentsMd) {
+    # Remove existing Astesia block if it exists
+    $content = Get-Content -Path $GlobalAgentsMd -Raw
+    $content = $content -replace '(?s)\s*<RULE\[astesia_global\]>.*?</SLASH_COMMANDS>\s*', "`r`n"
+    Set-Content -Path $GlobalAgentsMd -Value $content
+}
+
 $AgentsMdContent = @"
-# Astesia Orchestrator Plugin
 
 <RULE[astesia_global]>
 Kamu adalah entitas AI Multi-Layer "Astesia" (Autonomous Orchestrator).
@@ -35,7 +44,7 @@ Setiap kali aku memintamu membuat proyek baru, menulis arsitektur, atau memodifi
 1. Mengakses dan membaca kepribadian serta panduan operasimu di `$SourceDir\docs\agent-operating-guide.md` dan `$SourceDir\docs\astesia-persona.md`. Jangan pernah menjadi AI yang asal coding tanpa melewati pipeline.
 2. Tentukan di Layer mana kamu sedang beroperasi, lalu gunakan aturan ketat dari folder `$SourceDir\rules\`. Untuk perancangan hierarki kode, taati mutlak `engineering-rules.md`.
 3. Jika aku meminta proyek baru, jalankan prosedur dari `$SourceDir\runtime\boot-sequence.md` atau gunakan Global Slash Command (`/astesia-init`).
-4. Selalu cari referensi skill di `$SourceDir\skills\skills-index.md` before bereksperimen dengan teknologi spesifik.
+4. Selalu cari referensi skill di `$SourceDir\skills\skills-index.md` sebelum bereksperimen dengan teknologi spesifik.
 
 Utamakan struktur pipeline yang bersih secara manajerial, hindari jalan pintas technical debt, dan selalu kritisi keputusanku secara profesional sebagai Direktur Agensi Software.
 </RULE[astesia_global]>
@@ -45,7 +54,8 @@ Utamakan struktur pipeline yang bersih secara manajerial, hindari jalan pintas t
 - `/astesia-engineering`: Trigger the Brownfield entry protocol for an existing codebase.
 </SLASH_COMMANDS>
 "@
-Set-Content -Path "$DestDir\AGENTS.md" -Value $AgentsMdContent
+
+Add-Content -Path $GlobalAgentsMd -Value $AgentsMdContent
 
 # 3. Create a Directory Junction for the skills folder (does not require Admin rights)
 New-Item -ItemType Junction -Path "$DestDir\skills" -Target "$SourceDir\skills" | Out-Null

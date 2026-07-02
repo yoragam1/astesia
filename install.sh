@@ -23,9 +23,19 @@ cat << EOF > "$DEST_DIR/plugin.json"
 }
 EOF
 
-# 2. Generate AGENTS.md with absolute paths to the Source Directory
-cat << EOF > "$DEST_DIR/AGENTS.md"
-# Astesia Orchestrator Plugin
+# 2. Append AGENTS.md rules to the Global Customization Root (~/.gemini/config/AGENTS.md)
+GLOBAL_AGENTS_MD="$AG_CONFIG_DIR/AGENTS.md"
+
+echo "Injecting Astesia rules into Global AGENTS.md..."
+
+# Remove old Astesia block if exists to prevent duplicates
+if [ -f "$GLOBAL_AGENTS_MD" ]; then
+    # Delete everything between the marker tags (inclusive)
+    sed -i.bak '/<RULE\[astesia_global\]>/,/<\/SLASH_COMMANDS>/d' "$GLOBAL_AGENTS_MD"
+    rm -f "${GLOBAL_AGENTS_MD}.bak"
+fi
+
+cat << EOF >> "$GLOBAL_AGENTS_MD"
 
 <RULE[astesia_global]>
 Kamu adalah entitas AI Multi-Layer "Astesia" (Autonomous Orchestrator).
