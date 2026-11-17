@@ -13,6 +13,7 @@
  */
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, extname, join, relative, resolve } from "node:path";
+import { spawnSync } from "node:child_process";
 
 export type Severity = "error" | "warn";
 export type RuleScope = "code" | "comment";
@@ -67,10 +68,26 @@ export interface Violation {
   fix: string;
 }
 
+export interface GateConfigAllowEntry {
+  rule: "ASTESIA-004" | "ASTESIA-010";
+  path: string;
+  match: string;
+  reason: string;
+}
+
+export interface GateConfig {
+  schema: 1;
+  exclude?: Array<{ path: string; reason: string }>;
+  allow?: GateConfigAllowEntry[];
+}
+
 export interface GateState {
   suppressions: number;
   rejectedSuppressions: number;
   debtMarkers: number;
+  allowlistedCount: number;
+  allowHits: Map<GateConfigAllowEntry, number>;
+  envIgnoredSkipped: number;
 }
 
 export interface PreprocessedFile {
@@ -166,10 +183,54 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
 
   const ext = extname(filename).toLowerCase();
   const lowerName = filename.toLowerCase();
-  const isHashCommentLang =
-    [".py", ".yml", ".yaml", ".sh", ".bash"].includes(ext) ||
+
+  const isConfigFile =
+    [".yml", ".yaml"].includes(ext) ||
     lowerName.includes("dockerfile") ||
     lowerName.startsWith(".env");
+
+  if (isConfigFile) {
+    const rawLines = text.split("\n");
+    const codeLines: string[] = [];
+    const codeNoStringsLines: string[] = [];
+    const commentLines: string[] = [];
+
+    for (let l = 0; l < rawLines.length; l++) {
+      const line = rawLines[l];
+      let commentIdx = -1;
+      for (let j = 0; j < line.length; j++) {
+        if (line[j] === "#") {
+          if (j === 0 || /\s/.test(line[j - 1])) {
+            commentIdx = j;
+            break;
+          }
+        }
+      }
+      if (commentIdx !== -1) {
+        const codePart = line.slice(0, commentIdx);
+        const pad = " ".repeat(line.length - commentIdx);
+        const cLine = codePart + pad;
+        codeLines.push(cLine);
+        codeNoStringsLines.push(cLine);
+        commentLines.push(" ".repeat(commentIdx) + line.slice(commentIdx));
+      } else {
+        codeLines.push(line);
+        codeNoStringsLines.push(line);
+        commentLines.push(" ".repeat(line.length));
+      }
+    }
+    return {
+      rawLines,
+      codeLines,
+      codeNoStringsLines,
+      commentLines,
+      commentBlocks: [],
+      desync: false
+    };
+  }
+
+  const isHashCommentLang =
+    [".py", ".sh", ".bash"].includes(ext);
 
   const isSingleLineQuoteLang = [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"].includes(ext);
   const isMarkupFile = [".svelte", ".vue"].includes(ext);
@@ -598,12 +659,58 @@ function checkSuppression(
   return false;
 }
 
+function checkAllowlist(
+  rel: string,
+  ruleId: string,
+  lineText: string,
+  allowEntries: GateConfigAllowEntry[],
+  state: GateState
+): boolean {
+  if (ruleId !== "ASTESIA-004" && ruleId !== "ASTESIA-010") return false;
+  for (const entry of allowEntries) {
+    if (entry.rule === ruleId && entry.path === rel && lineText.includes(entry.match)) {
+      state.allowlistedCount++;
+      state.allowHits.set(entry, (state.allowHits.get(entry) || 0) + 1);
+      return true;
+    }
+  }
+  return false;
+}
+
+function isSensitiveKey(key: string): boolean {
+  if (key === "env_fallback") return true;
+  const lower = key.toLowerCase();
+
+  // Non-secret key suffix patterns (e.g. THEME_STORAGE_KEY, cache_key, sort_key)
+  if (/(?:storage|cache|sort|primary|foreign|routing|partition|document|translation|i18n|index|filter|menu|route|view|theme)[_-]key$/i.test(lower)) {
+    return false;
+  }
+
+  // Definite sensitive terms
+  if (/(?:secret|passw(?:or)?d|token|auth|credential)/i.test(lower)) {
+    return true;
+  }
+
+  // Specific sensitive key names
+  if (/(?:^|[^a-zA-Z0-9])(?:api[_-]?key|private[_-]?key|secret[_-]?key|auth[_-]?key|signing[_-]?key|encryption[_-]?key|master[_-]?key|license[_-]?key|ssh[_-]?key|ssl[_-]?key|access[_-]?key|client[_-]?secret)(?:$|[^a-zA-Z0-9])/i.test(lower)) {
+    return true;
+  }
+
+  // CamelCase or exact key matching: apiKey, privateKey, secretKey, authKey, etc. or plain 'key'
+  if (/^(?:api|private|secret|auth|signing|encryption|master|license|ssh|ssl|access)?key$/i.test(key)) {
+    return true;
+  }
+
+  return false;
+}
+
 function checkLineRegex(
   rule: LineRegexRule,
   rel: string,
   prep: PreprocessedFile,
   out: Violation[],
-  state: GateState
+  state: GateState,
+  allowEntries: GateConfigAllowEntry[] = []
 ) {
   if (rule.pathRegex && !new RegExp(rule.pathRegex, "i").test(rel)) return;
   if (rule.excludeRegex && new RegExp(rule.excludeRegex, "i").test(rel)) return;
@@ -669,7 +776,6 @@ function checkLineRegex(
   // Special handler for ASTESIA-004: Decision Table for hardcoded secret detection
   if (rule.id === "ASTESIA-004") {
     const KNOWN_PREFIX = /^(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)/;
-    const SENSITIVE_KEY_RE = /(?:api[_-]?key|[a-zA-Z0-9_]*key|[a-zA-Z0-9_]*secret|[a-zA-Z0-9_]*passw(?:or)?d|[a-zA-Z0-9_]*token|[a-zA-Z0-9_]*auth)/i;
     const SUFFIX_KEY_RE = /(?:label|placeholder|field|text|name|type)$/i;
 
     for (let i = 0; i < targetLines.length; i++) {
@@ -686,7 +792,7 @@ function checkLineRegex(
       if (assignMatch) {
         key = assignMatch[1] || "env_fallback";
         val = assignMatch[2];
-        if (SENSITIVE_KEY_RE.test(key) || key === "env_fallback" || KNOWN_PREFIX.test(val)) {
+        if (isSensitiveKey(key) || KNOWN_PREFIX.test(val)) {
           isCandidate = true;
         }
       } else {
@@ -702,9 +808,10 @@ function checkLineRegex(
       if (!isCandidate) continue;
 
       let isSecret = false;
+      const isAuthBearerOrBasic = /^(?:Basic|Bearer)\s+[A-Za-z0-9+/=_-]{12,}$/i.test(val);
 
-      // 1. Always Trigger on known high-confidence secret prefixes
-      if (KNOWN_PREFIX.test(val)) {
+      // 1. Always Trigger on known high-confidence secret prefixes or auth bearer/basic
+      if (KNOWN_PREFIX.test(val) || isAuthBearerOrBasic) {
         isSecret = true;
       } else {
         // 2. E1 (Value exception, any key):
@@ -720,10 +827,12 @@ function checkLineRegex(
 
           if (isSuffix) {
             // Applies ONLY if value consists of letters, _, - only, no secret prefix, and NOT unbroken lowercase >= 12
+            // MIME types like application/json on *Type keys are not secrets
             const lettersUnderscoreHyphenOnly = /^[A-Za-z_-]+$/.test(val);
+            const isMimeType = /^[a-zA-Z0-9_+.-]+\/[a-zA-Z0-9_+.-]+$/.test(val);
             const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
 
-            if (lettersUnderscoreHyphenOnly && !isUnbrokenLowercase) {
+            if ((lettersUnderscoreHyphenOnly || (isMimeType && /(?:type|format)$/i.test(key))) && !isUnbrokenLowercase) {
               isSecret = false;
             } else {
               // Contains digits, symbols, or is unbroken lowercase >= 12 -> triggers!
@@ -744,15 +853,20 @@ function checkLineRegex(
         }
       }
 
-      if (isSecret && !checkSuppression(prep, i, rule.id, state)) {
-        out.push({
-          ruleId: rule.id,
-          severity: rule.severity,
-          file: rel,
-          line: i + 1,
-          message: rule.description,
-          fix: rule.fix
-        });
+      if (isSecret) {
+        if (checkAllowlist(rel, rule.id, prep.rawLines[i], allowEntries, state)) {
+          continue;
+        }
+        if (!checkSuppression(prep, i, rule.id, state)) {
+          out.push({
+            ruleId: rule.id,
+            severity: rule.severity,
+            file: rel,
+            line: i + 1,
+            message: rule.description,
+            fix: rule.fix
+          });
+        }
       }
     }
     return;
@@ -775,15 +889,20 @@ function checkLineRegex(
       }
     }
 
-    if (matched && !checkSuppression(prep, i, rule.id, state)) {
-      out.push({
-        ruleId: rule.id,
-        severity: rule.severity,
-        file: rel,
-        line: i + 1,
-        message: rule.description,
-        fix: rule.fix
-      });
+    if (matched) {
+      if (checkAllowlist(rel, rule.id, prep.rawLines[i], allowEntries, state)) {
+        continue;
+      }
+      if (!checkSuppression(prep, i, rule.id, state)) {
+        out.push({
+          ruleId: rule.id,
+          severity: rule.severity,
+          file: rel,
+          line: i + 1,
+          message: rule.description,
+          fix: rule.fix
+        });
+      }
     }
   }
 }
@@ -978,14 +1097,17 @@ function checkNestedLoopCall(
   }
 }
 
-function loadConfig(root: string, explicitPath?: string): { excludedPaths: string[]; configFound: boolean } {
+function loadConfig(
+  root: string,
+  explicitPath?: string
+): { excludedPaths: string[]; allowEntries: GateConfigAllowEntry[]; configFound: boolean } {
   let targetPath = explicitPath ? resolve(root, explicitPath) : join(root, ".astesia/gate-config.json");
   if (!existsSync(targetPath)) {
     if (explicitPath) {
       console.error(`[TOOL_FAILED: config file not found: ${targetPath}]`);
       process.exit(2);
     }
-    return { excludedPaths: [], configFound: false };
+    return { excludedPaths: [], allowEntries: [], configFound: false };
   }
 
   let raw = readFileSync(targetPath, "utf8");
@@ -1035,7 +1157,54 @@ function loadConfig(root: string, explicitPath?: string): { excludedPaths: strin
     }
   }
 
-  return { excludedPaths, configFound: true };
+  const allowEntries: GateConfigAllowEntry[] = [];
+  if (parsed.allow !== undefined) {
+    if (!Array.isArray(parsed.allow)) {
+      console.error(`[TOOL_FAILED: 'allow' in config must be an array]`);
+      process.exit(2);
+    }
+    for (const item of parsed.allow) {
+      if (!item || typeof item !== "object") {
+        console.error(`[TOOL_FAILED: invalid allow entry in config]`);
+        process.exit(2);
+      }
+      if (item.rule !== "ASTESIA-004" && item.rule !== "ASTESIA-010") {
+        console.error(`[TOOL_FAILED: allowlist only permitted for ASTESIA-004 and ASTESIA-010, found '${item.rule}']`);
+        process.exit(2);
+      }
+      if (typeof item.path !== "string" || item.path.trim().length === 0) {
+        console.error(`[TOOL_FAILED: allow entry path must be non-empty]`);
+        process.exit(2);
+      }
+      const normPath = item.path.replace(/\\/g, "/").trim().replace(/^\/+/, "").replace(/\/+$/, "");
+      if (
+        normPath.startsWith("/") ||
+        normPath.includes("..") ||
+        /^[a-zA-Z]:/.test(normPath) ||
+        normPath.includes("*") ||
+        normPath.includes("?")
+      ) {
+        console.error(`[TOOL_FAILED: allow entry path must be a specific relative path without wildcards: '${item.path}']`);
+        process.exit(2);
+      }
+      if (typeof item.match !== "string" || item.match.trim().length < 6) {
+        console.error(`[TOOL_FAILED: allow entry match must be at least 6 characters: '${item.match || ""}']`);
+        process.exit(2);
+      }
+      if (typeof item.reason !== "string" || item.reason.trim().length < 15) {
+        console.error(`[TOOL_FAILED: allow entry reason must be at least 15 characters: '${item.reason || ""}']`);
+        process.exit(2);
+      }
+      allowEntries.push({
+        rule: item.rule,
+        path: normPath,
+        match: item.match,
+        reason: item.reason
+      });
+    }
+  }
+
+  return { excludedPaths, allowEntries, configFound: true };
 }
 
 function handleRulesDiff(basePath: string, headPath: string): number {
@@ -1100,8 +1269,22 @@ function handleRulesDiff(basePath: string, headPath: string): number {
     if (br.pattern !== hr.pattern) {
       process.stderr.write(`[RULES_DIFF: notice: pattern for rule '${br.id}' updated]\n`);
     }
-    if (JSON.stringify(br.extensions) !== JSON.stringify(hr.extensions)) {
-      process.stderr.write(`[RULES_DIFF: notice: extensions for rule '${br.id}' updated]\n`);
+
+    const baseExts = new Set(br.extensions || []);
+    const headExts = new Set(hr.extensions || []);
+    const removedExts = [...baseExts].filter((x) => !headExts.has(x));
+    const addedExts = [...headExts].filter((x) => !baseExts.has(x));
+
+    if (removedExts.length > 0) {
+      console.error(
+        `[RULES_DIFF: rule '${br.id}' narrowed extensions (removed: ${removedExts.join(", ")})]`
+      );
+      return 1;
+    }
+    if (addedExts.length > 0) {
+      process.stderr.write(
+        `[RULES_DIFF: notice: extensions for rule '${br.id}' broadened (added: ${addedExts.join(", ")})]\n`
+      );
     }
   }
 
@@ -1134,6 +1317,7 @@ interface BaselineData {
     suppressions: number;
     files_excluded: number;
     desync_files: number;
+    allowlisted?: number;
   };
   coverage: {
     files_scanned: number;
@@ -1206,10 +1390,35 @@ function loadBaseline(baselinePath: string): BaselineData {
   return parsed;
 }
 
+function isGitIgnoredEnv(root: string, rel: string): boolean {
+  const lower = rel.toLowerCase();
+  const isEnv = lower.startsWith(".env") || lower.includes("/.env");
+  if (!isEnv) return false;
+
+  try {
+    const checkIgnore = spawnSync("git", ["-C", root, "check-ignore", "-q", rel], {
+      encoding: "utf8",
+      stdio: "pipe"
+    });
+    if (checkIgnore.status === 0) {
+      const lsFiles = spawnSync("git", ["-C", root, "ls-files", "--error-unmatch", rel], {
+        encoding: "utf8",
+        stdio: "pipe"
+      });
+      if (lsFiles.status !== 0) {
+        return true;
+      }
+    }
+  } catch {
+    return false;
+  }
+  return false;
+}
+
 function evaluateBaseline(
   baseline: BaselineData,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number },
   filesScannedTotal: number
 ) {
   const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
@@ -1259,6 +1468,9 @@ function evaluateBaseline(
   if (counters.desync_files > (baseline.counters?.desync_files ?? 0)) {
     counterRegressions.push(`desync_files increased (${counters.desync_files} > ${baseline.counters?.desync_files ?? 0})`);
   }
+  if ((counters.allowlisted ?? 0) > (baseline.counters?.allowlisted ?? 0)) {
+    counterRegressions.push(`allowlisted increased (${counters.allowlisted ?? 0} > ${baseline.counters?.allowlisted ?? 0})`);
+  }
 
   const minRatio = baseline.coverage?.min_ratio ?? 0.9;
   const expectedMin = Math.ceil((baseline.coverage?.files_scanned ?? 0) * minRatio);
@@ -1288,7 +1500,7 @@ function evaluateBaseline(
 function updateBaseline(
   targetPath: string,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number },
   filesScannedTotal: number,
   allowRaise: boolean,
   reason: string
@@ -1357,6 +1569,10 @@ function updateBaseline(
       hasMetricIncrease = true;
       diffDetails.counters.desync_files = { from: oldBaseline.counters?.desync_files ?? 0, to: counters.desync_files };
     }
+    if ((counters.allowlisted ?? 0) > (oldBaseline.counters?.allowlisted ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.allowlisted = { from: oldBaseline.counters?.allowlisted ?? 0, to: counters.allowlisted ?? 0 };
+    }
 
     if (hasMetricIncrease) {
       if (!allowRaise) {
@@ -1397,7 +1613,8 @@ function updateBaseline(
       debt_markers: counters.debt_markers,
       suppressions: counters.suppressions,
       files_excluded: counters.files_excluded,
-      desync_files: counters.desync_files
+      desync_files: counters.desync_files,
+      allowlisted: counters.allowlisted ?? 0
     },
     coverage: {
       files_scanned: filesScannedTotal,
@@ -1501,12 +1718,25 @@ function main() {
   const gateState: GateState = {
     suppressions: 0,
     rejectedSuppressions: 0,
-    debtMarkers: 0
+    debtMarkers: 0,
+    allowlistedCount: 0,
+    allowHits: new Map<GateConfigAllowEntry, number>(),
+    envIgnoredSkipped: 0
   };
 
-  const { excludedPaths } = loadConfig(root, opts.get("config"));
+  const { excludedPaths, allowEntries } = loadConfig(root, opts.get("config"));
   const excludedFilesState = { count: 0 };
-  const files = walk(root, root, excludedPaths, excludedFilesState);
+  const allFiles = walk(root, root, excludedPaths, excludedFilesState);
+  const files: string[] = [];
+  for (const abs of allFiles) {
+    const rel = relative(root, abs).replace(/\\/g, "/");
+    if (isGitIgnoredEnv(root, rel)) {
+      gateState.envIgnoredSkipped++;
+      continue;
+    }
+    files.push(abs);
+  }
+
   const filesScanned = {
     total: files.length,
     by_extension: {} as Record<string, number>
@@ -1541,7 +1771,7 @@ function main() {
 
     for (const rule of rules) {
       if (rule.kind === "line-regex") {
-        checkLineRegex(rule, rel, prep, violations, gateState);
+        checkLineRegex(rule, rel, prep, violations, gateState, allowEntries);
       } else if (rule.kind === "relative-import-exists") {
         checkRelativeImports(rule, root, abs, rel, prep, violations, gateState);
       } else if (rule.kind === "nested-loop-call") {
@@ -1554,8 +1784,16 @@ function main() {
     debt_markers: gateState.debtMarkers,
     suppressions: gateState.suppressions,
     files_excluded: excludedFilesState.count,
-    desync_files: desyncFiles.length
+    desync_files: desyncFiles.length,
+    allowlisted: gateState.allowlistedCount
   };
+
+  const staleAllowEntries: GateConfigAllowEntry[] = [];
+  for (const entry of allowEntries) {
+    if (!gateState.allowHits.has(entry) || (gateState.allowHits.get(entry) || 0) === 0) {
+      staleAllowEntries.push(entry);
+    }
+  }
 
   // Handle --update-baseline
   if (flags.has("update-baseline")) {
@@ -1594,6 +1832,9 @@ function main() {
       suppressions: gateState.suppressions,
       rejected_suppressions: gateState.rejectedSuppressions,
       debt_markers: gateState.debtMarkers,
+      allowlisted: gateState.allowlistedCount,
+      allow_stale: staleAllowEntries,
+      env_ignored_skipped: gateState.envIgnoredSkipped,
       files_scanned: filesScanned,
       files_excluded: excludedFilesState.count,
       excluded_paths: excludedPaths,
@@ -1614,12 +1855,15 @@ function main() {
     for (const v of violations) {
       process.stdout.write(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}\n`);
     }
+    for (const stale of staleAllowEntries) {
+      process.stdout.write(`astesia-gate: notice: stale allowlist entry for ${stale.rule} at ${stale.path} ('${stale.match}').\n`);
+    }
     const extSummary = Object.entries(filesScanned.by_extension).map(([k, v]) => `${k}: ${v}`).join(", ");
     process.stdout.write(
       `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}), ${excludedFilesState.count} excluded.\n`
     );
     process.stdout.write(
-      `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).\n`
+      `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}, allowlisted: ${gateState.allowlistedCount}, env skipped: ${gateState.envIgnoredSkipped}).\n`
     );
     if (bEval) {
       if (bEval.tightenable && !bEval.isRegressed) {
