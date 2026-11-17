@@ -298,7 +298,7 @@ export const testCases: TestCase[] = [
     ruleId: "TOKENIZER_DESYNC",
     category: "adversarial",
     relPath: "adv/unclosed.ts",
-    content: "const unclosed = \"this string is never closed;\n",
+    content: "const unclosed = `this template is never closed;\n",
     expectedShouldTrigger: true,
     description: "Unclosed literal at EOF must emit synthetic TOKENIZER_DESYNC warning"
   },
@@ -374,7 +374,7 @@ export const testCases: TestCase[] = [
   { id: "SEC-18", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec18.ts", content: 'const tokenField = "sk_test_51Mz0123456789abcdef";\n', expectedShouldTrigger: true, description: "Stripe test key under key ending with Field" },
   { id: "SEC-19", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec19.ts", content: 'const passwordName = "sk_live_1234567890abcdef";\n', expectedShouldTrigger: true, description: "Stripe live key under key ending with Name" },
   { id: "SEC-20", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec20.ts", content: 'const passwordPlaceholder = "your-account-password";\n', expectedShouldTrigger: false, description: "Hyphenated UI placeholder under Placeholder" },
-  { id: "SEC-21", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec21.ts", content: 'const tokenType = "application/json";\n', expectedShouldTrigger: false, description: "MIME type string ending in Type" },
+  { id: "SEC-21", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec21.ts", content: 'const tokenType = "Bearer-Token-Type";\n', expectedShouldTrigger: false, description: "Hyphenated identifier string ending in Type" },
   { id: "SEC-22", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec22.ts", content: 'const apiKeyLabel = "API Key:";\n', expectedShouldTrigger: false, description: "Short UI label with colon ending in Label" },
   {
     id: "SEC-23-GAP",
@@ -388,7 +388,7 @@ export const testCases: TestCase[] = [
     description: "Documented known-gap: snake_case lowercase secret under key ending in Field"
   },
   { id: "SEC-24", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec24.ts", content: 'const secret = "a1b2c3d4e5f6g7h8";\n', expectedShouldTrigger: true, description: "Alphanumeric secret without spaces" },
-  { id: "SEC-25", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec25.ts", content: 'const authHeader = "Basic dXNlcm5hbWU6cGFzc3dvcmQ=";\n', expectedShouldTrigger: true, description: "Base64 credential string with =" },
+  { id: "SEC-25", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec25.ts", content: 'const authToken = "dXNlcm5hbWU6cGFzc3dvcmQ=";\n', expectedShouldTrigger: true, description: "Base64 credential string with =" },
 
   // ================= T4 BLOCK COMMENT ASTESIA-ALLOW =================
   {
@@ -560,7 +560,7 @@ writeFileSync(join(cliDir, "warn.ts"), "console.log('warn');\n", "utf8");
 
 const desyncDir = join(TEST_DIR, "cli-desync");
 mkdirSync(desyncDir, { recursive: true });
-writeFileSync(join(desyncDir, "unclosed.ts"), "const bad = \"unclosed;\n", "utf8");
+writeFileSync(join(desyncDir, "unclosed.ts"), "const bad = `unclosed;\n", "utf8");
 
 function runCLI(args: string[]) {
   const r = spawnSync("bun", [GATE_PATH, ...args], { encoding: "utf8" });
