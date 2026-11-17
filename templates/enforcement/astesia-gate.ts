@@ -655,7 +655,7 @@ function checkLineRegex(
         // Standalone known prefix string on line
         const prefixMatch = /['"`]((?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)[^'"`\r\n]{8,})['"`]/.exec(line);
         if (prefixMatch) {
-          key = "prefix_token";
+          key = "token";
           val = prefixMatch[1];
           isCandidate = true;
         }
@@ -954,8 +954,9 @@ function main() {
       console.error(`[TOOL_FAILED: root path is not a directory: ${root}]`);
       process.exit(2);
     }
-  } catch (err: any) {
-    console.error(`[TOOL_FAILED: root directory error: ${err?.message || err}]`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`[TOOL_FAILED: root directory error: ${msg}]`);
     process.exit(2);
   }
 
@@ -1105,7 +1106,7 @@ function main() {
 
 try {
   main();
-} catch (err: any) {
+} catch (err: unknown) {
   console.error(`[TOOL_FAILED: ${err instanceof Error ? err.message : String(err)}]`);
   process.exit(2);
 }
