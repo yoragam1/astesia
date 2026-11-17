@@ -106,7 +106,10 @@ const SKIP_DIRS = new Set([
   "coverage",
   ".next",
   ".svelte-kit",
-  "vendor"
+  "vendor",
+  "tests",
+  "fixtures",
+  "__tests__"
 ]);
 
 const RESOLVE_EXT = [
@@ -940,6 +943,22 @@ function checkNestedLoopCall(
 function main() {
   const { flags, opts } = parseArgs();
   const root = resolve(opts.get("root") || ".");
+
+  if (!existsSync(root)) {
+    console.error(`[TOOL_FAILED: root directory does not exist: ${root}]`);
+    process.exit(2);
+  }
+  try {
+    const st = statSync(root);
+    if (!st.isDirectory()) {
+      console.error(`[TOOL_FAILED: root path is not a directory: ${root}]`);
+      process.exit(2);
+    }
+  } catch (err: any) {
+    console.error(`[TOOL_FAILED: root directory error: ${err?.message || err}]`);
+    process.exit(2);
+  }
+
   const rulesPath = resolve(root, opts.get("rules") || "templates/enforcement/anti-patterns.json");
 
   let maxWarn = Infinity;
@@ -1001,6 +1020,15 @@ function main() {
   };
 
   const files = walk(root, root);
+  const filesScanned = {
+    total: files.length,
+    by_extension: {} as Record<string, number>
+  };
+  for (const abs of files) {
+    const ext = extname(abs).toLowerCase() || abs.toLowerCase();
+    filesScanned.by_extension[ext] = (filesScanned.by_extension[ext] || 0) + 1;
+  }
+
   for (const abs of files) {
     const rel = relative(root, abs).replace(/\\/g, "/");
     const rawContent = readFileSync(abs, "utf8");
@@ -1047,6 +1075,7 @@ function main() {
           suppressions: gateState.suppressions,
           rejected_suppressions: gateState.rejectedSuppressions,
           debt_markers: gateState.debtMarkers,
+          files_scanned: filesScanned,
           desync_files: desyncFiles,
           violations
         },
@@ -1058,8 +1087,12 @@ function main() {
     for (const v of violations) {
       console.log(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}`);
     }
+    const extSummary = Object.entries(filesScanned.by_extension).map(([k, v]) => `${k}: ${v}`).join(", ");
     console.log(
-      `\nastesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).`
+      `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}).`
+    );
+    console.log(
+      `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).`
     );
   }
 
@@ -1070,4 +1103,9 @@ function main() {
   }
 }
 
-main();
+try {
+  main();
+} catch (err: any) {
+  console.error(`[TOOL_FAILED: ${err instanceof Error ? err.message : String(err)}]`);
+  process.exit(2);
+}
