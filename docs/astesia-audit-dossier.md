@@ -311,3 +311,65 @@ Tabel ini memisahkan fitur yang **sudah ditegakkan secara deterministik oleh kod
 | **Kewajiban Header Doc (Direktif #19)** | **L3 — Prose Rule** | [engineering-rules.md](file:///D:/Workspaces/Astesia/rules/engineering-rules.md#L81-L91) | Saat ini diperiksa secara visual oleh Quality Agent, belum dijadikan rule otomatis di `astesia-gate.ts`. |
 | **Validasi Skema State `.astesia/astesia-state.json` & Hash Convergence Guard** | **L3 — Prose + JSON Template** | [astesia-state-template.json](file:///D:/Workspaces/Astesia/templates/astesia-state-template.json) | Agen diperintahkan memperbarui JSON dan menghitung konvergensi hash, tetapi belum ada skrip CLI validator khusus (mis. `astesia-state.ts`) yang memvalidasi transisi state secara mekanis. |
 | **Orkestrasi Subagent Paralel (Task Waves & Independent Verifier)** | **L3 — Workflow Checklist** | [phase3-engineering.md](file:///D:/Workspaces/Astesia/workflows/phase3-engineering.md#L30-L46) | Mengandalkan kepatuhan agen utama memanggil `invoke_subagent`. Dapat ditingkatkan ke L2 dengan menulis skrip orkestrator Python untuk tool `run_workflow`. |
+
+---
+
+## 7. Addendum: Pembaruan Pasca-Gelombang 2A (Enforcement Hardening & CI Ratchet)
+
+Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gelombang 1, Gelombang 1.1, dan Gelombang 2A tanpa mengubah catatan historis audit awal di atas.
+
+### 7.1 Evolusi Gate (Gelombang 1 → 1.1 → 2A)
+1. **Gelombang 1 (`wave1/gate-hardening`):**
+   - Penambahan CLI flag `--json`, `--max-warn`, penanganan UTF-8 BOM dan CRLF deterministik, serta `exit 2` untuk kegagalan alat.
+   - Pra-pemrosesan tokenizer multi-bahasa (`TS`, `JS`, `Python`, `Go`, `PHP`, `Svelte`, `Vue`) memisahkan kode dari komentar dan string.
+   - Penegakan `astesia-allow` ketat ($\ge 15$ karakter alasan) dengan larangan mutlak untuk `ASTESIA-000` dan `ASTESIA-004`.
+   - Registri aturan diperluas dari 8 aturan dasar (`ASTESIA-000`..`007`) menjadi 11 aturan (`ASTESIA-000`..`010`):
+     - `ASTESIA-008` (`warn`): Anti-workaround (`workaround|hack|for now|temporary fix`) tanpa penanda utang `astesia-debt:`.
+     - `ASTESIA-009` (`warn`): Penggunaan `setTimeout` telanjang di luar berkas pengujian dan modul debounce/throttle.
+     - `ASTESIA-010` (`error`): Hardcoded secrets di konfigurasi deployment, Dockerfile, `.env`, dan CI compose YAML.
+
+2. **Gelombang 1.1 (`wave1.1/fixes`):**
+   - Tokenizer diperbaiki untuk string berkutip tunggal/ganda yang berakhir di baris baru kecuali diakhiri backslash continuation.
+   - Deteksi sintesis desinkronisasi `TOKENIZER_DESYNC` saat EOF ditemukan di state non-normal.
+   - Heuristik `ASTESIA-004` diperluas dengan tabel keputusan E1/E2 (penanganan Diceware passphrase, Base64 token, Slack bot tokens, AWS keys, Stripe keys, UI labels, dan nullish coalescing fallbacks).
+   - Penegakan `astesia-allow` di dalam komentar blok multiline (`/* ... */`).
+   - Penegakan metric observability: `files_scanned` dengan rincian per-ekstensi berkas.
+
+3. **Gelombang 2A (`wave2a/ci-ratchet`):**
+   - **Pemulihan `SKIP_DIRS` default:** Mengembalikan direktori `tests`, `fixtures`, `__tests__` ke pemindaian default gate untuk mencegah penyembunyian kode jahat / celah keamanan.
+   - **Konfigurasi Pengecualian Proyek (`--config <path>`):** Mendukung pengecualian direktori/berkas yang terjustifikasi secara tertulis melalui skema JSON ketat (`.astesia/gate-config.json` dan template `gate-config.template.json`), dengan validasi alasan minimal 15 karakter dan pelaporan metrik `files_excluded`.
+   - **Baseline Ratchet Deterministik (`--baseline <path>`, `--update-baseline`):**
+     - Ratchet berbasis pasangan per-pelanggaran `(ruleId, file)` bukan kuota global.
+     - Penegakan aturan **NEVER_BASELINE** (`ASTESIA-000`, `ASTESIA-004`, `ASTESIA-010`) yang tidak pernah diizinkan masuk baseline dalam kondisi apa pun.
+     - Penurunan metrik pelanggaran secara otomatis memperketat baseline (*ratchet lock-in*).
+     - Kenaikan baseline dilarang keras kecuali flag `--allow-raise` disertai `--reason` formal minimal 15 karakter diberikan secara eksplisit.
+     - Deteksi penurunan cakupan (*coverage drop guard*): rasio berkas terpindai $< 0.9$ otomatis menggagalkan CI.
+   - **Pencegahan Pelemahan Registri Aturan (`--rules-diff <base> <head>`):**
+     - Memverifikasi PR tidak menghapus aturan, tidak menurunkan tingkat keparahan (`error` -> `warn`), dan tidak mengosongkan metadata `fix` atau `origin`.
+   - **Model Keamanan CI Tepercaya (`astesia-gate.workflow.yml`):**
+     - Menggunakan trigger aman `pull_request` (bukan `pull_request_target`) dengan `permissions: contents: read` eksklusif.
+     - Dual-checkout: mengekstrak gate, config, dan baseline dari commit branch `base` tepercaya, lalu memindai kode PR pada direktori terisolasi.
+     - Seluruh GitHub Actions di-pin menggunakan 40-character commit SHA permanen.
+     - Dilengkapi `CODEOWNERS.template` dan panduan `BRANCH-PROTECTION.md`.
+
+### 7.2 Daftar Aturan Registri Aktif (11 Aturan: ASTESIA-000..010)
+| Rule ID | Severity | Kind | Scope | Target & Deskripsi |
+|---|---|---|---|---|
+| `ASTESIA-000` | `error` | `relative-import-exists` | `code` | Import relatif ESM/CJS, re-export, dan alias `@/` wajib menunjuk ke berkas fisik yang eksis. *(NEVER_BASELINE)* |
+| `ASTESIA-001` | `error` | `line-regex` | `code` | Controller / Route handler dilarang mengimpor atau memanggil driver database / ORM secara langsung. |
+| `ASTESIA-002` | `error` | `line-regex` | `code` | Dilarang menggunakan kueri `SELECT *` mentah di SQL; wajib menyebutkan kolom secara eksplisit. |
+| `ASTESIA-003` | `error` | `line-regex` | `comment` | Penanda utang teknis `// astesia-debt:` wajib menyertakan klausul `upgrade: <tindakan>`. |
+| `ASTESIA-004` | `error` | `line-regex` | `code` | Dilarang menuliskan kunci API, secret, token JWT, atau password literal dalam kode sumber. *(NEVER_BASELINE)* |
+| `ASTESIA-005` | `warn` | `line-regex` | `code` | Hindari tipe data lolos tipe `any` eksplisit di TypeScript; gunakan `unknown` atau skema tipe ketat. |
+| `ASTESIA-006` | `warn` | `line-regex` | `code` | Hindari `console.log` / `console.debug` di kode produksi; gunakan structured logger terpusat. |
+| `ASTESIA-007` | `error` | `nested-loop-call` | `code` | Hindari pemanggilan kueri database berulang di dalam loop (*N+1 Query*); gunakan batch loading / IN query. |
+| `ASTESIA-008` | `warn` | `line-regex` | `comment` | Komentar penanda *workaround* / *hack* / *for now* / *temporary fix* wajib dilacak dengan `astesia-debt:`. |
+| `ASTESIA-009` | `warn` | `line-regex` | `code` | Hindari `setTimeout` telanjang di kode produksi tanpa enkapsulasi debounce/throttle atau pengujian terisolasi. |
+| `ASTESIA-010` | `error` | `line-regex` | `code` | Dilarang meletakkan secret plaintext di Dockerfile, docker-compose, CI yaml, dan berkas `.env`. *(NEVER_BASELINE)* |
+
+### 7.3 Status 3 Known Gaps Terverifikasi
+Sesuai prinsip transparansi, tiga batasan deteksi berbasis regex statis dicatat secara resmi sebagai celah bawaan yang membutuhkan analisis call-graph/AST penuh (di luar lingkup zero-dependency regex gate):
+1. **`007-EC2:L3` (`ASTESIA-007`):** Pemanggilan fungsi helper database tidak langsung lintas fungsi (mis. `await fetchUserOrdersHelper(u.id)`) di dalam loop tidak dapat dipetakan ke kueri database tanpa analisis call-graph antar-berkas.
+2. **`ADV-BACKTICK-IN-REGEX-GAP` (`ADV`):** Karakter backtick yang terletak di dalam literal regex (`/`/`) berpotensi memicu pembukaan template literal fiktif pada tokenizer pra-pemrosesan.
+3. **`SEC-23-GAP` (`ASTESIA-004`):** Secret dalam format kata jamak berhuruf kecil murni bergaya snake_case yang berada di bawah kunci bertarget UI (mis. `passwordField = "my_secret_token_words"`) lolos dari filter entropi regex tanpa kamus semantik kata sandi.
+
