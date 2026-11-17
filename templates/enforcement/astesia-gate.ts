@@ -499,7 +499,7 @@ function checkSuppression(
     const commentText = prep.commentLines[i];
     if (!commentText || !commentText.trim()) continue;
 
-    const match = /(?:\/\/|#|\*)\s*astesia-allow:\s*([A-Za-z0-9_-]+)(?:\s*--\s*(.*))?$/.exec(commentText);
+    const match = /(?:\/\/|#|\*)\s*astesia-allow:\s*([A-Za-z0-9_-]+)(?:\s*--\s*(.*))?$/.exec(commentText.trim());
     if (!match) continue;
 
     const targetRule = match[1];
@@ -518,6 +518,39 @@ function checkSuppression(
     } else {
       state.rejectedSuppressions++;
       return false;
+    }
+  }
+
+  // Check if idx is the first code line after a block comment ends
+  for (const b of prep.commentBlocks) {
+    let firstCodeIdx = b.endLine; // b.endLine is 1-based, index b.endLine is line b.endLine + 1
+    while (firstCodeIdx < prep.codeLines.length && !prep.codeLines[firstCodeIdx].trim()) {
+      firstCodeIdx++;
+    }
+    if (idx === firstCodeIdx) {
+      const blockLines = b.text.split("\n");
+      for (const bLine of blockLines) {
+        const match = /(?:\/\/|#|\*)\s*astesia-allow:\s*([A-Za-z0-9_-]+)(?:\s*--\s*(.*))?$/.exec(bLine.trim());
+        if (!match) continue;
+
+        const targetRule = match[1];
+        if (targetRule !== ruleId) continue;
+
+        const reason = match[2] ? match[2].trim() : "";
+
+        if (isBanned) {
+          state.rejectedSuppressions++;
+          return false;
+        }
+
+        if (reason.length >= 15) {
+          state.suppressions++;
+          return true;
+        } else {
+          state.rejectedSuppressions++;
+          return false;
+        }
+      }
     }
   }
 
