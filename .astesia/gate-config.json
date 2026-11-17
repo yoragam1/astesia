@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "exclude": [
+    {
+      "path": "templates/enforcement/tests",
+      "reason": "Test fixtures contain intentional violations for enforcement verification"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# CODEOWNERS — Enforce human oversight on critical gate & enforcement assets.
+# Replace @OWNER_PLACEHOLDER with your GitHub username or team handle.
+
+.astesia/enforcement/**      @OWNER_PLACEHOLDER
+.astesia/gate-baseline.json  @OWNER_PLACEHOLDER
+.astesia/gate-config.json    @OWNER_PLACEHOLDER
+.github/workflows/**         @OWNER_PLACEHOLDER
+CODEOWNERS                   @OWNER_PLACEHOLDER
+.github/CODEOWNERS           @OWNER_PLACEHOLDER
