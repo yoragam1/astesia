@@ -6,9 +6,10 @@
       "id": "ASTESIA-000",
       "kind": "relative-import-exists",
       "severity": "error",
-      "description": "Hallucinated import: relative path does not exist on disk.",
+      "description": "Hallucinated import: relative path or local alias does not exist on disk.",
       "fix": "Point the import at a real file or create the module via the proper wave.",
-      "origin": "seed: architectural-linter Rule 4"
+      "scope": "code",
+      "origin": "seed: architectural-linter Rule 4 / AUD-007 (Wave 1 hardening)"
     },
     {
       "id": "ASTESIA-001",
@@ -16,7 +17,9 @@
       "severity": "error",
       "description": "Layer breach: controller/route/handler imports an ORM or DB client directly.",
       "fix": "Move the data access into a Repository and call it through a Service.",
-      "pattern": "(from\\s+['\"]|require\\(\\s*['\"])(drizzle-orm[^'\"]*|@prisma/client|typeorm|pg|mysql2|postgres)['\"]",
+      "scope": "code",
+      "pattern": "(?:from\\s+['\"]|require\\s*\\(\\s*['\"]|import\\s*\\(\\s*['\"])(drizzle-orm[^'\"]*|@prisma/client|typeorm|pg|mysql2|postgres|bun:sqlite)[^'\"]*['\"]|\\bas\\s+db\\b",
+      "flags": "i",
       "pathRegex": "(controller|route|handler)s?([/\\\\.]|$)",
       "excludeRegex": "\\.(test|spec)\\.",
       "origin": "seed: architectural-linter Rule 1"
@@ -27,7 +30,9 @@
       "severity": "error",
       "description": "Unbounded column fetch: SELECT * is banned in production code.",
       "fix": "Select only the required columns explicitly.",
-      "pattern": "SELECT\\s+\\*",
+      "scope": "code",
+      "pattern": "(SELECT\\s+(\\*|[a-zA-Z0-9_]+\\.\\*)|\\.select\\(\\s*\\))",
+      "flags": "i",
       "excludeRegex": "\\.(test|spec)\\.|migrations?/",
       "origin": "seed: architectural-linter Rule 3 / Directive #21"
     },
@@ -37,6 +42,7 @@
       "severity": "error",
       "description": "astesia-debt marker without an `upgrade:` clause (vague debt).",
       "fix": "Rewrite as: astesia-debt: <reason>, upgrade: <concrete action>.",
+      "scope": "comment",
       "pattern": "astesia-debt:(?!.*upgrade:)",
       "origin": "seed: debt-scanner anti-pattern"
     },
@@ -46,10 +52,11 @@
       "severity": "error",
       "description": "Probable hardcoded secret.",
       "fix": "Read it from the environment (process.env / config module) and document it in .env.example.",
-      "pattern": "(api[_-]?key|secret|passw(or)?d|token)\\s*[:=]\\s*['\"][A-Za-z0-9_\\-\\/+=]{12,}['\"]",
+      "scope": "code",
+      "pattern": "(?:api[_-]?key|secret|passw(?:or)?d|token)\\s*[:=]\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]|process\\.env\\.[A-Za-z0-9_]+\\s*(?:\\?\\?|\\|\\|)\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]",
       "flags": "i",
       "excludeRegex": "\\.(test|spec)\\.|\\.example|fixtures?/",
-      "origin": "seed: quality-rules #3 / security-review"
+      "origin": "AUD-001 (Wave 1 hardening)"
     },
     {
       "id": "ASTESIA-005",
@@ -57,8 +64,9 @@
       "severity": "warn",
       "description": "Explicit `any` weakens the type system (Trust Pyramid L1).",
       "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type.",
-      "pattern": ":\\s*any\\b|as\\s+any\\b",
-      "pathRegex": "\\.(ts|tsx)$",
+      "scope": "code",
+      "pattern": "(:\\s*any\\b|as\\s+any\\b|=\\s*any\\b|<\\s*any\\s*>|,\\s*any\\s*>)",
+      "pathRegex": "\\.(ts|tsx|svelte|vue)$",
       "excludeRegex": "\\.(test|spec)\\.|\\.d\\.ts$",
       "origin": "seed: engineering-rules #9"
     },
@@ -68,7 +76,8 @@
       "severity": "warn",
       "description": "console.log in source; use the structured logger.",
       "fix": "Use the project logger (e.g. Pino).",
-      "pattern": "console\\.log\\(",
+      "scope": "code",
+      "pattern": "\\bconsole\\s*(?:\\?\\.|\\.)\\s*(log|debug|info)\\s*\\(|\\bdebugger\\s*;",
       "excludeRegex": "\\.(test|spec)\\.|scripts?/|\\.astesia/",
       "origin": "seed: devops-rules #4 (observability)"
     },
@@ -78,10 +87,47 @@
       "severity": "error",
       "description": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
       "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop.",
-      "loopPattern": "(for\\s*\\(|while\\s*\\(|\\.(map|forEach)\\s*\\()",
-      "callPattern": "(await\\s+)?(db|prisma|repo|repository)\\.[a-zA-Z0-9_]+\\s*\\(|\\.(findMany|findFirst|query|select)\\s*\\(",
+      "scope": "code",
+      "loopPattern": "(for\\s*\\(|while\\s*\\(|\\.(map|forEach)\\s*\\(|for\\s+[a-zA-Z0-9_,\\s]+\\s+in\\s+)",
+      "callPattern": "(await\\s+)?([a-zA-Z0-9_]*(db|prisma|repo|repository)|[a-zA-Z0-9_]+Repo(sitory)?)\\.[a-zA-Z0-9_]+\\s*\\(|\\.(findMany|findFirst|findById|query|select)\\s*\\(",
+      "flags": "i",
       "excludeRegex": "\\.(test|spec)\\.",
       "origin": "seed: architectural-linter Rule 2 (N+1 query prevention)"
+    },
+    {
+      "id": "ASTESIA-008",
+      "kind": "line-regex",
+      "severity": "warn",
+      "description": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately.",
+      "scope": "comment",
+      "pattern": "^(?!.*astesia-debt:).*?\\b(TODO|FIXME|HACK|WORKAROUND)\\b",
+      "flags": "i",
+      "origin": "AUD-009 (Wave 1 hardening)"
+    },
+    {
+      "id": "ASTESIA-009",
+      "kind": "line-regex",
+      "severity": "warn",
+      "description": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts.",
+      "scope": "code",
+      "pattern": "\\bsetTimeout\\s*\\(",
+      "excludeRegex": "\\.(test|spec)\\.|debounce|throttle",
+      "origin": "AUD-011 (Wave 1 hardening)"
+    },
+    {
+      "id": "ASTESIA-010",
+      "kind": "line-regex",
+      "severity": "error",
+      "description": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager.",
+      "scope": "code",
+      "pattern": "(PASSWORD|SECRET|KEY|TOKEN)\\s*[:=]\\s*(?!\\$\\{)[^\\s\\$\"']{8,}",
+      "flags": "i",
+      "pathRegex": "(Dockerfile|docker-compose|compose|\\.env)(\\.[a-z0-9_-]+)?$",
+      "excludeRegex": "\\.example|fixtures?/",
+      "origin": "AUD-001 / AUD-010 (Wave 1 hardening)"
     }
   ]
 }
