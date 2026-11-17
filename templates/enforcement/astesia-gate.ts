@@ -592,27 +592,85 @@ function checkLineRegex(
     return;
   }
 
-  // Special handler for ASTESIA-004: secret heuristics to avoid UI label/name false positives
+  // Special handler for ASTESIA-004: Decision Table for hardcoded secret detection
   if (rule.id === "ASTESIA-004") {
+    const KNOWN_PREFIX = /^(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)/;
+    const SENSITIVE_KEY_RE = /(?:api[_-]?key|[a-zA-Z0-9_]*key|[a-zA-Z0-9_]*secret|[a-zA-Z0-9_]*passw(?:or)?d|[a-zA-Z0-9_]*token|[a-zA-Z0-9_]*auth)/i;
+    const SUFFIX_KEY_RE = /(?:label|placeholder|field|text|name|type)$/i;
+
     for (let i = 0; i < targetLines.length; i++) {
       const line = targetLines[i];
-      if (!re.test(line)) continue;
+      if (!line.trim()) continue;
 
-      // Filter 1: Keys ending with Label, Placeholder, Field, Text, Name, or Type are UI/metadata
-      if (/\b[a-zA-Z0-9_]*(?:label|placeholder|field|text|name|type)\s*[:=]/i.test(line)) {
-        continue;
-      }
+      // Extract candidate assignment: key = "val", key: "val", or process.env.X ?? "val"
+      const assignMatch = /(?:([a-zA-Z0-9_$]+)\s*[:=]|process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"`]([^'"`\r\n]{12,})['"`]/i.exec(line);
 
-      // Filter 2: Pure alphabetic dictionary words without digits/symbols are placeholders/text
-      const strMatch = /['"`]([^'"`]{12,})['"`]/.exec(line);
-      if (strMatch) {
-        const val = strMatch[1];
-        if (/^[A-Za-z]+$/.test(val)) {
-          continue;
+      let key = "";
+      let val = "";
+      let isCandidate = false;
+
+      if (assignMatch) {
+        key = assignMatch[1] || "env_fallback";
+        val = assignMatch[2];
+        if (SENSITIVE_KEY_RE.test(key) || key === "env_fallback" || KNOWN_PREFIX.test(val)) {
+          isCandidate = true;
+        }
+      } else {
+        // Standalone known prefix string on line
+        const prefixMatch = /['"`]((?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)[^'"`\r\n]{8,})['"`]/.exec(line);
+        if (prefixMatch) {
+          key = "prefix_token";
+          val = prefixMatch[1];
+          isCandidate = true;
         }
       }
 
-      if (!checkSuppression(prep, i, rule.id, state)) {
+      if (!isCandidate) continue;
+
+      let isSecret = false;
+
+      // 1. Always Trigger on known high-confidence secret prefixes
+      if (KNOWN_PREFIX.test(val)) {
+        isSecret = true;
+      } else {
+        // 2. E1 (Value exception, any key):
+        // Value contains space, OR is purely alphabetic PascalCase with >= 2 capital segments -> NOT secret
+        const hasSpace = val.includes(" ");
+        const isPascalCase = /^[A-Z][a-z]+(?:[A-Z][a-z]+)+$/.test(val);
+
+        if (hasSpace || isPascalCase) {
+          isSecret = false;
+        } else {
+          // 3. E2 (Key suffix exception: Label|Placeholder|Field|Text|Name|Type)
+          const isSuffix = SUFFIX_KEY_RE.test(key);
+
+          if (isSuffix) {
+            // Applies ONLY if value consists of letters, _, - only, no secret prefix, and NOT unbroken lowercase >= 12
+            const lettersUnderscoreHyphenOnly = /^[A-Za-z_-]+$/.test(val);
+            const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
+
+            if (lettersUnderscoreHyphenOnly && !isUnbrokenLowercase) {
+              isSecret = false;
+            } else {
+              // Contains digits, symbols, or is unbroken lowercase >= 12 -> triggers!
+              isSecret = true;
+            }
+          } else {
+            // 4. Sensitive keys not ending in label suffixes:
+            // Triggers if without spaces contains digits or symbols
+            const hasDigitsOrSymbols = /[^A-Za-z]/.test(val);
+            // OR unbroken lowercase string >= 12 on password/secret/token/apikey
+            const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
+            const isDirectSecretKey = /(?:password|secret|token|apikey|api_key)/i.test(key);
+
+            if (hasDigitsOrSymbols || (isUnbrokenLowercase && isDirectSecretKey)) {
+              isSecret = true;
+            }
+          }
+        }
+      }
+
+      if (isSecret && !checkSuppression(prep, i, rule.id, state)) {
         out.push({
           ruleId: rule.id,
           severity: rule.severity,
