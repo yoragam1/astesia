@@ -33,3 +33,21 @@ Buka **Settings** -> **Branches** -> **Add branch ruleset** (atau **Branch prote
    * PR pertama yang memperkenalkan flag baru (`--baseline`, `--rules-diff`, `--config`) akan gagal merah di CI jika base branch belum memiliki fitur tersebut di skrip `astesia-gate.ts` versi base. PR bootstrap pertama ini harus di-merge secara sadar oleh pemilik repositori.
 4. **Menaikkan Baseline adalah Friksi yang Disengaja:**
    * Saat baseline dinaikkan (`raise` action dengan `--allow-raise`), status CI pada PR akan memerah secara desain (*friction by design*). Tindakan menambah hutang teknis atau menaikkan pelanggaran tidak boleh terjadi secara mulus; pemilik repositori wajib meninjau diff baseline secara sadar sebelum melakukan merge.
+
+---
+
+## 3. Batas yang Tidak Bisa Ditutup oleh Workflow (Trust Boundaries)
+
+Penting untuk dipahami bahwa berkas workflow GitHub Actions (`.github/workflows/*.yml`) **tidak dapat memvalidasi atau melindungi dirinya sendiri secara mandiri jika kontrol akses repositori tidak dikonfigurasi**.
+
+1. **Mengapa Workflow Guard Saja Tidak Cukup?**
+   * GitHub Actions mengeksekusi workflow dari definisi yang ada di PR saat event `pull_request` dipicu jika PR menyentuh berkas workflow.
+   * Jika PR berbahaya menghapus langkah `workflow-guard.ts` atau mengubah skrip gate, workflow yang telah dirusak tersebutlah yang akan dijalankan oleh GitHub Actions runner.
+   * Oleh karena itu, skrip `workflow-guard.ts` berfungsi sebagai detektor baris pertama, namun **CODEOWNERS** dan **GitHub Branch Ruleset** adalah benteng pertahanan mutlak yang membatasi hak pengubahan berkas workflow ke tangan Code Owner manusia.
+
+2. **Allowlist Config Berada di Base Branch (`trusted/`):**
+   * Seluruh konfigurasi allowlist (`.astesia/gate-config.json`) dieksekusi dari base ref branch tepercaya (`trusted/`).
+   * PR tidak dapat meloloskan rahasia atau impor ilegal dengan cara menambahkan allowlist ke branch PR-nya sendiri, karena wasit CI hanya membaca allowlist yang sudah disetujui dan berada di base branch target merge.
+
+3. **Prinsip Fail-Closed Repository Security:**
+   * Segala bentuk bypassing atau modifikasi terhadap file enforcement (`astesia-gate.ts`, `anti-patterns.json`, `gate-config.json`, `gate-baseline.json`, dan `.github/workflows/**`) harus mensyaratkan review persetujuan dari Code Owner manusia dan status check lulus dari base wasit.

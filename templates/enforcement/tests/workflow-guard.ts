@@ -2,7 +2,7 @@
  * templates/enforcement/tests/workflow-guard.ts
  * Zero-dependency static validator and mutation test suite for CI workflow security.
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export interface GuardResult {
@@ -160,6 +160,31 @@ export function runWorkflowGuardSuite(): { passed: boolean; mutationResults: Arr
 }
 
 if (import.meta.main) {
+  const args = process.argv.slice(2);
+  if (args.length > 0) {
+    const targetPath = args[0];
+    if (!existsSync(targetPath)) {
+      console.error(`[TOOL_FAILED: workflow file not found: ${targetPath}]`);
+      process.exit(2);
+    }
+    let content: string;
+    try {
+      content = readFileSync(targetPath, "utf8");
+    } catch (err: unknown) {
+      console.error(`[TOOL_FAILED: failed to read workflow file: ${err instanceof Error ? err.message : String(err)}]`);
+      process.exit(2);
+    }
+    const res = validateWorkflow(content);
+    if (!res.valid) {
+      for (const err of res.errors) {
+        console.error(`[WORKFLOW_GUARD_ERROR: ${err}]`);
+      }
+      process.exit(1);
+    }
+    console.log(`workflow-guard: valid (no security issues detected in ${targetPath}).`);
+    process.exit(0);
+  }
+
   const suite = runWorkflowGuardSuite();
   if (suite.passed) {
     console.log("Workflow Guard: Authentic workflow passed and all 8 mutations failed as expected.");

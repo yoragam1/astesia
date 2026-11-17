@@ -35,6 +35,18 @@ jobs:
       - name: Setup Bun runtime
         uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
 
+      - name: Validate PR Workflow Security Guard
+        run: |
+          GUARD_SCRIPT=""
+          if [ -f "trusted/templates/enforcement/tests/workflow-guard.ts" ]; then
+            GUARD_SCRIPT="trusted/templates/enforcement/tests/workflow-guard.ts"
+          elif [ -f "trusted/.astesia/enforcement/tests/workflow-guard.ts" ]; then
+            GUARD_SCRIPT="trusted/.astesia/enforcement/tests/workflow-guard.ts"
+          fi
+          if [ -n "$GUARD_SCRIPT" ] && [ -f "pr/.github/workflows/astesia-gate.yml" ]; then
+            bun "$GUARD_SCRIPT" pr/.github/workflows/astesia-gate.yml
+          fi
+
       - name: Verify anti-pattern registry compatibility (no weakenings)
         run: |
           bun trusted/.astesia/enforcement/astesia-gate.ts --rules-diff trusted/.astesia/anti-patterns.json pr/.astesia/anti-patterns.json
