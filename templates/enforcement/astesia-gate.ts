@@ -11,13 +11,13 @@
  *           Banned for ASTESIA-000 and ASTESIA-004.
  * Deps    : none (node:fs / node:path only; runs on Bun or Node >= 18 with a TS loader).
  */
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, extname, join, relative, resolve } from "node:path";
 
-type Severity = "error" | "warn";
-type RuleScope = "code" | "comment";
+export type Severity = "error" | "warn";
+export type RuleScope = "code" | "comment";
 
-interface LineRegexRule {
+export interface LineRegexRule {
   id: string;
   kind: "line-regex";
   severity: Severity;
@@ -31,7 +31,7 @@ interface LineRegexRule {
   origin?: string;
 }
 
-interface RelativeImportRule {
+export interface RelativeImportRule {
   id: string;
   kind: "relative-import-exists";
   severity: Severity;
@@ -41,7 +41,7 @@ interface RelativeImportRule {
   origin?: string;
 }
 
-interface NestedLoopCallRule {
+export interface NestedLoopCallRule {
   id: string;
   kind: "nested-loop-call";
   severity: Severity;
@@ -56,9 +56,9 @@ interface NestedLoopCallRule {
   origin?: string;
 }
 
-type Rule = LineRegexRule | RelativeImportRule | NestedLoopCallRule;
+export type Rule = LineRegexRule | RelativeImportRule | NestedLoopCallRule;
 
-interface Violation {
+export interface Violation {
   ruleId: string;
   severity: Severity;
   file: string;
@@ -67,13 +67,13 @@ interface Violation {
   fix: string;
 }
 
-interface GateState {
+export interface GateState {
   suppressions: number;
   rejectedSuppressions: number;
   debtMarkers: number;
 }
 
-interface PreprocessedFile {
+export interface PreprocessedFile {
   rawLines: string[];
   codeLines: string[];
   codeNoStringsLines: string[];
@@ -106,11 +106,10 @@ const SKIP_DIRS = new Set([
   "coverage",
   ".next",
   ".svelte-kit",
-  "vendor",
-  "tests",
-  "fixtures",
-  "__tests__"
+  "vendor"
 ]);
+
+const NEVER_BASELINE = new Set(["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"]);
 
 const RESOLVE_EXT = [
   "",
@@ -158,7 +157,7 @@ function parseArgs() {
   return { flags, opts };
 }
 
-function preprocessSource(rawContent: string, filename: string): PreprocessedFile {
+export function preprocessSource(rawContent: string, filename: string): PreprocessedFile {
   let text = rawContent;
   if (text.charCodeAt(0) === 0xfeff) {
     text = text.slice(1);
@@ -466,21 +465,60 @@ function isScannable(filename: string): boolean {
   return false;
 }
 
-function walk(dir: string, rootDir: string, out: string[] = []): string[] {
+function countScannable(dir: string): number {
+  let count = 0;
+  try {
+    for (const entry of readdirSync(dir)) {
+      if (SKIP_DIRS.has(entry)) continue;
+      const full = join(dir, entry);
+      const st = statSync(full);
+      if (st.isDirectory()) {
+        count += countScannable(full);
+      } else if (isScannable(entry)) {
+        count++;
+      }
+    }
+  } catch {}
+  return count;
+}
+
+function walk(
+  dir: string,
+  rootDir: string,
+  excludes: string[],
+  excludedFilesState: { count: number },
+  out: string[] = []
+): string[] {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     const rel = relative(rootDir, full).replace(/\\/g, "/");
 
     // Skip ignored directory trees, but do NOT skip .astesia/plugins
     if (SKIP_DIRS.has(entry)) continue;
-    if (rel === ".astesia/audit" || rel.startsWith(".astesia/audit/") ||
-        rel === ".astesia/verification" || rel.startsWith(".astesia/verification/")) {
+    if (
+      rel === ".astesia/audit" ||
+      rel.startsWith(".astesia/audit/") ||
+      rel === ".astesia/verification" ||
+      rel.startsWith(".astesia/verification/")
+    ) {
+      continue;
+    }
+
+    // Check config exclusions
+    const isExcluded = excludes.some((excl) => rel === excl || rel.startsWith(excl + "/"));
+    if (isExcluded) {
+      const st = statSync(full);
+      if (st.isDirectory()) {
+        excludedFilesState.count += countScannable(full);
+      } else if (isScannable(entry)) {
+        excludedFilesState.count++;
+      }
       continue;
     }
 
     const st = statSync(full);
     if (st.isDirectory()) {
-      walk(full, rootDir, out);
+      walk(full, rootDir, excludes, excludedFilesState, out);
     } else if (isScannable(entry)) {
       out.push(full);
     }
@@ -940,7 +978,453 @@ function checkNestedLoopCall(
   }
 }
 
+function loadConfig(root: string, explicitPath?: string): { excludedPaths: string[]; configFound: boolean } {
+  let targetPath = explicitPath ? resolve(root, explicitPath) : join(root, ".astesia/gate-config.json");
+  if (!existsSync(targetPath)) {
+    if (explicitPath) {
+      console.error(`[TOOL_FAILED: config file not found: ${targetPath}]`);
+      process.exit(2);
+    }
+    return { excludedPaths: [], configFound: false };
+  }
+
+  let raw = readFileSync(targetPath, "utf8");
+  if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
+  let parsed: GateConfig | null = null;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    console.error(`[TOOL_FAILED: invalid JSON in config file: ${targetPath}]`);
+    process.exit(2);
+  }
+
+  if (!parsed || typeof parsed !== "object" || parsed.schema !== 1) {
+    console.error(`[TOOL_FAILED: invalid config schema in ${targetPath} (schema must be 1)]`);
+    process.exit(2);
+  }
+
+  const excludedPaths: string[] = [];
+  if (parsed.exclude !== undefined) {
+    if (!Array.isArray(parsed.exclude)) {
+      console.error(`[TOOL_FAILED: 'exclude' in config must be an array]`);
+      process.exit(2);
+    }
+    for (const item of parsed.exclude) {
+      if (!item || typeof item !== "object") {
+        console.error(`[TOOL_FAILED: invalid exclude entry in config]`);
+        process.exit(2);
+      }
+      if (typeof item.path !== "string" || item.path.trim().length === 0) {
+        console.error(`[TOOL_FAILED: exclude entry path must be non-empty]`);
+        process.exit(2);
+      }
+      if (typeof item.reason !== "string" || item.reason.trim().length < 15) {
+        console.error(`[TOOL_FAILED: exclude entry reason must be at least 15 characters: '${item.reason || ""}']`);
+        process.exit(2);
+      }
+      const normPath = item.path.replace(/\\/g, "/").trim().replace(/^\/+/, "").replace(/\/+$/, "");
+      if (normPath.startsWith("/") || normPath.includes("..") || /^[a-zA-Z]:/.test(normPath)) {
+        console.error(`[TOOL_FAILED: exclude path must be a clean relative POSIX path: ${item.path}]`);
+        process.exit(2);
+      }
+      if (normPath === ".astesia/plugins" || normPath.startsWith(".astesia/plugins/")) {
+        console.error(`[TOOL_FAILED: cannot exclude .astesia/plugins directory in config]`);
+        process.exit(2);
+      }
+      excludedPaths.push(normPath);
+    }
+  }
+
+  return { excludedPaths, configFound: true };
+}
+
+function handleRulesDiff(basePath: string, headPath: string): number {
+  if (!existsSync(basePath)) {
+    console.error(`[TOOL_FAILED: rules file not found: ${basePath}]`);
+    return 2;
+  }
+  if (!existsSync(headPath)) {
+    console.error(`[TOOL_FAILED: rules file not found: ${headPath}]`);
+    return 2;
+  }
+  let baseRaw = readFileSync(basePath, "utf8");
+  let headRaw = readFileSync(headPath, "utf8");
+  if (baseRaw.charCodeAt(0) === 0xfeff) baseRaw = baseRaw.slice(1);
+  if (headRaw.charCodeAt(0) === 0xfeff) headRaw = headRaw.slice(1);
+  let baseData: { rules?: Rule[] } | null = null;
+  let headData: { rules?: Rule[] } | null = null;
+  try {
+    baseData = JSON.parse(baseRaw);
+    headData = JSON.parse(headRaw);
+  } catch (err) {
+    console.error(`[TOOL_FAILED: invalid JSON in rules file for --rules-diff]`);
+    return 2;
+  }
+  if (!Array.isArray(baseData?.rules) || !Array.isArray(headData?.rules)) {
+    console.error(`[TOOL_FAILED: rules file missing 'rules' array for --rules-diff]`);
+    return 2;
+  }
+
+  const baseRules = baseData.rules;
+  const headRules = headData.rules;
+
+  const headIds = new Set<string>();
+  for (const r of headRules) {
+    if (headIds.has(r.id)) {
+      console.error(`[RULES_DIFF: duplicate rule ID '${r.id}' in head]`);
+      return 1;
+    }
+    headIds.add(r.id);
+  }
+
+  const headMap = new Map<string, Rule>(headRules.map((r: Rule) => [r.id, r]));
+
+  for (const br of baseRules) {
+    const hr = headMap.get(br.id);
+    if (!hr) {
+      console.error(`[RULES_DIFF: rule ID '${br.id}' was removed in head]`);
+      return 1;
+    }
+    if (br.severity === "error" && hr.severity !== "error") {
+      console.error(`[RULES_DIFF: rule '${br.id}' severity lowered from '${br.severity}' to '${hr.severity}']`);
+      return 1;
+    }
+    if (br.kind !== hr.kind) {
+      console.error(`[RULES_DIFF: rule '${br.id}' kind changed from '${br.kind}' to '${hr.kind}']`);
+      return 1;
+    }
+    if (br.scope !== hr.scope) {
+      console.error(`[RULES_DIFF: rule '${br.id}' scope changed from '${br.scope}' to '${hr.scope}']`);
+      return 1;
+    }
+    if (br.pattern !== hr.pattern) {
+      process.stderr.write(`[RULES_DIFF: notice: pattern for rule '${br.id}' updated]\n`);
+    }
+    if (JSON.stringify(br.extensions) !== JSON.stringify(hr.extensions)) {
+      process.stderr.write(`[RULES_DIFF: notice: extensions for rule '${br.id}' updated]\n`);
+    }
+  }
+
+  for (const hr of headRules) {
+    if (typeof hr.fix !== "string" || hr.fix.trim().length === 0) {
+      console.error(`[RULES_DIFF: rule '${hr.id}' has missing or empty 'fix']`);
+      return 1;
+    }
+    if (typeof hr.origin !== "string" || hr.origin.trim().length === 0) {
+      console.error(`[RULES_DIFF: rule '${hr.id}' has missing or empty 'origin']`);
+      return 1;
+    }
+  }
+
+  const isIdentical = JSON.stringify(baseRules) === JSON.stringify(headRules);
+  if (isIdentical) {
+    process.stdout.write("rules-diff: compatible (rules identical).\n");
+    return 0;
+  }
+
+  process.stdout.write("rules-diff: compatible (no weakenings detected).\n");
+  return 0;
+}
+
+interface BaselineData {
+  schema: number;
+  violations: Record<string, Record<string, number>>;
+  counters: {
+    debt_markers: number;
+    suppressions: number;
+    files_excluded: number;
+    desync_files: number;
+  };
+  coverage: {
+    files_scanned: number;
+    min_ratio: number;
+  };
+  history: Array<{
+    date: string;
+    action: "init" | "tighten" | "raise";
+    reason: string;
+    diff: Record<string, unknown>;
+  }>;
+}
+
+const VALID_RULE_IDS = new Set([
+  "ASTESIA-000",
+  "ASTESIA-001",
+  "ASTESIA-002",
+  "ASTESIA-003",
+  "ASTESIA-004",
+  "ASTESIA-005",
+  "ASTESIA-006",
+  "ASTESIA-007",
+  "ASTESIA-008",
+  "ASTESIA-009",
+  "ASTESIA-010"
+]);
+
+function loadBaseline(baselinePath: string): BaselineData {
+  if (!existsSync(baselinePath)) {
+    console.error(`[TOOL_FAILED: baseline file not found: ${baselinePath}]`);
+    process.exit(2);
+  }
+  const raw = readFileSync(baselinePath, "utf8");
+  if (raw.charCodeAt(0) === 0xfeff) {
+    console.error(`[TOOL_FAILED: baseline file contains BOM: ${baselinePath}]`);
+    process.exit(2);
+  }
+  let parsed: (BaselineData & { version?: number }) | null = null;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    console.error(`[TOOL_FAILED: invalid JSON in baseline file: ${baselinePath}]`);
+    process.exit(2);
+  }
+  const hasVersionOrSchema = parsed && (parsed.schema === 1 || parsed.version === 1);
+  if (!parsed || typeof parsed !== "object" || !hasVersionOrSchema || typeof parsed.violations !== "object") {
+    console.error(`[TOOL_FAILED: invalid baseline schema or missing version in ${baselinePath}]`);
+    process.exit(2);
+  }
+
+  const normViolations: Record<string, Record<string, number>> = {};
+  for (const [rId, fileMap] of Object.entries(parsed.violations as Record<string, Record<string, number>>)) {
+    if (!VALID_RULE_IDS.has(rId)) {
+      console.error(`[TOOL_FAILED: unknown rule ID in baseline: ${rId}]`);
+      process.exit(2);
+    }
+    normViolations[rId] = {};
+    if (fileMap && typeof fileMap === "object") {
+      for (const [fPath, cnt] of Object.entries(fileMap)) {
+        const normP = fPath.replace(/\\/g, "/");
+        if (normP.startsWith("../") || normP.startsWith("/") || normP.includes("/../")) {
+          console.error(`[TOOL_FAILED: baseline path outside root: ${fPath}]`);
+          process.exit(2);
+        }
+        normViolations[rId][normP] = Number(cnt) || 0;
+      }
+    }
+  }
+  parsed.violations = normViolations;
+  return parsed;
+}
+
+function evaluateBaseline(
+  baseline: BaselineData,
+  violations: Violation[],
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number },
+  filesScannedTotal: number
+) {
+  const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
+  const otherViolations = violations.filter((v) => !NEVER_BASELINE.has(v.ruleId));
+
+  const currentCounts: Record<string, Record<string, number>> = {};
+  for (const v of otherViolations) {
+    if (!currentCounts[v.ruleId]) currentCounts[v.ruleId] = {};
+    currentCounts[v.ruleId][v.file] = (currentCounts[v.ruleId][v.file] || 0) + 1;
+  }
+
+  const newViolations: Violation[] = [];
+  let tightenable = false;
+
+  for (const [rId, files] of Object.entries(currentCounts)) {
+    for (const [fPath, count] of Object.entries(files)) {
+      const baseCount = baseline.violations?.[rId]?.[fPath] || 0;
+      if (count > baseCount) {
+        const matching = otherViolations.filter((v) => v.ruleId === rId && v.file === fPath);
+        const excess = matching.slice(baseCount);
+        newViolations.push(...excess);
+      } else if (count < baseCount) {
+        tightenable = true;
+      }
+    }
+  }
+
+  for (const [rId, files] of Object.entries(baseline.violations || {})) {
+    for (const [fPath, baseCount] of Object.entries(files)) {
+      const curCount = currentCounts[rId]?.[fPath] || 0;
+      if (curCount < baseCount) {
+        tightenable = true;
+      }
+    }
+  }
+
+  const counterRegressions: string[] = [];
+  if (counters.debt_markers > (baseline.counters?.debt_markers ?? 0)) {
+    counterRegressions.push(`debt_markers increased (${counters.debt_markers} > ${baseline.counters?.debt_markers ?? 0})`);
+  }
+  if (counters.suppressions > (baseline.counters?.suppressions ?? 0)) {
+    counterRegressions.push(`suppressions increased (${counters.suppressions} > ${baseline.counters?.suppressions ?? 0})`);
+  }
+  if (counters.files_excluded > (baseline.counters?.files_excluded ?? 0)) {
+    counterRegressions.push(`files_excluded increased (${counters.files_excluded} > ${baseline.counters?.files_excluded ?? 0})`);
+  }
+  if (counters.desync_files > (baseline.counters?.desync_files ?? 0)) {
+    counterRegressions.push(`desync_files increased (${counters.desync_files} > ${baseline.counters?.desync_files ?? 0})`);
+  }
+
+  const minRatio = baseline.coverage?.min_ratio ?? 0.9;
+  const expectedMin = Math.ceil((baseline.coverage?.files_scanned ?? 0) * minRatio);
+  const coverageDropped = filesScannedTotal < expectedMin;
+  if (coverageDropped) {
+    counterRegressions.push(`coverage drop: files_scanned (${filesScannedTotal}) < expected min (${expectedMin})`);
+  }
+
+  const isRegressed = newViolations.length > 0 || counterRegressions.length > 0;
+  const status = isRegressed ? "regressed" : tightenable ? "tightenable" : "passed";
+
+  return {
+    status,
+    isRegressed,
+    newViolations,
+    neverBaselineViolations,
+    counterRegressions,
+    tightenable,
+    coverage: {
+      files_scanned: filesScannedTotal,
+      expected_min: expectedMin,
+      ratio: filesScannedTotal / Math.max(1, baseline.coverage?.files_scanned || 1)
+    }
+  };
+}
+
+function updateBaseline(
+  targetPath: string,
+  violations: Violation[],
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number },
+  filesScannedTotal: number,
+  allowRaise: boolean,
+  reason: string
+) {
+  const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
+  if (neverBaselineViolations.length > 0) {
+    process.stderr.write(
+      `[BASELINE_UPDATE_REJECTED: cannot baseline NEVER_BASELINE rules (${neverBaselineViolations.map((v) => v.ruleId).join(", ")})]\n`
+    );
+    process.exit(1);
+  }
+
+  const newViolationsMap: Record<string, Record<string, number>> = {};
+  for (const v of violations) {
+    if (!newViolationsMap[v.ruleId]) newViolationsMap[v.ruleId] = {};
+    newViolationsMap[v.ruleId][v.file] = (newViolationsMap[v.ruleId][v.file] || 0) + 1;
+  }
+
+  let action: "init" | "tighten" | "raise" = "init";
+  let history: BaselineData["history"] = [];
+  let diff: Record<string, unknown> = {};
+
+  if (!existsSync(targetPath)) {
+    action = "init";
+    history = [
+      {
+        date: new Date().toISOString(),
+        action: "init",
+        reason: reason.trim().length >= 15 ? reason : "initial baseline",
+        diff: {}
+      }
+    ];
+  } else {
+    const oldBaseline = loadBaseline(targetPath);
+    history = oldBaseline.history || [];
+
+    let hasMetricIncrease = false;
+    const diffDetails: {
+      violations: Record<string, Record<string, { from: number; to: number }>>;
+      counters: Record<string, { from: number; to: number }>;
+    } = { violations: {}, counters: {} };
+
+    for (const [rId, files] of Object.entries(newViolationsMap)) {
+      for (const [fPath, count] of Object.entries(files)) {
+        const oldCount = oldBaseline.violations?.[rId]?.[fPath] || 0;
+        if (count > oldCount) {
+          hasMetricIncrease = true;
+          if (!diffDetails.violations[rId]) diffDetails.violations[rId] = {};
+          diffDetails.violations[rId][fPath] = { from: oldCount, to: count };
+        }
+      }
+    }
+    if (counters.debt_markers > (oldBaseline.counters?.debt_markers ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.debt_markers = { from: oldBaseline.counters?.debt_markers ?? 0, to: counters.debt_markers };
+    }
+    if (counters.suppressions > (oldBaseline.counters?.suppressions ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.suppressions = { from: oldBaseline.counters?.suppressions ?? 0, to: counters.suppressions };
+    }
+    if (counters.files_excluded > (oldBaseline.counters?.files_excluded ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.files_excluded = { from: oldBaseline.counters?.files_excluded ?? 0, to: counters.files_excluded };
+    }
+    if (counters.desync_files > (oldBaseline.counters?.desync_files ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.desync_files = { from: oldBaseline.counters?.desync_files ?? 0, to: counters.desync_files };
+    }
+
+    if (hasMetricIncrease) {
+      if (!allowRaise) {
+        process.stderr.write("[BASELINE_UPDATE_REJECTED: baseline metrics increased without --allow-raise]\n");
+        process.exit(1);
+      }
+      if (reason.trim().length < 15) {
+        process.stderr.write("[BASELINE_UPDATE_REJECTED: --reason must be at least 15 characters when raising baseline]\n");
+        process.exit(1);
+      }
+      action = "raise";
+    } else {
+      action = "tighten";
+    }
+    diff = diffDetails;
+    history.push({
+      date: new Date().toISOString(),
+      action,
+      reason: reason.trim().length >= 15 ? reason : action === "tighten" ? "automatic ratchet tightening" : "manual raise",
+      diff
+    });
+  }
+
+  const sortedViolations: Record<string, Record<string, number>> = {};
+  const sortedRuleIds = Object.keys(newViolationsMap).sort();
+  for (const rId of sortedRuleIds) {
+    sortedViolations[rId] = {};
+    const sortedFiles = Object.keys(newViolationsMap[rId]).sort();
+    for (const f of sortedFiles) {
+      sortedViolations[rId][f] = newViolationsMap[rId][f];
+    }
+  }
+
+  const baselineData: BaselineData = {
+    schema: 1,
+    violations: sortedViolations,
+    counters: {
+      debt_markers: counters.debt_markers,
+      suppressions: counters.suppressions,
+      files_excluded: counters.files_excluded,
+      desync_files: counters.desync_files
+    },
+    coverage: {
+      files_scanned: filesScannedTotal,
+      min_ratio: 0.9
+    },
+    history
+  };
+
+  writeFileSync(targetPath, JSON.stringify(baselineData, null, 2) + "\n", "utf8");
+  process.stdout.write(`astesia-gate: baseline updated (${action}).\n`);
+  process.exit(0);
+}
+
 function main() {
+  const args = process.argv.slice(2);
+  const rulesDiffIdx = args.indexOf("--rules-diff");
+  if (rulesDiffIdx !== -1) {
+    const basePath = args[rulesDiffIdx + 1];
+    const headPath = args[rulesDiffIdx + 2];
+    if (!basePath || basePath.startsWith("--") || !headPath || headPath.startsWith("--")) {
+      console.error("[TOOL_FAILED: --rules-diff requires two arguments: <base.json> <head.json>]");
+      process.exit(2);
+    }
+    const code = handleRulesDiff(basePath, headPath);
+    process.exit(code);
+  }
+
   const { flags, opts } = parseArgs();
   const root = resolve(opts.get("root") || ".");
 
@@ -1020,7 +1504,9 @@ function main() {
     debtMarkers: 0
   };
 
-  const files = walk(root, root);
+  const { excludedPaths } = loadConfig(root, opts.get("config"));
+  const excludedFilesState = { count: 0 };
+  const files = walk(root, root, excludedPaths, excludedFilesState);
   const filesScanned = {
     total: files.length,
     by_extension: {} as Record<string, number>
@@ -1064,49 +1550,111 @@ function main() {
     }
   }
 
+  const counters = {
+    debt_markers: gateState.debtMarkers,
+    suppressions: gateState.suppressions,
+    files_excluded: excludedFilesState.count,
+    desync_files: desyncFiles.length
+  };
+
+  // Handle --update-baseline
+  if (flags.has("update-baseline")) {
+    const bTarget = opts.has("baseline") ? resolve(root, opts.get("baseline")!) : join(root, ".astesia/gate-baseline.json");
+    const allowRaise = flags.has("allow-raise");
+    const reason = opts.get("reason") || "";
+    if (allowRaise) {
+      if (!opts.has("reason") || !reason) {
+        console.error("[TOOL_FAILED: --allow-raise requires --reason <text>]");
+        process.exit(2);
+      }
+      if (reason.trim().length < 15) {
+        console.error("[TOOL_FAILED: --reason must be at least 15 characters when using --allow-raise]");
+        process.exit(2);
+      }
+    }
+    updateBaseline(bTarget, violations, counters, filesScanned.total, allowRaise, reason);
+    return;
+  }
+
+  // Handle --baseline
+  let bEval: ReturnType<typeof evaluateBaseline> | null = null;
+  if (opts.has("baseline")) {
+    const bTarget = resolve(root, opts.get("baseline")!);
+    const baselineData = loadBaseline(bTarget);
+    bEval = evaluateBaseline(baselineData, violations, counters, filesScanned.total);
+  }
+
   const errors = violations.filter((v) => v.severity === "error");
   const warns = violations.filter((v) => v.severity === "warn");
 
   if (flags.has("json")) {
-    console.log(
-      JSON.stringify(
-        {
-          errors: errors.length,
-          warnings: warns.length,
-          suppressions: gateState.suppressions,
-          rejected_suppressions: gateState.rejectedSuppressions,
-          debt_markers: gateState.debtMarkers,
-          files_scanned: filesScanned,
-          desync_files: desyncFiles,
-          violations
-        },
-        null,
-        2
-      )
-    );
+    const jsonOut: Record<string, unknown> = {
+      errors: errors.length,
+      warnings: warns.length,
+      suppressions: gateState.suppressions,
+      rejected_suppressions: gateState.rejectedSuppressions,
+      debt_markers: gateState.debtMarkers,
+      files_scanned: filesScanned,
+      files_excluded: excludedFilesState.count,
+      excluded_paths: excludedPaths,
+      desync_files: desyncFiles,
+      violations
+    };
+    if (bEval) {
+      jsonOut.baseline = {
+        status: bEval.status,
+        new_violations: bEval.newViolations,
+        counter_regressions: bEval.counterRegressions,
+        coverage: bEval.coverage,
+        tightenable: bEval.tightenable
+      };
+    }
+    process.stdout.write(JSON.stringify(jsonOut, null, 2) + "\n");
   } else {
     for (const v of violations) {
-      console.log(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}`);
+      process.stdout.write(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}\n`);
     }
     const extSummary = Object.entries(filesScanned.by_extension).map(([k, v]) => `${k}: ${v}`).join(", ");
-    console.log(
-      `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}).`
+    process.stdout.write(
+      `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}), ${excludedFilesState.count} excluded.\n`
     );
-    console.log(
-      `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).`
+    process.stdout.write(
+      `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).\n`
     );
+    if (bEval) {
+      if (bEval.tightenable && !bEval.isRegressed) {
+        process.stdout.write("astesia-gate: notice: baseline can be tightened (--update-baseline).\n");
+      }
+      for (const reg of bEval.counterRegressions) {
+        process.stderr.write(`astesia-gate: baseline regression: ${reg}\n`);
+      }
+    }
+  }
+
+  if (bEval) {
+    if (bEval.neverBaselineViolations.length > 0 || bEval.isRegressed) {
+      process.exit(1);
+    }
+    const newWarns = bEval.newViolations.filter((v) => v.severity === "warn");
+    if (newWarns.length > maxWarn) {
+      process.stderr.write(`astesia-gate: warning ratchet exceeded (${newWarns.length} > ${maxWarn}).\n`);
+      process.exit(1);
+    }
+    process.exit(0);
   }
 
   if (errors.length > 0) process.exit(1);
   if (warns.length > maxWarn) {
-    console.error(`astesia-gate: warning ratchet exceeded (${warns.length} > ${maxWarn}).`);
+    process.stderr.write(`astesia-gate: warning ratchet exceeded (${warns.length} > ${maxWarn}).\n`);
     process.exit(1);
   }
 }
 
-try {
-  main();
-} catch (err: unknown) {
-  console.error(`[TOOL_FAILED: ${err instanceof Error ? err.message : String(err)}]`);
-  process.exit(2);
+if (import.meta.main) {
+  try {
+    main();
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILED: ${err instanceof Error ? err.message : String(err)}]`);
+    process.exit(2);
+  }
 }
