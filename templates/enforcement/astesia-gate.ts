@@ -79,6 +79,7 @@ interface PreprocessedFile {
   codeNoStringsLines: string[];
   commentLines: string[];
   commentBlocks: Array<{ text: string; startLine: number; endLine: number }>;
+  desync?: boolean;
 }
 
 const SOURCE_EXT = new Set([
@@ -168,6 +169,10 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
     lowerName.includes("dockerfile") ||
     lowerName.startsWith(".env");
 
+  const isSingleLineQuoteLang = [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"].includes(ext);
+  const isMarkupFile = [".svelte", ".vue"].includes(ext);
+  const isPython = ext === ".py";
+
   const len = text.length;
   const codeChars: string[] = new Array(len);
   const codeNoStringsChars: string[] = new Array(len);
@@ -179,12 +184,15 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
   const S_STRING_SINGLE = 3;
   const S_STRING_DOUBLE = 4;
   const S_STRING_BACKTICK = 5;
+  const S_PY_TRIPLE_SINGLE = 6;
+  const S_PY_TRIPLE_DOUBLE = 7;
 
   let state = S_NORMAL;
   const commentBlocks: Array<{ text: string; startLine: number; endLine: number }> = [];
   let blockStartLine = 1;
   let blockStartIndex = 0;
   let currentLine = 1;
+  let inScriptTag = false;
 
   for (let i = 0; i < len; i++) {
     const ch = text[i];
@@ -197,12 +205,51 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
       currentLine++;
       if (state === S_LINE_COMMENT) {
         state = S_NORMAL;
+      } else if (state === S_STRING_SINGLE || state === S_STRING_DOUBLE) {
+        const isSingleLineQuoteActive = isSingleLineQuoteLang || (isMarkupFile && inScriptTag);
+        if (isSingleLineQuoteActive) {
+          // Check if newline was preceded by an unescaped backslash (line continuation)
+          let backslashes = 0;
+          let k = i - 1;
+          while (k >= 0 && text[k] === "\\") {
+            backslashes++;
+            k--;
+          }
+          if (backslashes % 2 === 0) {
+            // Not escaped with odd backslashes -> string terminates at newline
+            state = S_NORMAL;
+          }
+        }
       }
       continue;
     }
 
     if (state === S_NORMAL) {
-      if (ch === "/" && next === "/") {
+      if (isMarkupFile) {
+        if (ch === "<") {
+          const slice7 = text.slice(i, i + 7).toLowerCase();
+          const slice9 = text.slice(i, i + 9).toLowerCase();
+          if (slice7 === "<script") {
+            inScriptTag = true;
+          } else if (slice9 === "</script>") {
+            inScriptTag = false;
+          }
+        }
+      }
+
+      if (isPython && ch === '"' && text.slice(i, i + 3) === '"""') {
+        state = S_PY_TRIPLE_DOUBLE;
+        codeChars[i] = '"'; codeChars[i + 1] = '"'; codeChars[i + 2] = '"';
+        codeNoStringsChars[i] = '"'; codeNoStringsChars[i + 1] = '"'; codeNoStringsChars[i + 2] = '"';
+        commentChars[i] = " "; commentChars[i + 1] = " "; commentChars[i + 2] = " ";
+        i += 2;
+      } else if (isPython && ch === "'" && text.slice(i, i + 3) === "'''") {
+        state = S_PY_TRIPLE_SINGLE;
+        codeChars[i] = "'"; codeChars[i + 1] = "'"; codeChars[i + 2] = "'";
+        codeNoStringsChars[i] = "'"; codeNoStringsChars[i + 1] = "'"; codeNoStringsChars[i + 2] = "'";
+        commentChars[i] = " "; commentChars[i + 1] = " "; commentChars[i + 2] = " ";
+        i += 2;
+      } else if (ch === "/" && next === "/") {
         state = S_LINE_COMMENT;
         codeChars[i] = " ";
         codeChars[i + 1] = " ";
@@ -276,7 +323,19 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
         codeChars[i] = "\\";
         codeNoStringsChars[i] = " ";
         commentChars[i] = " ";
-        if (i + 1 < len) {
+        if (next === "\\") {
+          i++;
+          codeChars[i] = "\\";
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === '"') {
+          i++;
+          codeChars[i] = '"';
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === "\n") {
+          // Line continuation: do NOT consume \n here, main loop will handle it at next index
+        } else if (i + 1 < len) {
           i++;
           codeChars[i] = text[i];
           codeNoStringsChars[i] = " ";
@@ -297,7 +356,19 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
         codeChars[i] = "\\";
         codeNoStringsChars[i] = " ";
         commentChars[i] = " ";
-        if (i + 1 < len) {
+        if (next === "\\") {
+          i++;
+          codeChars[i] = "\\";
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === "'") {
+          i++;
+          codeChars[i] = "'";
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === "\n") {
+          // Line continuation
+        } else if (i + 1 < len) {
           i++;
           codeChars[i] = text[i];
           codeNoStringsChars[i] = " ";
@@ -318,7 +389,19 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
         codeChars[i] = "\\";
         codeNoStringsChars[i] = " ";
         commentChars[i] = " ";
-        if (i + 1 < len) {
+        if (next === "\\") {
+          i++;
+          codeChars[i] = "\\";
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === "`") {
+          i++;
+          codeChars[i] = "`";
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        } else if (next === "\n") {
+          // Line continuation
+        } else if (i + 1 < len) {
           i++;
           codeChars[i] = text[i];
           codeNoStringsChars[i] = " ";
@@ -334,6 +417,30 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
         codeNoStringsChars[i] = " ";
         commentChars[i] = " ";
       }
+    } else if (state === S_PY_TRIPLE_DOUBLE) {
+      if (ch === '"' && text.slice(i, i + 3) === '"""') {
+        codeChars[i] = '"'; codeChars[i + 1] = '"'; codeChars[i + 2] = '"';
+        codeNoStringsChars[i] = '"'; codeNoStringsChars[i + 1] = '"'; codeNoStringsChars[i + 2] = '"';
+        commentChars[i] = " "; commentChars[i + 1] = " "; commentChars[i + 2] = " ";
+        i += 2;
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+      }
+    } else if (state === S_PY_TRIPLE_SINGLE) {
+      if (ch === "'" && text.slice(i, i + 3) === "'''") {
+        codeChars[i] = "'"; codeChars[i + 1] = "'"; codeChars[i + 2] = "'";
+        codeNoStringsChars[i] = "'"; codeNoStringsChars[i + 1] = "'"; codeNoStringsChars[i + 2] = "'";
+        commentChars[i] = " "; commentChars[i + 1] = " "; commentChars[i + 2] = " ";
+        i += 2;
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+      }
     }
   }
 
@@ -342,7 +449,9 @@ function preprocessSource(rawContent: string, filename: string): PreprocessedFil
   const codeNoStringsLines = codeNoStringsChars.join("").split("\n");
   const commentLines = commentChars.join("").split("\n");
 
-  return { rawLines, codeLines, codeNoStringsLines, commentLines, commentBlocks };
+  const isDesync = state !== S_NORMAL;
+
+  return { rawLines, codeLines, codeNoStringsLines, commentLines, commentBlocks, desync: isDesync };
 }
 
 function isScannable(filename: string): boolean {
@@ -793,6 +902,7 @@ function main() {
 
   const rules = parsedRegistry.rules;
   const violations: Violation[] = [];
+  const desyncFiles: string[] = [];
   const gateState: GateState = {
     suppressions: 0,
     rejectedSuppressions: 0,
@@ -804,6 +914,18 @@ function main() {
     const rel = relative(root, abs).replace(/\\/g, "/");
     const rawContent = readFileSync(abs, "utf8");
     const prep = preprocessSource(rawContent, abs);
+
+    if (prep.desync) {
+      desyncFiles.push(rel);
+      violations.push({
+        ruleId: "TOKENIZER_DESYNC",
+        severity: "warn",
+        file: rel,
+        line: prep.rawLines.length,
+        message: "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+        fix: "Ensure all strings, template literals, and comments are properly terminated."
+      });
+    }
 
     for (const line of prep.commentLines) {
       if (/(?:\/\/|#|\*)\s*astesia-debt:/i.test(line)) {
@@ -834,6 +956,7 @@ function main() {
           suppressions: gateState.suppressions,
           rejected_suppressions: gateState.rejectedSuppressions,
           debt_markers: gateState.debtMarkers,
+          desync_files: desyncFiles,
           violations
         },
         null,
