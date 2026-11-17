@@ -367,9 +367,37 @@ Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gel
 | `ASTESIA-009` | `warn` | `line-regex` | `code` | Hindari `setTimeout` telanjang di kode produksi tanpa enkapsulasi debounce/throttle atau pengujian terisolasi. |
 | `ASTESIA-010` | `error` | `line-regex` | `code` | Dilarang meletakkan secret plaintext di Dockerfile, docker-compose, CI yaml, dan berkas `.env`. *(NEVER_BASELINE)* |
 
-### 7.3 Status 3 Known Gaps Terverifikasi
-Sesuai prinsip transparansi, tiga batasan deteksi berbasis regex statis dicatat secara resmi sebagai celah bawaan yang membutuhkan analisis call-graph/AST penuh (di luar lingkup zero-dependency regex gate):
-1. **`007-EC2:L3` (`ASTESIA-007`):** Pemanggilan fungsi helper database tidak langsung lintas fungsi (mis. `await fetchUserOrdersHelper(u.id)`) di dalam loop tidak dapat dipetakan ke kueri database tanpa analisis call-graph antar-berkas.
-2. **`ADV-BACKTICK-IN-REGEX-GAP` (`ADV`):** Karakter backtick yang terletak di dalam literal regex (`/`/`) berpotensi memicu pembukaan template literal fiktif pada tokenizer pra-pemrosesan.
+### 7.3 Status 6 Known Gaps Terverifikasi
+Sesuai prinsip transparansi dan pelacakan registri resmi di `templates/enforcement/tests/known-gaps.json`, enam batasan deteksi berbasis regex statis dicatat secara resmi sebagai celah bawaan yang membutuhkan analisis call-graph/AST penuh (di luar lingkup zero-dependency regex gate):
+1. **`007-EC2b` (`ASTESIA-007`):** Pemanggilan fungsi helper database tidak langsung lintas fungsi (mis. `await fetchUserOrdersHelper(u.id)`) di dalam loop tidak dapat dipetakan ke kueri database tanpa analisis call-graph antar-berkas.
+2. **`ADV-BACKTICK-IN-REGEX-GAP` (`ASTESIA-005`):** Karakter backtick yang terletak di dalam literal regex (`/`/`) berpotensi memicu pembukaan template literal fiktif pada tokenizer pra-pemrosesan.
 3. **`SEC-23-GAP` (`ASTESIA-004`):** Secret dalam format kata jamak berhuruf kecil murni bergaya snake_case yang berada di bawah kunci bertarget UI (mis. `passwordField = "my_secret_token_words"`) lolos dari filter entropi regex tanpa kamus semantik kata sandi.
+4. **`D2-REG-BACKTICK-GAP` (`ASTESIA-005`):** Backtick di dalam regex literal pada tes adversarial independen verifier.
+5. **`D2-PHP-HEREDOC` (`ASTESIA-002`):** Sintaks PHP heredoc (`<<<TAG`) tidak di-strip sebagai string literal oleh tokenizer regex baris tunggal sederhana.
+6. **`D4-21-GAP` (`ASTESIA-004`):** Secret snake_case lowercase di bawah kunci suffix UI field/text/name pada tes security independen.
+
+### 7.4 Gelombang 2A.1 (`wave2a.1/fixes`)
+1. **F1: Heuristik ASTESIA-004 Lebih Cerdas & Sensitivitas Kunci:**
+   - Memperbaiki deteksi nama kunci: kunci dengan suffix non-sensitif (seperti `THEME_STORAGE_KEY`, `cache_key`, `sort_key`) tidak lagi memicu false positive.
+   - Menambahkan pengenalan khusus token autentikasi bertipe `Basic <base64>` dan `Bearer <token>` yang mengandung spasi agar tidak dikecualikan oleh aturan spasi umum (memulihkan `SEC-25-orig`).
+   - Mendukung pengecualian format MIME type pada kunci bertipe Type (memulihkan `SEC-21-orig`).
+2. **F2: Tokenizer Khusus Berkas Konfigurasi (Config Profile):**
+   - Menghilangkan pelacakan string literal pada file `.yml`, `.yaml`, `Dockerfile*`, dan `.env*`. Komentar `#` hanya dikenali di awal baris atau setelah karakter spasi.
+   - Mengeliminasi 100% false warning desinkronisasi `TOKENIZER_DESYNC` pada multiline script Dockerfile dan compose block.
+3. **F3: Katup Allowlist Terjustifikasi Berbasis Konfigurasi:**
+   - Memberikan katup allowlist terkontrol hanya untuk `ASTESIA-004` dan `ASTESIA-010` melalui skema `allow` pada `.astesia/gate-config.json`.
+   - Validasi ketat: path relatif spesifik tanpa wildcard (`*`, `?`) atau traversal (`..`), string pencocokan minimal 6 karakter, dan alasan tertulis minimal 15 karakter.
+   - Pelaporan otomatis entri allowlist usang (`allow_stale`) dan integrasi counter ke baseline ratchet.
+4. **F4: Penanganan Cerdas Berkas `.env` yang Diabaikan Git:**
+   - Berkas `.env` yang terdaftar pada `.gitignore` dan berstatus untracked secara otomatis dilewati dari pemindaian rahasia (`env_ignored_skipped`).
+   - Berkas `.env` yang sudah terlanjur di-commit ke indeks git tetap dipindai secara tegas (*fail-closed*).
+5. **3.4: Workflow Guard CLI Mode & Dokumentasi Trust Boundaries:**
+   - Menambahkan kemampuan CLI `workflow-guard.ts <file>` untuk memvalidasi berkas workflow PR sebelum eksekusi gate.
+   - Mendokumentasikan batas kepercayaan workflow dan peran sentral CODEOWNERS + Branch Ruleset pada `BRANCH-PROTECTION.md`.
+6. **3.5: Deteksi Penyempitan Ekstensi Berkas pada Rules Diff:**
+   - `--rules-diff` mendeteksi dan menolak PR yang mempersempit cakupan ekstensi aturan (misalnya menghapus `.py` dari daftar ekstensi).
+7. **Metrik Uji Harness 2A.1:**
+   - **279 skenario uji total:** 273 passed, 0 failed, 6 known gaps terverifikasi.
+   - Invarian akuntansi `total === passed + failed + known_gaps` terpenuhi secara matematis di seluruh 12 kategori pengujian.
+
 
