@@ -31,7 +31,7 @@
 * **Global Error Format:** `{ "error": true, "code": "...", "message": "..." }`
 * **Logging:** [Pino / Winston / Standard Out]
 
-## 7. Minimalist Execution Strategy (Ponytail)
+## 7. Minimalist Execution Strategy (Anti-Bloat)
 * **Dependencies Rejected:** [List of 3rd-party libs that were evaluated but rejected in favor of native code]
 * **Native / Stdlib Used:** [List of native features used (e.g., URLSearchParams instead of qs)]
 * **Abstractions Avoided:** [e.g., Avoided Factory pattern for simple instantiation]

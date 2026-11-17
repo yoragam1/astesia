@@ -38,7 +38,10 @@ The Engineering Agent MUST act as a **Planner** and delegate execution to subage
 - [ ] **Internal QA Audit (The Third Brain):** Before advancing to the next Wave, use `invoke_subagent` to spawn a **QA Auditor** subagent.
   - The QA Auditor must cross-check the Executors' output against the Engineering Rules (Directive #24) and the BRD.
   - If the Auditor flags errors, spawn Executors to fix them. DO NOT move to the next Wave until the QA Auditor approves the current Wave.
-- [ ] **Enforce Ponytail Protocol on Subagents:** Instruct every Executor subagent to run the "Minimalist Ladder" (Can this be 1 line? Can native/stdlib do this?) before writing boilerplate.
+- [ ] **Deterministic Gate (Directive #29):** Before each Auditor run, execute `bun .astesia/enforcement/astesia-gate.ts`. Non-zero exit = wave rejected automatically; pass the output to the Executor. Never edit `.astesia/anti-patterns.json` or the gate to pass.
+- [ ] **Independent Verification:** The Auditor is a fresh-context Verifier (`skills/quality/independent-verification`). It must write `.astesia/verification/wave-N.md` with real commands/output and a behavioral run. No evidence file = wave not done.
+- [ ] **Gardening Wave:** If the gate reports legacy `error` violations or `astesia-debt:` markers, schedule a separate behavior-preserving wave (`skills/engineering/codebase-gardening`) — never mix it into feature waves.
+- [ ] **Enforce Minimalist Protocol on Subagents:** Instruct every Executor subagent to run the "Minimalist Ladder" (Can this be 1 line? Can native/stdlib do this?) before writing boilerplate.
 - [ ] **Enforce TDD on Subagents:** Subagents must follow the RED-GREEN-REFACTOR cycle (`skills/quality/vitest-unit-testing`).
 
 Implementation Wave Order Guidelines:

@@ -49,6 +49,8 @@
     6. Build application
     7. (Optional) Deploy on main branch push
 - [ ] Ensure pipeline **includes** the test suites generated in Phase 4.
+- [ ] **Hard Gate (DevOps Rule #5):** Install `templates/enforcement/astesia-gate.workflow.yml` as `.github/workflows/astesia-gate.yml` (rebased-head verification: typecheck, `astesia-gate`, coverage, E2E). Make it a **required status check**.
+- [ ] **Merge Policy:** Keep `enforcement.auto_merge = false` / `merge_mode = "manual"`. Document the path to `shadow` -> `auto-merge` (`skills/devops/auto-merge-gates`) in `.astesia/deployment.md`; only the user may enable it.
 - [ ] Add branch protection rules recommendation.
 
 ## 5. Observability Setup (DevOps Rule #4)

@@ -15,6 +15,6 @@
 * **Security Leaks:** None detected.
 * **SRP Violations:** None detected.
 * **Architectural Linter:** [Pass / Fail — List any N+1 queries or DB breaches detected]
-* **Anti-Bloat Deletions (Ponytail):** 
+* **Anti-Bloat Deletions (Minimalist Audit):** 
   * [List of files/blocks shrunk using native features]
   * [List of unnecessary abstractions deleted]

@@ -31,8 +31,12 @@ The agent MUST auto-classify which skills are relevant to the current user reque
 - Request mentions "performance / cost" → always select `cost-reducer`
 - **MANDATORY FOR ALL SESSIONS (DevOps/Safety):** `budget-circuit-breaker`
 - **MANDATORY FOR ALL SESSIONS (Quality/Safety):** `anti-silent-failure`
-- **IF Engineering Layer:** always select `ponytail-executor`
-- **IF Quality Layer:** always select `architectural-linter`
+- **IF Engineering Layer:** always select `minimalist-executor`
+- **IF Quality Layer:** always select `architectural-linter`, `trust-pyramid`, `independent-verification`
+- **IF Engineering Layer:** also select `independent-verification` (wave verifier)
+- **IF a rule/directive is being written, OR a quality failure is pattern-shaped / repeated:** select `trust-pyramid` + `lint-ratchet`
+- **IF DevOps Layer / CI setup:** select `auto-merge-gates`
+- **IF `.astesia/anti-patterns.json` has violations or `debt-scanner` finds markers:** select `codebase-gardening`
 
 **Output format in state:**
 ```json
@@ -65,6 +69,17 @@ If the target project is NOT the result of `/astesia-init` (i.e., no `.astesia/`
 3. Generate `.astesia/system-map.md` using trace-by-function methodology.
 4. Set `current_layer` in state to the layer matching the user's request.
 5. Only then proceed to Boot Stage 3.
+
+---
+
+## Boot Stage 2.7 — Enforcement Bootstrap *(NEW — Verification-First)*
+
+For any project that will receive source code (greenfield after Product, or brownfield on entry):
+1. If `.astesia/anti-patterns.json` is missing → copy `templates/enforcement/anti-patterns.json` to it.
+2. If `.astesia/enforcement/astesia-gate.ts` is missing → copy `templates/enforcement/astesia-gate.ts` there.
+3. Run `bun .astesia/enforcement/astesia-gate.ts --json` once. Record `errors`/`warnings` in `astesia-state.json → enforcement.baseline`.
+   - **Brownfield:** set `--max-warn` to the baseline warn count (ratchet; may only decrease). Existing `error` violations become a gardening backlog (`codebase-gardening`) — do NOT mass-fix inside a feature task.
+4. Load `.astesia/anti-patterns.json` rule IDs into context as a compact list (id + one-line description), not the whole file.
 
 ---
 

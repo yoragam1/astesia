@@ -134,3 +134,16 @@ To prevent massive API bills and token bloat, Astesia agents MUST adhere to thes
    - Do NOT include conversational filler, greetings, or self-narrations of what you are about to do.
    - Do NOT rewrite or re-summarize unchanged parts of massive artifacts.
 3. **Targeted Reading:** Never use `read_file` on files > 500 lines unless you explicitly plan to rewrite the entire file. Use surgical `grep_search` or extract only specific function blocks to save input context.
+
+---
+
+## Step 8: Verification-First Principle & Trust Pyramid *(NEW — Global Rule)*
+
+Generation is cheap; **verification is the bottleneck.** Astesia never trusts an agent's claim of success and never relies on prose to constrain agents.
+
+1. **Trust Pyramid** (`skills/quality/trust-pyramid.md`): enforce at the hardest layer possible — `L1 Types/Architecture → L2 Lint/CI (anti-patterns.json, tests) → L3 Prose rules → L4 Human review (sampled)`. Prose is the last resort.
+2. **Mistake → Rule Ratchet** (`lint-ratchet`): every pattern-shaped failure becomes a proven, append-only rule in `.astesia/anti-patterns.json`. The framework only gets stricter.
+3. **Independent Verification** (`independent-verification`): author ≠ verifier. "Done" requires an evidence file in `.astesia/verification/` including a behavioral run.
+4. **Deterministic Gate:** `bun .astesia/enforcement/astesia-gate.ts` must exit 0 before any handoff. Agents may never edit the gate or registry to pass it.
+5. **Earned Merge Authority** (`auto-merge-gates`): auto-merge is opt-in by the user, defaults off, progresses `manual → shadow → auto-merge`, and shifts humans from pre-merge review to post-merge sampling with automatic kill-switch on regression.
+6. **Gardening** (`codebase-gardening`): keep the codebase clean so future agents imitate good patterns, not slop.

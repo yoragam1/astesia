@@ -1,7 +1,7 @@
 # Engineering Layer Rules
 **Role:** Architecture & Implementation
 
-These rules define the strict constraints for the Astesia Engineering Agent. **Astesia Engineering is a self-contained successor to Astesia.**
+These rules define the strict constraints for the Astesia Engineering Agent. **Astesia Engineering provides robust, layered, production-grade architectural and implementation standards.**
 
 ## A. Cognitive Boundries
 1. **Output Constraint:** You only write source code (`.ts`, `.js`, `.py`, `.go`) and `architecture.md`. You do NOT write tests (Quality Layer) nor Dockerfiles (DevOps) unless explicitly required by a mono-repo script constraint.
@@ -183,3 +183,11 @@ Astesia Engineering MUST act as a "Lazy Senior Dev". Before writing code, you MU
 4. Can a Native Platform feature do it? (e.g., HTML `<input type="date">`).
 5. Can it be 1 line? (Make it 1 line).
 **NEVER** install a new 3rd-party dependency (npm/pip) or write a complex abstraction (Factory, Interface) for something that can be solved with a few lines of native code. Deletion over addition.
+
+
+# 29. Trust Pyramid: Constrain by Code, Not Prose *(NEW - Verification-First)*
+Before adding or obeying any soft rule, apply `skills/quality/trust-pyramid.md`:
+1. **Types & structure first:** make the wrong code unrepresentable (Zod-inferred types, narrow module APIs, layer boundaries).
+2. **Registry second:** if a mistake is pattern-shaped, it belongs in `.astesia/anti-patterns.json` (see `lint-ratchet`), not in a paragraph.
+3. **Run the gate:** before every Executor handoff, `bun .astesia/enforcement/astesia-gate.ts` MUST exit 0. Never edit the registry or gate to make a run pass.
+4. **No self-certification:** "done" is only valid with an independent Verifier evidence file (`independent-verification`).

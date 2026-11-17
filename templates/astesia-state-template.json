@@ -30,6 +30,18 @@
   ],
   "decisions": [],
   "blocking_issues": [],
+  "enforcement": {
+    "registry_path": "./.astesia/anti-patterns.json",
+    "gate_path": "./.astesia/enforcement/astesia-gate.ts",
+    "baseline": { "errors": null, "warnings": null },
+    "max_warn": null,
+    "rules_added": [],
+    "auto_merge": false,
+    "merge_mode": "manual",
+    "max_auto_merge_loc": 400,
+    "human_review_paths": ["auth", "payment", "migrations", "infra", ".github", ".astesia/anti-patterns.json"],
+    "post_merge": { "sample_rate": 0.1, "revert_rate": 0, "merges_tracked": 0 }
+  },
   "metadata": {
     "tech_stack": {
       "runtime": "",

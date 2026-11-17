@@ -1,3 +1,14 @@
 {
-  "name": "astesia"
+  "name": "astesia",
+  "displayName": "Astesia Autonomous Orchestrator",
+  "version": "3.0.0",
+  "description": "Multi-layer autonomous software agency framework with verification-first governance, deterministic gates, and native progressive disclosure.",
+  "author": "Astesia Core Team",
+  "keywords": [
+    "orchestrator",
+    "agentic",
+    "sdlc",
+    "software-agency",
+    "verification-first"
+  ]
 }

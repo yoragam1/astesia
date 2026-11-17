@@ -1,6 +1,6 @@
 # Astesia System Overview
 
-**Version:** 2.0  
+**Version:** 2.1  
 **Last Updated:** 2026-04-24
 
 Astesia is a multi-layered, end-to-end software development framework designed to guide AI agents in automating the entire Product Lifecycle.
@@ -16,6 +16,7 @@ While Astesia is purely focused on Code and Engineering Architecture, **Astesia 
 3. **Anti "Rush-to-Code"**: The most expensive bugs are those introduced by skipping requirements and design. No code without a BRD. No deployment without passing tests.
 4. **Paper Trail Everything**: Every layer generates artifacts saved in `.astesia/`, making decisions traceable and auditable.
 5. **Brownfield Awareness**: Astesia can operate on existing codebases, not only greenfield projects.
+6. **Verification-First (Trust Pyramid)**: Constraints live in types and CI, not prose. Every agent claim needs independent evidence; every repeated mistake becomes a permanent lint rule. See `docs/agent-operating-guide.md` Step 8.
 
 ---
 
@@ -163,7 +164,11 @@ Every project managed by Astesia MUST have an `.astesia/` directory containing:
 ├── architecture.md        # Technical blueprint (Engineering Layer output)
 ├── qa-test-plan.md        # Test specifications (Quality Layer output)
 ├── deployment.md          # Infrastructure declarations (DevOps Layer output)
-└── system-map.md          # Codebase navigation map (Brownfield only)
+├── system-map.md          # Codebase navigation map (Brownfield only)
+├── anti-patterns.json     # Rule registry (Trust Pyramid L2) - append-only
+├── enforcement/
+│   └── astesia-gate.ts    # Deterministic gate, exit 1 on violation
+└── verification/          # Independent Verifier evidence files per wave/PR
 ```
 
 This is not optional. This is the paper trail that makes Astesia an *agency*, not just an AI that writes code.

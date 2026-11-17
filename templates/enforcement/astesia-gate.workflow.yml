@@ -1,0 +1,48 @@
+name: astesia-gate
+
+# Trust Pyramid Layer 2/3: hard CI gate. Agents cannot merge unless this passes on the REBASED head.
+# Copy to .github/workflows/astesia-gate.yml and the gate script to .astesia/enforcement/.
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: astesia-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Rebase onto base (verify the real merge result, not a stale branch)
+        run: |
+          git config user.email "ci@astesia.local"
+          git config user.name "astesia-ci"
+          git rebase origin/${{ github.base_ref }}
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: L1 — Types
+        run: bun run typecheck
+
+      - name: L2 — Anti-pattern registry (astesia-gate)
+        run: bun .astesia/enforcement/astesia-gate.ts --max-warn "${ASTESIA_MAX_WARN:-9999}"
+        env:
+          ASTESIA_MAX_WARN: ${{ vars.ASTESIA_MAX_WARN }}
+
+      - name: L2 — Unit tests + coverage floor
+        run: bun run test:coverage
+
+      - name: L3 — Integration / E2E (traceable to BRD ACs)
+        run: bun run test:e2e

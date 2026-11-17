@@ -27,6 +27,8 @@
 
 ## 3. Architectural Audit
 
+- [ ] **Deterministic Gate (Quality Rule #9):** Run `bun .astesia/enforcement/astesia-gate.ts --json` on the rebased head. Any `error` = FAIL. Record counts in `enforcement.baseline` / compare to `enforcement.max_warn`.
+- [ ] **Independent Verification (Quality Rule #11):** Confirm `.astesia/verification/*.md` exists for each wave with `Verdict: PASS` and a behavioral run. Missing/forged evidence = FAIL.
 - [ ] **Programmatic Enforcement:** Run `architectural-linter` to programmatically detect N+1 queries and controller-DB breaches.
 - [ ] **Layered Architecture Compliance:**
   - No business logic in controllers/routes.
@@ -36,7 +38,7 @@
   - Each domain module is self-contained (routes + schema + service + repo).
   - No circular dependencies between modules.
 
-## 3.5. Anti-Bloat Audit (Ponytail Review)
+## 3.5. Anti-Bloat Audit (Anti-Bloat Review)
 
 - [ ] **Dependency Audit:** Check if any installed 3rd-party dependency could be replaced with Native/Stdlib.
 - [ ] **YAGNI Check:** Identify any abstractions (Interfaces, Factories, base classes) that only have 1 implementation. Tag them with `delete:`.
@@ -76,6 +78,7 @@
 - [ ] Inform the user of the transition to DevOps.
 
 ### If ANY check fails:
+- [ ] **Mistake-to-Rule Ratchet (Quality Rule #10):** For each pattern-shaped failure (or any failure repeated twice), run `skills/quality/lint-ratchet`: add a proven rule to `.astesia/anti-patterns.json` and log it in `enforcement.rules_added[]`.
 - [ ] Check `astesia-state.json` history for previous failed attempts.
 - [ ] **Retry Limit Check:** If the Quality layer has failed and returned to Engineering 3 times already:
   - **ESCALATION:** Set `status` to `halted` in `astesia-state.json`.

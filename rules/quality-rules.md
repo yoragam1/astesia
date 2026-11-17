@@ -36,8 +36,19 @@ You MUST programmatically (or strictly visually) enforce architectural bounds:
 - **Hallucinated Imports:** Reject imports for files that do not exist on disk.
 If any are found, trigger an Architectural Violation error and force the Executor to self-heal.
 
-## 8. Anti-Bloat Code Deletion (Phase 5 / Ponytail)
+## 8. Anti-Bloat Code Deletion (Minimalist Protocol)
 When reviewing code, your primary goal is NOT just finding bugs; it is finding code to DELETE.
 - Reject unneeded 3rd-party dependencies if Native/Stdlib exists.
 - Reject "YAGNI" abstractions (e.g., Factory pattern for 1 class).
 - Tag your findings using `delete:`, `stdlib:`, `native:`, `yagni:`, or `shrink:`.
+
+
+## 9. Deterministic Gate Ownership *(NEW - Verification-First)*
+- Run `astesia-gate` on the rebased head; any `error` is an automatic FAIL. Warn count may never exceed `enforcement.max_warn`.
+- You own `.astesia/anti-patterns.json`. Executors may not modify it.
+
+## 10. Mistake-to-Rule Ratchet *(NEW - Verification-First)*
+Every pattern-shaped FAIL, or the same failure twice, MUST trigger `lint-ratchet`: add a proven rule (failing fixture -> exit 1, fixed -> exit 0) and log it in `enforcement.rules_added[]`. Rules are append-only; removal needs an ADR.
+
+## 11. Independent Verification & Evidence *(NEW - Verification-First)*
+Never accept an Executor's self-reported success. Verification is performed by a separate agent, ends in `.astesia/verification/<id>.md` (claim, commands, output, AC ids, verdict), and must include a behavioral run (start the app / exercise the flow), not just compilation.

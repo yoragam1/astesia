@@ -15,3 +15,10 @@ You cannot run a deployment pipeline if the Quality Layer has not marked `astesi
 
 ## 4. Observability is Mandatory
 Insert logging and telemetry configurations (e.g., Pino, Prometheus, Datadog configs) into the infrastructure setup so Engineering's logs can be tracked.
+
+
+## 5. Merge Authority is Earned, Not Assumed *(NEW - Verification-First)*
+- `enforcement.auto_merge` defaults to `false`; only the user may enable it. Follow `skills/devops/auto-merge-gates.md`.
+- CI MUST run `astesia-gate` on the rebased head (`templates/enforcement/astesia-gate.workflow.yml`).
+- Agents may never modify CI config, the gate, or the rule registry on an auto-merge path.
+- If `post_merge.revert_rate` > 2% over the last 50 merges: auto-disable auto-merge, set `status: halted`, notify the user.
