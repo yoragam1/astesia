@@ -52,7 +52,6 @@ Implementation Wave Order Guidelines:
 
 Per-file requirements:
 - [ ] Every file has a **Header Doc** (Directive #19).
-- [ ] Every edit is preceded by a **Pre-Edit Trace Note** (Directive #22).
 - [ ] Input validation uses Zod schemas (Directive #17, `skills/zod-validation/SKILL.md`).
 - [ ] No hardcoded secrets (Directive #17).
 - [ ] Database queries follow DBA-Grade standards (Directive #21).
