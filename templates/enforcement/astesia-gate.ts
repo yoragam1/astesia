@@ -1144,11 +1144,12 @@ function loadConfig(
         console.error(`[TOOL_FAILED: exclude entry reason must be at least 15 characters: '${item.reason || ""}']`);
         process.exit(2);
       }
-      const normPath = item.path.replace(/\\/g, "/").trim().replace(/^\/+/, "").replace(/\/+$/, "");
-      if (normPath.startsWith("/") || normPath.includes("..") || /^[a-zA-Z]:/.test(normPath)) {
+      const rawPath = item.path.replace(/\\/g, "/").trim();
+      if (rawPath.startsWith("/") || rawPath.includes("..") || /^[a-zA-Z]:/.test(rawPath)) {
         console.error(`[TOOL_FAILED: exclude path must be a clean relative POSIX path: ${item.path}]`);
         process.exit(2);
       }
+      const normPath = rawPath.replace(/\/+$/, "");
       if (normPath === ".astesia/plugins" || normPath.startsWith(".astesia/plugins/")) {
         console.error(`[TOOL_FAILED: cannot exclude .astesia/plugins directory in config]`);
         process.exit(2);
@@ -1176,17 +1177,18 @@ function loadConfig(
         console.error(`[TOOL_FAILED: allow entry path must be non-empty]`);
         process.exit(2);
       }
-      const normPath = item.path.replace(/\\/g, "/").trim().replace(/^\/+/, "").replace(/\/+$/, "");
+      const rawPath = item.path.replace(/\\/g, "/").trim();
       if (
-        normPath.startsWith("/") ||
-        normPath.includes("..") ||
-        /^[a-zA-Z]:/.test(normPath) ||
-        normPath.includes("*") ||
-        normPath.includes("?")
+        rawPath.startsWith("/") ||
+        rawPath.includes("..") ||
+        /^[a-zA-Z]:/.test(rawPath) ||
+        rawPath.includes("*") ||
+        rawPath.includes("?")
       ) {
         console.error(`[TOOL_FAILED: allow entry path must be a specific relative path without wildcards: '${item.path}']`);
         process.exit(2);
       }
+      const normPath = rawPath.replace(/\/+$/, "");
       if (typeof item.match !== "string" || item.match.trim().length < 6) {
         console.error(`[TOOL_FAILED: allow entry match must be at least 6 characters: '${item.match || ""}']`);
         process.exit(2);

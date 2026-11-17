@@ -23,14 +23,14 @@ import { runGroundTruthFuzz } from "./fuzz-truth";
 import { runWorkflowGuardSuite } from "./workflow-guard";
 import { runBaselineSuite } from "./baseline-suite";
 import { runRulesDiffSuite } from "./rules-diff-suite";
+import { runAllowlistSuite } from "./allowlist-suite";
+import { runEnvGitSuite } from "./env-git-suite";
 import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
 const GATE_PATH = join(REPO_ROOT, "templates/enforcement/astesia-gate.ts");
 const RULES_PATH = join(REPO_ROOT, "templates/enforcement/anti-patterns.json");
-const TEST_DIR = join(REPO_ROOT, ".astesia/verification/harness-run");
-
-rmSync(TEST_DIR, { recursive: true, force: true });
+const TEST_DIR = join(REPO_ROOT, `.astesia/verification/harness-run-${Date.now()}`);
 mkdirSync(TEST_DIR, { recursive: true });
 
 const FIXTURES_DIR = join(TEST_DIR, "fixtures");
@@ -324,6 +324,15 @@ export const testCases: TestCase[] = [
     description: "Unclosed literal at EOF must emit synthetic TOKENIZER_DESYNC warning"
   },
   {
+    id: "ADV-07-DOUBLE-QUOTE",
+    ruleId: "TOKENIZER_DESYNC",
+    category: "adversarial",
+    relPath: "adv/unclosed_double_quote.ts",
+    content: 'const unclosed = "this string is unclosed;\nconst val: any = 1;\n',
+    expectedShouldTrigger: false,
+    description: "Single-line double-quoted string terminated at newline does not cause TOKENIZER_DESYNC"
+  },
+  {
     id: "ADV-PHP-MULTILINE",
     ruleId: "ASTESIA-002",
     category: "adversarial",
@@ -410,6 +419,10 @@ export const testCases: TestCase[] = [
   },
   { id: "SEC-24", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec24.ts", content: 'const secret = "a1b2c3d4e5f6g7h8";\n', expectedShouldTrigger: true, description: "Alphanumeric secret without spaces" },
   { id: "SEC-25", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec25.ts", content: 'const authToken = "dXNlcm5hbWU6cGFzc3dvcmQ=";\n', expectedShouldTrigger: true, description: "Base64 credential string with =" },
+  { id: "SEC-21-orig", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec21-orig.ts", content: 'const tokenType = "application/json";\n', expectedShouldTrigger: false, description: "Original SEC-21: MIME type under *Type key must not trigger" },
+  { id: "SEC-25-orig", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec25-orig.ts", content: 'const authHeader = "Basic dXNlcm5hbWU6cGFzc3dvcmQ=";\n', expectedShouldTrigger: true, description: "Original SEC-25: Basic auth header credentials with space must trigger ASTESIA-004" },
+  { id: "SEC-F1-STORAGE-KEY", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec_f1_storage.ts", content: 'const cache_key = "user_profile_cache_v1";\n', expectedShouldTrigger: false, description: "F1: cache_key is non-sensitive and must not trigger" },
+  { id: "SEC-F1-AUTH-BEARER", ruleId: "ASTESIA-004", category: "security", relPath: "sec/sec_f1_bearer.ts", content: 'const authHeader = "Bearer eyJhbGciOiJIUzI1NiJ9";\n', expectedShouldTrigger: true, description: "F1: Bearer token in authHeader must trigger" },
 
   // ================= T4 BLOCK COMMENT ASTESIA-ALLOW =================
   {
@@ -445,7 +458,14 @@ export const testCases: TestCase[] = [
   { id: "008-TEMP-FIX", ruleId: "ASTESIA-008", category: "new", relPath: "new/temp_fix.ts", content: "// temporary fix for deadlock\nexport const y = 2;\n", expectedShouldTrigger: true, description: "ASTESIA-008: temporary fix comment" },
   { id: "008-NEG-HACKATHON", ruleId: "ASTESIA-008", category: "new", relPath: "new/hackathon.ts", content: "// Created during company hackathon event\nexport const z = 3;\n", expectedShouldTrigger: false, description: "ASTESIA-008 negative: hackathon must not trigger" },
   { id: "008-NEG-SHACK", ruleId: "ASTESIA-008", category: "new", relPath: "new/shack.ts", content: "// Radio shack controller\nexport const a = 4;\n", expectedShouldTrigger: false, description: "ASTESIA-008 negative: shack must not trigger" },
-  { id: "008-NEG-TEMP-DIR", ruleId: "ASTESIA-008", category: "new", relPath: "new/temp_dir.ts", content: "// Temporary directory helper for cleanup\nexport const b = 5;\n", expectedShouldTrigger: false, description: "ASTESIA-008 negative: Temporary directory helper must not trigger" }
+  { id: "008-NEG-TEMP-DIR", ruleId: "ASTESIA-008", category: "new", relPath: "new/temp_dir.ts", content: "// Temporary directory helper for cleanup\nexport const b = 5;\n", expectedShouldTrigger: false, description: "ASTESIA-008 negative: Temporary directory helper must not trigger" },
+
+  // ================= REAL WORLD & CONFIG PROFILE TEST CASES =================
+  { id: "RW-THEME-KEY", ruleId: "ASTESIA-004", category: "new", relPath: "new/theme_key.ts", content: 'export const THEME_STORAGE_KEY = "terminal_portfolio_theme";\n', expectedShouldTrigger: false, description: "Real-world terminal-portfolio THEME_STORAGE_KEY must not trigger ASTESIA-004" },
+  { id: "RW-DOCKERFILE", ruleId: "TOKENIZER_DESYNC", category: "new", relPath: "new/Dockerfile", content: 'RUN set -eux; \\\n    apt-get update; \\\n    echo "test \'$var\' \\"done\\"";\n', expectedShouldTrigger: false, description: "Real-world Dockerfile multiline command must not desync tokenizer" },
+  { id: "CFG-DOCKER-COMMENT", ruleId: "TOKENIZER_DESYNC", category: "new", relPath: "new/Dockerfile.test", content: '# Dockerfile comment\nFROM alpine:latest\n# Second comment\n', expectedShouldTrigger: false, description: "Dockerfile comments handled by config profile" },
+  { id: "CFG-YAML-MULTILINE", ruleId: "TOKENIZER_DESYNC", category: "new", relPath: "new/config.yml", content: 'key: "value"\n# comment\nanother: \'quoted string\'\n', expectedShouldTrigger: false, description: "YAML config file handled by config profile" },
+  { id: "CFG-ENV-COMMENTS", ruleId: "TOKENIZER_DESYNC", category: "new", relPath: "new/.env.test", content: '# Env comment\nFOO=bar\n# Baz comment\n', expectedShouldTrigger: false, description: "Env file comments handled by config profile" }
 ];
 
 testCases.push(...independentCases);
@@ -510,7 +530,9 @@ const categoryStats: Record<string, CategoryStats> = {
   baseline: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   rules_diff: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   ci_guard: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  fuzz_truth: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  fuzz_truth: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  allowlist: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -732,19 +754,73 @@ if (!guardRes.passed) {
   failedCases.push({ id: "workflow-guard", category: "ci_guard", reason: "Workflow guard failed on authentic or mutations" });
 }
 
-// ================= GROUND TRUTH FUZZING (C6: Seeds 7001 & 7002, 2,000 files each) =================
+// ================= GROUND TRUTH FUZZING (C6: Seeds 7001, 7002 & 7003, 2,000 files each) =================
 const fuzz7001Dir = join(TEST_DIR, "fuzz-7001-ce");
 const fuzz7002Dir = join(TEST_DIR, "fuzz-7002-ce");
+const fuzz7003Dir = join(TEST_DIR, "fuzz-7003-ce");
 const f7001 = runGroundTruthFuzz(7001, 2000, fuzz7001Dir);
 const f7002 = runGroundTruthFuzz(7002, 2000, fuzz7002Dir);
-categoryStats.fuzz_truth.total = 2;
-categoryStats.fuzz_truth.passed = (f7001.passed ? 1 : 0) + (f7002.passed ? 1 : 0);
-categoryStats.fuzz_truth.failed = 2 - categoryStats.fuzz_truth.passed;
+const f7003 = runGroundTruthFuzz(7003, 2000, fuzz7003Dir);
+categoryStats.fuzz_truth.total = 3;
+categoryStats.fuzz_truth.passed = (f7001.passed ? 1 : 0) + (f7002.passed ? 1 : 0) + (f7003.passed ? 1 : 0);
+categoryStats.fuzz_truth.failed = 3 - categoryStats.fuzz_truth.passed;
 if (!f7001.passed) {
   failedCases.push({ id: "fuzz-7001", category: "fuzz_truth", reason: f7001.errors.slice(0, 3).join("; ") });
 }
 if (!f7002.passed) {
   failedCases.push({ id: "fuzz-7002", category: "fuzz_truth", reason: f7002.errors.slice(0, 3).join("; ") });
+}
+if (!f7003.passed) {
+  failedCases.push({ id: "fuzz-7003", category: "fuzz_truth", reason: f7003.errors.slice(0, 3).join("; ") });
+}
+
+// ================= ALLOWLIST SUITE (F3: 15 Scenarios) =================
+const allowlistTmpDir = join(TEST_DIR, "suite-allowlist");
+const allowlistRes = runAllowlistSuite(GATE_PATH, allowlistTmpDir);
+categoryStats.allowlist.total = allowlistRes.total;
+categoryStats.allowlist.passed = allowlistRes.passed;
+categoryStats.allowlist.failed = allowlistRes.failed;
+for (const sc of allowlistRes.results) {
+  if (!sc.passed) {
+    failedCases.push({ id: sc.id, category: "allowlist", reason: sc.error || `Expected exit ${sc.expectedExit}, got ${sc.actualExit}` });
+  }
+}
+
+// ================= ENV GIT SUITE (F4: 5 Scenarios) =================
+const envGitTmpDir = join(TEST_DIR, "suite-env-git");
+const envGitRes = runEnvGitSuite(GATE_PATH, envGitTmpDir);
+categoryStats.env_git.total = envGitRes.total;
+categoryStats.env_git.passed = envGitRes.passed;
+categoryStats.env_git.failed = envGitRes.failed;
+for (const sc of envGitRes.results) {
+  if (!sc.passed) {
+    failedCases.push({ id: sc.id, category: "env_git", reason: `Expected skipped ${sc.expectedSkipped}, got ${sc.actualSkipped}` });
+  }
+}
+
+// ================= BIDIRECTIONAL KNOWN-GAPS VALIDATION =================
+const knownGapsRegistryPath = join(__dirname, "known-gaps.json");
+const registryContent = JSON.parse(readFileSync(knownGapsRegistryPath, "utf8")) as Array<{
+  id: string;
+  rule: string;
+  fixture: string;
+  reason: string;
+}>;
+
+const registryIds = new Set(registryContent.map((k) => k.id));
+const executionIds = new Set(knownGapList.map((k) => k.id));
+
+for (const reg of registryContent) {
+  if (!executionIds.has(reg.id)) {
+    console.error(`FATAL: known-gaps.json entry '${reg.id}' was NOT executed in harness!`);
+    process.exit(2);
+  }
+}
+for (const exec of knownGapList) {
+  if (!registryIds.has(exec.id)) {
+    console.error(`FATAL: executed known gap '${exec.id}' is NOT registered in known-gaps.json!`);
+    process.exit(2);
+  }
 }
 
 // Invariant assertions: total === passed + failed + known_gaps
@@ -755,8 +831,10 @@ for (const [k, v] of Object.entries(categoryStats)) {
   }
 }
 
-// Clean up fixtures from disk so repo stays clean
-rmSync(TEST_DIR, { recursive: true, force: true });
+// Clean up fixtures from disk so repo stays clean (best effort on Windows)
+try {
+  rmSync(TEST_DIR, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
+} catch {}
 
 // Build Total Stats
 const totalStats = {

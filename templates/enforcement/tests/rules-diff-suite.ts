@@ -118,6 +118,29 @@ export function runRulesDiffSuite(
       head: { rules: [{ ...sampleBaseRule, extensions: [".ts", ".js", ".tsx"] }] },
       expectedExit: 0,
       expectStderr: "extensions for rule"
+    },
+    {
+      id: "rd11",
+      description: "Rule extensions narrowed in head -> rejected (exit 1)",
+      base: { rules: [{ ...sampleBaseRule, extensions: [".ts", ".js", ".py"] }] },
+      head: { rules: [{ ...sampleBaseRule, extensions: [".ts", ".js"] }] },
+      expectedExit: 1,
+      expectStderr: "narrowed extensions"
+    },
+    {
+      id: "rd12",
+      description: "Rule extensions broadened in head -> allowed with notice (exit 0)",
+      base: { rules: [{ ...sampleBaseRule, extensions: [".ts"] }] },
+      head: { rules: [{ ...sampleBaseRule, extensions: [".ts", ".tsx"] }] },
+      expectedExit: 0,
+      expectStderr: "broadened"
+    },
+    {
+      id: "rd13",
+      description: "Rule extensions reordered in head -> equivalent set allowed (exit 0)",
+      base: { rules: [{ ...sampleBaseRule, extensions: [".js", ".ts"] }] },
+      head: { rules: [{ ...sampleBaseRule, extensions: [".ts", ".js"] }] },
+      expectedExit: 0
     }
   ];
 

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "007-EC2b",
+    "rule": "ASTESIA-007",
+    "fixture": "r007/ec2b_cross_function_helper.ts",
+    "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
+    "source": "wave1.1-report"
+  },
+  {
+    "id": "ADV-BACKTICK-IN-REGEX-GAP",
+    "rule": "ASTESIA-005",
+    "fixture": "adv/backtick-in-regex.ts",
+    "reason": "Backtick inside regex literal (/`/) can open false template literal in tokenizer",
+    "source": "wave1.1-report"
+  },
+  {
+    "id": "SEC-23-GAP",
+    "rule": "ASTESIA-004",
+    "fixture": "sec/sec23.ts",
+    "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+    "source": "wave1.1-report"
+  },
+  {
+    "id": "D2-REG-BACKTICK-GAP",
+    "rule": "ASTESIA-005",
+    "fixture": "indep/d2_gap1.ts",
+    "reason": "Adversarial known-gap: backtick inside regex literal",
+    "source": "wave1.1-verification"
+  },
+  {
+    "id": "D2-PHP-HEREDOC",
+    "rule": "ASTESIA-002",
+    "fixture": "indep/d2_gap2.php",
+    "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer",
+    "source": "wave1.1-verification"
+  },
+  {
+    "id": "D4-21-GAP",
+    "rule": "ASTESIA-004",
+    "fixture": "indep/d4_gap.ts",
+    "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+    "source": "wave1.1-verification"
+  }
+]
