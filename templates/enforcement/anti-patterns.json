@@ -101,7 +101,7 @@
       "description": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
       "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately.",
       "scope": "comment",
-      "pattern": "^(?!.*astesia-debt:).*?\\b(TODO|FIXME|HACK|WORKAROUND)\\b",
+      "pattern": "^(?!.*astesia-debt:).*?\\b(TODO|FIXME|HACK|WORKAROUND|FOR NOW|TEMPORARY FIX)\\b",
       "flags": "i",
       "origin": "AUD-009 (Wave 1 hardening)"
     },
