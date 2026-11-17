@@ -65,7 +65,7 @@ Before performing any action, the AI agent MUST read `.astesia/astesia-state.jso
 
 If the target project is NOT the result of `/astesia-init` (i.e., no `.astesia/` folder exists, or the project has existing source code without Astesia artifacts):
 1. Initialize `.astesia/astesia-state.json` using `templates/astesia-state-template.json`.
-2. Load and execute `skills/engineering/brownfield-entry.md` skill.
+2. Load and execute `skills/brownfield-entry/SKILL.md` skill.
 3. Generate `.astesia/system-map.md` using trace-by-function methodology.
 4. Set `current_layer` in state to the layer matching the user's request.
 5. Only then proceed to Boot Stage 3.
@@ -106,7 +106,7 @@ If `.astesia/system-map.md` exists in the target project:
 ## Boot Stage 4.5 — Error Recovery Baseline
 
 - If `.astesia/astesia-state.json` has `blocking_issues[]` with entries OR any `layer_statuses` value is `"failed"`:
-  - Load and prioritize the `skills/engineering/self-healing.md` skill.
+  - Load and prioritize the `skills/self-healing/SKILL.md` skill.
   - The immediate goal shifts from feature development to **remediation**.
   - Focus strictly on resolving the listed blocking issues before proceeding to new work.
   - After each fix, update `blocking_issues[]` in state (remove resolved items, add new ones if discovered).

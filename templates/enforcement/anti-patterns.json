@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "_comment": "Astesia Anti-Pattern Registry. Every rule is born from an observed agent mistake (origin). Never delete a rule without an ADR. New rules enter via skills/quality/lint-ratchet.md.",
+  "_comment": "Astesia Anti-Pattern Registry. Every rule is born from an observed agent mistake (origin). Never delete a rule without an ADR. New rules enter via skills/lint-ratchet/SKILL.md.",
   "rules": [
     {
       "id": "ASTESIA-000",

@@ -8,7 +8,7 @@
 - [ ] Read `.astesia/brd.md` (Product Layer output).
 - [ ] Read `.astesia/design-system.md` (Design Layer output) — if applicable.
 - [ ] Read `.astesia/system-map.md` (Brownfield only) — if exists.
-- [ ] Load `rules/engineering-rules.md` (all 24 Directives).
+- [ ] Load `rules/engineering-rules.md` (all 29 Directives).
 - [ ] Verify `astesia-state.json` shows prerequisite layers as `done`.
 - [ ] Check `blocking_issues[]` — resolve before proceeding if non-empty.
 - [ ] Re-inject `active_skills[]` content from previous phase if resuming.
@@ -24,14 +24,14 @@
   - [ ] Validation library
 - [ ] Choose architecture pattern (Modular Monolith by default — justify if different).
 - [ ] Document any Architecture Decision Records (ADRs).
-- [ ] Define the folder structure following `skills/architecture/layered-architecture`.
+- [ ] Define the folder structure following `skills/layered-architecture/SKILL.md`.
 - [ ] Update `astesia-state.json` `metadata.tech_stack` with chosen stack.
 
 ## 3. Implementation (Multi-Agent Orchestration — Task Waves)
 
 The Engineering Agent MUST act as a **Planner** and delegate execution to subagents. Do NOT implement features sequentially yourself.
 
-- [ ] **Decompose into Task Waves:** Use `skills/engineering/task-waves.md` to break the BRD features into Waves (e.g., Wave 1: DB Schema, Wave 2: Services, Wave 3: API/UI).
+- [ ] **Decompose into Task Waves:** Use `skills/task-waves/SKILL.md` to break the BRD features into Waves (e.g., Wave 1: DB Schema, Wave 2: Services, Wave 3: API/UI).
 - [ ] **Invoke Subagents:** For each task in a Wave, use the `invoke_subagent` tool to spawn Executor subagents in parallel.
   - Assign each subagent a clear, bounded task.
   - Wait for all subagents in the current Wave to complete.
@@ -39,10 +39,10 @@ The Engineering Agent MUST act as a **Planner** and delegate execution to subage
   - The QA Auditor must cross-check the Executors' output against the Engineering Rules (Directive #24) and the BRD.
   - If the Auditor flags errors, spawn Executors to fix them. DO NOT move to the next Wave until the QA Auditor approves the current Wave.
 - [ ] **Deterministic Gate (Directive #29):** Before each Auditor run, execute `bun .astesia/enforcement/astesia-gate.ts`. Non-zero exit = wave rejected automatically; pass the output to the Executor. Never edit `.astesia/anti-patterns.json` or the gate to pass.
-- [ ] **Independent Verification:** The Auditor is a fresh-context Verifier (`skills/quality/independent-verification`). It must write `.astesia/verification/wave-N.md` with real commands/output and a behavioral run. No evidence file = wave not done.
-- [ ] **Gardening Wave:** If the gate reports legacy `error` violations or `astesia-debt:` markers, schedule a separate behavior-preserving wave (`skills/engineering/codebase-gardening`) — never mix it into feature waves.
+- [ ] **Independent Verification:** The Auditor is a fresh-context Verifier (`skills/independent-verification/SKILL.md`). It must write `.astesia/verification/wave-N.md` with real commands/output and a behavioral run. No evidence file = wave not done.
+- [ ] **Gardening Wave:** If the gate reports legacy `error` violations or `astesia-debt:` markers, schedule a separate behavior-preserving wave (`skills/codebase-gardening/SKILL.md`) — never mix it into feature waves.
 - [ ] **Enforce Minimalist Protocol on Subagents:** Instruct every Executor subagent to run the "Minimalist Ladder" (Can this be 1 line? Can native/stdlib do this?) before writing boilerplate.
-- [ ] **Enforce TDD on Subagents:** Subagents must follow the RED-GREEN-REFACTOR cycle (`skills/quality/vitest-unit-testing`).
+- [ ] **Enforce TDD on Subagents:** Subagents must follow the RED-GREEN-REFACTOR cycle (`skills/vitest-unit-testing/SKILL.md`).
 
 Implementation Wave Order Guidelines:
 - Wave 1: Database schema (`src/db/schema.ts`) — Drizzle ORM
@@ -53,7 +53,7 @@ Implementation Wave Order Guidelines:
 Per-file requirements:
 - [ ] Every file has a **Header Doc** (Directive #19).
 - [ ] Every edit is preceded by a **Pre-Edit Trace Note** (Directive #22).
-- [ ] Input validation uses Zod schemas (Directive #17, `skills/engineering/zod-validation`).
+- [ ] Input validation uses Zod schemas (Directive #17, `skills/zod-validation/SKILL.md`).
 - [ ] No hardcoded secrets (Directive #17).
 - [ ] Database queries follow DBA-Grade standards (Directive #21).
 

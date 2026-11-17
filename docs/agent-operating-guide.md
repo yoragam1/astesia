@@ -67,7 +67,7 @@ Unlike standard coding assistants, Astesia agents **must leave a paper trail** a
 `Product (BRD) → Design → Engineering (Architecture & Execute) → Quality Audit → DevOps`
 
 Within the Engineering Layer, execution is orchestrated via Antigravity Subagents (`invoke_subagent`):
-1. **The Planner (Architect):** Decomposes the architectural plan into **Task Waves** (Foundation → Core → Integration). See `skills/engineering/task-waves.md`.
+1. **The Planner (Architect):** Decomposes the architectural plan into **Task Waves** (Foundation → Core → Integration). See `skills/task-waves/SKILL.md`.
 2. **The Executors:** Multiple subagents are invoked in parallel to execute independent tasks within a wave.
 3. **The QA Auditor:** A separate subagent cross-checks the executor's output against the BRD and Engineering Rules.
 
@@ -141,7 +141,7 @@ To prevent massive API bills and token bloat, Astesia agents MUST adhere to thes
 
 Generation is cheap; **verification is the bottleneck.** Astesia never trusts an agent's claim of success and never relies on prose to constrain agents.
 
-1. **Trust Pyramid** (`skills/quality/trust-pyramid.md`): enforce at the hardest layer possible — `L1 Types/Architecture → L2 Lint/CI (anti-patterns.json, tests) → L3 Prose rules → L4 Human review (sampled)`. Prose is the last resort.
+1. **Trust Pyramid** (`skills/trust-pyramid/SKILL.md`): enforce at the hardest layer possible — `L1 Types/Architecture → L2 Lint/CI (anti-patterns.json, tests) → L3 Prose rules → L4 Human review (sampled)`. Prose is the last resort.
 2. **Mistake → Rule Ratchet** (`lint-ratchet`): every pattern-shaped failure becomes a proven, append-only rule in `.astesia/anti-patterns.json`. The framework only gets stricter.
 3. **Independent Verification** (`independent-verification`): author ≠ verifier. "Done" requires an evidence file in `.astesia/verification/` including a behavioral run.
 4. **Deterministic Gate:** `bun .astesia/enforcement/astesia-gate.ts` must exit 0 before any handoff. Agents may never edit the gate or registry to pass it.

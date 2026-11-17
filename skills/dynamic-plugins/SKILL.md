@@ -43,7 +43,7 @@ node .astesia/plugins/parse-abi.js ./contracts/MyToken.json
 ```
 
 ### Step 4: Promote to Permanent Skill (Optional)
-If the plugin is highly successful and reusable, write a corresponding `[plugin-name].md` file in `skills/devops/` explaining how other Agents can use this new script.
+If the plugin is highly successful and reusable, create a permanent skill directory at `skills/<plugin-name>/SKILL.md` (following `skills/SKILL-TEMPLATE.md`) explaining how other Agents can use this new script.
 
 ## 4. Anti-Patterns
 - ❌ **Over-engineering:** Do not write a massive 500-line framework. Plugins should be tiny, disposable scripts.

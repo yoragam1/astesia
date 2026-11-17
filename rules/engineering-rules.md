@@ -9,7 +9,7 @@ These rules define the strict constraints for the Astesia Engineering Agent. **A
 
 ---
 
-## B. The 23 Core Structural Directives
+## B. The 29 Core Structural Directives
 
 # 1. Architecture Layering & Adaptive Legacy Fallback
 Applications must follow a layered architecture. Recommended structure: API / Controller layer, Service layer, Repository / Data layer. Business logic must never be placed inside controllers.
@@ -186,7 +186,7 @@ Astesia Engineering MUST act as a "Lazy Senior Dev". Before writing code, you MU
 
 
 # 29. Trust Pyramid: Constrain by Code, Not Prose *(NEW - Verification-First)*
-Before adding or obeying any soft rule, apply `skills/quality/trust-pyramid.md`:
+Before adding or obeying any soft rule, apply `skills/trust-pyramid/SKILL.md`:
 1. **Types & structure first:** make the wrong code unrepresentable (Zod-inferred types, narrow module APIs, layer boundaries).
 2. **Registry second:** if a mistake is pattern-shaped, it belongs in `.astesia/anti-patterns.json` (see `lint-ratchet`), not in a paragraph.
 3. **Run the gate:** before every Executor handoff, `bun .astesia/enforcement/astesia-gate.ts` MUST exit 0. Never edit the registry or gate to make a run pass.

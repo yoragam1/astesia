@@ -1,6 +1,6 @@
 {
   "name": "astesia-os",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Astesia Multi-Layer Autonomous AI Framework",
   "main": "index.js",
   "scripts": {},

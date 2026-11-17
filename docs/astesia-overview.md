@@ -1,7 +1,7 @@
 # Astesia System Overview
 
-**Version:** 2.1  
-**Last Updated:** 2026-04-24
+**Version:** 3.0.0  
+**Last Updated:** 2026-11-17
 
 Astesia is a multi-layered, end-to-end software development framework designed to guide AI agents in automating the entire Product Lifecycle.
 
@@ -145,7 +145,7 @@ These are Astesia's **opinionated defaults**. They can be overridden by explicit
 Use `/astesia-init` → Follow full pipeline: Product → Design → Engineering → Quality → DevOps.
 
 ### Brownfield (Existing Project)
-Use the **Brownfield Entry Protocol** (see `skills/engineering/brownfield-entry.md`):
+Use the **Brownfield Entry Protocol** (see `skills/brownfield-entry/SKILL.md`):
 1. Generate `.astesia/system-map.md` via trace-by-function analysis
 2. Initialize `.astesia/astesia-state.json` with current project state
 3. Enter the appropriate layer based on the user's request

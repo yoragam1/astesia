@@ -74,7 +74,7 @@ Use the template at `templates/system-map-template.md`. The output MUST contain:
 6. **External Integrations** — APIs, queues, third-party services
 7. **Risks / Blind Spots** — Dynamic imports, generated code, missing configs
 
-> **Conceptual Tags are MANDATORY** for each module entry. They enable tag-based semantic navigation (see `skills/engineering/context-navigation.md`). Example: `[auth, jwt, middleware]`, `[payment, webhook, stripe]`.
+> **Conceptual Tags are MANDATORY** for each module entry. They enable tag-based semantic navigation (see `skills/context-navigation/SKILL.md`). Example: `[auth, jwt, middleware]`, `[payment, webhook, stripe]`.
 
 ### Step 6: Scope Declaration — Before Writing Any Code *(NEW)*
 Before modifying a single file, explicitly declare to the user:

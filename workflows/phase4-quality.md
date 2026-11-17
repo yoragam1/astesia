@@ -78,7 +78,7 @@
 - [ ] Inform the user of the transition to DevOps.
 
 ### If ANY check fails:
-- [ ] **Mistake-to-Rule Ratchet (Quality Rule #10):** For each pattern-shaped failure (or any failure repeated twice), run `skills/quality/lint-ratchet`: add a proven rule to `.astesia/anti-patterns.json` and log it in `enforcement.rules_added[]`.
+- [ ] **Mistake-to-Rule Ratchet (Quality Rule #10):** For each pattern-shaped failure (or any failure repeated twice), run `skills/lint-ratchet/SKILL.md`: add a proven rule to `.astesia/anti-patterns.json` and log it in `enforcement.rules_added[]`.
 - [ ] Check `astesia-state.json` history for previous failed attempts.
 - [ ] **Retry Limit Check:** If the Quality layer has failed and returned to Engineering 3 times already:
   - **ESCALATION:** Set `status` to `halted` in `astesia-state.json`.
