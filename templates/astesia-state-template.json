@@ -2,6 +2,7 @@
   "project_name": "INSERT_PROJECT_NAME",
   "status": "active",
   "entry_type": "greenfield",
+  "mode": "full",
   "current_layer": "product",
   "layer_statuses": {
     "product": "pending",

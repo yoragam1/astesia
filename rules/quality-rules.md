@@ -17,9 +17,9 @@ Enforce an 80% code coverage baseline. If tests are hard to write, flag the modu
 
 ## 5. Documentation Sync Audit
 Verify that:
-- Every source code file has a **Header Doc** that is accurate and complete (as defined in Engineering Directive #19).
-- `.astesia/system-map.md` (if exists) is still synchronized with the actual code state.
-- If Header Docs are found to be **missing, stale, or inaccurate**, FAIL the audit and return to Engineering with a detailed report of which files need documentation fixes.
+- `.astesia/system-map.md` (if exists) is synchronized with the actual architecture, modules, and API routes.
+- Architectural decisions in `architecture.md` are accurately reflected in the code.
+- If documentation is found to be **missing, stale, or contradicted by code**, FAIL the audit and return to Engineering with a detailed report.
 
 Documentation debt is treated with the same severity as code bugs.
 

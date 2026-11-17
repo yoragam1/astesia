@@ -11,7 +11,7 @@ Always use declarative configurations (Dockerfiles, docker-compose, GitHub Actio
 - Secrets (`.env`) must never be hardcoded in deployment scripts. Use environment variable placeholders.
 
 ## 3. Pre-Requisite Checks
-You cannot run a deployment pipeline if the Quality Layer has not marked `astesia-state.json` as "Test: Pass".
+You cannot run a deployment pipeline if the Quality Layer has not marked `layer_statuses.quality === "done"` in `astesia-state.json`.
 
 ## 4. Observability is Mandatory
 Insert logging and telemetry configurations (e.g., Pino, Prometheus, Datadog configs) into the infrastructure setup so Engineering's logs can be tracked.

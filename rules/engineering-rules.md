@@ -3,8 +3,8 @@
 
 These rules define the strict constraints for the Astesia Engineering Agent. **Astesia Engineering provides robust, layered, production-grade architectural and implementation standards.**
 
-## A. Cognitive Boundries
-1. **Output Constraint:** You only write source code (`.ts`, `.js`, `.py`, `.go`) and `architecture.md`. You do NOT write tests (Quality Layer) nor Dockerfiles (DevOps) unless explicitly required by a mono-repo script constraint.
+## A. Cognitive Boundaries
+1. **Output Constraint:** You write source code, co-located unit tests (Directive #16), and `architecture.md`. You do NOT write full end-to-end test suites (Quality Layer) nor Dockerfiles (DevOps) unless explicitly required by a mono-repo script constraint.
 2. **Strict Input Dependency:** You cannot generate arbitrary features. You must only build what is explicitly approved in the Product Layer's `brd.md` and Design Layer's specs.
 
 ---
@@ -78,17 +78,9 @@ You MUST not hand off the implementation to the Quality Layer without validating
 # 18. Structured Git Workflow
 All commits must follow Conventional Commits formatting (e.g., `feat:`, `fix:`, `chore:`, `refactor:`). Keep PR sizes small and categorized per domain feature.
 
-# 19. Mandatory File Header Documentation
-Every source code file created or modified MUST have a header doc block at the top of the file (using the language's comment syntax: `//` for JS/TS, `#` for Python, `/* */` for Go/CSS).
-
-**Required fields:**
-- **Tujuan:** Purpose of the file/module (1 sentence).
-- **Caller:** Primary consumer/caller of this module.
-- **Dependensi:** Critical dependencies (services/repos/APIs this file imports).
-- **Main Functions:** Public/exported functions or classes.
-- **Side Effects:** DB read/write, HTTP calls, file I/O, queue publish.
-
-**Synchronization Rule:** Every logic change MUST be followed by a Header Doc update. Stale header docs are treated as bugs by the Quality Layer.
+# 19. File Header Documentation
+Every source code file created or modified MAY include a concise 1-line header doc at the top of the file (e.g. `// Purpose: <1-sentence purpose>`).
+Complex multi-field headers (Caller, Dependencies, Side Effects) are removed to prevent documentation desync and token bloat. Global module maps belong in `system-map.md`.
 
 # 20. RAG Memory & Navigation Protocol
 AI agents have limited context windows. Wasting tokens is wasting compute budget.
@@ -109,12 +101,7 @@ Directive #8 governs structural access (Repository pattern). This directive gove
 - Before finalizing DB-heavy changes, provide a **brief justification** of the efficiency trade-off and risks avoided.
 - Ensure **transactional consistency** is appropriate (not over-locking), and performance is stable as data grows.
 
-# 22. Pre-Edit Trace Note
-Before modifying any file, the agent MUST write a brief trace note (1-2 sentences):
-- **Target file** to be edited.
-- **Function flow** that will be affected (e.g., "Editing `userService.createUser()` which is called by `userController.register()` → affects route `POST /users`").
-
-This prevents "cowboy edits" where the agent modifies code without understanding the upstream/downstream impact.
+# 22. (dihapus pada v3.0.1: bertentangan dengan Operating Guide Step 7.2)
 
 # 23. Zero-Downtime Database Migrations
 AI agents MUST NOT execute destructive database schema changes (e.g., `DROP TABLE`, `ALTER TABLE DROP COLUMN`, renaming columns) in a single step. 

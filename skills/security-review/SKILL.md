@@ -49,11 +49,11 @@ const CreateUserSchema = z.object({
 ### 3. SQL Injection Prevention
 #### FAIL: NEVER Concatenate SQL
 ```typescript
-const query = `SELECT * FROM users WHERE email = '${userEmail}'` // VULNERABLE
+const query = `SELECT id, name, email FROM users WHERE email = '${userEmail}'` // VULNERABLE
 ```
 #### PASS: ALWAYS Use Parameterized Queries (or ORMs like Drizzle)
 ```typescript
-await db.query('SELECT * FROM users WHERE email = $1', [userEmail])
+await db.query('SELECT id, name, email FROM users WHERE email = $1', [userEmail])
 ```
 
 ### 4. Authentication & Authorization
