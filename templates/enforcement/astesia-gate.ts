@@ -5,15 +5,17 @@
  * Input   : .astesia/anti-patterns.json (rule registry) + the project source tree.
  * Output  : Violations on stdout (human or --json), exit code 1 if any `error` rule is violated
  *           (or `warn` count exceeds --max-warn, the ratchet).
- * Run     : bun .astesia/enforcement/astesia-gate.ts [--root .] [--rules .astesia/anti-patterns.json]
+ * Run     : bun templates/enforcement/astesia-gate.ts [--root .] [--rules templates/enforcement/anti-patterns.json]
  *                                                    [--json] [--max-warn N]
- * Escape  : `astesia-allow: <rule-id> -- <reason>` on the same or the previous line. Reason is mandatory.
+ * Escape  : `astesia-allow: <rule-id> -- <reason>` on the same or previous line. Reason >= 15 chars.
+ *           Banned for ASTESIA-000 and ASTESIA-004.
  * Deps    : none (node:fs / node:path only; runs on Bun or Node >= 18 with a TS loader).
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, extname, join, relative, resolve } from "node:path";
 
 type Severity = "error" | "warn";
+type RuleScope = "code" | "comment";
 
 interface LineRegexRule {
   id: string;
@@ -21,15 +23,11 @@ interface LineRegexRule {
   severity: Severity;
   description: string;
   fix: string;
-  /** Regex source tested against each line. */
   pattern: string;
-  /** Optional RegExp flags for `pattern` (e.g. "i"). */
   flags?: string;
-  /** Only files whose relative path matches this regex are scanned. */
   pathRegex?: string;
-  /** Files whose relative path matches this regex are skipped. */
   excludeRegex?: string;
-  /** Provenance: the incident / review that created this rule (the ratchet's paper trail). */
+  scope?: RuleScope;
   origin?: string;
 }
 
@@ -39,6 +37,7 @@ interface RelativeImportRule {
   severity: Severity;
   description: string;
   fix: string;
+  scope?: RuleScope;
   origin?: string;
 }
 
@@ -50,8 +49,10 @@ interface NestedLoopCallRule {
   fix: string;
   loopPattern: string;
   callPattern: string;
+  flags?: string;
   pathRegex?: string;
   excludeRegex?: string;
+  scope?: RuleScope;
   origin?: string;
 }
 
@@ -66,93 +67,668 @@ interface Violation {
   fix: string;
 }
 
-const SOURCE_EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue", ".py", ".go", ".php"]);
-const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "build", "coverage", ".astesia", ".next", ".svelte-kit", "vendor"]);
-const RESOLVE_EXT = ["", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue", "/index.ts", "/index.js", "/index.tsx"];
-
-function arg(name: string, fallback?: string): string | undefined {
-  const i = process.argv.indexOf(`--${name}`);
-  return i === -1 ? fallback : process.argv[i + 1];
+interface GateState {
+  suppressions: number;
+  rejectedSuppressions: number;
+  debtMarkers: number;
 }
-const flag = (name: string) => process.argv.includes(`--${name}`);
 
-function walk(dir: string, out: string[] = []): string[] {
+interface PreprocessedFile {
+  rawLines: string[];
+  codeLines: string[];
+  codeNoStringsLines: string[];
+  commentLines: string[];
+  commentBlocks: Array<{ text: string; startLine: number; endLine: number }>;
+}
+
+const SOURCE_EXT = new Set([
+  ".ts",
+  ".tsx",
+  ".js",
+  ".jsx",
+  ".mjs",
+  ".cjs",
+  ".svelte",
+  ".vue",
+  ".py",
+  ".go",
+  ".php",
+  ".yml",
+  ".yaml"
+]);
+
+const SKIP_DIRS = new Set([
+  "node_modules",
+  ".git",
+  "dist",
+  "build",
+  "coverage",
+  ".next",
+  ".svelte-kit",
+  "vendor"
+]);
+
+const RESOLVE_EXT = [
+  "",
+  ".ts",
+  ".tsx",
+  ".d.ts",
+  ".js",
+  ".jsx",
+  ".mjs",
+  ".cjs",
+  ".svelte",
+  ".vue",
+  "/index.ts",
+  "/index.tsx",
+  "/index.d.ts",
+  "/index.js"
+];
+
+function parseArgs() {
+  const args = process.argv.slice(2);
+  const flags = new Set<string>();
+  const opts = new Map<string, string>();
+
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a.startsWith("--")) {
+      const eqIdx = a.indexOf("=");
+      if (eqIdx !== -1) {
+        const key = a.slice(2, eqIdx);
+        const val = a.slice(eqIdx + 1);
+        opts.set(key, val);
+      } else {
+        const key = a.slice(2);
+        const next = args[i + 1];
+        if (next !== undefined && !next.startsWith("--")) {
+          opts.set(key, next);
+          i++;
+        } else {
+          flags.add(key);
+          opts.set(key, "");
+        }
+      }
+    }
+  }
+  return { flags, opts };
+}
+
+function preprocessSource(rawContent: string, filename: string): PreprocessedFile {
+  let text = rawContent;
+  if (text.charCodeAt(0) === 0xfeff) {
+    text = text.slice(1);
+  }
+  text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+  const ext = extname(filename).toLowerCase();
+  const lowerName = filename.toLowerCase();
+  const isHashCommentLang =
+    [".py", ".yml", ".yaml", ".sh", ".bash"].includes(ext) ||
+    lowerName.includes("dockerfile") ||
+    lowerName.startsWith(".env");
+
+  const len = text.length;
+  const codeChars: string[] = new Array(len);
+  const codeNoStringsChars: string[] = new Array(len);
+  const commentChars: string[] = new Array(len);
+
+  const S_NORMAL = 0;
+  const S_LINE_COMMENT = 1;
+  const S_BLOCK_COMMENT = 2;
+  const S_STRING_SINGLE = 3;
+  const S_STRING_DOUBLE = 4;
+  const S_STRING_BACKTICK = 5;
+
+  let state = S_NORMAL;
+  const commentBlocks: Array<{ text: string; startLine: number; endLine: number }> = [];
+  let blockStartLine = 1;
+  let blockStartIndex = 0;
+  let currentLine = 1;
+
+  for (let i = 0; i < len; i++) {
+    const ch = text[i];
+    const next = i + 1 < len ? text[i + 1] : "";
+
+    if (ch === "\n") {
+      codeChars[i] = "\n";
+      codeNoStringsChars[i] = "\n";
+      commentChars[i] = "\n";
+      currentLine++;
+      if (state === S_LINE_COMMENT) {
+        state = S_NORMAL;
+      }
+      continue;
+    }
+
+    if (state === S_NORMAL) {
+      if (ch === "/" && next === "/") {
+        state = S_LINE_COMMENT;
+        codeChars[i] = " ";
+        codeChars[i + 1] = " ";
+        codeNoStringsChars[i] = " ";
+        codeNoStringsChars[i + 1] = " ";
+        commentChars[i] = "/";
+        commentChars[i + 1] = "/";
+        i++;
+      } else if (ch === "/" && next === "*") {
+        state = S_BLOCK_COMMENT;
+        blockStartLine = currentLine;
+        blockStartIndex = i;
+        codeChars[i] = " ";
+        codeChars[i + 1] = " ";
+        codeNoStringsChars[i] = " ";
+        codeNoStringsChars[i + 1] = " ";
+        commentChars[i] = "/";
+        commentChars[i + 1] = "*";
+        i++;
+      } else if (isHashCommentLang && ch === "#") {
+        state = S_LINE_COMMENT;
+        codeChars[i] = " ";
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = "#";
+      } else if (ch === '"') {
+        state = S_STRING_DOUBLE;
+        codeChars[i] = '"';
+        codeNoStringsChars[i] = '"';
+        commentChars[i] = " ";
+      } else if (ch === "'") {
+        state = S_STRING_SINGLE;
+        codeChars[i] = "'";
+        codeNoStringsChars[i] = "'";
+        commentChars[i] = " ";
+      } else if (ch === "`") {
+        state = S_STRING_BACKTICK;
+        codeChars[i] = "`";
+        codeNoStringsChars[i] = "`";
+        commentChars[i] = " ";
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = ch;
+        commentChars[i] = " ";
+      }
+    } else if (state === S_LINE_COMMENT) {
+      codeChars[i] = " ";
+      codeNoStringsChars[i] = " ";
+      commentChars[i] = ch;
+    } else if (state === S_BLOCK_COMMENT) {
+      if (ch === "*" && next === "/") {
+        codeChars[i] = " ";
+        codeChars[i + 1] = " ";
+        codeNoStringsChars[i] = " ";
+        codeNoStringsChars[i + 1] = " ";
+        commentChars[i] = "*";
+        commentChars[i + 1] = "/";
+        commentBlocks.push({
+          text: text.slice(blockStartIndex, i + 2),
+          startLine: blockStartLine,
+          endLine: currentLine
+        });
+        i++;
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = " ";
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = ch;
+      }
+    } else if (state === S_STRING_DOUBLE) {
+      if (ch === "\\") {
+        codeChars[i] = "\\";
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+        if (i + 1 < len) {
+          i++;
+          codeChars[i] = text[i];
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        }
+      } else if (ch === '"') {
+        codeChars[i] = '"';
+        codeNoStringsChars[i] = '"';
+        commentChars[i] = " ";
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+      }
+    } else if (state === S_STRING_SINGLE) {
+      if (ch === "\\") {
+        codeChars[i] = "\\";
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+        if (i + 1 < len) {
+          i++;
+          codeChars[i] = text[i];
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        }
+      } else if (ch === "'") {
+        codeChars[i] = "'";
+        codeNoStringsChars[i] = "'";
+        commentChars[i] = " ";
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+      }
+    } else if (state === S_STRING_BACKTICK) {
+      if (ch === "\\") {
+        codeChars[i] = "\\";
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+        if (i + 1 < len) {
+          i++;
+          codeChars[i] = text[i];
+          codeNoStringsChars[i] = " ";
+          commentChars[i] = " ";
+        }
+      } else if (ch === "`") {
+        codeChars[i] = "`";
+        codeNoStringsChars[i] = "`";
+        commentChars[i] = " ";
+        state = S_NORMAL;
+      } else {
+        codeChars[i] = ch;
+        codeNoStringsChars[i] = " ";
+        commentChars[i] = " ";
+      }
+    }
+  }
+
+  const rawLines = text.split("\n");
+  const codeLines = codeChars.join("").split("\n");
+  const codeNoStringsLines = codeNoStringsChars.join("").split("\n");
+  const commentLines = commentChars.join("").split("\n");
+
+  return { rawLines, codeLines, codeNoStringsLines, commentLines, commentBlocks };
+}
+
+function isScannable(filename: string): boolean {
+  const ext = extname(filename).toLowerCase();
+  if (SOURCE_EXT.has(ext)) return true;
+  const base = filename.toLowerCase();
+  if (/^dockerfile(\.[a-z0-9_-]+)?$/i.test(base)) return true;
+  if (/^\.env(\.[a-z0-9_-]+)?$/i.test(base) && !base.endsWith(".example")) return true;
+  return false;
+}
+
+function walk(dir: string, rootDir: string, out: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
+    const rel = relative(rootDir, full).replace(/\\/g, "/");
+
+    // Skip ignored directory trees, but do NOT skip .astesia/plugins
+    if (SKIP_DIRS.has(entry)) continue;
+    if (rel === ".astesia/audit" || rel.startsWith(".astesia/audit/") ||
+        rel === ".astesia/verification" || rel.startsWith(".astesia/verification/")) {
+      continue;
+    }
+
     const st = statSync(full);
     if (st.isDirectory()) {
-      if (!SKIP_DIRS.has(entry)) walk(full, out);
-    } else if (SOURCE_EXT.has(extname(entry))) {
+      walk(full, rootDir, out);
+    } else if (isScannable(entry)) {
       out.push(full);
     }
   }
   return out;
 }
 
-/** Returns true when the violation is suppressed by a justified `astesia-allow` comment. */
-function isAllowed(lines: string[], idx: number, ruleId: string): boolean {
-  const re = new RegExp(`astesia-allow:\\s*${ruleId}\\s*--\\s*\\S+`);
-  return re.test(lines[idx]) || (idx > 0 && re.test(lines[idx - 1]));
+function checkSuppression(
+  prep: PreprocessedFile,
+  idx: number,
+  ruleId: string,
+  state: GateState
+): boolean {
+  const isBanned = ruleId === "ASTESIA-000" || ruleId === "ASTESIA-004";
+  const checkIndices = [idx];
+  if (idx > 0) checkIndices.push(idx - 1);
+
+  for (const i of checkIndices) {
+    const commentText = prep.commentLines[i];
+    if (!commentText || !commentText.trim()) continue;
+
+    const match = /(?:\/\/|#|\*)\s*astesia-allow:\s*([A-Za-z0-9_-]+)(?:\s*--\s*(.*))?$/.exec(commentText);
+    if (!match) continue;
+
+    const targetRule = match[1];
+    if (targetRule !== ruleId) continue;
+
+    const reason = match[2] ? match[2].trim() : "";
+
+    if (isBanned) {
+      state.rejectedSuppressions++;
+      return false;
+    }
+
+    if (reason.length >= 15) {
+      state.suppressions++;
+      return true;
+    } else {
+      state.rejectedSuppressions++;
+      return false;
+    }
+  }
+
+  return false;
 }
 
-function checkLineRegex(rule: LineRegexRule, rel: string, lines: string[], out: Violation[]) {
-  if (rule.pathRegex && !new RegExp(rule.pathRegex).test(rel)) return;
-  if (rule.excludeRegex && new RegExp(rule.excludeRegex).test(rel)) return;
-  const re = new RegExp(rule.pattern, rule.flags);
-  lines.forEach((text, i) => {
-    if (re.test(text) && !isAllowed(lines, i, rule.id)) {
-      out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: rule.description, fix: rule.fix });
+function checkLineRegex(
+  rule: LineRegexRule,
+  rel: string,
+  prep: PreprocessedFile,
+  out: Violation[],
+  state: GateState
+) {
+  if (rule.pathRegex && !new RegExp(rule.pathRegex, "i").test(rel)) return;
+  if (rule.excludeRegex && new RegExp(rule.excludeRegex, "i").test(rel)) return;
+
+  const scope = rule.scope || "code";
+  let targetLines: string[];
+
+  if (scope === "comment") {
+    targetLines = prep.commentLines;
+  } else {
+    // Syntax-only rules run on codeNoStringsLines to eliminate string false positives
+    if (["ASTESIA-005", "ASTESIA-006", "ASTESIA-009"].includes(rule.id)) {
+      targetLines = prep.codeNoStringsLines;
+    } else {
+      targetLines = prep.codeLines;
+    }
+  }
+
+  const flags = rule.flags || "";
+  const re = new RegExp(rule.pattern, flags);
+
+  // Special handler for ASTESIA-003: multi-line block comments and empty clauses
+  if (rule.id === "ASTESIA-003") {
+    for (let i = 0; i < prep.commentLines.length; i++) {
+      const line = prep.commentLines[i];
+      if (!line.includes("astesia-debt:")) continue;
+
+      const block = prep.commentBlocks.find(
+        (b) => b.startLine <= i + 1 && i + 1 <= b.endLine
+      );
+
+      if (block) {
+        const debtIdx = block.text.indexOf("astesia-debt:");
+        const textAfter = block.text.slice(debtIdx);
+        const hasValidDebt = /astesia-debt:\s*\S+(?:(?!upgrade:).)*upgrade:\s*\S+/s.test(textAfter);
+        if (!hasValidDebt && !checkSuppression(prep, i, rule.id, state)) {
+          out.push({
+            ruleId: rule.id,
+            severity: rule.severity,
+            file: rel,
+            line: i + 1,
+            message: rule.description,
+            fix: rule.fix
+          });
+        }
+      } else {
+        const hasValidDebt = /astesia-debt:\s*\S+.*?[,\s]+upgrade:\s*\S+/.test(line);
+        if (!hasValidDebt && !checkSuppression(prep, i, rule.id, state)) {
+          out.push({
+            ruleId: rule.id,
+            severity: rule.severity,
+            file: rel,
+            line: i + 1,
+            message: rule.description,
+            fix: rule.fix
+          });
+        }
+      }
+    }
+    return;
+  }
+
+  // Special handler for ASTESIA-004: secret heuristics to avoid UI label/name false positives
+  if (rule.id === "ASTESIA-004") {
+    for (let i = 0; i < targetLines.length; i++) {
+      const line = targetLines[i];
+      if (!re.test(line)) continue;
+
+      // Filter 1: Keys ending with Label, Placeholder, Field, Text, Name, or Type are UI/metadata
+      if (/\b[a-zA-Z0-9_]*(?:label|placeholder|field|text|name|type)\s*[:=]/i.test(line)) {
+        continue;
+      }
+
+      // Filter 2: Pure alphabetic dictionary words without digits/symbols are placeholders/text
+      const strMatch = /['"`]([^'"`]{12,})['"`]/.exec(line);
+      if (strMatch) {
+        const val = strMatch[1];
+        if (/^[A-Za-z]+$/.test(val)) {
+          continue;
+        }
+      }
+
+      if (!checkSuppression(prep, i, rule.id, state)) {
+        out.push({
+          ruleId: rule.id,
+          severity: rule.severity,
+          file: rel,
+          line: i + 1,
+          message: rule.description,
+          fix: rule.fix
+        });
+      }
+    }
+    return;
+  }
+
+  // General line regex scanning
+  for (let i = 0; i < targetLines.length; i++) {
+    const text = targetLines[i];
+    let matched = re.test(text);
+
+    // Multiline check for ASTESIA-002: SELECT followed by * on subsequent line
+    if (!matched && rule.id === "ASTESIA-002" && /\bselect\s*$/i.test(text)) {
+      for (let j = i + 1; j < Math.min(i + 5, targetLines.length); j++) {
+        const nextTrim = targetLines[j].trim();
+        if (!nextTrim) continue;
+        if (/^(\*|[a-zA-Z0-9_]+\.\*)/.test(nextTrim)) {
+          matched = true;
+        }
+        break;
+      }
+    }
+
+    if (matched && !checkSuppression(prep, i, rule.id, state)) {
+      out.push({
+        ruleId: rule.id,
+        severity: rule.severity,
+        file: rel,
+        line: i + 1,
+        message: rule.description,
+        fix: rule.fix
+      });
+    }
+  }
+}
+
+function checkRelativeImports(
+  rule: RelativeImportRule,
+  root: string,
+  abs: string,
+  rel: string,
+  prep: PreprocessedFile,
+  out: Violation[],
+  state: GateState
+) {
+  const ext = extname(abs);
+  if (![".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"].includes(ext)) {
+    return;
+  }
+
+  const importRe = /(?:from|import|require)\s*(?:\(\s*|\s+)['"](\.{1,2}\/[^'"]+|@[^'"]+)['"]/;
+
+  prep.codeLines.forEach((text, i) => {
+    const m = importRe.exec(text);
+    if (!m) return;
+    const specifier = m[1];
+
+    let targetBase: string;
+    if (specifier.startsWith("./") || specifier.startsWith("../")) {
+      targetBase = resolve(dirname(abs), specifier);
+    } else if (specifier.startsWith("@/")) {
+      targetBase = resolve(root, "src", specifier.slice(2));
+    } else {
+      // Scoped npm package (e.g. @prisma/client), not a local alias
+      return;
+    }
+
+    if (checkSuppression(prep, i, rule.id, state)) return;
+
+    const candidates = RESOLVE_EXT.flatMap((e) => [
+      targetBase + e,
+      targetBase.replace(/\.js$/, "") + e
+    ]);
+
+    // Also check root/specifier fallback for @/ if root/src/ does not exist
+    if (specifier.startsWith("@/")) {
+      const altBase = resolve(root, specifier.slice(2));
+      RESOLVE_EXT.forEach((e) => {
+        candidates.push(altBase + e);
+        candidates.push(altBase.replace(/\.js$/, "") + e);
+      });
+    }
+
+    const exists = candidates.some((c) => existsSync(c) && statSync(c).isFile());
+    if (!exists) {
+      out.push({
+        ruleId: rule.id,
+        severity: rule.severity,
+        file: rel,
+        line: i + 1,
+        message: `${rule.description} (${specifier})`,
+        fix: rule.fix
+      });
     }
   });
 }
 
-function checkRelativeImports(rule: RelativeImportRule, abs: string, rel: string, lines: string[], out: Violation[]) {
-  if (![".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"].includes(extname(abs))) return;
-  const re = /(?:from|import|require)\s*\(?\s*['"](\.{1,2}\/[^'"]+)['"]/;
-  lines.forEach((text, i) => {
-    const m = re.exec(text);
-    if (!m || isAllowed(lines, i, rule.id)) return;
-    const target = resolve(dirname(abs), m[1]);
-    // Accept TS-style ".js" specifiers that point at ".ts" sources.
-    const candidates = RESOLVE_EXT.flatMap((e) => [target + e, target.replace(/\.js$/, "") + e]);
-    if (!candidates.some((c) => existsSync(c) && statSync(c).isFile())) {
-      out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: `${rule.description} (${m[1]})`, fix: rule.fix });
-    }
-  });
-}
+function checkNestedLoopCall(
+  rule: NestedLoopCallRule,
+  rel: string,
+  prep: PreprocessedFile,
+  out: Violation[],
+  state: GateState
+) {
+  if (rule.pathRegex && !new RegExp(rule.pathRegex, "i").test(rel)) return;
+  if (rule.excludeRegex && new RegExp(rule.excludeRegex, "i").test(rel)) return;
 
-function checkNestedLoopCall(rule: NestedLoopCallRule, rel: string, lines: string[], out: Violation[]) {
-  if (rule.pathRegex && !new RegExp(rule.pathRegex).test(rel)) return;
-  if (rule.excludeRegex && new RegExp(rule.excludeRegex).test(rel)) return;
-  const loopRe = new RegExp(rule.loopPattern);
-  const callRe = new RegExp(rule.callPattern);
+  const loopRe = new RegExp(rule.loopPattern, rule.flags || "");
+  const callRe = new RegExp(rule.callPattern, rule.flags || "");
+  const isPython = rel.endsWith(".py");
 
+  const lines = prep.codeLines;
   let inLoop = false;
   let loopDepth = 0;
   let loopStartLine = 0;
+  let pythonLoopIndent = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const text = lines[i];
+
+    if (isPython) {
+      if (!inLoop) {
+        if (loopRe.test(text)) {
+          const indent = text.search(/\S/);
+          if (indent !== -1) {
+            inLoop = true;
+            pythonLoopIndent = indent;
+            loopStartLine = i + 1;
+            if (callRe.test(text) && !checkSuppression(prep, i, rule.id, state)) {
+              out.push({
+                ruleId: rule.id,
+                severity: rule.severity,
+                file: rel,
+                line: i + 1,
+                message: `${rule.description} (loop started L${loopStartLine})`,
+                fix: rule.fix
+              });
+            }
+          }
+        }
+      } else {
+        const indent = text.search(/\S/);
+        if (indent !== -1) {
+          if (indent <= pythonLoopIndent) {
+            inLoop = false;
+            pythonLoopIndent = -1;
+            // Check if this line starts a new loop
+            if (loopRe.test(text)) {
+              inLoop = true;
+              pythonLoopIndent = indent;
+              loopStartLine = i + 1;
+            }
+          } else {
+            if (callRe.test(text) && !checkSuppression(prep, i, rule.id, state)) {
+              out.push({
+                ruleId: rule.id,
+                severity: rule.severity,
+                file: rel,
+                line: i + 1,
+                message: `${rule.description} (enclosed by loop L${loopStartLine})`,
+                fix: rule.fix
+              });
+            }
+          }
+        }
+      }
+      continue;
+    }
+
+    // JS/TS/Go/PHP loop handling
     if (!inLoop) {
       if (loopRe.test(text)) {
         inLoop = true;
         loopStartLine = i + 1;
+
         const opens = (text.match(/{/g) || []).length;
         const closes = (text.match(/}/g) || []).length;
         loopDepth = opens - closes;
-        // Check single-line loops or calls on the same line
-        if (callRe.test(text) && !isAllowed(lines, i, rule.id)) {
-          out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: `${rule.description} (loop started L${loopStartLine})`, fix: rule.fix });
+
+        if (callRe.test(text) && !checkSuppression(prep, i, rule.id, state)) {
+          out.push({
+            ruleId: rule.id,
+            severity: rule.severity,
+            file: rel,
+            line: i + 1,
+            message: `${rule.description} (loop started L${loopStartLine})`,
+            fix: rule.fix
+          });
         }
-        if (loopDepth <= 0 && text.includes("{")) inLoop = false;
+
+        // Handle single-line or braceless callbacks: .map(...) or .forEach(...)
+        if (/\.(map|forEach)\s*\(/.test(text) && !text.includes("{")) {
+          const pOpen = (text.match(/\(/g) || []).length;
+          const pClose = (text.match(/\)/g) || []).length;
+          if (pOpen <= pClose) {
+            inLoop = false;
+            loopDepth = 0;
+          }
+        } else if (loopDepth <= 0 && text.includes("{")) {
+          inLoop = false;
+        }
       }
     } else {
       const opens = (text.match(/{/g) || []).length;
       const closes = (text.match(/}/g) || []).length;
       loopDepth += opens - closes;
-      if (callRe.test(text) && !isAllowed(lines, i, rule.id)) {
-        out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: `${rule.description} (enclosed by loop L${loopStartLine})`, fix: rule.fix });
+
+      if (callRe.test(text) && !checkSuppression(prep, i, rule.id, state)) {
+        out.push({
+          ruleId: rule.id,
+          severity: rule.severity,
+          file: rel,
+          line: i + 1,
+          message: `${rule.description} (enclosed by loop L${loopStartLine})`,
+          fix: rule.fix
+        });
       }
+
       if (loopDepth <= 0) {
         inLoop = false;
         loopDepth = 0;
@@ -162,36 +738,115 @@ function checkNestedLoopCall(rule: NestedLoopCallRule, rel: string, lines: strin
 }
 
 function main() {
-  const root = resolve(arg("root", ".")!);
-  const rulesPath = resolve(root, arg("rules", ".astesia/anti-patterns.json")!);
-  const maxWarn = Number(arg("max-warn", "Infinity"));
+  const { flags, opts } = parseArgs();
+  const root = resolve(opts.get("root") || ".");
+  const rulesPath = resolve(root, opts.get("rules") || "templates/enforcement/anti-patterns.json");
+
+  let maxWarn = Infinity;
+  if (opts.has("max-warn")) {
+    const raw = opts.get("max-warn")!;
+    if (raw === "" || !/^\d+$/.test(raw)) {
+      console.error("[TOOL_FAILED: invalid --max-warn]");
+      process.exit(2);
+    }
+    maxWarn = parseInt(raw, 10);
+    if (isNaN(maxWarn) || maxWarn < 0) {
+      console.error("[TOOL_FAILED: invalid --max-warn]");
+      process.exit(2);
+    }
+  }
+
   if (!existsSync(rulesPath)) {
     console.error(`[TOOL_FAILED: rules registry not found at ${rulesPath}]`);
     process.exit(2);
   }
-  const rules: Rule[] = JSON.parse(readFileSync(rulesPath, "utf8")).rules;
-  const violations: Violation[] = [];
 
-  for (const abs of walk(root)) {
+  let rawRulesContent = readFileSync(rulesPath, "utf8");
+  if (rawRulesContent.charCodeAt(0) === 0xfeff) {
+    rawRulesContent = rawRulesContent.slice(1);
+  }
+
+  let parsedRegistry: { rules?: Rule[] };
+  try {
+    parsedRegistry = JSON.parse(rawRulesContent);
+  } catch (err) {
+    console.error(`[TOOL_FAILED: failed to parse rules registry JSON: ${err}]`);
+    process.exit(2);
+  }
+
+  if (!parsedRegistry || !Array.isArray(parsedRegistry.rules)) {
+    console.error(`[TOOL_FAILED: rules registry missing 'rules' array]`);
+    process.exit(2);
+  }
+
+  const validKinds = new Set(["line-regex", "relative-import-exists", "nested-loop-call"]);
+  for (const r of parsedRegistry.rules) {
+    if (!validKinds.has(r.kind)) {
+      console.error(`[TOOL_FAILED: rule ${r.id} has unknown kind '${r.kind}']`);
+      process.exit(2);
+    }
+    if (typeof r.fix !== "string" || r.fix.trim().length === 0) {
+      console.error(`[TOOL_FAILED: rule ${r.id} is missing a non-empty 'fix' message]`);
+      process.exit(2);
+    }
+  }
+
+  const rules = parsedRegistry.rules;
+  const violations: Violation[] = [];
+  const gateState: GateState = {
+    suppressions: 0,
+    rejectedSuppressions: 0,
+    debtMarkers: 0
+  };
+
+  const files = walk(root, root);
+  for (const abs of files) {
     const rel = relative(root, abs).replace(/\\/g, "/");
-    const lines = readFileSync(abs, "utf8").split(/\r?\n/);
+    const rawContent = readFileSync(abs, "utf8");
+    const prep = preprocessSource(rawContent, abs);
+
+    for (const line of prep.commentLines) {
+      if (/(?:\/\/|#|\*)\s*astesia-debt:/i.test(line)) {
+        gateState.debtMarkers++;
+      }
+    }
+
     for (const rule of rules) {
-      if (rule.kind === "line-regex") checkLineRegex(rule, rel, lines, violations);
-      else if (rule.kind === "relative-import-exists") checkRelativeImports(rule, abs, rel, lines, violations);
-      else if (rule.kind === "nested-loop-call") checkNestedLoopCall(rule, rel, lines, violations);
+      if (rule.kind === "line-regex") {
+        checkLineRegex(rule, rel, prep, violations, gateState);
+      } else if (rule.kind === "relative-import-exists") {
+        checkRelativeImports(rule, root, abs, rel, prep, violations, gateState);
+      } else if (rule.kind === "nested-loop-call") {
+        checkNestedLoopCall(rule, rel, prep, violations, gateState);
+      }
     }
   }
 
   const errors = violations.filter((v) => v.severity === "error");
   const warns = violations.filter((v) => v.severity === "warn");
 
-  if (flag("json")) {
-    console.log(JSON.stringify({ errors: errors.length, warnings: warns.length, violations }, null, 2));
+  if (flags.has("json")) {
+    console.log(
+      JSON.stringify(
+        {
+          errors: errors.length,
+          warnings: warns.length,
+          suppressions: gateState.suppressions,
+          rejected_suppressions: gateState.rejectedSuppressions,
+          debt_markers: gateState.debtMarkers,
+          violations
+        },
+        null,
+        2
+      )
+    );
   } else {
     for (const v of violations) {
       console.log(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}`);
     }
-    console.log(`\nastesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded.`);
+    console.log(
+      `\nastesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}).`
+    );
   }
 
   if (errors.length > 0) process.exit(1);
