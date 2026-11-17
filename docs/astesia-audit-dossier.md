@@ -218,7 +218,7 @@ flowchart LR
 | `ASTESIA-005` | `line-regex` | `warn` | **Explicit `any`:** Penggunaan `: any`, `as any`, `= any`, `<any>`, `Record<string, any>`, atau `Promise<any>`. | `.ts`, `.tsx`, `.svelte`, `.vue` (kecuali test dan `.d.ts`) |
 | `ASTESIA-006` | `line-regex` | `warn` | **Raw `console.log`:** Penggunaan `console.log(`, `console.debug(`, `console.info(`, atau `debugger;` di luar skrip/pengujian. | Semua file sumber kecuali test dan `scripts/` |
 | `ASTESIA-007` | `nested-loop-call` | `error` | **N+1 Database Query:** Pemanggilan DB/repository di dalam blok perulangan (`for`, `while`, `.map(`, `.forEach(`), mendukung Python indentation dan nama repository camelCase. | Semua file sumber kecuali test |
-| `ASTESIA-008` | `line-regex` | `warn` | **Untracked Workaround:** Komentar `TODO`, `FIXME`, `HACK`, `WORKAROUND` yang tidak dilacak dengan marker `astesia-debt:`. | Komentar pada semua file sumber |
+| `ASTESIA-008` | `line-regex` | `warn` | **Untracked Workaround:** Komentar `TODO`, `FIXME`, `HACK`, `WORKAROUND`, `FOR NOW`, atau `TEMPORARY FIX` yang tidak dilacak dengan marker `astesia-debt:`. | Komentar pada semua file sumber |
 | `ASTESIA-009` | `line-regex` | `warn` | **Uncontrolled setTimeout:** Penggunaan `setTimeout(` sembarangan di luar test atau modul debounce/throttle. | Semua file sumber kecuali test dan utilitas debounce/throttle |
 | `ASTESIA-010` | `line-regex` | `error` | **Config Hardcoded Secret:** Password atau token statis di dalam file Dockerfile atau docker-compose/env CI (tanpa `${ENV_VAR}`). | File Dockerfile, docker-compose, CI YAML, dan .env |
 
@@ -226,6 +226,10 @@ flowchart LR
   ```bash
   bun .astesia/enforcement/astesia-gate.ts [--root .] [--rules .astesia/anti-patterns.json] [--json] [--max-warn N]
   ```
+* **Observabilitas & Perilaku Tokenizer:**
+  * **Isolasi Baris Tokenizer:** Pada bahasa dengan string satu baris (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`, `.py`, `.go`) dan blok `<script>` Svelte/Vue, string `'` dan `"` berakhir pada batas baris (`\n`) kecuali ada backslash continuation (`\\\n`), mengisolasi salah-baca regex literal berisi tanda kutip ke baris tunggal.
+  * **Fail-Closed Desync Warning:** Unclosed literal multi-baris (backtick template, triple-quote Python, block comment) pada akhir berkas (EOF) memicu pelanggaran sintetis `TOKENIZER_DESYNC` berkategori `warn` dan tercatat pada `desync_files`.
+  * **Observabilitas `files_scanned`:** Output teks dan `--json` menyertakan metrik `files_scanned` (total berkas dan perincian per ekstensi). Direktori `tests/`, `fixtures/`, dan `__tests__/` dikecualikan secara mekanis melalui `SKIP_DIRS` agar fixture pengujian tidak terpindai sebagai kode produksi.
 * **Format Pengecualian Teraudit (Escape Hatch):**
   ```typescript
   // astesia-allow: ASTESIA-002 -- tabel konfigurasi kecil (< 10 baris, semua kolom dipakai)
