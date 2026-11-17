@@ -18,6 +18,12 @@
 import { mkdirSync, rmSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
+import { independentCases } from "./independent/corpus";
+import { runGroundTruthFuzz } from "./fuzz-truth";
+import { runWorkflowGuardSuite } from "./workflow-guard";
+import { runBaselineSuite } from "./baseline-suite";
+import { runRulesDiffSuite } from "./rules-diff-suite";
+import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
 const GATE_PATH = join(REPO_ROOT, "templates/enforcement/astesia-gate.ts");
@@ -46,7 +52,17 @@ export interface ViolationExpectation {
 export interface TestCase {
   id: string;
   ruleId: string;
-  category: "baseline72" | "regressions" | "adversarial" | "security" | "new";
+  category:
+    | "baseline72"
+    | "regressions"
+    | "adversarial"
+    | "security"
+    | "new"
+    | "independent"
+    | "fuzz_truth"
+    | "baseline"
+    | "ci_guard"
+    | "rules_diff";
   relPath: string;
   content: string;
   expectedShouldTrigger: boolean;
@@ -206,22 +222,27 @@ export const testCases: TestCase[] = [
   { id: "007-TN3", ruleId: "ASTESIA-007", category: "baseline72", relPath: "r007/tn3.test.ts", content: `for (const id of ids) {\n  await repo.create(id);\n}\n`, expectedShouldTrigger: false, description: "Loop DB call in .test.ts" },
   { id: "007-EC1", ruleId: "ASTESIA-007", category: "baseline72", relPath: "r007/ec1_braceless_map_then_query.ts", content: `const userIds = users.map((u) => u.id);\nconst orders = await db.query(userIds);\n`, expectedShouldTrigger: false, description: "Braceless .map() followed by batch query outside loop" },
   {
-    id: "007-EC2",
+    id: "007-EC2a",
     ruleId: "ASTESIA-007",
     category: "baseline72",
-    relPath: "r007/ec2_camel_repo_and_helper.ts",
-    content: `for (const u of users) {\n  await userRepository.findById(u.id);\n  await fetchUserOrdersHelper(u.id);\n}\n`,
+    relPath: "r007/ec2a_camel_repo.ts",
+    content: `for (const u of users) {\n  await userRepository.findById(u.id);\n}\n`,
     expectedShouldTrigger: true,
     expectedViolations: [
-      { ruleId: "ASTESIA-007", line: 2 },
-      {
-        ruleId: "ASTESIA-007",
-        line: 3,
-        isKnownGap: true,
-        gapReason: "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis"
-      }
+      { ruleId: "ASTESIA-007", line: 2 }
     ],
-    description: "camelCase userRepository.findById() in loop (line 2 pass, line 3 documented known-gap)"
+    description: "camelCase userRepository.findById() in loop (expected pass)"
+  },
+  {
+    id: "007-EC2b",
+    ruleId: "ASTESIA-007",
+    category: "baseline72",
+    relPath: "r007/ec2b_helper.ts",
+    content: `for (const u of users) {\n  await fetchUserOrdersHelper(u.id);\n}\n`,
+    expectedShouldTrigger: true,
+    isKnownGap: true,
+    gapReason: "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
+    description: "Cross-function helper call in loop (documented known-gap)"
   },
   { id: "007-EC3", ruleId: "ASTESIA-007", category: "baseline72", relPath: "r007/ec3_python_go_loops.py", content: `for user_id in user_ids:\n    repo.get_user(user_id)\n`, expectedShouldTrigger: true, description: "Python for loop calling repo.get_user()" },
 
@@ -427,6 +448,8 @@ export const testCases: TestCase[] = [
   { id: "008-NEG-TEMP-DIR", ruleId: "ASTESIA-008", category: "new", relPath: "new/temp_dir.ts", content: "// Temporary directory helper for cleanup\nexport const b = 5;\n", expectedShouldTrigger: false, description: "ASTESIA-008 negative: Temporary directory helper must not trigger" }
 ];
 
+testCases.push(...independentCases);
+
 // Write all fixtures to disk
 for (const tc of testCases) {
   const full = join(FIXTURES_DIR, tc.relPath);
@@ -482,7 +505,12 @@ const categoryStats: Record<string, CategoryStats> = {
   regressions: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   adversarial: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   security: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  new: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  new: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  independent: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  baseline: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  rules_diff: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  ci_guard: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  fuzz_truth: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -597,24 +625,7 @@ function mulberry32(seed: number) {
 const SEED = 1337;
 const rng = mulberry32(SEED);
 
-// Extract preprocessSource from GATE_PATH
-const gateSource = readFileSync(GATE_PATH, "utf8");
-const startIdx = gateSource.indexOf("function preprocessSource(");
-const endIdx = gateSource.indexOf("function isScannable(");
-const prepFnCode = startIdx !== -1 && endIdx !== -1 ? gateSource.slice(startIdx, endIdx) : "";
-let preprocessFn: (content: string, filename: string) => any;
-
-try {
-  const transpiler = new Bun.Transpiler({ loader: "ts" });
-  const jsCode = transpiler.transformSync(prepFnCode);
-  preprocessFn = new Function("rawContent", "filename", `
-    const extname = (f) => { const idx = f.lastIndexOf("."); return idx >= 0 ? f.slice(idx) : ""; };
-    ${jsCode}
-    return preprocessSource(rawContent, filename);
-  `) as any;
-} catch (err) {
-  preprocessFn = () => ({ rawLines: [], codeLines: [], codeNoStringsLines: [], commentLines: [] });
-}
+const preprocessFn = preprocessSource;
 
 const extensions = [".ts", ".tsx", ".js", ".jsx", ".py", ".go", ".php", ".svelte", ".vue"];
 const snippetPool = [
@@ -687,6 +698,63 @@ for (let i = 0; i < 2000; i++) {
   }
 }
 
+// ================= BASELINE RATCHET SUITE (B1: 25 Scenarios) =================
+const baselineTmpDir = join(TEST_DIR, "suite-baseline");
+const baselineRes = runBaselineSuite(GATE_PATH, RULES_PATH, baselineTmpDir);
+categoryStats.baseline.total = baselineRes.total;
+categoryStats.baseline.passed = baselineRes.passed;
+categoryStats.baseline.failed = baselineRes.failed;
+for (const sc of baselineRes.results) {
+  if (!sc.passed) {
+    failedCases.push({ id: sc.id, category: "baseline", reason: sc.message || "Scenario failed" });
+  }
+}
+
+// ================= RULES DIFF SUITE (B2: 10 Scenarios) =================
+const rulesDiffTmpDir = join(TEST_DIR, "suite-rules-diff");
+const rulesDiffRes = runRulesDiffSuite(GATE_PATH, rulesDiffTmpDir);
+categoryStats.rules_diff.total = rulesDiffRes.total;
+categoryStats.rules_diff.passed = rulesDiffRes.passed;
+categoryStats.rules_diff.failed = rulesDiffRes.failed;
+for (const sc of rulesDiffRes.results) {
+  if (!sc.passed) {
+    failedCases.push({ id: sc.id, category: "rules_diff", reason: sc.message || "Scenario failed" });
+  }
+}
+
+// ================= CI WORKFLOW GUARD SUITE (B4: Authentic + 8 Mutations) =================
+const guardRes = runWorkflowGuardSuite();
+categoryStats.ci_guard.total = 1 + guardRes.mutationResults.length;
+const guardPassedMutations = guardRes.mutationResults.filter((m) => m.failedAsExpected).length;
+categoryStats.ci_guard.passed = (guardRes.passed ? 1 : 0) + guardPassedMutations;
+categoryStats.ci_guard.failed = categoryStats.ci_guard.total - categoryStats.ci_guard.passed;
+if (!guardRes.passed) {
+  failedCases.push({ id: "workflow-guard", category: "ci_guard", reason: "Workflow guard failed on authentic or mutations" });
+}
+
+// ================= GROUND TRUTH FUZZING (C6: Seeds 7001 & 7002, 2,000 files each) =================
+const fuzz7001Dir = join(TEST_DIR, "fuzz-7001-ce");
+const fuzz7002Dir = join(TEST_DIR, "fuzz-7002-ce");
+const f7001 = runGroundTruthFuzz(7001, 2000, fuzz7001Dir);
+const f7002 = runGroundTruthFuzz(7002, 2000, fuzz7002Dir);
+categoryStats.fuzz_truth.total = 2;
+categoryStats.fuzz_truth.passed = (f7001.passed ? 1 : 0) + (f7002.passed ? 1 : 0);
+categoryStats.fuzz_truth.failed = 2 - categoryStats.fuzz_truth.passed;
+if (!f7001.passed) {
+  failedCases.push({ id: "fuzz-7001", category: "fuzz_truth", reason: f7001.errors.slice(0, 3).join("; ") });
+}
+if (!f7002.passed) {
+  failedCases.push({ id: "fuzz-7002", category: "fuzz_truth", reason: f7002.errors.slice(0, 3).join("; ") });
+}
+
+// Invariant assertions: total === passed + failed + known_gaps
+for (const [k, v] of Object.entries(categoryStats)) {
+  if (v.total !== v.passed + v.failed + v.known_gaps) {
+    console.error(`FATAL: Invariant violated in category '${k}': total (${v.total}) !== passed (${v.passed}) + failed (${v.failed}) + known_gaps (${v.known_gaps})`);
+    process.exit(2);
+  }
+}
+
 // Clean up fixtures from disk so repo stays clean
 rmSync(TEST_DIR, { recursive: true, force: true });
 
@@ -703,6 +771,11 @@ for (const k of Object.keys(categoryStats)) {
   totalStats.passed += categoryStats[k].passed;
   totalStats.failed += categoryStats[k].failed;
   totalStats.known_gaps += categoryStats[k].known_gaps;
+}
+
+if (totalStats.total !== totalStats.passed + totalStats.failed + totalStats.known_gaps) {
+  console.error(`FATAL: Invariant violated in totalStats: total (${totalStats.total}) !== passed (${totalStats.passed}) + failed (${totalStats.failed}) + known_gaps (${totalStats.known_gaps})`);
+  process.exit(2);
 }
 
 const summaryJson = {
