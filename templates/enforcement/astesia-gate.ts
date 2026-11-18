@@ -198,11 +198,31 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
     for (let l = 0; l < rawLines.length; l++) {
       const line = rawLines[l];
       let commentIdx = -1;
+      let inQuote: string | null = null;
+      let isEscaped = false;
+
       for (let j = 0; j < line.length; j++) {
-        if (line[j] === "#") {
-          if (j === 0 || /\s/.test(line[j - 1])) {
-            commentIdx = j;
-            break;
+        const ch = line[j];
+        if (inQuote) {
+          if (ch === "\\" && !isEscaped) {
+            isEscaped = true;
+            continue;
+          }
+          if (ch === inQuote && !isEscaped) {
+            inQuote = null;
+          }
+          isEscaped = false;
+        } else {
+          if (ch === '"' || ch === "'") {
+            // A quote begins if at index 0, or preceded by whitespace, =, :, or [
+            if (j === 0 || /[\s=:(\[,]/.test(line[j - 1])) {
+              inQuote = ch;
+            }
+          } else if (ch === "#") {
+            if (j === 0 || /\s/.test(line[j - 1])) {
+              commentIdx = j;
+              break;
+            }
           }
         }
       }
