@@ -1397,29 +1397,91 @@ function loadBaseline(baselinePath: string): BaselineData {
   return parsed;
 }
 
-function isGitIgnoredEnv(root: string, rel: string): boolean {
-  const lower = rel.toLowerCase();
-  const isEnv = lower.startsWith(".env") || lower.includes("/.env");
-  if (!isEnv) return false;
+export type SpawnSyncFn = (
+  cmd: string,
+  args: string[],
+  opts?: any
+) => { status: number | null; stdout: string | Buffer; stderr: string | Buffer };
+
+export interface EnvClassification {
+  ignoredUntracked: Set<string>;
+  spawnCount: number;
+}
+
+export function classifyEnvFiles(
+  root: string,
+  relFiles: string[],
+  customSpawn?: SpawnSyncFn
+): EnvClassification {
+  const spawn = customSpawn || spawnSync;
+  let spawnCount = 0;
+  const ignoredUntracked = new Set<string>();
+
+  const candidates: string[] = [];
+  for (const f of relFiles) {
+    const lower = f.toLowerCase();
+    if (lower.startsWith(".env") || lower.includes("/.env")) {
+      candidates.push(f);
+    }
+  }
+
+  if (candidates.length === 0) {
+    return { ignoredUntracked, spawnCount: 0 };
+  }
 
   try {
-    const checkIgnore = spawnSync("git", ["-C", root, "check-ignore", "-q", rel], {
+    spawnCount++;
+    const rev = spawn("git", ["-C", root, "rev-parse", "--is-inside-work-tree"], {
       encoding: "utf8",
       stdio: "pipe"
     });
-    if (checkIgnore.status === 0) {
-      const lsFiles = spawnSync("git", ["-C", root, "ls-files", "--error-unmatch", rel], {
-        encoding: "utf8",
-        stdio: "pipe"
-      });
-      if (lsFiles.status !== 0) {
-        return true;
+    if (rev.status !== 0 || !String(rev.stdout).trim().startsWith("true")) {
+      return { ignoredUntracked, spawnCount };
+    }
+  } catch {
+    return { ignoredUntracked, spawnCount };
+  }
+
+  const tracked = new Set<string>();
+  try {
+    spawnCount++;
+    const lsRes = spawn("git", ["-C", root, "ls-files", "-z", "--", ...candidates], {
+      encoding: "utf8",
+      stdio: "pipe"
+    });
+    if (lsRes.status === 0 && lsRes.stdout) {
+      const parts = String(lsRes.stdout).split("\0").filter(Boolean);
+      for (const p of parts) {
+        tracked.add(p.replace(/\\/g, "/"));
       }
     }
   } catch {
-    return false;
+    return { ignoredUntracked, spawnCount };
   }
-  return false;
+
+  const untrackedCandidates = candidates.filter((c) => !tracked.has(c.replace(/\\/g, "/")));
+  if (untrackedCandidates.length === 0) {
+    return { ignoredUntracked, spawnCount };
+  }
+
+  try {
+    spawnCount++;
+    const checkRes = spawn("git", ["-C", root, "check-ignore", "-z", "--stdin"], {
+      encoding: "utf8",
+      stdio: "pipe",
+      input: untrackedCandidates.join("\0") + "\0"
+    });
+    if (checkRes.status === 0 && checkRes.stdout) {
+      const parts = String(checkRes.stdout).split("\0").filter(Boolean);
+      for (const p of parts) {
+        ignoredUntracked.add(p.replace(/\\/g, "/"));
+      }
+    }
+  } catch {
+    // Fail-closed
+  }
+
+  return { ignoredUntracked, spawnCount };
 }
 
 function evaluateBaseline(
@@ -1734,10 +1796,20 @@ function main() {
   const { excludedPaths, allowEntries } = loadConfig(root, opts.get("config"));
   const excludedFilesState = { count: 0 };
   const allFiles = walk(root, root, excludedPaths, excludedFilesState);
-  const files: string[] = [];
+
+  const relFileMap = new Map<string, string>();
+  const relFiles: string[] = [];
   for (const abs of allFiles) {
     const rel = relative(root, abs).replace(/\\/g, "/");
-    if (isGitIgnoredEnv(root, rel)) {
+    relFileMap.set(abs, rel);
+    relFiles.push(rel);
+  }
+
+  const envClassification = classifyEnvFiles(root, relFiles);
+  const files: string[] = [];
+  for (const abs of allFiles) {
+    const rel = relFileMap.get(abs)!;
+    if (envClassification.ignoredUntracked.has(rel)) {
       gateState.envIgnoredSkipped++;
       continue;
     }
