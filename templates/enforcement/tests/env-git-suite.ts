@@ -162,7 +162,7 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
 }
 
 if (import.meta.main) {
-  const gate = join(__dirname, "../astesia-gate.ts");
+  const gate = process.env.GATE_PATH || join(__dirname, "../astesia-gate.ts");
   const tmp = join(__dirname, "../../../.astesia/audit/tmp");
   const out = runEnvGitSuite(gate, tmp);
   console.log(`Env Git Suite: ${out.passed}/${out.total} passed`);
