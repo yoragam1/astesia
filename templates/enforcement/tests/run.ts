@@ -25,6 +25,7 @@ import { runBaselineSuite } from "./baseline-suite";
 import { runRulesDiffSuite } from "./rules-diff-suite";
 import { runAllowlistSuite } from "./allowlist-suite";
 import { runEnvGitSuite } from "./env-git-suite";
+import { runProfileDispatchSuite } from "./profile-dispatch-suite";
 import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -532,7 +533,8 @@ const categoryStats: Record<string, CategoryStats> = {
   ci_guard: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   fuzz_truth: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   allowlist: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  profile_dispatch: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -796,6 +798,16 @@ for (const sc of envGitRes.results) {
   if (!sc.passed) {
     failedCases.push({ id: sc.id, category: "env_git", reason: `Expected skipped ${sc.expectedSkipped}, got ${sc.actualSkipped}` });
   }
+}
+
+// ================= PROFILE DISPATCH SUITE (T1: 11 Scenarios) =================
+const profileDispatchTmpDir = join(TEST_DIR, "suite-profile-dispatch");
+const profileDispatchRes = runProfileDispatchSuite(GATE_PATH, RULES_PATH, profileDispatchTmpDir);
+categoryStats.profile_dispatch.total = profileDispatchRes.total;
+categoryStats.profile_dispatch.passed = profileDispatchRes.passed;
+categoryStats.profile_dispatch.failed = profileDispatchRes.failed;
+for (const err of profileDispatchRes.errors) {
+  failedCases.push({ id: "profile-dispatch", category: "profile_dispatch", reason: err });
 }
 
 // ================= BIDIRECTIONAL KNOWN-GAPS VALIDATION =================

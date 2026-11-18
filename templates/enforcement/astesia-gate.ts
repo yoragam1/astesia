@@ -187,6 +187,20 @@ const SINGLE_LINE_QUOTE_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".
 const MARKUP_EXTS = new Set([".svelte", ".vue"]);
 const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"]);
 
+export function profileFor(filePath: string): "config" | "code" {
+  const norm = filePath.replace(/\\/g, "/");
+  const base = norm.split("/").pop()!.toLowerCase();
+  if (
+    /^\.env(\..+)?$/.test(base) ||
+    /^dockerfile(\..+)?$/.test(base) ||
+    /\.dockerfile$/.test(base) ||
+    /\.ya?ml$/.test(base)
+  ) {
+    return "config";
+  }
+  return "code";
+}
+
 export function preprocessSource(rawContent: string, filename: string): PreprocessedFile {
   let text = rawContent;
   if (text.charCodeAt(0) === 0xfeff) {
@@ -197,10 +211,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
   const ext = extname(filename).toLowerCase();
   const lowerName = filename.toLowerCase();
 
-  const isConfigFile =
-    CONFIG_EXTS.has(ext) ||
-    lowerName.includes("dockerfile") ||
-    lowerName.startsWith(".env");
+  const isConfigFile = profileFor(filename) === "config";
 
   if (isConfigFile) {
     const rawLines = text.split("\n");
@@ -1138,7 +1149,7 @@ function checkNestedLoopCall(
 
   const loopRe = new RegExp(rule.loopPattern, rule.flags || "");
   const callRe = new RegExp(rule.callPattern, rule.flags || "");
-  const isPython = rel.endsWith(".py");
+  const isPython = extname(rel).toLowerCase() === ".py";
 
   const lines = prep.codeLines;
   let inLoop = false;
@@ -1683,8 +1694,9 @@ export function classifyEnvFiles(
 
   const candidates: string[] = [];
   for (const f of relFiles) {
-    const lower = f.toLowerCase();
-    if (lower.startsWith(".env") || lower.includes("/.env")) {
+    const norm = f.replace(/\\/g, "/");
+    const base = norm.split("/").pop()!.toLowerCase();
+    if (/^\.env(\..+)?$/.test(base)) {
       candidates.push(f);
     }
   }
