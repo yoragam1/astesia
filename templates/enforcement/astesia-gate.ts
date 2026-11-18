@@ -677,28 +677,84 @@ function checkAllowlist(
   return false;
 }
 
-function isSensitiveKey(key: string): boolean {
-  if (key === "env_fallback") return true;
-  const lower = key.toLowerCase();
+export function tokenizeKey(key: string): string[] {
+  if (!key) return [];
+  const rawParts = key.split(/[_\-.:\s]+/);
+  const tokens: string[] = [];
 
-  // Non-secret key suffix patterns (e.g. THEME_STORAGE_KEY, cache_key, sort_key)
-  if (/(?:storage|cache|sort|primary|foreign|routing|partition|document|translation|i18n|index|filter|menu|route|view|theme)[_-]key$/i.test(lower)) {
+  for (const part of rawParts) {
+    if (!part) continue;
+    const subParts = part
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+      .replace(/([a-zA-Z])([0-9])/g, "$1 $2")
+      .replace(/([0-9])([a-zA-Z])/g, "$1 $2")
+      .split(/\s+/);
+    for (const sp of subParts) {
+      if (sp) tokens.push(sp.toLowerCase());
+    }
+  }
+  return tokens;
+}
+
+const SENSITIVE_KEY_QUALIFIERS = new Set([
+  "api", "private", "secret", "auth", "signing", "encryption",
+  "master", "license", "ssh", "ssl", "access", "client"
+]);
+
+const NON_SENSITIVE_KEY_QUALIFIERS = new Set([
+  "storage", "cache", "query", "sort", "primary", "foreign",
+  "routing", "partition", "document", "translation", "i18n",
+  "index", "filter", "menu", "route", "view", "theme"
+]);
+
+export function isSensitiveKey(key: string): boolean {
+  if (!key) return false;
+  if (key === "env_fallback") return true;
+  const tokens = tokenizeKey(key);
+  if (tokens.length === 0) return false;
+
+  // Standalone 'key' is never sensitive (VER3-001)
+  if (tokens.length === 1 && tokens[0] === "key") {
     return false;
   }
 
-  // Definite sensitive terms
-  if (/(?:secret|passw(?:or)?d|token|auth|credential)/i.test(lower)) {
+  const tokenSet = new Set(tokens);
+
+  // High-confidence sensitive tokens: exact token matching prevents substring collisions (e.g. author vs auth)
+  const hasSecret = tokenSet.has("secret") || tokenSet.has("secrets");
+  const hasPassword = tokenSet.has("password") || tokenSet.has("passwords") || tokenSet.has("passwd");
+  const hasToken = tokenSet.has("token") || tokenSet.has("tokens");
+  const hasCredential = tokenSet.has("credential") || tokenSet.has("credentials");
+  const hasAuth = tokenSet.has("auth") || tokenSet.has("authorization");
+
+  // Definite sensitive compound word (e.g. "apikey", "secretkey", "dbpasswd")
+  if (tokens.length === 1) {
+    const single = tokens[0];
+    if (single === "apikey" || single === "privkey" || single === "secretkey" || single === "passkey") {
+      return true;
+    }
+  }
+
+  // Non-sensitive qualifier override: if the key has storage/cache/query/etc. and no secret/password/token/credential/auth
+  for (const nsq of NON_SENSITIVE_KEY_QUALIFIERS) {
+    if (tokenSet.has(nsq) && !hasSecret && !hasPassword && !hasToken && !hasCredential && !hasAuth) {
+      return false;
+    }
+  }
+
+  if (hasSecret || hasPassword || hasToken || hasCredential || hasAuth) {
     return true;
   }
 
-  // Specific sensitive key names
-  if (/(?:^|[^a-zA-Z0-9])(?:api[_-]?key|private[_-]?key|secret[_-]?key|auth[_-]?key|signing[_-]?key|encryption[_-]?key|master[_-]?key|license[_-]?key|ssh[_-]?key|ssl[_-]?key|access[_-]?key|client[_-]?secret)(?:$|[^a-zA-Z0-9])/i.test(lower)) {
-    return true;
-  }
-
-  // CamelCase or exact key matching: apiKey, privateKey, secretKey, authKey, etc. or plain 'key'
-  if (/^(?:api|private|secret|auth|signing|encryption|master|license|ssh|ssl|access)?key$/i.test(key)) {
-    return true;
+  // If the key contains 'key', check whether it is qualified by a sensitive term
+  if (tokenSet.has("key")) {
+    for (const sq of SENSITIVE_KEY_QUALIFIERS) {
+      if (tokenSet.has(sq)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   return false;
