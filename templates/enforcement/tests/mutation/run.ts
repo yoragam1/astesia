@@ -1,12 +1,32 @@
 /**
  * templates/enforcement/tests/mutation/run.ts
- * Self-testing mutation harness for Astesia Gate (F-I).
- * Tests >= 18 distinct mutants against enforcement test suites.
- * Invariant: ALL mutants must be caught (0 survivors).
+ * Self-testing mutation harness for Astesia Gate (F-I / T8).
+ * Tests >= 27 distinct mutants against enforcement test suites with strict single-match replacement.
+ * Invariant: ALL mutants must be caught (100% kill rate, 0 survivors).
  */
 import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+
+export function strictReplace(
+  code: string,
+  target: string,
+  replacement: string,
+  mutantId: string
+): string {
+  let count = 0;
+  let idx = 0;
+  while ((idx = code.indexOf(target, idx)) !== -1) {
+    count++;
+    idx += target.length;
+  }
+  if (count !== 1) {
+    throw new Error(
+      `Strict replacement failed for mutant ${mutantId}: expected exactly 1 match, found ${count}`
+    );
+  }
+  return code.replace(target, replacement);
+}
 
 interface Mutant {
   id: string;
@@ -34,7 +54,13 @@ export function runMutationHarness(): {
       id: "M01",
       name: "redos_quote_precheck_removed",
       description: "Bypass linear quote check in ASTESIA-004",
-      mutate: (code) => code.replace(/const hasQuote = [^;]+;/, "const hasQuote = false;"),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'const hasQuote = line.includes("\'") || line.includes(\'"\') || line.includes("\\x60");',
+          "const hasQuote = false;",
+          "M01"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m01.ts");
         writeFileSync(testScript, `
@@ -60,7 +86,13 @@ export function runMutationHarness(): {
       id: "M02",
       name: "env_batching_spawn_count_inflated",
       description: "Mutate classifyEnvFiles to spawn per file (> 3 spawns)",
-      mutate: (code) => code.replace(/return \{ ignoredUntracked, spawnCount \};/g, "return { ignoredUntracked, spawnCount: spawnCount + 10 };"),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "return { ignoredUntracked, spawnCount };\n}",
+          "return { ignoredUntracked, spawnCount: spawnCount + 10 };\n}",
+          "M02"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m02.ts");
         writeFileSync(testScript, `
@@ -77,7 +109,8 @@ export function runMutationHarness(): {
       id: "M03",
       name: "basic_auth_colon_omitted",
       description: "Basic auth accepts base64 even without colon",
-      mutate: (code) => code.replace(/if \(colonIdx > 0 && colonIdx < decoded\.length - 1\)/, "if (true)"),
+      mutate: (code) =>
+        strictReplace(code, "if (colonIdx > 0 && colonIdx < decoded.length - 1)", "if (true)", "M03"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m03.ts");
         writeFileSync(testScript, `
@@ -93,14 +126,20 @@ export function runMutationHarness(): {
     {
       id: "M04",
       name: "bearer_regex_missing_dot",
-      description: "Remove dot from Bearer JWT regex and opaque regex",
-      mutate: (code) => code.replace(/\[A-Za-z0-9\._-\]/g, "[A-Za-z0-9_-]").replace(/\\\.\[A-Za-z0-9_-\]/g, "[A-Za-z0-9_-]"),
+      description: "Remove dot handling from Bearer opaque regex",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "/^[A-Za-z0-9._-]+$/",
+          "/^[A-Za-z0-9_-]+$/",
+          "M04"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m04.ts");
         writeFileSync(testScript, `
           import { isAuthBearerOrBasic } from "${mgPath.replace(/\\/g, "/")}";
-          const jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.doz";
-          process.exit(isAuthBearerOrBasic("Bearer " + jwt) ? 0 : 1);
+          const tokenWithDot = "opaque.bearer.token.1234567890";
+          process.exit(isAuthBearerOrBasic("Bearer " + tokenWithDot) ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
@@ -111,7 +150,13 @@ export function runMutationHarness(): {
       id: "M05",
       name: "key_sensitivity_substring_auth",
       description: "Treat any key containing substring 'auth' as sensitive",
-      mutate: (code) => code.replace(/const hasAuth = tokenSet\.has\("auth"\) \|\| tokenSet\.has\("authorization"\);/, 'const hasAuth = key.toLowerCase().includes("auth");'),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (hasSecret || hasPassword || hasToken || hasCredential || hasAuthorization) {",
+          "if (hasSecret || hasPassword || hasToken || hasCredential || hasAuthorization || key.toLowerCase().includes(\"auth\")) {",
+          "M05"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m05.ts");
         writeFileSync(testScript, `
@@ -127,13 +172,18 @@ export function runMutationHarness(): {
       id: "M06",
       name: "tracked_env_skipped",
       description: "Ignore git index tracked status and skip all env files in .gitignore",
-      mutate: (code) => code.replace('if (envClassification.ignoredUntracked.has(rel)) {', 'if (rel.toLowerCase().includes(".env")) {'),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (envClassification.ignoredUntracked.has(rel)) {",
+          'if (rel.toLowerCase().includes(".env")) {',
+          "M06"
+        ),
       testCmd: (mgPath, td) => {
         const r = spawnSync("bun", [join(__dirname, "../env-git-suite.ts")], {
           encoding: "utf8",
           env: { ...process.env, GATE_PATH: mgPath }
         });
-        // Mutating gate to skip all env files causes eg02 and eg03 to fail in env-git-suite
         return { passed: r.status === 0 };
       }
     },
@@ -141,15 +191,14 @@ export function runMutationHarness(): {
     {
       id: "M07",
       name: "workflow_guard_check_omitted",
-      description: "Remove check for guard step in checkWorkflow",
-      mutate: (code) => code.replace(/const hasGuardStep = [^;]+;/, "const hasGuardStep = true;"),
+      description: "Disable checkWorkflow guard step validation",
+      mutate: (code) => strictReplace(code, "if (!hasGuardStep) {", "if (false) {", "M07"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m07.ts");
         writeFileSync(testScript, `
           import { checkWorkflow } from "${mgPath.replace(/\\/g, "/")}";
-          const wf = \`${authenticWf.replace(/--check-workflow/g, "--ignore-check")}\`;
-          const res = checkWorkflow(wf);
-          process.exit(res.valid ? 1 : 0);
+          const noGuardWf = \`${authenticWf.replace("--check-workflow", "--dummy-step")}\`;
+          process.exit(checkWorkflow(noGuardWf).valid ? 1 : 0);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
@@ -159,14 +208,20 @@ export function runMutationHarness(): {
     {
       id: "M08",
       name: "hash_in_quotes_chopped",
-      description: "Revert quote-aware comment stripping in YAML/.env",
-      mutate: (code) => code.replace(/if \(inQuote\) \{[\s\S]*?\} else \{/g, "if (false) {} else {"),
+      description: "PreprocessConfig cuts comments inside quoted strings",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (inQuote) {\n          if (ch === \"\\\\\" && !isEscaped) {",
+          "if (false) {\n          if (ch === \"\\\\\" && !isEscaped) {",
+          "M08"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m08.ts");
         writeFileSync(testScript, `
           import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
-          const p = preprocessSource('SECRET="a # b"\\n', ".env");
-          process.exit(p.codeLines[0].includes('SECRET="a # b"') ? 0 : 1);
+          const prep = preprocessSource('PASSWORD: "val # supersecret"\\n', "compose.yml");
+          process.exit(prep.codeLines[0].includes("supersecret") ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
@@ -176,8 +231,9 @@ export function runMutationHarness(): {
     {
       id: "M09",
       name: "astesia010_inline_allow_permitted",
-      description: "Remove ASTESIA-010 from NEVER_INLINE_SUPPRESS",
-      mutate: (code) => code.replace(/"ASTESIA-010",/g, ""),
+      description: "Permit inline astesia-allow comment for ASTESIA-010",
+      mutate: (code) =>
+        strictReplace(code, '"ASTESIA-010",\n  "TOKENIZER_DESYNC"', '"TOKENIZER_DESYNC"', "M09"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m09.ts");
         writeFileSync(testScript, `
@@ -193,7 +249,13 @@ export function runMutationHarness(): {
       id: "M10",
       name: "standalone_key_sensitive",
       description: "Make standalone 'key' sensitive",
-      mutate: (code) => code.replace('if (tokens.length === 1 && tokens[0] === "key") {\n    return false;\n  }', 'if (tokens.length === 1 && tokens[0] === "key") { return true; }'),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (tokens.length === 1 && (tokens[0] === "key" || tokens[0] === "auth")) {\n    return false;\n  }',
+          'if (tokens.length === 1 && (tokens[0] === "key" || tokens[0] === "auth")) {\n    return true;\n  }',
+          "M10"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m10.ts");
         writeFileSync(testScript, `
@@ -208,8 +270,14 @@ export function runMutationHarness(): {
     {
       id: "M11",
       name: "baseline_raise_permitted_without_flag",
-      description: "Permit baseline increase even when allowRaise is false",
-      mutate: (code) => code.replace("if (count > baseCount) {", "if (false) {"),
+      description: "Permit baseline violation increase even when allowRaise is false",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (count > oldCount) {",
+          "if (false) {",
+          "M11"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m11.ts");
         writeFileSync(testScript, `
@@ -224,7 +292,7 @@ export function runMutationHarness(): {
           writeFileSync(join(dir, "base.json"), JSON.stringify({ schema: 1, violations: { "ASTESIA-005": { "a.ts": 1 } }, counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0 }, coverage: { files_scanned: 1, min_ratio: 0.9 }, history: [] }));
           writeFileSync(join(dir, "a.ts"), "const x: any = 1;\\nconst y: any = 2;\\n");
 
-          const r = spawnSync("bun", ["${mgPath.replace(/\\/g, "/")}", "--root", dir, "--rules", join(dir, "rules.json"), "--baseline", join(dir, "base.json")], { encoding: "utf8" });
+          const r = spawnSync("bun", ["${mgPath.replace(/\\/g, "/")}", "--root", dir, "--rules", join(dir, "rules.json"), "--baseline", join(dir, "base.json"), "--update-baseline"], { encoding: "utf8" });
           const caughtIncrease = r.status === 1;
           process.exit(caughtIncrease ? 0 : 1);
         `);
@@ -232,41 +300,50 @@ export function runMutationHarness(): {
         return { passed: r.status === 0 };
       }
     },
-    // M12: Rules diff allows rule removal
+    // M12: rules_diff allows removal
     {
       id: "M12",
       name: "rules_diff_allows_removal",
-      description: "Omit check for removed rules in handleRulesDiff",
-      mutate: (code) => code.replace('if (!hr) {\n      console.error(`[RULES_DIFF: rule ID \'${br.id}\' was removed in head]`);\n      return 1;\n    }', "if (false) {}"),
+      description: "Permit removal of rules in rules-diff",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (!hr) {\n      console.error(`[RULES_DIFF: rule ID '${br.id}' was removed in head]`);\n      return 1;\n    }",
+          "if (false) {\n      return 1;\n    }",
+          "M12"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m12.ts");
         writeFileSync(testScript, `
-          import { spawnSync } from "node:child_process";
-          import { mkdirSync, writeFileSync } from "node:fs";
+          import { handleRulesDiff } from "${mgPath.replace(/\\/g, "/")}";
+          import { writeFileSync } from "node:fs";
           import { join } from "node:path";
 
-          const dir = join("${td.replace(/\\/g, "/")}", "m12-rd");
-          mkdirSync(dir, { recursive: true });
-          const baseRules = { rules: [{ id: "R1", name: "r1", severity: "error", kind: "line-regex", pattern: "a", description: "d", fix: "f", origin: "o" }] };
-          const headRules = { rules: [] };
-          writeFileSync(join(dir, "base.json"), JSON.stringify(baseRules));
-          writeFileSync(join(dir, "head.json"), JSON.stringify(headRules));
+          const bPath = join("${td.replace(/\\/g, "/")}", "base.json");
+          const hPath = join("${td.replace(/\\/g, "/")}", "head.json");
+          writeFileSync(bPath, JSON.stringify({ rules: [{ id: "R1", severity: "error", kind: "line-regex", pattern: "a", description: "d", fix: "f" }] }));
+          writeFileSync(hPath, JSON.stringify({ rules: [] }));
 
-          const r = spawnSync("bun", ["${mgPath.replace(/\\/g, "/")}", "--rules-diff", join(dir, "base.json"), join(dir, "head.json")], { encoding: "utf8" });
-          process.exit(r.status === 1 ? 0 : 1);
+          process.exit(handleRulesDiff(bPath, hPath) === 1 ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
       }
     },
-    // M13: Fail closed exit code 2 mutated to 0
+    // M13: Non-existent root exits 0
     {
       id: "M13",
       name: "non_existent_root_exits_0",
-      description: "Non-existent root directory exits 0 instead of 2",
-      mutate: (code) => code.replace('console.error(`[TOOL_FAILED: root directory does not exist: ${root}]`);\n    process.exit(2);', "process.exit(0);"),
+      description: "Exit 0 when root directory does not exist instead of 2",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (!existsSync(root)) {\n    console.error(`[TOOL_FAILED: root directory does not exist: ${root}]`);\n    process.exit(2);\n  }',
+          "if (!existsSync(root)) { process.exit(0); }",
+          "M13"
+        ),
       testCmd: (mgPath, td) => {
-        const r = spawnSync("bun", [mgPath, "--root", "non/existent/path/xyz", "--rules", "rules.json"], { encoding: "utf8" });
+        const r = spawnSync("bun", [mgPath, "--root", "D:/non-existent-dir-for-m13"], { encoding: "utf8" });
         return { passed: r.status === 2 };
       }
     },
@@ -274,8 +351,9 @@ export function runMutationHarness(): {
     {
       id: "M14",
       name: "tokenizer_desync_suppressed",
-      description: "Permit suppression of TOKENIZER_DESYNC",
-      mutate: (code) => code.replace(/"TOKENIZER_DESYNC",/g, ""),
+      description: "Permit inline suppression for TOKENIZER_DESYNC",
+      mutate: (code) =>
+        strictReplace(code, '"TOKENIZER_DESYNC",\n  "LONG_LINE_SKIPPED"', '"LONG_LINE_SKIPPED"', "M14"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m14.ts");
         writeFileSync(testScript, `
@@ -286,12 +364,18 @@ export function runMutationHarness(): {
         return { passed: r.status === 0 };
       }
     },
-    // M15: ASTESIA-000 allowed in config allowlist
+    // M15: ASTESIA-000 config allow permitted
     {
       id: "M15",
       name: "astesia000_config_allow_permitted",
       description: "Permit ASTESIA-000 in config allowlist",
-      mutate: (code) => code.replace('if (item.rule !== "ASTESIA-004" && item.rule !== "ASTESIA-010") {', "if (false) {"),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (item.rule !== "ASTESIA-004" && item.rule !== "ASTESIA-010") {',
+          "if (false) {",
+          "M15"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m15.ts");
         writeFileSync(testScript, `
@@ -319,7 +403,7 @@ export function runMutationHarness(): {
       id: "M16",
       name: "workflow_write_permissions_permitted",
       description: "Permit write permissions in checkWorkflow",
-      mutate: (code) => code.replace("if (/write/i.test(permBlock)) {", "if (false) {"),
+      mutate: (code) => strictReplace(code, "if (/write/i.test(permBlock)) {", "if (false) {", "M16"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m16.ts");
         writeFileSync(testScript, `
@@ -336,7 +420,8 @@ export function runMutationHarness(): {
       id: "M17",
       name: "workflow_unpinned_action_permitted",
       description: "Permit action tags instead of 40-hex commit SHA in checkWorkflow",
-      mutate: (code) => code.replace("if (!/^[0-9a-f]{40}$/i.test(pin)) {", "if (false) {"),
+      mutate: (code) =>
+        strictReplace(code, "if (!/^[0-9a-f]{40}$/i.test(pin)) {", "if (false) {", "M17"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m17.ts");
         writeFileSync(testScript, `
@@ -353,13 +438,231 @@ export function runMutationHarness(): {
       id: "M18",
       name: "classify_env_git_error_fail_open",
       description: "Treat files as ignored when git errors instead of fail-closed",
-      mutate: (code) => code.replace("return { ignoredUntracked, spawnCount };", 'return { ignoredUntracked: new Set([".env"]), spawnCount };'),
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "catch {\n    // Fail-closed\n  }",
+          'catch {\n    ignoredUntracked.add(".env");\n  }',
+          "M18"
+        ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m18.ts");
         writeFileSync(testScript, `
           import { classifyEnvFiles } from "${mgPath.replace(/\\/g, "/")}";
-          const c = classifyEnvFiles("non/existent/dir", [".env"]);
+          let call = 0;
+          const customSpawn = () => {
+            call++;
+            if (call === 1) return { status: 0, stdout: "" };
+            throw new Error("git check-ignore failed");
+          };
+          const c = classifyEnvFiles("dummy", [".env"], customSpawn);
           process.exit(c.ignoredUntracked.size === 0 ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+
+    // ================= NEW MUTANTS T8 (M19..M27) =================
+    // M19: profileFor ignores basename
+    {
+      id: "M19",
+      name: "profile_for_ignores_basename",
+      description: "profileFor uses raw path instead of basename, failing on absolute paths",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'export function profileFor(filePath: string): "config" | "code" {\n  const norm = filePath.replace(/\\\\/g, "/");\n  const base = norm.split("/").pop()!.toLowerCase();',
+          'export function profileFor(filePath: string): "config" | "code" {\n  const norm = filePath.replace(/\\\\/g, "/");\n  const base = norm.toLowerCase();',
+          "M19"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m19.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(profileFor("C:/project/sub/.env") === "config" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M20: token 'pwd' removed from hasPassword
+    {
+      id: "M20",
+      name: "token_pwd_removed_from_has_password",
+      description: "Remove 'pwd' and 'pwds' token check from hasPassword",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'tokenSet.has("pwd") ||\n    tokenSet.has("pwds") ||',
+          "false ||",
+          "M20"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m20.ts");
+        writeFileSync(testScript, `
+          import { isSensitiveKey } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(isSensitiveKey("user_pwd") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M21: token 'passphrase' removed from hasPassword
+    {
+      id: "M21",
+      name: "token_passphrase_removed_from_has_password",
+      description: "Remove 'passphrase' and 'passphrases' token check from hasPassword",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'tokenSet.has("passphrase") ||\n    tokenSet.has("passphrases") ||',
+          "false ||",
+          "M21"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m21.ts");
+        writeFileSync(testScript, `
+          import { isSensitiveKey } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(isSensitiveKey("user_passphrase") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M22: Solo 'auth' made sensitive again
+    {
+      id: "M22",
+      name: "solo_auth_made_sensitive",
+      description: "Re-enable sensitivity for solo 'auth' token violating F1 contract",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (tokens.length === 1 && (tokens[0] === "key" || tokens[0] === "auth")) {\n    return false;\n  }',
+          'if (tokens.length === 1 && tokens[0] === "auth") {\n    return true;\n  }',
+          "M22"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m22.ts");
+        writeFileSync(testScript, `
+          import { isSensitiveKey } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(isSensitiveKey("auth") ? 1 : 0);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M23: E1 space exemption enabled in config profile
+    {
+      id: "M23",
+      name: "e1_space_exemption_enabled_in_config",
+      description: "Enable E1 space exemption in checkConfigSecret",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (isSensitiveKey(key) || hasPassToken) {",
+          'if (val.includes(" ")) return { isSecret: false, key, val };\n  if (isSensitiveKey(key) || hasPassToken) {',
+          "M23"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m23.ts");
+        writeFileSync(testScript, `
+          import { checkConfigSecret } from "${mgPath.replace(/\\/g, "/")}";
+          const res = checkConfigSecret("DB_PASSWORD: 'my super secret password 123'");
+          process.exit(res.isSecret ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M24: config secret length threshold changed from 8 to 15
+    {
+      id: "M24",
+      name: "config_secret_length_threshold_inflated",
+      description: "Inflate config secret length threshold to 15, missing 8-14 character secrets",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "// 5. Length check: literal secrets must be >= 8 chars\n  if (val.length < 8) {",
+          "// 5. Length check: literal secrets must be >= 8 chars\n  if (val.length < 15) {",
+          "M24"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m24.ts");
+        writeFileSync(testScript, `
+          import { checkConfigSecret } from "${mgPath.replace(/\\/g, "/")}";
+          const res = checkConfigSecret("DB_PASSWORD: 'secret12'");
+          process.exit(res.isSecret ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M25: Interpolation fallback ignored
+    {
+      id: "M25",
+      name: "interpolation_fallback_ignored",
+      description: "Ignore fallback value in \${VAR:-fallback} config expressions",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const fallbackMatch = /^\\$\\{[A-Za-z0-9_]+:?-(.+)\\}$/.exec(val);\n  if (fallbackMatch) {\n    val = fallbackMatch[1].trim();",
+          "const fallbackMatch = /^\\$\\{[A-Za-z0-9_]+:?-(.+)\\}$/.exec(val);\n  if (fallbackMatch) {\n    return { isSecret: false, key, val };",
+          "M25"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m25.ts");
+        writeFileSync(testScript, `
+          import { checkConfigSecret } from "${mgPath.replace(/\\/g, "/")}";
+          const res = checkConfigSecret("DB_PASSWORD: '\${VAR:-production_secret_key_12345}'");
+          process.exit(res.isSecret ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M26: ASTESIA-010 compose list syntax disabled
+    {
+      id: "M26",
+      name: "compose_list_syntax_disabled",
+      description: "Disable docker compose list syntax (- KEY=val) detection",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (cleanLine.startsWith("- ")) cleanLine = cleanLine.slice(2).trim();',
+          'if (cleanLine.startsWith("- ")) return { isSecret: false, key: "", val: "" };',
+          "M26"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m26.ts");
+        writeFileSync(testScript, `
+          import { checkConfigSecret } from "${mgPath.replace(/\\/g, "/")}";
+          const res = checkConfigSecret("- DB_PASSWORD=my_hardcoded_super_secret_123");
+          process.exit(res.isSecret ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M27: YAML comment stripping disabled in preprocessSource
+    {
+      id: "M27",
+      name: "yaml_comment_stripping_disabled",
+      description: "Bypass comment stripping for config files",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'const isConfigFile = profileFor(filename) === "config";\n\n  if (isConfigFile) {',
+          'const isConfigFile = profileFor(filename) === "config";\n\n  if (false && isConfigFile) {',
+          "M27"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m27.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource("PASSWORD: secret12345 # a comment\\n", "docker-compose.yml");
+          const commentCut = prep.commentLines[0].includes("a comment");
+          process.exit(commentCut ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
@@ -371,7 +674,15 @@ export function runMutationHarness(): {
   let killed = 0;
 
   for (const m of mutants) {
-    const mutatedCode = m.mutate(authenticGate);
+    let mutatedCode = "";
+    try {
+      mutatedCode = m.mutate(authenticGate);
+    } catch (err: unknown) {
+      console.error(`ERROR: Mutation ${m.id} (${m.name}) setup failed: ${err}`);
+      results.push({ id: m.id, name: m.name, killed: false, detail: String(err) });
+      continue;
+    }
+
     if (mutatedCode === authenticGate) {
       console.error(`ERROR: Mutation ${m.id} (${m.name}) did not modify gate code!`);
       results.push({ id: m.id, name: m.name, killed: false, detail: "Mutation pattern did not match" });
@@ -389,7 +700,9 @@ export function runMutationHarness(): {
     results.push({ id: m.id, name: m.name, killed: wasKilled, detail: check.error });
   }
 
-  try { rmSync(tmpDir, { recursive: true, force: true }); } catch {}
+  try {
+    rmSync(tmpDir, { recursive: true, force: true });
+  } catch {}
 
   return {
     total: mutants.length,
