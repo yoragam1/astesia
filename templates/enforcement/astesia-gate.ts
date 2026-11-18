@@ -190,7 +190,10 @@ const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cj
 
 export function profileFor(filePath: string): "config" | "code" {
   const norm = filePath.replace(/\\/g, "/");
-  const base = norm.split("/").pop()!.toLowerCase();
+  const base = (norm.split("/").pop() || "").toLowerCase();
+  if (base.endsWith(".example") || base.endsWith(".template") || base.endsWith(".sample")) {
+    return "code";
+  }
   if (
     /^\.env(\..+)?$/.test(base) ||
     /^dockerfile(\..+)?$/.test(base) ||
@@ -561,11 +564,14 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
 }
 
 function isScannable(filename: string): boolean {
-  const ext = extname(filename).toLowerCase();
+  const norm = filename.replace(/\\/g, "/");
+  const base = (norm.split("/").pop() || "").toLowerCase();
+  if (base.endsWith(".example") || base.endsWith(".template") || base.endsWith(".sample")) return false;
+  const ext = extname(base).toLowerCase();
   if (SOURCE_EXT.has(ext)) return true;
-  const base = filename.toLowerCase();
   if (/^dockerfile(\.[a-z0-9_-]+)?$/i.test(base)) return true;
-  if (/^\.env(\.[a-z0-9_-]+)?$/i.test(base) && !base.endsWith(".example")) return true;
+  if (/\.dockerfile$/i.test(base)) return true;
+  if (/^\.env(\.[a-z0-9_-]+)?$/i.test(base)) return true;
   return false;
 }
 
