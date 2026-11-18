@@ -27,6 +27,10 @@ import { runEnvBatchSuite } from "./env-batch-suite";
 import { runKeySensitivitySuite } from "./key-sensitivity-suite";
 import { runMutationHarness } from "./mutation/run";
 import { runReDoSSuite } from "./redos-suite";
+import { runProfileContractSuite } from "./profile-contract-suite";
+import { runConfigVarRefSuite } from "./config-varref-suite";
+import { runHelmKeyNameSuite } from "./helm-keyname-suite";
+import { runRule010PathSuite } from "./rule010-path-suite";
 
 const startTime = performance.now();
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -152,9 +156,39 @@ if (!isJsonMode) {
 }
 
 // -------------------------------------------------------------
+// 3B. Run Verifier 2A.3 Harness (templates/enforcement/tests/verify3/run.ts)
+// -------------------------------------------------------------
+if (!isJsonMode) process.stdout.write("[4/6] Running Verifier 2A.3 Harness (verify3/run.ts)... ");
+const v3Res = spawnSync("bun", [join(TESTS_DIR, "verify3/run.ts"), "--json"], {
+  cwd: REPO_ROOT,
+  encoding: "utf8",
+  maxBuffer: 50 * 1024 * 1024
+});
+
+let v3Data: any = null;
+let v3Total = 0;
+let v3Passed = 0;
+let v3Failed = 0;
+let v3KnownGaps = 0;
+
+try {
+  v3Data = JSON.parse(v3Res.stdout);
+  v3Total = v3Data.accounting?.total ?? 0;
+  v3Passed = v3Data.accounting?.passed ?? 0;
+  v3Failed = v3Data.accounting?.failed ?? 0;
+  v3KnownGaps = v3Data.accounting?.known_gaps ?? 0;
+} catch (err) {
+  v3Failed = 1;
+}
+
+if (!isJsonMode) {
+  console.log(`${v3Passed}/${v3Total} passed (${v3Failed} failed, ${v3KnownGaps} known gaps)`);
+}
+
+// -------------------------------------------------------------
 // 4. Run Standalone Suites & Track Execution
 // -------------------------------------------------------------
-if (!isJsonMode) console.log("[4/5] Executing Standalone Suites & Verifying Zero Orphans...");
+if (!isJsonMode) console.log("[5/6] Executing Standalone Suites & Verifying Zero Orphans...");
 
 // A. auth-header-suite.ts
 executedSuites.add("auth-header-suite.ts");
@@ -180,13 +214,33 @@ const keySensitivityRes = runKeySensitivitySuite();
 executedSuites.add("redos-suite.ts");
 const redosRes = runReDoSSuite(GATE_PATH, join(tmpBase, "redos"));
 
+// G. profile-contract-suite.ts
+executedSuites.add("profile-contract-suite.ts");
+const profileContractRes = runProfileContractSuite();
+
+// H. config-varref-suite.ts
+executedSuites.add("config-varref-suite.ts");
+const configVarRefRes = runConfigVarRefSuite();
+
+// I. helm-keyname-suite.ts
+executedSuites.add("helm-keyname-suite.ts");
+const helmKeyNameRes = runHelmKeyNameSuite();
+
+// J. rule010-path-suite.ts
+executedSuites.add("rule010-path-suite.ts");
+const rule010PathRes = runRule010PathSuite();
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
   configQuoteRes.total +
   envBatchRes.total +
   keySensitivityRes.total +
-  redosRes.total;
+  redosRes.total +
+  profileContractRes.total +
+  configVarRefRes.total +
+  helmKeyNameRes.total +
+  rule010PathRes.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -194,7 +248,11 @@ const standalonePassed =
   configQuoteRes.passed +
   envBatchRes.passed +
   keySensitivityRes.passed +
-  redosRes.passed;
+  redosRes.passed +
+  profileContractRes.passed +
+  configVarRefRes.passed +
+  helmKeyNameRes.passed +
+  rule010PathRes.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -202,16 +260,24 @@ const standaloneFailed =
   configQuoteRes.failed +
   envBatchRes.failed +
   keySensitivityRes.failed +
-  redosRes.failed;
+  redosRes.failed +
+  profileContractRes.failed +
+  configVarRefRes.failed +
+  helmKeyNameRes.failed +
+  rule010PathRes.failed;
 
 if (!isJsonMode) {
-  console.log(`  - auth-header-suite:    ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
-  console.log(`  - check-workflow-suite: ${checkWorkflowRes.passed}/${checkWorkflowRes.total} passed`);
-  console.log(`  - config-quote-suite:   ${configQuoteRes.passed}/${configQuoteRes.total} passed`);
-  console.log(`  - env-batch-suite:      ${envBatchRes.passed}/${envBatchRes.total} passed`);
-  console.log(`  - key-sensitivity-suite:${keySensitivityRes.passed}/${keySensitivityRes.total} passed`);
-  console.log(`  - redos-suite:          ${redosRes.passed}/${redosRes.total} passed`);
-  console.log(`  Standalone Subtotal:    ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed)`);
+  console.log(`  - auth-header-suite:      ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
+  console.log(`  - check-workflow-suite:   ${checkWorkflowRes.passed}/${checkWorkflowRes.total} passed`);
+  console.log(`  - config-quote-suite:     ${configQuoteRes.passed}/${configQuoteRes.total} passed`);
+  console.log(`  - env-batch-suite:        ${envBatchRes.passed}/${envBatchRes.total} passed`);
+  console.log(`  - key-sensitivity-suite:  ${keySensitivityRes.passed}/${keySensitivityRes.total} passed`);
+  console.log(`  - redos-suite:            ${redosRes.passed}/${redosRes.total} passed`);
+  console.log(`  - profile-contract-suite: ${profileContractRes.passed}/${profileContractRes.total} passed`);
+  console.log(`  - config-varref-suite:    ${configVarRefRes.passed}/${configVarRefRes.total} passed`);
+  console.log(`  - helm-keyname-suite:     ${helmKeyNameRes.passed}/${helmKeyNameRes.total} passed`);
+  console.log(`  - rule010-path-suite:     ${rule010PathRes.passed}/${rule010PathRes.total} passed`);
+  console.log(`  Standalone Subtotal:      ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed)`);
 }
 
 // -------------------------------------------------------------
@@ -314,10 +380,10 @@ if (!isFastMode) {
 // -------------------------------------------------------------
 // 8. Consolidated Accounting & Invariant Verification
 // -------------------------------------------------------------
-const grandTotal = implTotal + v1Total + v2Total + standaloneTotal + metaTotal;
-const grandPassed = implPassed + v1Passed + v2Passed + standalonePassed + metaPassed;
-const grandFailed = implFailed + v1Failed + v2Failed + standaloneFailed + metaFailed;
-const grandKnownGaps = implKnownGaps + v1KnownGaps + v2KnownGaps;
+const grandTotal = implTotal + v1Total + v2Total + v3Total + standaloneTotal + metaTotal;
+const grandPassed = implPassed + v1Passed + v2Passed + v3Passed + standalonePassed + metaPassed;
+const grandFailed = implFailed + v1Failed + v2Failed + v3Failed + standaloneFailed + metaFailed;
+const grandKnownGaps = implKnownGaps + v1KnownGaps + v2KnownGaps + v3KnownGaps;
 
 const invariantHolds = grandTotal === grandPassed + grandFailed + grandKnownGaps;
 const meetsScaleThreshold = grandTotal >= 450;
@@ -366,6 +432,13 @@ const summaryOut = {
       failed: v2Failed,
       known_gaps: v2KnownGaps
     },
+    verifier_2a3: {
+      name: "verify3/run.ts",
+      total: v3Total,
+      passed: v3Passed,
+      failed: v3Failed,
+      known_gaps: v3KnownGaps
+    },
     standalone_suites: {
       total: standaloneTotal,
       passed: standalonePassed,
@@ -376,7 +449,11 @@ const summaryOut = {
         config_quote: configQuoteRes,
         env_batch: envBatchRes,
         key_sensitivity: keySensitivityRes,
-        redos: redosRes
+        redos: redosRes,
+        profile_contract: profileContractRes,
+        config_varref: configVarRefRes,
+        helm_keyname: helmKeyNameRes,
+        rule010_path: rule010PathRes
       }
     },
     meta_tests: {

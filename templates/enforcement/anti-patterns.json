@@ -125,7 +125,7 @@
       "scope": "code",
       "pattern": "(PASSWORD|SECRET|KEY|TOKEN)\\s*[:=]\\s*(?!\\$\\{)[^\\s\\$\"']{8,}",
       "flags": "i",
-      "pathRegex": "(Dockerfile|\\.dockerfile|\\.env|\\.ya?ml)",
+      "pathRegex": "(?:^|[\\\\/])(?:\\.env(?:\\..+)?|Dockerfile(?:\\..+)?|.*\\.Dockerfile|.*\\.ya?ml)$",
       "excludeRegex": "(\\.example|\\.template|\\.sample|(?:^|[\\\\/])sample)(\\.[a-z0-9_-]+)?$|fixtures?/",
       "origin": "AUD-001 / AUD-010 (Wave 1 hardening)"
     }
