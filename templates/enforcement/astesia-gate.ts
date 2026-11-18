@@ -756,8 +756,8 @@ export function isSensitiveKey(key: string): boolean {
   const tokens = tokenizeKey(key);
   if (tokens.length === 0) return false;
 
-  // Standalone 'key' is never sensitive (VER3-001)
-  if (tokens.length === 1 && tokens[0] === "key") {
+  // Standalone 'key' or 'auth' is never sensitive (VER3-001, VER4-003)
+  if (tokens.length === 1 && (tokens[0] === "key" || tokens[0] === "auth")) {
     return false;
   }
 
@@ -765,10 +765,17 @@ export function isSensitiveKey(key: string): boolean {
 
   // High-confidence sensitive tokens: exact token matching prevents substring collisions (e.g. author vs auth)
   const hasSecret = tokenSet.has("secret") || tokenSet.has("secrets");
-  const hasPassword = tokenSet.has("password") || tokenSet.has("passwords") || tokenSet.has("passwd");
+  const hasPassword =
+    tokenSet.has("password") ||
+    tokenSet.has("passwords") ||
+    tokenSet.has("passwd") ||
+    tokenSet.has("pwd") ||
+    tokenSet.has("pwds") ||
+    tokenSet.has("passphrase") ||
+    tokenSet.has("passphrases");
   const hasToken = tokenSet.has("token") || tokenSet.has("tokens");
   const hasCredential = tokenSet.has("credential") || tokenSet.has("credentials");
-  const hasAuth = tokenSet.has("auth") || tokenSet.has("authorization");
+  const hasAuthorization = tokenSet.has("authorization");
 
   // Definite sensitive compound word (e.g. "apikey", "secretkey", "dbpasswd")
   if (tokens.length === 1) {
@@ -780,12 +787,12 @@ export function isSensitiveKey(key: string): boolean {
 
   // Non-sensitive qualifier override: if the key has storage/cache/query/etc. and no secret/password/token/credential/auth
   for (const nsq of NON_SENSITIVE_KEY_QUALIFIERS) {
-    if (tokenSet.has(nsq) && !hasSecret && !hasPassword && !hasToken && !hasCredential && !hasAuth) {
+    if (tokenSet.has(nsq) && !hasSecret && !hasPassword && !hasToken && !hasCredential && !hasAuthorization) {
       return false;
     }
   }
 
-  if (hasSecret || hasPassword || hasToken || hasCredential || hasAuth) {
+  if (hasSecret || hasPassword || hasToken || hasCredential || hasAuthorization) {
     return true;
   }
 
@@ -1011,9 +1018,9 @@ function checkLineRegex(
             // 4. Sensitive keys not ending in label suffixes:
             // Triggers if without spaces contains digits or symbols
             const hasDigitsOrSymbols = /[^A-Za-z]/.test(val);
-            // OR unbroken lowercase string >= 12 on password/secret/token/apikey
+            // OR unbroken lowercase string >= 12 on password/secret/token/apikey/pwd/passphrase
             const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
-            const isDirectSecretKey = /(?:password|secret|token|apikey|api_key)/i.test(key);
+            const isDirectSecretKey = /(?:password|passwords|passwd|pwd|passphrase|secret|token|apikey|api_key)/i.test(key);
 
             if (hasDigitsOrSymbols || (isUnbrokenLowercase && isDirectSecretKey)) {
               isSecret = true;

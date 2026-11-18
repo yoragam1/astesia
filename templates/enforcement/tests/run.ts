@@ -26,6 +26,7 @@ import { runRulesDiffSuite } from "./rules-diff-suite";
 import { runAllowlistSuite } from "./allowlist-suite";
 import { runEnvGitSuite } from "./env-git-suite";
 import { runProfileDispatchSuite } from "./profile-dispatch-suite";
+import { runKeyContractSuite } from "./key-contract-suite";
 import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -534,7 +535,8 @@ const categoryStats: Record<string, CategoryStats> = {
   fuzz_truth: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   allowlist: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  profile_dispatch: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  profile_dispatch: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  key_contract: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -808,6 +810,16 @@ categoryStats.profile_dispatch.passed = profileDispatchRes.passed;
 categoryStats.profile_dispatch.failed = profileDispatchRes.failed;
 for (const err of profileDispatchRes.errors) {
   failedCases.push({ id: "profile-dispatch", category: "profile_dispatch", reason: err });
+}
+
+// ================= KEY CONTRACT SUITE (T2: 17 Scenarios) =================
+const keyContractTmpDir = join(TEST_DIR, "suite-key-contract");
+const keyContractRes = runKeyContractSuite(GATE_PATH, RULES_PATH, keyContractTmpDir);
+categoryStats.key_contract.total = keyContractRes.total;
+categoryStats.key_contract.passed = keyContractRes.passed;
+categoryStats.key_contract.failed = keyContractRes.failed;
+for (const err of keyContractRes.errors) {
+  failedCases.push({ id: "key-contract", category: "key_contract", reason: err });
 }
 
 // ================= BIDIRECTIONAL KNOWN-GAPS VALIDATION =================
