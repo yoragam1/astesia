@@ -1,0 +1,149 @@
+{
+  "benchmark": "Stress Dataset",
+  "timestamp": "2026-11-18T08:47:07.138Z",
+  "config": {
+    "totalFiles": 2000,
+    "envFiles": 100,
+    "otherFiles": 1900,
+    "pairs": 15,
+    "contractLimit": 1.25
+  },
+  "pairs": [
+    {
+      "pair": 1,
+      "baseMs": 466.7,
+      "headMs": 539.6,
+      "ratio": 1.156,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 2,
+      "baseMs": 478.4,
+      "headMs": 578.9,
+      "ratio": 1.21,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 3,
+      "baseMs": 507.5,
+      "headMs": 538,
+      "ratio": 1.06,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 4,
+      "baseMs": 476.5,
+      "headMs": 569.3,
+      "ratio": 1.195,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 5,
+      "baseMs": 468.4,
+      "headMs": 556.2,
+      "ratio": 1.187,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 6,
+      "baseMs": 476.6,
+      "headMs": 551.6,
+      "ratio": 1.157,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 7,
+      "baseMs": 460.5,
+      "headMs": 562.9,
+      "ratio": 1.222,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 8,
+      "baseMs": 470.8,
+      "headMs": 555.6,
+      "ratio": 1.18,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 9,
+      "baseMs": 453.4,
+      "headMs": 539.7,
+      "ratio": 1.19,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 10,
+      "baseMs": 484.5,
+      "headMs": 578.1,
+      "ratio": 1.193,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 11,
+      "baseMs": 461.6,
+      "headMs": 552.1,
+      "ratio": 1.196,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 12,
+      "baseMs": 464.8,
+      "headMs": 562.8,
+      "ratio": 1.211,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 13,
+      "baseMs": 474.2,
+      "headMs": 573.9,
+      "ratio": 1.21,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 14,
+      "baseMs": 480.9,
+      "headMs": 530.4,
+      "ratio": 1.103,
+      "baseStatus": 0,
+      "headStatus": 0
+    },
+    {
+      "pair": 15,
+      "baseMs": 460.3,
+      "headMs": 642.5,
+      "ratio": 1.396,
+      "baseStatus": 0,
+      "headStatus": 0
+    }
+  ],
+  "statistics": {
+    "base": {
+      "minMs": 453.4,
+      "maxMs": 507.5,
+      "rangeMs": 54.1,
+      "medianMs": 470.8
+    },
+    "head": {
+      "minMs": 530.4,
+      "maxMs": 642.5,
+      "rangeMs": 112.1,
+      "medianMs": 556.2
+    },
+    "medianRatio": 1.181,
+    "passedContract": true
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "summary": {
+    "total": 284,
+    "passed": 278,
+    "failed": 0,
+    "known_gaps": 6,
+    "by_category": {
+      "baseline72": {
+        "total": 73,
+        "passed": 72,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "regressions": {
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "adversarial": {
+        "total": 12,
+        "passed": 11,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "security": {
+        "total": 29,
+        "passed": 28,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "new": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "independent": {
+        "total": 67,
+        "passed": 64,
+        "failed": 0,
+        "known_gaps": 3
+      },
+      "baseline": {
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "rules_diff": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "ci_guard": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "fuzz_truth": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "allowlist": {
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "env_git": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "known_gaps": 0
+      }
+    }
+  },
+  "known_gaps": [
+    {
+      "id": "007-EC2b",
+      "ruleId": "ASTESIA-007",
+      "file": "r007/ec2b_helper.ts",
+      "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis"
+    },
+    {
+      "id": "ADV-BACKTICK-IN-REGEX-GAP",
+      "ruleId": "ASTESIA-005",
+      "file": "adv/backtick-in-regex.ts",
+      "reason": "Backtick inside regex literal (/`/) can open false template literal in tokenizer"
+    },
+    {
+      "id": "SEC-23-GAP",
+      "ruleId": "ASTESIA-004",
+      "file": "sec/sec23.ts",
+      "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic"
+    },
+    {
+      "id": "D2-REG-BACKTICK-GAP",
+      "ruleId": "ASTESIA-005",
+      "file": "indep/d2_gap1.ts",
+      "reason": "Adversarial known-gap: backtick inside regex literal"
+    },
+    {
+      "id": "D2-PHP-HEREDOC",
+      "ruleId": "ASTESIA-002",
+      "file": "indep/d2_gap2.php",
+      "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer"
+    },
+    {
+      "id": "D4-21-GAP",
+      "ruleId": "ASTESIA-004",
+      "file": "indep/d4_gap.ts",
+      "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation"
+    }
+  ],
+  "failed_cases": [],
+  "cli_tests": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "non_existent_root_exit_2": true,
+    "desync_max_warn_0_exit_1": true
+  },
+  "property_test": {
+    "seed": 1337,
+    "files_tested": 2000,
+    "invariant_passed": true,
+    "errors": []
+  }
+}
