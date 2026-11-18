@@ -2,7 +2,7 @@
   {
     "id": "007-EC2b",
     "rule": "ASTESIA-007",
-    "fixture": "r007/ec2b_cross_function_helper.ts",
+    "fixture": "r007/ec2b_helper.ts",
     "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
     "source": "wave1.1-report"
   },
@@ -25,7 +25,8 @@
     "rule": "ASTESIA-005",
     "fixture": "indep/d2_gap1.ts",
     "reason": "Adversarial known-gap: backtick inside regex literal",
-    "source": "wave1.1-verification"
+    "source": "wave1.1-verification",
+    "duplicate_of": "ADV-BACKTICK-IN-REGEX-GAP"
   },
   {
     "id": "D2-PHP-HEREDOC",
@@ -38,7 +39,7 @@
     "id": "D4-21-GAP",
     "rule": "ASTESIA-004",
     "fixture": "indep/d4_gap.ts",
-    "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+    "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
     "source": "wave1.1-verification"
   }
 ]

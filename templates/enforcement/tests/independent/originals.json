@@ -1,0 +1,515 @@
+{
+  "version": "wave1.1",
+  "d2_adversarial": [
+    {
+      "id": "D2-REG-QUOTE-DOUBLE",
+      "file": "reg_double.ts",
+      "content": "const r = /\"([a-z]+)\"/g;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex with double quotes followed by : any"
+    },
+    {
+      "id": "D2-REG-QUOTE-SINGLE",
+      "file": "reg_single.ts",
+      "content": "const r = /'([a-z]+)'/g;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex with single quotes followed by : any"
+    },
+    {
+      "id": "D2-REG-SLASH-ESC",
+      "file": "reg_slash_esc.ts",
+      "content": "const r = /\\/\\//;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex with escaped slash /\\/\\// followed by : any"
+    },
+    {
+      "id": "D2-REG-BRACKET-SLASH",
+      "file": "reg_bracket_slash.ts",
+      "content": "const r = /[/]/;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex with bracket character class containing slash /[/]/ followed by : any"
+    },
+    {
+      "id": "D2-REG-AFTER-RETURN",
+      "file": "reg_after_return.ts",
+      "content": "function f(s: string) { return /\"abc\"/.test(s); }\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex after return keyword followed by : any"
+    },
+    {
+      "id": "D2-REG-AFTER-PAREN",
+      "file": "reg_after_paren.ts",
+      "content": "if (/\"abc\"/.test(s)) {\n  const x: any = 1;\n}\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Regex after opening paren followed by : any"
+    },
+    {
+      "id": "D2-REG-DIVISION",
+      "file": "reg_division.ts",
+      "content": "const d = a / b / c;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Arithmetic division a / b / c followed by : any"
+    },
+    {
+      "id": "D2-REG-BACKTICK-GAP",
+      "file": "reg_backtick_gap.ts",
+      "content": "const r = /`/;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Adversarial known-gap: backtick inside regex literal"
+    },
+    {
+      "id": "D2-STR-CONTINUATION",
+      "file": "str_continuation.ts",
+      "content": "const s = \"line1\\\nline2\\\nline3\";\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 4,
+      "expectedTrigger": true,
+      "description": "Escaped newline continuation must maintain line number accuracy (line 4)"
+    },
+    {
+      "id": "D2-STR-NESTED-TEMPLATE",
+      "file": "str_nested_template.ts",
+      "content": "const s = `outer ${\"nested } string\"} end`;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Nested template literal with braces in string followed by : any"
+    },
+    {
+      "id": "D2-STR-ESCAPED-QUOTE",
+      "file": "str_escaped_quote.ts",
+      "content": "const s = \"a\\\"b\\\"c\";\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "String with escaped quotes \\\" followed by : any"
+    },
+    {
+      "id": "D2-PY-CONCAT",
+      "file": "py_concat.py",
+      "content": "s = \"a\" \"b\"\ncursor.execute(\"SELECT * FROM users\")\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Python concatenated string literals followed by SELECT *"
+    },
+    {
+      "id": "D2-PY-TRIPLE-HASH",
+      "file": "py_triple_hash.py",
+      "content": "doc = \"\"\"\n# comment inside docstring\n\"\"\"\ncursor.execute(\"SELECT * FROM users\")\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 4,
+      "expectedTrigger": true,
+      "description": "Python triple quote containing # followed by SELECT *"
+    },
+    {
+      "id": "D2-PY-FSTRING",
+      "file": "py_fstring.py",
+      "content": "msg = f\"user {user_id}\"\ncursor.execute(\"SELECT * FROM users\")\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "Python f-string followed by SELECT *"
+    },
+    {
+      "id": "D2-GO-RAW-SLASH",
+      "file": "go_raw_slash.go",
+      "content": "package main\nvar r = `multiline\n// not a comment\nraw string`\nfunc f() { db.Query(\"SELECT * FROM users\") }\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 5,
+      "expectedTrigger": true,
+      "description": "Go raw string containing // followed by SELECT *"
+    },
+    {
+      "id": "D2-PHP-MULTILINE",
+      "file": "php_multiline.php",
+      "content": "<?php\n$s = \"multi\nline\nstring\";\n$q = \"SELECT * FROM users\";\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 5,
+      "expectedTrigger": true,
+      "description": "PHP multiline double-quoted string followed by SELECT *"
+    },
+    {
+      "id": "D2-PHP-HEREDOC",
+      "file": "php_heredoc.php",
+      "content": "<?php\n$str = <<<EOD\nSELECT * FROM users in heredoc\nEOD;\n$q = \"SELECT * FROM users\";\n",
+      "expectedRule": "ASTESIA-002",
+      "expectedLine": 5,
+      "expectedTrigger": true,
+      "description": "PHP heredoc text followed by real SELECT *"
+    },
+    {
+      "id": "D2-SVELTE-ATTR",
+      "file": "Component.svelte",
+      "content": "<div class=\"btn\n  btn-primary\">\n</div>\n<script lang=\"ts\">\nlet x: any = 1;\n</script>\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 5,
+      "expectedTrigger": true,
+      "description": "Svelte markup multiline HTML attribute followed by : any inside <script>"
+    },
+    {
+      "id": "D2-CRLF-CONTINUATION",
+      "file": "crlf_continuation.ts",
+      "content": "const s = \"line1\\\r\nline2\\\r\nline3\";\r\nconst x: any = 1;\r\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 4,
+      "expectedTrigger": true,
+      "description": "CRLF line endings with escaped newline continuation"
+    },
+    {
+      "id": "D2-BOM-REG-QUOTE",
+      "file": "bom_reg_quote.ts",
+      "content": "﻿const r = /\"([a-z]+)\"/g;\nconst x: any = 1;\n",
+      "expectedRule": "ASTESIA-005",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "description": "UTF-8 BOM with regex quotes followed by : any"
+    },
+    {
+      "id": "D2-EOF-BACKTICK",
+      "file": "eof_backtick.ts",
+      "content": "const s = `unclosed template literal;\n",
+      "expectedRule": "TOKENIZER_DESYNC",
+      "expectedLine": 1,
+      "expectedTrigger": true,
+      "expectDesync": true,
+      "description": "Unclosed backtick template literal at EOF must trigger TOKENIZER_DESYNC"
+    },
+    {
+      "id": "D2-EOF-PY-TRIPLE",
+      "file": "eof_py_triple.py",
+      "content": "doc = \"\"\"unclosed python triple quote;\n",
+      "expectedRule": "TOKENIZER_DESYNC",
+      "expectedLine": 1,
+      "expectedTrigger": true,
+      "expectDesync": true,
+      "description": "Unclosed Python triple quote at EOF must trigger TOKENIZER_DESYNC"
+    },
+    {
+      "id": "D2-EOF-BLOCK-COMMENT",
+      "file": "eof_block_comment.ts",
+      "content": "/* unclosed block comment\n",
+      "expectedRule": "TOKENIZER_DESYNC",
+      "expectedLine": 1,
+      "expectedTrigger": true,
+      "expectDesync": true,
+      "description": "Unclosed block comment at EOF must trigger TOKENIZER_DESYNC"
+    },
+    {
+      "id": "D2-EOF-ALLOW-UNSUPPRESSIBLE",
+      "file": "eof_allow_unsup.ts",
+      "content": "/* astesia-allow: TOKENIZER_DESYNC -- please allow desynchronization */\nconst s = `unclosed template;\n",
+      "expectedRule": "TOKENIZER_DESYNC",
+      "expectedLine": 2,
+      "expectedTrigger": true,
+      "expectDesync": true,
+      "description": "astesia-allow must NOT be able to suppress TOKENIZER_DESYNC"
+    }
+  ],
+  "d4_secrets": [
+    {
+      "id": "D4-01",
+      "code": "const password = \"correcthorsebatterystaple\";\n",
+      "expectedTrigger": true,
+      "description": "Diceware passphrase: pure alphabetic unbroken letters >= 12"
+    },
+    {
+      "id": "D4-02",
+      "code": "const apiKey = \"abcdefghijklmnop\";\n",
+      "expectedTrigger": true,
+      "description": "API key: pure alphabetic letters (length 16)"
+    },
+    {
+      "id": "D4-03",
+      "code": "const secret = \"mysecretpassword\";\n",
+      "expectedTrigger": true,
+      "description": "Secret: pure alphabetic letters (length 16)"
+    },
+    {
+      "id": "D4-04",
+      "code": "const token = \"Sup3rSecret!Value\";\n",
+      "expectedTrigger": true,
+      "description": "Token with digits and symbol '!'"
+    },
+    {
+      "id": "D4-05",
+      "code": "const token = \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\";\n",
+      "expectedTrigger": true,
+      "description": "Real JWT token starting with eyJ"
+    },
+    {
+      "id": "D4-06",
+      "code": "const secret = process.env.API_SECRET ?? \"fallback_secret_12345\";\n",
+      "expectedTrigger": true,
+      "description": "process.env ?? fallback literal with digits"
+    },
+    {
+      "id": "D4-07",
+      "code": "const token = `ghp_1234567890abcdefghijklmnopqrstuv`;\n",
+      "expectedTrigger": true,
+      "description": "GitHub PAT in backticks starting with ghp_"
+    },
+    {
+      "id": "D4-08",
+      "code": "const labels = { password: \"EnterYourNewPassword\" };\n",
+      "expectedTrigger": false,
+      "description": "UI label: PascalCase with >= 2 capital segments"
+    },
+    {
+      "id": "D4-09",
+      "code": "const passwordField = \"user_password_confirmation\";\n",
+      "expectedTrigger": false,
+      "description": "Form field name ending with Field, only letters and _"
+    },
+    {
+      "id": "D4-10",
+      "code": "const passwordLabel = \"Please enter your password\";\n",
+      "expectedTrigger": false,
+      "description": "Ending with Label and spaced string"
+    },
+    {
+      "id": "D4-11",
+      "code": "const tokenType = \"Bearer\";\n",
+      "expectedTrigger": false,
+      "description": "Short value (< 12 chars) ending with Type"
+    },
+    {
+      "id": "D4-12",
+      "code": "const msg = \"Please enter your password\";\n",
+      "expectedTrigger": false,
+      "description": "Spaced user message"
+    },
+    {
+      "id": "D4-13",
+      "code": "const apiKeyText = \"sk_live_9876543210abcdef\";\n",
+      "expectedTrigger": true,
+      "description": "Real secret assigned to key ending with Text (apiKeyText)"
+    },
+    {
+      "id": "D4-14",
+      "code": "const passwordField = \"SuperSecretP@ssw0rd1234!\";\n",
+      "expectedTrigger": true,
+      "description": "Real password assigned to key ending with Field (passwordField)"
+    },
+    {
+      "id": "D4-15",
+      "code": "const secretName = \"sk_live_9876543210abcdef\";\n",
+      "expectedTrigger": true,
+      "description": "Real secret assigned to key ending with Name (secretName)"
+    },
+    {
+      "id": "D4-16",
+      "code": "const awsAccessKey = \"AKIAIOSFODNN7EXAMPLE\";\n",
+      "expectedTrigger": true,
+      "description": "AWS Access Key starting with AKIA"
+    },
+    {
+      "id": "D4-17",
+      "code": "const slackToken = \"xoxb-123456789012-1234567890123-4j3k2l1m\";\n",
+      "expectedTrigger": true,
+      "description": "Slack Bot Token starting with xoxb-"
+    },
+    {
+      "id": "D4-18",
+      "code": "const ghToken = \"gho_1234567890abcdefghijklmnopqrstuv\";\n",
+      "expectedTrigger": true,
+      "description": "GitHub OAuth token starting with gho_"
+    },
+    {
+      "id": "D4-19",
+      "code": "const stripeTest = \"sk_test_51Mz0123456789abcdef\";\n",
+      "expectedTrigger": true,
+      "description": "Stripe test key starting with sk_test_"
+    },
+    {
+      "id": "D4-20",
+      "code": "const passwordLabel = \"correcthorsebatterystaple\";\n",
+      "expectedTrigger": true,
+      "description": "Diceware unbroken lowercase >= 12 under Label suffix (must trigger, E2 exempts only broken)"
+    },
+    {
+      "id": "D4-21-GAP",
+      "code": "const passwordField = \"my_snake_case_secret_token\";\n",
+      "expectedTrigger": false,
+      "isKnownGap": true,
+      "gapReason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+      "description": "Known-gap: snake_case lowercase secret under Field suffix"
+    },
+    {
+      "id": "D4-22",
+      "code": "const passwordPlaceholder = \"your-account-password\";\n",
+      "expectedTrigger": false,
+      "description": "Hyphenated UI placeholder under Placeholder suffix"
+    },
+    {
+      "id": "D4-23",
+      "code": "const tokenType = \"Bearer-Token-Type\";\n",
+      "expectedTrigger": false,
+      "description": "Hyphenated identifier string ending in Type"
+    },
+    {
+      "id": "D4-24",
+      "code": "const apiKeyLabel = \"API Key Label:\";\n",
+      "expectedTrigger": false,
+      "description": "Spaced UI label with colon ending in Label"
+    },
+    {
+      "id": "D4-25",
+      "code": "const buttonText = \"ConfirmPasswordNow\";\n",
+      "expectedTrigger": false,
+      "description": "PascalCase label ending in Text"
+    },
+    {
+      "id": "D4-26",
+      "code": "const secret = \"a1b2c3d4e5f6g7h8\";\n",
+      "expectedTrigger": true,
+      "description": "Alphanumeric secret without spaces"
+    },
+    {
+      "id": "D4-27",
+      "code": "const token = \"short_tok\";\n",
+      "expectedTrigger": false,
+      "description": "Short token (< 12 chars)"
+    },
+    {
+      "id": "D4-28",
+      "code": "const authToken = \"dXNlcm5hbWU6cGFzc3dvcmQ=\";\n",
+      "expectedTrigger": true,
+      "description": "Base64 credential string with ="
+    },
+    {
+      "id": "D4-29",
+      "code": "const passwordName = \"sk_live_0987654321fedcba\";\n",
+      "expectedTrigger": true,
+      "description": "Stripe live secret under passwordName"
+    },
+    {
+      "id": "D4-30",
+      "code": "const tokenField = \"sk_test_abcdef1234567890\";\n",
+      "expectedTrigger": true,
+      "description": "Stripe test secret under tokenField"
+    }
+  ],
+  "d5_allow": [
+    {
+      "id": "D5-1CHAR",
+      "code": "// astesia-allow: ASTESIA-002 -- x\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "Reason 1 char (<15) must be rejected"
+    },
+    {
+      "id": "D5-14CHAR",
+      "code": "// astesia-allow: ASTESIA-002 -- 12345678901234\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "Reason 14 chars (<15) must be rejected"
+    },
+    {
+      "id": "D5-15CHAR",
+      "code": "// astesia-allow: ASTESIA-002 -- 123456789012345\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 0,
+      "expectedSuppressions": 1,
+      "expectedRejected": 0,
+      "description": "Reason exactly 15 chars must be accepted and suppress violation"
+    },
+    {
+      "id": "D5-NO-COMMENT",
+      "code": "astesia-allow: ASTESIA-002 -- valid fifteen character reason\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 0,
+      "description": "Directive without comment marker is regular code, not suppression"
+    },
+    {
+      "id": "D5-INSIDE-STR",
+      "code": "const s = \"// astesia-allow: ASTESIA-002 -- valid fifteen character reason\";\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 0,
+      "description": "Directive inside string literal must not suppress"
+    },
+    {
+      "id": "D5-BLOCK-PREV",
+      "code": "/*\n * astesia-allow: ASTESIA-002 -- valid fifteen character reason\n */\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 0,
+      "expectedSuppressions": 1,
+      "expectedRejected": 0,
+      "description": "Directive in block comment before code must suppress"
+    },
+    {
+      "id": "D5-BLOCK-INLINE",
+      "code": "/* astesia-allow: ASTESIA-002 -- valid fifteen character reason */ const q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 0,
+      "expectedSuppressions": 1,
+      "expectedRejected": 0,
+      "description": "Inline block comment on same line must suppress"
+    },
+    {
+      "id": "D5-SAME-LINE",
+      "code": "const q = \"SELECT * FROM users\"; // astesia-allow: ASTESIA-002 -- valid fifteen character reason\n",
+      "expectedViolationsCount": 0,
+      "expectedSuppressions": 1,
+      "expectedRejected": 0,
+      "description": "Line comment on same line must suppress"
+    },
+    {
+      "id": "D5-PREV-LINE",
+      "code": "// astesia-allow: ASTESIA-002 -- valid fifteen character reason\nconst q = \"SELECT * FROM users\";\n",
+      "expectedViolationsCount": 0,
+      "expectedSuppressions": 1,
+      "expectedRejected": 0,
+      "description": "Line comment on previous line must suppress"
+    },
+    {
+      "id": "D5-BANNED-000",
+      "code": "// astesia-allow: ASTESIA-000 -- valid fifteen character reason\nimport { x } from \"./ghost\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "ASTESIA-000 suppression is banned and must be rejected"
+    },
+    {
+      "id": "D5-BANNED-004",
+      "code": "// astesia-allow: ASTESIA-004 -- valid fifteen character reason\nconst apiKey = \"sk_live_1234567890abcdef\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "ASTESIA-004 suppression is banned and must be rejected"
+    },
+    {
+      "id": "D5-BANNED-000-BLOCK",
+      "code": "/*\n * astesia-allow: ASTESIA-000 -- valid fifteen character reason\n */\nimport { x } from \"./ghost\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "ASTESIA-000 in block comment must be rejected"
+    },
+    {
+      "id": "D5-BANNED-004-BLOCK",
+      "code": "/*\n * astesia-allow: ASTESIA-004 -- valid fifteen character reason\n */\nconst apiKey = \"sk_live_1234567890abcdef\";\n",
+      "expectedViolationsCount": 1,
+      "expectedSuppressions": 0,
+      "expectedRejected": 1,
+      "description": "ASTESIA-004 in block comment must be rejected"
+    }
+  ]
+}

@@ -253,11 +253,11 @@ export const independentCases: TestCase[] = [
     ruleId: "ASTESIA-004",
     category: "independent",
     relPath: "indep/d4_gap.ts",
-    content: 'const passwordField = "my_snake_case_secret_token";\n',
+    content: "const password = `pass_${userId}`;\n",
     expectedShouldTrigger: false,
     isKnownGap: true,
-    gapReason: "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
-    description: "Known-gap: snake_case lowercase secret under Field suffix"
+    gapReason: "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
+    description: "Known-gap: template literal interpolation pass_${userId}"
   },
   { id: "D4-22", ruleId: "ASTESIA-004", category: "independent", relPath: "indep/d4_22.ts", content: 'const passwordPlaceholder = "your-account-password";\n', expectedShouldTrigger: false, description: "Hyphenated UI placeholder under Placeholder suffix" },
   { id: "D4-23", ruleId: "ASTESIA-004", category: "independent", relPath: "indep/d4_23.ts", content: 'const tokenType = "Bearer-Token-Type";\n', expectedShouldTrigger: false, description: "Hyphenated identifier string ending in Type" },
