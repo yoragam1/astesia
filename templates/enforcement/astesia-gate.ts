@@ -88,6 +88,7 @@ export interface GateState {
   allowlistedCount: number;
   allowHits: Map<GateConfigAllowEntry, number>;
   envIgnoredSkipped: number;
+  rule010?: Rule;
 }
 
 export interface PreprocessedFile {
@@ -772,7 +773,9 @@ export function isSensitiveKey(key: string): boolean {
     tokenSet.has("pwd") ||
     tokenSet.has("pwds") ||
     tokenSet.has("passphrase") ||
-    tokenSet.has("passphrases");
+    tokenSet.has("passphrases") ||
+    tokenSet.has("pass") ||
+    tokenSet.has("passes");
   const hasToken = tokenSet.has("token") || tokenSet.has("tokens");
   const hasCredential = tokenSet.has("credential") || tokenSet.has("credentials");
   const hasAuthorization = tokenSet.has("authorization");
@@ -862,6 +865,87 @@ function getCachedRegex(pattern: string, flags?: string): RegExp {
 
 const SYNTAX_ONLY_RULES = new Set(["ASTESIA-005", "ASTESIA-006", "ASTESIA-009"]);
 
+export function checkConfigSecret(
+  line: string,
+  prevKey?: string
+): { isSecret: boolean; key: string; val: string } {
+  let cleanLine = line.trim();
+  if (!cleanLine || cleanLine.startsWith("#")) return { isSecret: false, key: "", val: "" };
+  if (cleanLine.startsWith("ENV ")) cleanLine = cleanLine.slice(4).trim();
+  if (cleanLine.startsWith("- ")) cleanLine = cleanLine.slice(2).trim();
+
+  let key = "";
+  let val = "";
+
+  const m = /^([a-zA-Z0-9_$.-]+)\s*[:=]\s*(.*)$/.exec(cleanLine);
+  if (m) {
+    key = m[1];
+    val = m[2];
+  } else if (prevKey && /^value:\s*(.*)$/.test(cleanLine)) {
+    key = prevKey;
+    val = cleanLine.replace(/^value:\s*/, "");
+  } else {
+    return { isSecret: false, key: "", val: "" };
+  }
+
+  val = val.trim();
+  if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+    val = val.slice(1, -1).trim();
+  }
+
+  // 1. Known prefix anywhere in value (e.g. sk_live_, ghp_, AKIA, etc.) or auth bearer/basic
+  if (/(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)[a-zA-Z0-9_.-]{8,}/.test(val) || isAuthBearerOrBasic(val)) {
+    return { isSecret: true, key, val };
+  }
+
+  // 2. Interpolation with fallback: ${VAR:-fallback} or ${VAR-fallback}
+  const fallbackMatch = /^\$\{[A-Za-z0-9_]+:?-(.+)\}$/.exec(val);
+  if (fallbackMatch) {
+    val = fallbackMatch[1].trim();
+    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      val = val.slice(1, -1).trim();
+    }
+  } else if (/^\$\{[^}]+\}$/.test(val) || /^\$\{\{.*\}\}$/.test(val) || /^\{\{.*\}\}$/.test(val)) {
+    return { isSecret: false, key, val };
+  }
+
+  // 3. Paths
+  if (val.startsWith("/") || val.startsWith("./") || val.startsWith("../") || val.startsWith("~/") || /^[A-Za-z]:[\\/]/.test(val)) {
+    return { isSecret: false, key, val };
+  }
+
+  // 4. Object mapping literal: e.g. {name: db, key: password}
+  if (val.startsWith("{") && val.endsWith("}")) {
+    return { isSecret: false, key, val };
+  }
+
+  // 5. Length check: literal secrets must be >= 8 chars
+  if (val.length < 8) {
+    return { isSecret: false, key, val };
+  }
+
+  // 6. Suffix / reference key exclusion
+  if (key.toLowerCase().startsWith("existing")) {
+    return { isSecret: false, key, val };
+  }
+  if (/(?:name|ref|file|path|url|id|type|label|field|text|placeholder)$/i.test(key)) {
+    const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
+    if (!isUnbrokenLowercase) {
+      return { isSecret: false, key, val };
+    }
+  }
+
+  // 7. Sensitive key check (E1 disabled: spaces and PascalCase do NOT exempt)
+  const tokens = tokenizeKey(key);
+  const tokenSet = new Set(tokens);
+  const hasPassToken = tokenSet.has("pass") || tokenSet.has("passes");
+  if (isSensitiveKey(key) || hasPassToken) {
+    return { isSecret: true, key, val };
+  }
+
+  return { isSecret: false, key, val };
+}
+
 function checkLineRegex(
   rule: LineRegexRule,
   rel: string,
@@ -931,8 +1015,83 @@ function checkLineRegex(
     return;
   }
 
+  // Special handler for ASTESIA-010: Configuration and compose secret detection
+  if (rule.id === "ASTESIA-010") {
+    if (rule.pathRegex && !getCachedRegex(rule.pathRegex, "i").test(rel)) return;
+    if (rule.excludeRegex && getCachedRegex(rule.excludeRegex, "i").test(rel)) return;
+
+    let prevKey = "";
+    for (let i = 0; i < prep.rawLines.length; i++) {
+      const rawLine = prep.rawLines[i];
+      const codeLine = prep.codeLines[i] || "";
+      if (!codeLine.trim()) continue;
+
+      const res = checkConfigSecret(codeLine, prevKey);
+      if (/- name:\s*([A-Za-z0-9_]+)/.test(codeLine)) {
+        prevKey = /- name:\s*([A-Za-z0-9_]+)/.exec(codeLine)![1];
+      } else if (codeLine.trim()) {
+        prevKey = "";
+      }
+
+      if (res.isSecret) {
+        if (checkAllowlist(rel, rule.id, rawLine, allowEntries, state)) {
+          continue;
+        }
+        if (!checkSuppression(prep, i, rule.id, state)) {
+          out.push({
+            ruleId: rule.id,
+            severity: rule.severity,
+            file: rel,
+            line: i + 1,
+            message: rule.description,
+            fix: rule.fix
+          });
+        }
+      }
+    }
+    return;
+  }
+
   // Special handler for ASTESIA-004: Decision Table for hardcoded secret detection
   if (rule.id === "ASTESIA-004") {
+    const isConfigFile = profileFor(rel) === "config";
+    if (isConfigFile) {
+      if (state.rule010 && (!state.rule010.pathRegex || getCachedRegex(state.rule010.pathRegex, "i").test(rel))) {
+        return; // ASTESIA-010 will scan this config file
+      }
+
+      let prevKey = "";
+      for (let i = 0; i < prep.rawLines.length; i++) {
+        const rawLine = prep.rawLines[i];
+        const codeLine = prep.codeLines[i] || "";
+        if (!codeLine.trim()) continue;
+
+        const res = checkConfigSecret(codeLine, prevKey);
+        if (/- name:\s*([A-Za-z0-9_]+)/.test(codeLine)) {
+          prevKey = /- name:\s*([A-Za-z0-9_]+)/.exec(codeLine)![1];
+        } else if (codeLine.trim()) {
+          prevKey = "";
+        }
+
+        if (res.isSecret) {
+          if (checkAllowlist(rel, rule.id, rawLine, allowEntries, state)) {
+            continue;
+          }
+          if (!checkSuppression(prep, i, rule.id, state)) {
+            out.push({
+              ruleId: rule.id,
+              severity: rule.severity,
+              file: rel,
+              line: i + 1,
+              message: rule.description,
+              fix: rule.fix
+            });
+          }
+        }
+      }
+      return;
+    }
+
     const KNOWN_PREFIX = /^(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)/;
     const SUFFIX_KEY_RE = /(?:label|placeholder|field|text|name|type)$/i;
 
@@ -1020,7 +1179,7 @@ function checkLineRegex(
             const hasDigitsOrSymbols = /[^A-Za-z]/.test(val);
             // OR unbroken lowercase string >= 12 on password/secret/token/apikey/pwd/passphrase
             const isUnbrokenLowercase = /^[a-z]{12,}$/.test(val);
-            const isDirectSecretKey = /(?:password|passwords|passwd|pwd|passphrase|secret|token|apikey|api_key)/i.test(key);
+            const isDirectSecretKey = /(?:password|passwords|passwd|pwd|passphrase|pass|secret|token|apikey|api_key)/i.test(key);
 
             if (hasDigitsOrSymbols || (isUnbrokenLowercase && isDirectSecretKey)) {
               isSecret = true;
@@ -2074,7 +2233,8 @@ function main() {
     debtMarkers: 0,
     allowlistedCount: 0,
     allowHits: new Map<GateConfigAllowEntry, number>(),
-    envIgnoredSkipped: 0
+    envIgnoredSkipped: 0,
+    rule010: rules.find((r) => r.id === "ASTESIA-010")
   };
 
   const { excludedPaths, allowEntries } = loadConfig(root, opts.get("config"));

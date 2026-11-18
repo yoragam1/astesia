@@ -27,6 +27,7 @@ import { runAllowlistSuite } from "./allowlist-suite";
 import { runEnvGitSuite } from "./env-git-suite";
 import { runProfileDispatchSuite } from "./profile-dispatch-suite";
 import { runKeyContractSuite } from "./key-contract-suite";
+import { runConfigSecretsSuite } from "./config-secrets-suite";
 import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -536,7 +537,8 @@ const categoryStats: Record<string, CategoryStats> = {
   allowlist: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   profile_dispatch: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  key_contract: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  key_contract: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  config_secrets: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -820,6 +822,16 @@ categoryStats.key_contract.passed = keyContractRes.passed;
 categoryStats.key_contract.failed = keyContractRes.failed;
 for (const err of keyContractRes.errors) {
   failedCases.push({ id: "key-contract", category: "key_contract", reason: err });
+}
+
+// ================= CONFIG SECRETS SUITE (T3: 26 Scenarios) =================
+const configSecretsTmpDir = join(TEST_DIR, "suite-config-secrets");
+const configSecretsRes = runConfigSecretsSuite(GATE_PATH, RULES_PATH, configSecretsTmpDir);
+categoryStats.config_secrets.total = configSecretsRes.total;
+categoryStats.config_secrets.passed = configSecretsRes.passed;
+categoryStats.config_secrets.failed = configSecretsRes.failed;
+for (const err of configSecretsRes.errors) {
+  failedCases.push({ id: "config-secrets", category: "config_secrets", reason: err });
 }
 
 // ================= BIDIRECTIONAL KNOWN-GAPS VALIDATION =================
