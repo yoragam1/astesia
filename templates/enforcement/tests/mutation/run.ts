@@ -14,18 +14,21 @@ export function strictReplace(
   replacement: string,
   mutantId: string
 ): string {
+  const normCode = code.replace(/\r\n/g, "\n");
+  const normTarget = target.replace(/\r\n/g, "\n");
+  const normReplacement = replacement.replace(/\r\n/g, "\n");
   let count = 0;
   let idx = 0;
-  while ((idx = code.indexOf(target, idx)) !== -1) {
+  while ((idx = normCode.indexOf(normTarget, idx)) !== -1) {
     count++;
-    idx += target.length;
+    idx += normTarget.length;
   }
   if (count !== 1) {
     throw new Error(
       `Strict replacement failed for mutant ${mutantId}: expected exactly 1 match, found ${count}`
     );
   }
-  return code.replace(target, replacement);
+  return normCode.replace(normTarget, normReplacement);
 }
 
 interface Mutant {
@@ -43,8 +46,8 @@ export function runMutationHarness(): {
   results: Array<{ id: string; name: string; killed: boolean; detail?: string }>;
 } {
   const gatePath = join(__dirname, "../../astesia-gate.ts");
-  const authenticGate = readFileSync(gatePath, "utf8");
-  const authenticWf = readFileSync(join(__dirname, "../../astesia-gate.workflow.yml"), "utf8");
+  const authenticGate = readFileSync(gatePath, "utf8").replace(/\r\n/g, "\n");
+  const authenticWf = readFileSync(join(__dirname, "../../astesia-gate.workflow.yml"), "utf8").replace(/\r\n/g, "\n");
   const tmpDir = join(__dirname, "../../../../.astesia/audit/tmp/mutation-tmp-" + Date.now());
   mkdirSync(tmpDir, { recursive: true });
 
@@ -472,7 +475,7 @@ export function runMutationHarness(): {
       mutate: (code) =>
         strictReplace(
           code,
-          'export function profileFor(filePath: string): "config" | "code" {\n  const norm = filePath.replace(/\\\\/g, "/");\n  const base = norm.split("/").pop()!.toLowerCase();',
+          'export function profileFor(filePath: string): "config" | "code" {\n  const norm = filePath.replace(/\\\\/g, "/");\n  const base = (norm.split("/").pop() || "").toLowerCase();',
           'export function profileFor(filePath: string): "config" | "code" {\n  const norm = filePath.replace(/\\\\/g, "/");\n  const base = norm.toLowerCase();',
           "M19"
         ),
@@ -663,6 +666,163 @@ export function runMutationHarness(): {
           const prep = preprocessSource("PASSWORD: secret12345 # a comment\\n", "docker-compose.yml");
           const commentCut = prep.commentLines[0].includes("a comment");
           process.exit(commentCut ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M28: .envrc considered config
+    {
+      id: "M28",
+      name: "envrc_considered_config",
+      description: "Treat .envrc as config profile instead of code profile",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '  if (\n    /^\\.env(\\..+)?$/.test(base) ||',
+          '  if (\n    /^\\.env.*$/.test(base) ||',
+          "M28"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m28.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(profileFor(".envrc") === "code" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M29: profileFor without backslash normalization
+    {
+      id: "M29",
+      name: "profile_for_no_backslash_normalization",
+      description: "Omit backslash normalization in profileFor",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'const norm = filePath.replace(/\\\\/g, "/");',
+          'const norm = filePath;',
+          "M29"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m29.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(profileFor("config\\\\.env.production") === "config" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M30: startsWith('.env') dispatch without boundary
+    {
+      id: "M30",
+      name: "env_dispatch_unbounded_startswith",
+      description: "Dispatch config via startsWith('.env') without boundary check",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '/^\\.env(\\..+)?$/.test(base) ||',
+          'base.startsWith(".env") ||',
+          "M30"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m30.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(profileFor(".environment") === "code" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M31: unbraced $VAR not recognized in config
+    {
+      id: "M31",
+      name: "unbraced_var_not_recognized",
+      description: "Disable unbraced $VAR interpolation exemption in checkConfigSecret",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '/^\\$[A-Za-z_]\\w*$/.test(val) ||',
+          'false ||',
+          "M31"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m31.ts");
+        writeFileSync(testScript, `
+          import { checkConfigSecret } from "${mgPath.replace(/\\/g, "/")}";
+          const res = checkConfigSecret("DB_PASSWORD=$DB_PASS");
+          process.exit(!res.isSecret ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M32: Helm keyname rule extended to secretKey
+    {
+      id: "M32",
+      name: "helm_rule_extended_to_secretkey",
+      description: "Add 'secret' to HELM_KEYNAME_PREV allowing secretKey identifier values",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'const HELM_KEYNAME_PREV = new Set([\n  "password",',
+          'const HELM_KEYNAME_PREV = new Set([\n  "secret",\n  "password",',
+          "M32"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m32.ts");
+        writeFileSync(testScript, `
+          import { isHelmKeyName } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(!isHelmKeyName("secretKey", "postgres-password") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M33: .json considered config profile
+    {
+      id: "M33",
+      name: "json_considered_config_profile",
+      description: "Treat .json files as config profile",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '/\\.dockerfile$/.test(base) ||',
+          '/\\.dockerfile$/.test(base) || base.endsWith(".json") ||',
+          "M33"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m33.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(profileFor("locales/en.json") === "code" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M34: Dockerfile* not considered config profile
+    {
+      id: "M34",
+      name: "dockerfile_not_considered_config",
+      description: "Disable Dockerfile* config profile recognition",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '/^dockerfile(\\..+)?$/.test(base) ||',
+          'false ||',
+          "M34"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m34.ts");
+        writeFileSync(testScript, `
+          import { profileFor } from "${mgPath.replace(/\\/g, "/")}";
+          const ok1 = profileFor("Dockerfile") === "config";
+          const ok2 = profileFor("Dockerfile.dev") === "config";
+          process.exit(ok1 && ok2 ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
