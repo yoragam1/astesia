@@ -37,15 +37,27 @@ jobs:
 
       - name: Validate PR Workflow Security Guard
         run: |
-          GUARD_SCRIPT=""
-          if [ -f "trusted/templates/enforcement/tests/workflow-guard.ts" ]; then
-            GUARD_SCRIPT="trusted/templates/enforcement/tests/workflow-guard.ts"
-          elif [ -f "trusted/.astesia/enforcement/tests/workflow-guard.ts" ]; then
-            GUARD_SCRIPT="trusted/.astesia/enforcement/tests/workflow-guard.ts"
+          WORKFLOW_FILE=""
+          if [ -f "pr/.github/workflows/astesia-gate.yml" ]; then
+            WORKFLOW_FILE="pr/.github/workflows/astesia-gate.yml"
+          elif [ -f "pr/templates/enforcement/astesia-gate.workflow.yml" ]; then
+            WORKFLOW_FILE="pr/templates/enforcement/astesia-gate.workflow.yml"
           fi
-          if [ -n "$GUARD_SCRIPT" ] && [ -f "pr/.github/workflows/astesia-gate.yml" ]; then
-            bun "$GUARD_SCRIPT" pr/.github/workflows/astesia-gate.yml
+          if [ -z "$WORKFLOW_FILE" ]; then
+            echo "[SECURITY_ERROR: No PR workflow found to validate (fail-closed)]"
+            exit 1
           fi
+          GATE_SCRIPT=""
+          if [ -f "trusted/.astesia/enforcement/astesia-gate.ts" ]; then
+            GATE_SCRIPT="trusted/.astesia/enforcement/astesia-gate.ts"
+          elif [ -f "trusted/templates/enforcement/astesia-gate.ts" ]; then
+            GATE_SCRIPT="trusted/templates/enforcement/astesia-gate.ts"
+          fi
+          if [ -z "$GATE_SCRIPT" ]; then
+            echo "[SECURITY_ERROR: Trusted gate script not found (fail-closed)]"
+            exit 1
+          fi
+          bun "$GATE_SCRIPT" --check-workflow "$WORKFLOW_FILE"
 
       - name: Verify anti-pattern registry compatibility (no weakenings)
         run: |

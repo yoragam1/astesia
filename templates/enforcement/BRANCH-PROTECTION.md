@@ -40,10 +40,11 @@ Buka **Settings** -> **Branches** -> **Add branch ruleset** (atau **Branch prote
 
 Penting untuk dipahami bahwa berkas workflow GitHub Actions (`.github/workflows/*.yml`) **tidak dapat memvalidasi atau melindungi dirinya sendiri secara mandiri jika kontrol akses repositori tidak dikonfigurasi**.
 
-1. **Mengapa Workflow Guard Saja Tidak Cukup?**
-   * GitHub Actions mengeksekusi workflow dari definisi yang ada di PR saat event `pull_request` dipicu jika PR menyentuh berkas workflow.
-   * Jika PR berbahaya menghapus langkah `workflow-guard.ts` atau mengubah skrip gate, workflow yang telah dirusak tersebutlah yang akan dijalankan oleh GitHub Actions runner.
-   * Oleh karena itu, skrip `workflow-guard.ts` berfungsi sebagai detektor baris pertama, namun **CODEOWNERS** dan **GitHub Branch Ruleset** adalah benteng pertahanan mutlak yang membatasi hak pengubahan berkas workflow ke tangan Code Owner manusia.
+1. **Mengapa Workflow Guard (`--check-workflow`) Berfungsi Sebagai Linting/Detektor Awal?**
+   * Perintah `astesia-gate.ts --check-workflow <path>` melakukan verifikasi statis komprehensif terhadap integritas workflow (larangan `pull_request_target`, izin read-only, pinning action SHA 40 karakter, isolasi dual checkout `trusted` & `pr`, dan larangan filter trigger `paths:`).
+   * Namun, GitHub Actions mengeksekusi workflow dari definisi yang ada di PR saat event `pull_request` dipicu jika PR menyentuh berkas workflow.
+   * Jika PR berbahaya menghapus langkah verifikasi `--check-workflow` atau merusak workflow runner, runner GitHub Actions akan menjalankan workflow yang telah dirusak tersebut.
+   * Oleh karena itu, subperintah `--check-workflow` bertindak sebagai linting keamanan otomatis baris pertama, sedangkan **CODEOWNERS** dan **GitHub Branch Ruleset** adalah batas kepercayaan (*trust boundary*) mutlak yang membatasi hak pengubahan berkas workflow ke tangan Code Owner manusia.
 
 2. **Allowlist Config Berada di Base Branch (`trusted/`):**
    * Seluruh konfigurasi allowlist (`.astesia/gate-config.json`) dieksekusi dari base ref branch tepercaya (`trusted/`).

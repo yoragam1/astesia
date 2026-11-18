@@ -1425,6 +1425,117 @@ function handleRulesDiff(basePath: string, headPath: string): number {
   return 0;
 }
 
+export function checkWorkflow(yamlContent: string): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+
+  // 1. Prohibit pull_request_target
+  if (/pull_request_target/i.test(yamlContent)) {
+    errors.push("Forbidden trigger 'pull_request_target' detected. Use 'pull_request' only.");
+  }
+
+  // 2. Enforce read-only permissions
+  const permissionsMatch = yamlContent.match(/permissions:\s*([^\n]+|\n\s+[^\n]+)/);
+  if (!permissionsMatch) {
+    errors.push("Missing top-level or job-level permissions specification.");
+  } else {
+    const permBlock = permissionsMatch[0];
+    if (/write/i.test(permBlock)) {
+      errors.push("Write permissions detected. CI must have read-only permissions ('contents: read').");
+    }
+    if (!/contents:\s*read/i.test(permBlock)) {
+      errors.push("Permissions must strictly specify 'contents: read'.");
+    }
+  }
+
+  // 3. Verify all uses: are pinned to 40-character commit SHAs
+  const usesRegex = /uses:\s*([^\s#]+)/g;
+  let m: RegExpExecArray | null;
+  while ((m = usesRegex.exec(yamlContent)) !== null) {
+    const actionTarget = m[1];
+    const atIdx = actionTarget.lastIndexOf("@");
+    if (atIdx === -1) {
+      errors.push(`Action '${actionTarget}' is unpinned (missing @commit-sha).`);
+    } else {
+      const pin = actionTarget.slice(atIdx + 1);
+      if (!/^[0-9a-f]{40}$/i.test(pin)) {
+        errors.push(`Action '${actionTarget}' is not pinned to a 40-character SHA ('${pin}').`);
+      }
+    }
+  }
+
+  // 4. Two checkouts (base into trusted, head into pr) with persist-credentials: false
+  const hasTrustedCheckout = /path:\s*trusted/i.test(yamlContent) && /ref:\s*\${{\s*github\.event\.pull_request\.base\.sha\s*}}/i.test(yamlContent);
+  const hasPrCheckout = /path:\s*pr/i.test(yamlContent) && /ref:\s*\${{\s*github\.event\.pull_request\.head\.sha\s*}}/i.test(yamlContent);
+  const persistFalseCount = (yamlContent.match(/persist-credentials:\s*false/gi) || []).length;
+
+  if (!hasTrustedCheckout) {
+    errors.push("Missing trusted base checkout (expected path: trusted with base.sha).");
+  }
+  if (!hasPrCheckout) {
+    errors.push("Missing PR code checkout (expected path: pr with head.sha).");
+  }
+  if (persistFalseCount < 2) {
+    errors.push("Both checkouts must explicitly specify 'persist-credentials: false'.");
+  }
+
+  // 5. Prohibit continue-on-error
+  if (/continue-on-error/i.test(yamlContent)) {
+    errors.push("Forbidden 'continue-on-error' detected in CI workflow.");
+  }
+
+  // 6. Prohibit paths: and paths-ignore:
+  if (/^\s*(paths|paths-ignore):/m.test(yamlContent)) {
+    errors.push("Forbidden 'paths:' or 'paths-ignore:' filter detected in workflow trigger.");
+  }
+
+  // 7. Verify presence of --baseline and --rules-diff
+  if (!yamlContent.includes("--rules-diff")) {
+    errors.push("Missing '--rules-diff' check to detect rule registry weakenings.");
+  }
+  if (!yamlContent.includes("--baseline")) {
+    errors.push("Missing '--baseline' enforcement argument.");
+  }
+
+  // 8. Prohibit --update-baseline in CI
+  if (/--update-baseline/.test(yamlContent)) {
+    errors.push("Forbidden '--update-baseline' flag detected in CI workflow script.");
+  }
+
+  // 9. VER3-006: Verify presence of workflow security guard verification step
+  const hasGuardStep = yamlContent.includes("--check-workflow") || yamlContent.includes("workflow-guard.ts");
+  if (!hasGuardStep) {
+    errors.push("Missing workflow security guard verification step (--check-workflow).");
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+export function handleCheckWorkflow(targetPath: string): number {
+  if (!existsSync(targetPath)) {
+    console.error(`[TOOL_FAILED: workflow file not found: ${targetPath}]`);
+    return 2;
+  }
+  let content: string;
+  try {
+    content = readFileSync(targetPath, "utf8");
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILED: failed to read workflow file: ${err instanceof Error ? err.message : String(err)}]`);
+    return 2;
+  }
+  const res = checkWorkflow(content);
+  if (!res.valid) {
+    for (const err of res.errors) {
+      console.error(`[WORKFLOW_GUARD_ERROR: ${err}]`);
+    }
+    return 1;
+  }
+  process.stdout.write(`workflow-guard: valid (no security issues detected in ${targetPath}).\n`);
+  return 0;
+}
+
 interface BaselineData {
   schema: number;
   violations: Record<string, Record<string, number>>;
@@ -1817,6 +1928,17 @@ function main() {
       process.exit(2);
     }
     const code = handleRulesDiff(basePath, headPath);
+    process.exit(code);
+  }
+
+  const checkWorkflowIdx = args.indexOf("--check-workflow");
+  if (checkWorkflowIdx !== -1) {
+    const targetPath = args[checkWorkflowIdx + 1];
+    if (!targetPath || targetPath.startsWith("--")) {
+      console.error("[TOOL_FAILED: --check-workflow requires one argument: <workflow.yml>]");
+      process.exit(2);
+    }
+    const code = handleCheckWorkflow(targetPath);
     process.exit(code);
   }
 
