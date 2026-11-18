@@ -1,0 +1,31 @@
+{
+  "gaps": [
+    {
+      "id": "VER4-001-CONFIG-ENV-PATH-BYPASS",
+      "ruleId": "ASTESIA-010",
+      "description": "astesia-gate.ts baris 203 mengecek lowerName.startsWith('.env'). Saat directory walking melewatkan path absolut (mis. C:\\...\\.env), kondisi ini false dan extname('.env') adalah empty string '', sehingga berkas .env lolos dari profil config dan jatuh ke tokenizer TS biasa.",
+      "severity": "HIGH",
+      "impact": "Komentar # di .env tidak dipotong (memicu FP pada commented secret) dan kutip tak tertutup memicu warning TOKENIZER_DESYNC.",
+      "status": "OPEN",
+      "suggestedFix": "Gunakan path.basename(lowerName).startsWith('.env') pada baris 203 dan 304."
+    },
+    {
+      "id": "VER4-002-FN-MISSING-PWD-PASSPHRASE",
+      "ruleId": "ASTESIA-004",
+      "description": "Token 'pwd' dan 'passphrase' terlewat dari tokenSet check di isSensitiveKey (baris 695), menyebabkan variabel bernama userPwd atau passphrase tidak dikenali sebagai kunci sensitif.",
+      "severity": "MEDIUM",
+      "impact": "False Negative pada rahasia di bawah variabel bernama *pwd atau *passphrase.",
+      "status": "OPEN",
+      "suggestedFix": "Tambahkan tokenSet.has('pwd') dan tokenSet.has('passphrase') ke hasPassword."
+    },
+    {
+      "id": "VER4-003-FP-AUTH-SOLO",
+      "ruleId": "ASTESIA-004",
+      "description": "Token 'auth' sendirian dianggap sensitif di isSensitiveKey, bertentangan dengan kontrak F1 yang menyatakan 'auth sendirian TIDAK sensitif'.",
+      "severity": "LOW",
+      "impact": "False Positive pada variabel bernama 'auth' biasa.",
+      "status": "OPEN",
+      "suggestedFix": "Periksa pasangan token untuk auth (auth+key, auth+token) atau kecualikan token tunggal 'auth'."
+    }
+  ]
+}
