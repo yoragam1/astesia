@@ -2403,7 +2403,7 @@ function main() {
   // Handle --baseline
   let bEval: ReturnType<typeof evaluateBaseline> | null = null;
   if (opts.has("baseline")) {
-    const bTarget = resolve(root, opts.get("baseline")!);
+    const bTarget = opts.get("baseline") ? resolve(root, opts.get("baseline")!) : join(root, ".astesia/gate-baseline.json");
     const baselineData = loadBaseline(bTarget);
     bEval = evaluateBaseline(baselineData, violations, counters, filesScanned.total);
   }
