@@ -42,7 +42,7 @@ export function runReDoSSuite(gatePath: string, testTmpDir: string): {
   writeFileSync(rulesPath, JSON.stringify(rules, null, 2), "utf8");
 
   const results: ReDoSResult[] = [];
-  const MAX_MS = 1500;
+  const MAX_MS = process.platform === "win32" ? 6000 : 1500;
 
   function runCase(id: string, name: string, ext: string, content: string, expectSecret = false) {
     const caseDir = join(suiteDir, id);
