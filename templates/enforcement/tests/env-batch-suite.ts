@@ -12,6 +12,17 @@ import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 
+function gitHermetic(args: string[], cwd: string): { status: number | null; stdout: string; stderr: string } {
+  const flags = [
+    "-c", "user.name=Auditor",
+    "-c", "user.email=audit@astesia.dev",
+    "-c", "commit.gpgsign=false",
+    "-c", "core.autocrlf=false"
+  ];
+  const res = spawnSync("git", [...flags, ...args], { cwd, encoding: "utf8" });
+  return { status: res.status, stdout: res.stdout || "", stderr: res.stderr || "" };
+}
+
 export function runEnvBatchSuite(testTmpDir: string): { total: number; passed: number; failed: number; errors: string[] } {
   const errors: string[] = [];
   let passed = 0;
@@ -76,17 +87,29 @@ export function runEnvBatchSuite(testTmpDir: string): { total: number; passed: n
     writeFileSync(join(suiteDir, ".env"), "SECRET=sk_live_1234567890abcdef\n", "utf8");
     writeFileSync(join(suiteDir, ".env.untracked"), "SECRET=sk_live_1234567890abcdef\n", "utf8");
 
-    spawnSync("git", ["init"], { cwd: suiteDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: suiteDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: suiteDir });
+    gitHermetic(["init"], suiteDir);
     // Intentionally commit .env into git index (using -f since .gitignore already has .env)
-    spawnSync("git", ["add", "-f", ".env"], { cwd: suiteDir });
-    spawnSync("git", ["add", ".gitignore"], { cwd: suiteDir });
-    spawnSync("git", ["commit", "-m", "tracked env"], { cwd: suiteDir });
+    gitHermetic(["add", "-f", ".env"], suiteDir);
+    gitHermetic(["add", ".gitignore"], suiteDir);
+    const cRes1 = gitHermetic(["commit", "-m", "tracked env"], suiteDir);
+    if (cRes1.status !== 0) {
+      throw new Error(`Git commit failed in env-batch-suite tracked test: ${cRes1.stderr}`);
+    }
+
+    // Assert prerequisites
+    const trackCheck = gitHermetic(["ls-files", "--error-unmatch", ".env"], suiteDir);
+    if (trackCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in env-batch-suite: .env must be tracked (status=${trackCheck.status})`);
+    }
 
     // .env is tracked in git index, even though .gitignore matches .env
     // .env.untracked is NOT tracked
     writeFileSync(join(suiteDir, ".gitignore"), ".env\n.env.untracked\n", "utf8");
+
+    const ignoreCheck = gitHermetic(["check-ignore", "-q", ".env.untracked"], suiteDir);
+    if (ignoreCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in env-batch-suite: .env.untracked must match .gitignore`);
+    }
 
     const classification = classifyEnvFiles(suiteDir, [".env", ".env.untracked"]);
     assert(
@@ -112,11 +135,12 @@ export function runEnvBatchSuite(testTmpDir: string): { total: number; passed: n
     writeFileSync(join(suiteDir, ".gitignore"), "nested*/**/.env*\n", "utf8");
     writeFileSync(join(nestedDir, ".env.local"), "SECRET=val\n", "utf8");
 
-    spawnSync("git", ["init"], { cwd: suiteDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: suiteDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: suiteDir });
-    spawnSync("git", ["add", ".gitignore"], { cwd: suiteDir });
-    spawnSync("git", ["commit", "-m", "init"], { cwd: suiteDir });
+    gitHermetic(["init"], suiteDir);
+    gitHermetic(["add", ".gitignore"], suiteDir);
+    const cRes2 = gitHermetic(["commit", "-m", "init"], suiteDir);
+    if (cRes2.status !== 0) {
+      throw new Error(`Git commit failed in env-batch-suite space test: ${cRes2.stderr}`);
+    }
 
     const relPath = "nested folder with spaces/.env.local";
     const classification = classifyEnvFiles(suiteDir, [relPath]);

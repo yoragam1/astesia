@@ -1,10 +1,12 @@
 /**
  * templates/enforcement/tests/env-git-suite.ts
- * Comprehensive test suite for F4 git-ignored .env file handling.
+ * Hermetic test suite for F4 git-ignored .env file handling (N4).
  * 5 distinct scenarios: eg01..eg05.
+ * Strictly uses -c user.name -c user.email -c commit.gpgsign=false -c core.autocrlf=false
+ * Asserts all git prerequisites before running gate.
  */
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, delimiter } from "node:path";
 import { spawnSync } from "node:child_process";
 
 export interface EnvGitScenarioResult {
@@ -14,6 +16,21 @@ export interface EnvGitScenarioResult {
   expectedSkipped: number;
   actualSkipped: number;
   exitCode: number;
+}
+
+function gitHermetic(args: string[], cwd: string, envOverrides?: Record<string, string>): { status: number | null; stdout: string; stderr: string } {
+  const flags = [
+    "-c", "user.name=Auditor",
+    "-c", "user.email=audit@astesia.dev",
+    "-c", "commit.gpgsign=false",
+    "-c", "core.autocrlf=false"
+  ];
+  const res = spawnSync("git", [...flags, ...args], {
+    cwd,
+    encoding: "utf8",
+    env: envOverrides ? { ...process.env, ...envOverrides } : process.env
+  });
+  return { status: res.status, stdout: res.stdout || "", stderr: res.stderr || "" };
 }
 
 export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
@@ -50,11 +67,16 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     writeFileSync(join(caseDir, ".env"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
     writeFileSync(join(caseDir, "index.ts"), "const ok = 1;\n", "utf8");
 
-    spawnSync("git", ["init"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: caseDir });
-    spawnSync("git", ["add", ".gitignore", "index.ts", ".astesia"], { cwd: caseDir });
-    spawnSync("git", ["commit", "-m", "init"], { cwd: caseDir });
+    gitHermetic(["init"], caseDir);
+    gitHermetic(["add", ".gitignore", "index.ts", ".astesia"], caseDir);
+    const cRes = gitHermetic(["commit", "-m", "init"], caseDir);
+    if (cRes.status !== 0) {
+      throw new Error(`Git commit failed in eg01: ${cRes.stderr}`);
+    }
+    const ignoreCheck = gitHermetic(["check-ignore", "-q", ".env"], caseDir);
+    if (ignoreCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in eg01: .env must match .gitignore`);
+    }
 
     const r = spawnSync("bun", [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], { encoding: "utf8" });
     let parsed: Record<string, unknown> = {};
@@ -72,11 +94,16 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     writeFileSync(join(caseDir, ".astesia/rules.json"), JSON.stringify(rules, null, 2), "utf8");
     writeFileSync(join(caseDir, ".env"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
 
-    spawnSync("git", ["init"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: caseDir });
-    spawnSync("git", ["add", ".astesia"], { cwd: caseDir });
-    spawnSync("git", ["commit", "-m", "init"], { cwd: caseDir });
+    gitHermetic(["init"], caseDir);
+    gitHermetic(["add", ".astesia"], caseDir);
+    const cRes = gitHermetic(["commit", "-m", "init"], caseDir);
+    if (cRes.status !== 0) {
+      throw new Error(`Git commit failed in eg02: ${cRes.stderr}`);
+    }
+    const ignoreCheck = gitHermetic(["check-ignore", "-q", ".env"], caseDir);
+    if (ignoreCheck.status === 0) {
+      throw new Error(`Prerequisite failed in eg02: .env must NOT be ignored`);
+    }
 
     const r = spawnSync("bun", [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], { encoding: "utf8" });
     let parsed: Record<string, unknown> = {};
@@ -94,13 +121,23 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     writeFileSync(join(caseDir, ".astesia/rules.json"), JSON.stringify(rules, null, 2), "utf8");
     writeFileSync(join(caseDir, ".env"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
 
-    spawnSync("git", ["init"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: caseDir });
-    spawnSync("git", ["add", ".astesia", ".env"], { cwd: caseDir });
-    spawnSync("git", ["commit", "-m", "leaked env in index"], { cwd: caseDir });
+    gitHermetic(["init"], caseDir);
+    gitHermetic(["add", "-f", ".astesia", ".env"], caseDir);
+    const cRes = gitHermetic(["commit", "-m", "leaked env in index"], caseDir);
+    if (cRes.status !== 0) {
+      throw new Error(`Git commit failed in eg03: ${cRes.stderr}`);
+    }
     // Now add to .gitignore after already tracked
     writeFileSync(join(caseDir, ".gitignore"), ".env\n", "utf8");
+
+    const trackCheck = gitHermetic(["ls-files", "--error-unmatch", ".env"], caseDir);
+    if (trackCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in eg03: .env must be tracked (status=${trackCheck.status})`);
+    }
+    const ignoreCheck = gitHermetic(["check-ignore", "-q", "--no-index", ".env"], caseDir);
+    if (ignoreCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in eg03: .env must match .gitignore`);
+    }
 
     const r = spawnSync("bun", [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], { encoding: "utf8" });
     let parsed: Record<string, unknown> = {};
@@ -111,14 +148,22 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     results.push({ id: "eg03", name: "Tracked .env in git is NOT skipped even if in .gitignore", passed, expectedSkipped: 0, actualSkipped: skipped, exitCode: r.status ?? -1 });
   }
 
-  // eg04: Non-git directory -> NOT skipped (fail-closed fallback)
+  // eg04: Non-git directory with explicitly missing git on PATH -> NOT skipped (fail-closed fallback)
   {
     const caseDir = join(suiteDir, "eg04");
     mkdirSync(join(caseDir, ".astesia"), { recursive: true });
     writeFileSync(join(caseDir, ".astesia/rules.json"), JSON.stringify(rules, null, 2), "utf8");
     writeFileSync(join(caseDir, ".env"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
 
-    const r = spawnSync("bun", [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], { encoding: "utf8" });
+    const pathWithoutGit = (process.env.PATH || "")
+      .split(delimiter)
+      .filter((p) => !p.toLowerCase().includes("git"))
+      .join(delimiter);
+
+    const r = spawnSync(process.execPath, [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], {
+      encoding: "utf8",
+      env: { ...process.env, PATH: pathWithoutGit }
+    });
     let parsed: Record<string, unknown> = {};
     try { parsed = JSON.parse(r.stdout); } catch {}
     const skipped = Number(parsed.env_ignored_skipped) || 0;
@@ -137,11 +182,16 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     writeFileSync(join(caseDir, "packages/api/.env.local"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
     writeFileSync(join(caseDir, "index.ts"), "const ok = 1;\n", "utf8");
 
-    spawnSync("git", ["init"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.email", "audit@astesia.dev"], { cwd: caseDir });
-    spawnSync("git", ["config", "user.name", "Auditor"], { cwd: caseDir });
-    spawnSync("git", ["add", ".gitignore", "index.ts", ".astesia"], { cwd: caseDir });
-    spawnSync("git", ["commit", "-m", "init"], { cwd: caseDir });
+    gitHermetic(["init"], caseDir);
+    gitHermetic(["add", ".gitignore", "index.ts", ".astesia"], caseDir);
+    const cRes = gitHermetic(["commit", "-m", "init"], caseDir);
+    if (cRes.status !== 0) {
+      throw new Error(`Git commit failed in eg05: ${cRes.stderr}`);
+    }
+    const ignoreCheck = gitHermetic(["check-ignore", "-q", "packages/api/.env.local"], caseDir);
+    if (ignoreCheck.status !== 0) {
+      throw new Error(`Prerequisite failed in eg05: packages/api/.env.local must be ignored`);
+    }
 
     const r = spawnSync("bun", [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], { encoding: "utf8" });
     let parsed: Record<string, unknown> = {};
