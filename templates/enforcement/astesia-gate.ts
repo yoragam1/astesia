@@ -181,6 +181,12 @@ function parseArgs() {
   return { flags, opts };
 }
 
+const CONFIG_EXTS = new Set([".yml", ".yaml"]);
+const HASH_COMMENT_EXTS = new Set([".py", ".sh", ".bash"]);
+const SINGLE_LINE_QUOTE_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"]);
+const MARKUP_EXTS = new Set([".svelte", ".vue"]);
+const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"]);
+
 export function preprocessSource(rawContent: string, filename: string): PreprocessedFile {
   let text = rawContent;
   if (text.charCodeAt(0) === 0xfeff) {
@@ -192,7 +198,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
   const lowerName = filename.toLowerCase();
 
   const isConfigFile =
-    [".yml", ".yaml"].includes(ext) ||
+    CONFIG_EXTS.has(ext) ||
     lowerName.includes("dockerfile") ||
     lowerName.startsWith(".env");
 
@@ -256,11 +262,9 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
     };
   }
 
-  const isHashCommentLang =
-    [".py", ".sh", ".bash"].includes(ext);
-
-  const isSingleLineQuoteLang = [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"].includes(ext);
-  const isMarkupFile = [".svelte", ".vue"].includes(ext);
+  const isHashCommentLang = HASH_COMMENT_EXTS.has(ext);
+  const isSingleLineQuoteLang = SINGLE_LINE_QUOTE_EXTS.has(ext);
+  const isMarkupFile = MARKUP_EXTS.has(ext);
   const isPython = ext === ".py";
 
   const len = text.length;
@@ -827,6 +831,19 @@ export function isAuthBearerOrBasic(val: string): boolean {
   return false;
 }
 
+const REGEX_CACHE = new Map<string, RegExp>();
+function getCachedRegex(pattern: string, flags?: string): RegExp {
+  const key = `${flags || ""}:${pattern}`;
+  let re = REGEX_CACHE.get(key);
+  if (!re) {
+    re = new RegExp(pattern, flags);
+    REGEX_CACHE.set(key, re);
+  }
+  return re;
+}
+
+const SYNTAX_ONLY_RULES = new Set(["ASTESIA-005", "ASTESIA-006", "ASTESIA-009"]);
+
 function checkLineRegex(
   rule: LineRegexRule,
   rel: string,
@@ -835,8 +852,8 @@ function checkLineRegex(
   state: GateState,
   allowEntries: GateConfigAllowEntry[] = []
 ) {
-  if (rule.pathRegex && !new RegExp(rule.pathRegex, "i").test(rel)) return;
-  if (rule.excludeRegex && new RegExp(rule.excludeRegex, "i").test(rel)) return;
+  if (rule.pathRegex && !getCachedRegex(rule.pathRegex, "i").test(rel)) return;
+  if (rule.excludeRegex && getCachedRegex(rule.excludeRegex, "i").test(rel)) return;
 
   const scope = rule.scope || "code";
   let targetLines: string[];
@@ -845,7 +862,7 @@ function checkLineRegex(
     targetLines = prep.commentLines;
   } else {
     // Syntax-only rules run on codeNoStringsLines to eliminate string false positives
-    if (["ASTESIA-005", "ASTESIA-006", "ASTESIA-009"].includes(rule.id)) {
+    if (SYNTAX_ONLY_RULES.has(rule.id)) {
       targetLines = prep.codeNoStringsLines;
     } else {
       targetLines = prep.codeLines;
@@ -853,7 +870,7 @@ function checkLineRegex(
   }
 
   const flags = rule.flags || "";
-  const re = new RegExp(rule.pattern, flags);
+  const re = getCachedRegex(rule.pattern, flags);
 
   // Special handler for ASTESIA-003: multi-line block comments and empty clauses
   if (rule.id === "ASTESIA-003") {
@@ -906,12 +923,12 @@ function checkLineRegex(
       if (!line.trim()) continue;
 
       // Quick linear pre-check: string literal secrets always require quotes
-      const hasQuote = line.includes("'") || line.includes('"') || line.includes("`");
+      const hasQuote = line.includes("'") || line.includes('"') || line.includes("\x60");
       if (!hasQuote) continue;
 
       // Extract candidate assignment: key = "val", key: "val", or process.env.X ?? "val"
       // Linearized with lookbehind (?<![\w$]) to prevent quadratic backtracking ReDoS (VER3-007a)
-      const assignMatch = /(?:(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]|(?<![\w$])process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"`]([^'"`\r\n]{12,})['"`]/i.exec(line);
+      const assignMatch = /(?:(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]|(?<![\w$])process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"\x60]([^'"\x60\r\n]{12,})['"\x60]/i.exec(line);
 
       let key = "";
       let val = "";
@@ -925,7 +942,7 @@ function checkLineRegex(
         }
       } else {
         // Standalone known prefix string on line
-        const prefixMatch = /['"`]((?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)[^'"`\r\n]{8,})['"`]/.exec(line);
+        const prefixMatch = /['"\x60]((?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)[^'"\x60\r\n]{8,})['"\x60]/.exec(line);
         if (prefixMatch) {
           key = "token";
           val = prefixMatch[1];
@@ -935,7 +952,7 @@ function checkLineRegex(
 
       // If not yet a candidate, scan all string literals on the line for Basic/Bearer auth or known prefixes
       if (!isCandidate) {
-        const strRegex = /['"`]([^'"`\r\n]{12,})['"`]/g;
+        const strRegex = /['"\x60]([^'"\x60\r\n]{12,})['"\x60]/g;
         let sm: RegExpExecArray | null;
         while ((sm = strRegex.exec(line)) !== null) {
           if (isAuthBearerOrBasic(sm[1]) || KNOWN_PREFIX.test(sm[1])) {
@@ -1058,7 +1075,7 @@ function checkRelativeImports(
   state: GateState
 ) {
   const ext = extname(abs);
-  if (![".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"].includes(ext)) {
+  if (!RELATIVE_IMPORT_EXTS.has(ext)) {
     return;
   }
 
@@ -1647,7 +1664,7 @@ function loadBaseline(baselinePath: string): BaselineData {
 export type SpawnSyncFn = (
   cmd: string,
   args: string[],
-  opts?: any
+  opts?: Record<string, unknown>
 ) => { status: number | null; stdout: string | Buffer; stderr: string | Buffer };
 
 export interface EnvClassification {
@@ -1676,19 +1693,6 @@ export function classifyEnvFiles(
     return { ignoredUntracked, spawnCount: 0 };
   }
 
-  try {
-    spawnCount++;
-    const rev = spawn("git", ["-C", root, "rev-parse", "--is-inside-work-tree"], {
-      encoding: "utf8",
-      stdio: "pipe"
-    });
-    if (rev.status !== 0 || !String(rev.stdout).trim().startsWith("true")) {
-      return { ignoredUntracked, spawnCount };
-    }
-  } catch {
-    return { ignoredUntracked, spawnCount };
-  }
-
   const tracked = new Set<string>();
   try {
     spawnCount++;
@@ -1696,7 +1700,10 @@ export function classifyEnvFiles(
       encoding: "utf8",
       stdio: "pipe"
     });
-    if (lsRes.status === 0 && lsRes.stdout) {
+    if (lsRes.status !== 0) {
+      return { ignoredUntracked, spawnCount };
+    }
+    if (lsRes.stdout) {
       const parts = String(lsRes.stdout).split("\0").filter(Boolean);
       for (const p of parts) {
         tracked.add(p.replace(/\\/g, "/"));
@@ -2084,7 +2091,7 @@ function main() {
   }
 
   for (const abs of files) {
-    const rel = relative(root, abs).replace(/\\/g, "/");
+    const rel = relFileMap.get(abs) || relative(root, abs).replace(/\\/g, "/");
     const rawContent = readFileSync(abs, "utf8");
     const prep = preprocessSource(rawContent, abs);
 
@@ -2101,7 +2108,7 @@ function main() {
     }
 
     for (const line of prep.commentLines) {
-      if (/(?:\/\/|#|\*)\s*astesia-debt:/i.test(line)) {
+      if (line.includes("astesia-debt:") && /(?:\/\/|#|\*)\s*astesia-debt:/i.test(line)) {
         gateState.debtMarkers++;
       }
     }
