@@ -1,0 +1,643 @@
+{
+  "repository": "pustaka-sekolah-pwa & terminal-portfolio",
+  "headGatePath": "D:\\Workspaces\\Astesia\\templates\\enforcement\\astesia-gate.ts",
+  "headRulesPath": "D:\\Workspaces\\Astesia\\templates\\enforcement\\anti-patterns.json",
+  "terminalSummary": {
+    "filesScanned": 18,
+    "errors": 0,
+    "warnings": 0,
+    "violations": 0
+  },
+  "pustakaSummary": {
+    "filesScanned": 75,
+    "errors": 20,
+    "warnings": 29,
+    "violations": 49
+  },
+  "classificationSummary": {
+    "total": 49,
+    "tp": 49,
+    "fp": 0,
+    "noise": 0,
+    "fpRate": 0
+  },
+  "ruleStats": [
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "total": 20,
+      "tp": 20,
+      "fp": 0,
+      "noise": 0,
+      "fpRate": 0
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "total": 14,
+      "tp": 14,
+      "fp": 0,
+      "noise": 0,
+      "fpRate": 0
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "total": 7,
+      "tp": 7,
+      "fp": 0,
+      "noise": 0,
+      "fpRate": 0
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "total": 6,
+      "tp": 6,
+      "fp": 0,
+      "noise": 0,
+      "fpRate": 0
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "ruleDescription": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "total": 2,
+      "tp": 2,
+      "fp": 0,
+      "noise": 0,
+      "fpRate": 0
+    }
+  ],
+  "proposedConfig": {
+    "schema": 1,
+    "exclude": [
+      {
+        "path": "dev-dist",
+        "reason": "Generated service worker vendor bundle (Workbox) — compiled asset"
+      }
+    ],
+    "allow": [
+      {
+        "rule": "ASTESIA-004",
+        "path": "scripts/init-turso.mjs",
+        "match": "libsql://pustaka-pwa-yoraexe",
+        "reason": "Development fallback database URL for local offline initialization"
+      },
+      {
+        "rule": "ASTESIA-010",
+        "path": "docker-compose.yml",
+        "match": "rahasia-pustaka-sekolah-production-key-2026",
+        "reason": "Default fallback development JWT secret for local compose orchestration"
+      }
+    ]
+  },
+  "adoptionVerification": {
+    "updateBaselineExit": 0,
+    "updateBaselineCreated": true,
+    "verifyBaselineExit": 0,
+    "injectedBaselineExit": 1,
+    "revertedBaselineExit": 0,
+    "ratchetEnforcementPassed": true
+  },
+  "classifiedViolations": [
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 9,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "let appInstance: any = null;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 10,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "let initPromise: Promise<any> | null = null;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 36,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "} catch (err: any) {",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "ruleDescription": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "severity": "warn",
+      "file": "src/client/components/circulation/BarcodeScannerModal.tsx",
+      "line": 112,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "codeSnippet": "await new Promise((r) => setTimeout(r, 120));",
+      "classification": "TP",
+      "rationale": "Hardcoded setTimeout / sleep call in application logic"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 23,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "as?: any;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 28,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "[key: string]: any;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 81,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "[key: string]: any;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 83,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "const pathRef = useRef<any>(null);",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "ruleDescription": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "severity": "warn",
+      "file": "src/client/pages/CatalogPage.tsx",
+      "line": 121,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "codeSnippet": "const timer = setTimeout(() => {",
+      "classification": "TP",
+      "rationale": "Hardcoded setTimeout / sleep call in application logic"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 225,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "} catch (err: any) {",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 293,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "} catch (err: any) {",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 22,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "export let sqlite: any;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 170,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "} catch (err: any) {",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 168,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log('[Turso Init]: Superadmin ADMIN01 berhasil diinisialisasi.');",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log('🧹 Memulai pembersihan seluruh data dummy & inisialisasi basis data bersih...');",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 72,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log('✅ Basis data bersih! (0 buku, 0 eksemplar, 0 pinjaman, 1 akun Superadmin utama: ADMIN01).');",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 73,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log('🎉 Aplikasi siap untuk diinput data buku dan akun secara mandiri.');",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 13,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log(`🚀 [Pustaka Sekolah API] Server berjalan di http://localhost:${config.PORT}`);",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 14,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log(`📚 Database: ${config.databaseFullPath}`);",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "ruleDescription": "console.log in source; use the structured logger.",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 15,
+      "message": "console.log in source; use the structured logger.",
+      "codeSnippet": "console.log(`📂 Uploads: ${config.uploadsFullPath}`);",
+      "classification": "TP",
+      "rationale": "Unstructured console.log call in production source code instead of structured logger"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const list = await db.select().from(categories).orderBy(categories.name);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 25,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const res = await db.select().from(categories).where(eq(categories.slug, slug)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 97,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const rows = await db.select().from(bookCopies).where(eq(bookCopies.bookId, bookId)).orderBy(bookCopies.id);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 149,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const cat = await db.select().from(categories).where(eq(categories.id, data.categoryId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 169,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const rows = await db.select()",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 214,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 394,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const b = await db.select().from(books).where(eq(books.id, raw.bookId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 395,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const u = await db.select().from(users).where(eq(users.id, raw.userId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 396,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const c = raw.copyId ? await db.select().from(bookCopies).where(eq(bookCopies.id, raw.copyId)).limit(1) : [];",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 423,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const b = await db.select().from(books).where(eq(books.id, raw.bookId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 424,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const u = await db.select().from(users).where(eq(users.id, raw.userId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 425,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const c = await db.select().from(bookCopies).where(eq(bookCopies.id, data.copyId)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 38,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (result as any).changes ?? (result as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 169,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "const changes = (updateRes as any).changes ?? (updateRes as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 443,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 457,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 474,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 486,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 505,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 160,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "codeSnippet": "const updateRes = await db.update(loans)",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 173,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "codeSnippet": "await db.update(bookCopies)",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 182,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "codeSnippet": "await db.update(books)",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const records = await db.select().from(users).where(eq(users.id, id)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 26,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const records = await db.select().from(users).where(eq(users.identityNumber, identityNumber)).limit(1);",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "ruleDescription": "Unbounded column fetch: SELECT * is banned in production code.",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 36,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "codeSnippet": "const records = await db.select().from(users).orderBy(desc(users.id));",
+      "classification": "TP",
+      "rationale": "Real database query using SELECT * without explicit column projection"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 322,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "codeSnippet": "const existing = await this.userRepo.findByIdentityNumber(u.identityNumber);",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 328,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "codeSnippet": "await this.userRepo.create({",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "ruleDescription": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while).",
+      "severity": "error",
+      "file": "src/server/services/book.service.ts",
+      "line": 56,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L54)",
+      "codeSnippet": "const copy = await this.bookRepo.createCopy(createdBook.id, barcode);",
+      "classification": "TP",
+      "rationale": "Database repository or service call executed synchronously inside loop (N+1 query risk)"
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "ruleDescription": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "severity": "warn",
+      "file": "src/server/services/storage.service.ts",
+      "line": 33,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "codeSnippet": "realtime: { transport: WebSocket as any }",
+      "classification": "TP",
+      "rationale": "Explicit 'any' type usage bypassing compile-time type verification (Trust Pyramid L1)"
+    }
+  ]
+}

@@ -2343,8 +2343,12 @@ function main() {
   }
 
   // Handle --update-baseline
-  if (flags.has("update-baseline")) {
-    const bTarget = opts.has("baseline") ? resolve(root, opts.get("baseline")!) : join(root, ".astesia/gate-baseline.json");
+  if (flags.has("update-baseline") || opts.has("update-baseline")) {
+    const bTarget = opts.has("baseline")
+      ? resolve(root, opts.get("baseline")!)
+      : opts.get("update-baseline") && opts.get("update-baseline") !== ""
+      ? resolve(root, opts.get("update-baseline")!)
+      : join(root, ".astesia/gate-baseline.json");
     const allowRaise = flags.has("allow-raise");
     const reason = opts.get("reason") || "";
     if (allowRaise) {
