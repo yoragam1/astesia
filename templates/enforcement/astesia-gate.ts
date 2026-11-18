@@ -126,7 +126,14 @@ const SKIP_DIRS = new Set([
   "vendor"
 ]);
 
-const NEVER_BASELINE = new Set(["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"]);
+export const NEVER_BASELINE = new Set(["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"]);
+export const NEVER_INLINE_SUPPRESS = new Set([
+  "ASTESIA-000",
+  "ASTESIA-004",
+  "ASTESIA-010",
+  "TOKENIZER_DESYNC",
+  "LONG_LINE_SKIPPED"
+]);
 
 const RESOLVE_EXT = [
   "",
@@ -613,7 +620,7 @@ function checkSuppression(
   ruleId: string,
   state: GateState
 ): boolean {
-  const isBanned = ruleId === "ASTESIA-000" || ruleId === "ASTESIA-004";
+  const isBanned = NEVER_INLINE_SUPPRESS.has(ruleId);
   const checkIndices = [idx];
   if (idx > 0) checkIndices.push(idx - 1);
 

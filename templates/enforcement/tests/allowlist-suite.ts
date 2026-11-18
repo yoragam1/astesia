@@ -313,6 +313,30 @@ export function runAllowlistSuite(gatePath: string, testTmpDir: string): {
     results.push({ id: "al15", name: "Baseline update with allowlisted increase using --allow-raise exits 0", passed, expectedExit: 0, actualExit: r.status ?? -1 });
   }
 
+  // al16: Inline astesia-allow for ASTESIA-010 is banned -> rejected_suppressions incremented and gate exits 1 (VER3-005)
+  {
+    const caseDir = join(suiteDir, "al16");
+    mkdirSync(join(caseDir, ".astesia"), { recursive: true });
+    mkdirSync(join(caseDir, "src"), { recursive: true });
+    writeFileSync(join(caseDir, ".astesia/rules.json"), JSON.stringify(rules, null, 2), "utf8");
+    const code = `
+// astesia-allow: ASTESIA-010 -- Valid fifteen character reason for attempt
+import secret from './secret-config';
+`;
+    writeFileSync(join(caseDir, "src/creds.ts"), code, "utf8");
+
+    const r = spawnSync("bun", [
+      gatePath,
+      "--root", caseDir,
+      "--rules", join(caseDir, ".astesia/rules.json"),
+      "--json"
+    ], { encoding: "utf8" });
+    let parsed: Record<string, unknown> = {};
+    try { parsed = JSON.parse(r.stdout); } catch {}
+    const passed = r.status === 1 && parsed.rejected_suppressions === 1 && parsed.errors === 1;
+    results.push({ id: "al16", name: "Inline astesia-allow for ASTESIA-010 is banned (exit 1, rejected_suppressions: 1)", passed, expectedExit: 1, actualExit: r.status ?? -1 });
+  }
+
   const passedCount = results.filter((r) => r.passed).length;
   return {
     total: results.length,
