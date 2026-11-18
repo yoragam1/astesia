@@ -34,7 +34,7 @@ export function runMutationHarness(): {
       id: "M01",
       name: "redos_quote_precheck_removed",
       description: "Bypass linear quote check in ASTESIA-004",
-      mutate: (code) => code.replace('const hasQuote = line.includes("\'") || line.includes(\'"\') || line.includes("`");', "const hasQuote = false;"),
+      mutate: (code) => code.replace(/const hasQuote = [^;]+;/, "const hasQuote = false;"),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m01.ts");
         writeFileSync(testScript, `
