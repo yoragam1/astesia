@@ -1,0 +1,1003 @@
+{
+  "repository": "D:\\Workspaces\\pustaka-sekolah-pwa",
+  "pustakaCommit": "75bae20c943fb219250da6c004f0d42fd50826d4",
+  "scanCount": 31,
+  "commits": [
+    {
+      "commit": "56dd90716bc74a6e6f1c9b045495a189a26c3cf7",
+      "shortHash": "56dd907",
+      "subject": "test(gate): align fixture tokens with decision table specification",
+      "errors": 30,
+      "warnings": 39,
+      "violationCount": 69
+    },
+    {
+      "commit": "b7013f2beb66c86fa7d6c9a6be5eb226f01938a0",
+      "shortHash": "b7013f2",
+      "subject": "test(enforcement): snapshot wave 2a test suites and harness",
+      "errors": 30,
+      "warnings": 39,
+      "violationCount": 69
+    },
+    {
+      "commit": "d055144c16b0761350ea38331261052f6f82081c",
+      "shortHash": "d055144",
+      "subject": "feat(gate): snapshot wave 2a single-file gate engine",
+      "errors": 30,
+      "warnings": 39,
+      "violationCount": 69
+    },
+    {
+      "commit": "4f90ffbdfeea8c0948b18b6468756967c499b8f8",
+      "shortHash": "4f90ffb",
+      "subject": "ci(governance): snapshot wave 2a workflow, config, and governance templates",
+      "errors": 30,
+      "warnings": 39,
+      "violationCount": 69
+    },
+    {
+      "commit": "4bc9ff4162bd0c23129093d0030d08961142f9da",
+      "shortHash": "4bc9ff4",
+      "subject": "docs(audit): snapshot wave 2a dossier addendum and audit artifacts",
+      "errors": 30,
+      "warnings": 39,
+      "violationCount": 69
+    },
+    {
+      "commit": "b4d7e93908200397d6ae2b47f797bdb97bb6663b",
+      "shortHash": "b4d7e93",
+      "subject": "feat(gate): implement key sensitivity, config profile, allowlist, and env git check (F1-F4, 3.5)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "78bfdaedb60ff2dc807bb42b01868b2b4b18f829",
+      "shortHash": "78bfdae",
+      "subject": "ci(guard): add CLI mode to workflow-guard and document workflow trust boundaries (3.4)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "bbdfa881a1c99d3856186ba51dd473aef8454098",
+      "shortHash": "bbdfa88",
+      "subject": "test(harness): integrate F1-F4 test suites, known-gaps registry, and seed 7003 fuzzing",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "618f8df359096484882a95b92307e87448863849",
+      "shortHash": "618f8df",
+      "subject": "docs(audit): add Wave 2A.1 verification report and performance benchmark",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "afeacd4827877b8c7ebb43fb17e048bd3ad735a9",
+      "shortHash": "afeacd4",
+      "subject": "test(verify): independent verification harness for wave2a.1",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "b81b534e233cc4b9c36e8e0f2553931277b3b543",
+      "shortHash": "b81b534",
+      "subject": "chore(merge): bring independent verifier harness from wave2a.1/verify",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "7efd0ff9db2bbf08e5fd7d4bdb0895f87aa0386b",
+      "shortHash": "7efd0ff",
+      "subject": "fix(gate): linearize candidate assignment regex with lookbehind to eliminate ReDoS (F-A / VER3-007a)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "8afd5342e33262c8952337db7a9976557e602890",
+      "shortHash": "8afd534",
+      "subject": "feat(gate): batch git calls for env file classification to max 3 spawns (F-B / VER3-007b)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "04d77cb8010c025437f9d25ff9b31727bc1f4b7c",
+      "shortHash": "04d77cb",
+      "subject": "feat(gate): shape-based Basic and Bearer auth header detection (F-C / VER3-003, -008)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "5ed3666e2e506e2f84e60d648bda0b0c11fc63ce",
+      "shortHash": "5ed3666",
+      "subject": "feat(gate): tokenize key names for precise sensitivity contract (F-D / VER3-001, -002)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "73dea5db8b7e03cd9c6b1cd9e8f405517e2f9c8a",
+      "shortHash": "73dea5d",
+      "subject": "feat(gate): integrate workflow guard as --check-workflow subcommand (F-E / VER3-006)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "606ad17d42d6f2449c334d0621053cc3ae301716",
+      "shortHash": "606ad17",
+      "subject": "test(independent): lock original verifier test cases and reconcile known gaps (F-F)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "5314489f9a533e3e7e8e4a10e258a23759fbb9a0",
+      "shortHash": "5314489",
+      "subject": "fix(gate): preserve hash symbols inside quoted YAML and env values (F-G / VER3-004)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "a6bef886c29b35103e16ecb94f14ed40a43afd27",
+      "shortHash": "a6bef88",
+      "subject": "fix(gate): enforce strict inline suppression ban for ASTESIA-010 (F-H / VER3-005)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "638691bc38063b55c4164828dc92eae900466db6",
+      "shortHash": "638691b",
+      "subject": "test(mutation): add 18-mutant self-testing harness (F-I)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "1957dbc670abbc246b9412a7e53f27bfbb7fc009",
+      "shortHash": "1957dbc",
+      "subject": "docs(verify): annotate resolved verifier gaps in known-gaps.verify.json",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "da0ef86b3a445a5b216444430d6538942f9d3d2e",
+      "shortHash": "da0ef86",
+      "subject": "perf(gate): precompile regexes, optimize git batching, and fix regex backtick desync",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "f6f5f7fce4df6faa185f15e94a4332ce751963d4",
+      "shortHash": "f6f5f7f",
+      "subject": "fix(mutation): update M01 replacement pattern for regex quote pre-check",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "d563a28cbc7bed76ae3272de99efbaf5a3623164",
+      "shortHash": "d563a28",
+      "subject": "docs(dossier): append Wave 2A.2 metrics and verification closures",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "27fe428888adaf65ebea158e5f5bd10c8fd58c43",
+      "shortHash": "27fe428",
+      "subject": "docs(audit): add Wave 2A.2 implementation report and test artifacts",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "34110e2bfbbba3807118a34ab2c7b85753fbc8ed",
+      "shortHash": "34110e2",
+      "subject": "test(verify): independent verification harness for wave2a.2",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "7a60209ef8881c8c8fd05f658a07c2635cb37ce4",
+      "shortHash": "7a60209",
+      "subject": "chore(merge): bring independent verifier harness from wave2a.2/verify",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "8720438653f1d2c3d2f0a3dcae2e3bdd34105d9f",
+      "shortHash": "8720438",
+      "subject": "feat(gate): dispatch file profiles strictly via profileFor (T1 / VER4-001)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "5fabcd37ee5239e2d627ff6c31e6efeb9576b05c",
+      "shortHash": "5fabcd3",
+      "subject": "feat(gate): refine sensitive key tokens and exempt solo auth (T2 / VER4-002, -003)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "6a2c652ea6bf831057993e439ab2ad6e9cbdaa52",
+      "shortHash": "6a2c652",
+      "subject": "feat(gate): disable E1 in config profile and detect space-containing secrets (T3 / V3-06)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    },
+    {
+      "commit": "6798f5603c44d00528b31dcbad830cf0da6ad453",
+      "shortHash": "6798f56",
+      "subject": "feat(rules): expand ASTESIA-010 scope to all config files and list syntax (T4 / V4-06)",
+      "errors": 22,
+      "warnings": 38,
+      "violationCount": 60
+    }
+  ],
+  "stepDeltas": [
+    {
+      "fromCommit": "56dd907",
+      "toCommit": "b7013f2",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "b7013f2",
+      "toCommit": "d055144",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "d055144",
+      "toCommit": "4f90ffb",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "4f90ffb",
+      "toCommit": "4bc9ff4",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "4bc9ff4",
+      "toCommit": "b4d7e93",
+      "deltaErrors": -8,
+      "deltaWarnings": -1,
+      "lostErrors": [
+        {
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 10,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 43,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 52,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 211,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 233,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 329,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 64,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 108,
+          "message": "Probable hardcoded secret."
+        }
+      ],
+      "newErrors": [],
+      "lostWarnings": [
+        {
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "Dockerfile",
+          "line": 55,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF."
+        }
+      ],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "b4d7e93",
+      "toCommit": "78bfdae",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "78bfdae",
+      "toCommit": "bbdfa88",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "bbdfa88",
+      "toCommit": "618f8df",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "618f8df",
+      "toCommit": "afeacd4",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "afeacd4",
+      "toCommit": "b81b534",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "b81b534",
+      "toCommit": "7efd0ff",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "7efd0ff",
+      "toCommit": "8afd534",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "8afd534",
+      "toCommit": "04d77cb",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "04d77cb",
+      "toCommit": "5ed3666",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "5ed3666",
+      "toCommit": "73dea5d",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "73dea5d",
+      "toCommit": "606ad17",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "606ad17",
+      "toCommit": "5314489",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "5314489",
+      "toCommit": "a6bef88",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "a6bef88",
+      "toCommit": "638691b",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "638691b",
+      "toCommit": "1957dbc",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "1957dbc",
+      "toCommit": "da0ef86",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "da0ef86",
+      "toCommit": "f6f5f7f",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "f6f5f7f",
+      "toCommit": "d563a28",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "d563a28",
+      "toCommit": "27fe428",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "27fe428",
+      "toCommit": "34110e2",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "34110e2",
+      "toCommit": "7a60209",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "7a60209",
+      "toCommit": "8720438",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "8720438",
+      "toCommit": "5fabcd3",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "5fabcd3",
+      "toCommit": "6a2c652",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    },
+    {
+      "fromCommit": "6a2c652",
+      "toCommit": "6798f56",
+      "deltaErrors": 0,
+      "deltaWarnings": 0,
+      "lostErrors": [],
+      "newErrors": [],
+      "lostWarnings": [],
+      "newWarnings": [],
+      "arithmeticValid": true
+    }
+  ],
+  "referenceComparisons": {
+    "baseToWave2a": {
+      "from": "56dd907",
+      "to": "4bc9ff4",
+      "lost": [],
+      "added": [],
+      "deltaErrors": 0,
+      "deltaWarnings": 0
+    },
+    "wave2aToHead": {
+      "from": "4bc9ff4",
+      "to": "6798f56",
+      "lost": [
+        {
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 10,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file."
+        },
+        {
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "Dockerfile",
+          "line": 55,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 43,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 52,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 211,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 233,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 329,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 64,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 108,
+          "message": "Probable hardcoded secret."
+        }
+      ],
+      "added": [],
+      "deltaErrors": -8,
+      "deltaWarnings": -1
+    },
+    "baseToHead": {
+      "from": "56dd907",
+      "to": "6798f56",
+      "lost": [
+        {
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 10,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file."
+        },
+        {
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "Dockerfile",
+          "line": 55,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 43,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 52,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 211,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 233,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 329,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 64,
+          "message": "Probable hardcoded secret."
+        },
+        {
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 108,
+          "message": "Probable hardcoded secret."
+        }
+      ],
+      "added": [],
+      "deltaErrors": -8,
+      "deltaWarnings": -1
+    }
+  },
+  "astesia001Investigation": {
+    "totalCommitsScanned": 31,
+    "occurrencesFound": [
+      {
+        "commit": "56dd907",
+        "violations": [
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 43,
+            "message": "Probable hardcoded secret."
+          },
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 52,
+            "message": "Probable hardcoded secret."
+          }
+        ]
+      },
+      {
+        "commit": "b7013f2",
+        "violations": [
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 43,
+            "message": "Probable hardcoded secret."
+          },
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 52,
+            "message": "Probable hardcoded secret."
+          }
+        ]
+      },
+      {
+        "commit": "d055144",
+        "violations": [
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 43,
+            "message": "Probable hardcoded secret."
+          },
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 52,
+            "message": "Probable hardcoded secret."
+          }
+        ]
+      },
+      {
+        "commit": "4f90ffb",
+        "violations": [
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 43,
+            "message": "Probable hardcoded secret."
+          },
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 52,
+            "message": "Probable hardcoded secret."
+          }
+        ]
+      },
+      {
+        "commit": "4bc9ff4",
+        "violations": [
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 43,
+            "message": "Probable hardcoded secret."
+          },
+          {
+            "ruleId": "ASTESIA-004",
+            "severity": "error",
+            "file": "src/client/components/reader/PDFReader.tsx",
+            "line": 52,
+            "message": "Probable hardcoded secret."
+          }
+        ]
+      }
+    ],
+    "verdict": "EMPIRICALLY_PROVEN_MYTH_AND_TRUE_ROOT_CAUSE: ASTESIA-001 never triggered on PDFReader.tsx:21 or api.ts:45 in any commit from 56dd907 to HEAD. The actual eliminated findings on PDFReader.tsx and api.ts were ASTESIA-004 on storageKey and cacheKey (PDFReader.tsx:43, PDFReader.tsx:52, api.ts:211, api.ts:233, api.ts:329).",
+    "exactEliminationCommit": "b4d7e93",
+    "eliminationCommitSubject": "feat(gate): implement key sensitivity, config profile, allowlist, and env git check (F1-F4, 3.5)",
+    "gateCodeChangeEvidence": "Introduction of NON_SENSITIVE_KEY_QUALIFIERS (containing 'storage', 'cache', 'query', 'sort', etc.) in isSensitiveKey at templates/enforcement/astesia-gate.ts, exempting storageKey and cacheKey from ASTESIA-004."
+  },
+  "classifiedLost": [
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": ".env",
+      "line": 10,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "code": "JWT_SECRET=rahasia-pustaka-sekolah-production-key-2026",
+      "classification": "FP",
+      "rationale": "Sub-heuristic refined"
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "Dockerfile",
+      "line": 55,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "code": "",
+      "classification": "FP",
+      "rationale": "Parser desync caused by quotes in Dockerfile shell commands, fixed by profile tokenizer"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/components/reader/PDFReader.tsx",
+      "line": 43,
+      "message": "Probable hardcoded secret.",
+      "code": "const storageKey = `pustaka_progress_${user.id}_${book.id}`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/components/reader/PDFReader.tsx",
+      "line": 52,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = `/api/books/${book.id}/stream-pdf`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 211,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = 'pustaka_cached_books';",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 233,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = `pustaka_book_${id}`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 329,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = `pustaka_my_loans_${activeOnly}`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/offlineStorage.ts",
+      "line": 64,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = `/api/books/${bookId}/stream-pdf`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/offlineStorage.ts",
+      "line": 108,
+      "message": "Probable hardcoded secret.",
+      "code": "const cacheKey = `/api/books/${bookId}/stream-pdf`;",
+      "classification": "FP",
+      "rationale": "Neutral UI label/key (storage key, token getter) wrongly matched by old regex heuristic"
+    }
+  ],
+  "classifiedNew": []
+}
