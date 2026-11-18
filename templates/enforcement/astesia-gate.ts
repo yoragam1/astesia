@@ -782,8 +782,13 @@ function checkLineRegex(
       const line = targetLines[i];
       if (!line.trim()) continue;
 
+      // Quick linear pre-check: string literal secrets always require quotes
+      const hasQuote = line.includes("'") || line.includes('"') || line.includes("`");
+      if (!hasQuote) continue;
+
       // Extract candidate assignment: key = "val", key: "val", or process.env.X ?? "val"
-      const assignMatch = /(?:([a-zA-Z0-9_$]+)\s*[:=]|process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"`]([^'"`\r\n]{12,})['"`]/i.exec(line);
+      // Linearized with lookbehind (?<![\w$]) to prevent quadratic backtracking ReDoS (VER3-007a)
+      const assignMatch = /(?:(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]|(?<![\w$])process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"`]([^'"`\r\n]{12,})['"`]/i.exec(line);
 
       let key = "";
       let val = "";
