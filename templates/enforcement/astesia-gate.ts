@@ -871,6 +871,21 @@ function getCachedRegex(pattern: string, flags?: string): RegExp {
 
 const SYNTAX_ONLY_RULES = new Set(["ASTESIA-005", "ASTESIA-006", "ASTESIA-009"]);
 
+const HELM_KEYNAME_PREV = new Set([
+  "password", "passwd", "pwd", "passphrase", "token", "credential", "credentials"
+]);
+
+export function isHelmKeyName(key: string, val: string): boolean {
+  const tokens = tokenizeKey(key);
+  if (tokens.length >= 2 && tokens[tokens.length - 1] === "key") {
+    const prevToken = tokens[tokens.length - 2];
+    if (HELM_KEYNAME_PREV.has(prevToken)) {
+      return /^[a-z][a-z._-]{0,39}$/.test(val);
+    }
+  }
+  return false;
+}
+
 export function checkConfigSecret(
   line: string,
   prevKey?: string
@@ -944,6 +959,11 @@ export function checkConfigSecret(
     if (!isUnbrokenLowercase) {
       return { isSecret: false, key, val };
     }
+  }
+
+  // 6b. Helm Key Name rule (Decision 4 / VER5-002)
+  if (isHelmKeyName(key, val)) {
+    return { isSecret: false, key, val };
   }
 
   // 7. Sensitive key check (E1 disabled: spaces and PascalCase do NOT exempt)
@@ -1219,6 +1239,10 @@ function checkLineRegex(
             if (hasDigitsOrSymbols || (isUnbrokenLowercase && isDirectSecretKey)) {
               isSecret = true;
             }
+          }
+
+          if (isHelmKeyName(key, val)) {
+            isSecret = false;
           }
         }
       }
