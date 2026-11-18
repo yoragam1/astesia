@@ -28,6 +28,7 @@ import { runEnvGitSuite } from "./env-git-suite";
 import { runProfileDispatchSuite } from "./profile-dispatch-suite";
 import { runKeyContractSuite } from "./key-contract-suite";
 import { runConfigSecretsSuite } from "./config-secrets-suite";
+import { runRule010ScopeSuite } from "./rule010-scope-suite";
 import { preprocessSource } from "../astesia-gate";
 
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -538,7 +539,8 @@ const categoryStats: Record<string, CategoryStats> = {
   env_git: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   profile_dispatch: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
   key_contract: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
-  config_secrets: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
+  config_secrets: { total: 0, passed: 0, failed: 0, known_gaps: 0 },
+  rule010_scope: { total: 0, passed: 0, failed: 0, known_gaps: 0 }
 };
 
 const knownGapList: Array<{ id: string; ruleId: string; file: string; line?: number; reason: string }> = [];
@@ -832,6 +834,16 @@ categoryStats.config_secrets.passed = configSecretsRes.passed;
 categoryStats.config_secrets.failed = configSecretsRes.failed;
 for (const err of configSecretsRes.errors) {
   failedCases.push({ id: "config-secrets", category: "config_secrets", reason: err });
+}
+
+// ================= RULE 010 SCOPE SUITE (T4: 17 Scenarios) =================
+const rule010ScopeTmpDir = join(TEST_DIR, "suite-rule010-scope");
+const rule010ScopeRes = runRule010ScopeSuite(GATE_PATH, RULES_PATH, rule010ScopeTmpDir);
+categoryStats.rule010_scope.total = rule010ScopeRes.total;
+categoryStats.rule010_scope.passed = rule010ScopeRes.passed;
+categoryStats.rule010_scope.failed = rule010ScopeRes.failed;
+for (const err of rule010ScopeRes.errors) {
+  failedCases.push({ id: "rule010-scope", category: "rule010_scope", reason: err });
 }
 
 // ================= BIDIRECTIONAL KNOWN-GAPS VALIDATION =================

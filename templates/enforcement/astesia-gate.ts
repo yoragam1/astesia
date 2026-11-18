@@ -871,7 +871,7 @@ export function checkConfigSecret(
 ): { isSecret: boolean; key: string; val: string } {
   let cleanLine = line.trim();
   if (!cleanLine || cleanLine.startsWith("#")) return { isSecret: false, key: "", val: "" };
-  if (cleanLine.startsWith("ENV ")) cleanLine = cleanLine.slice(4).trim();
+  if (cleanLine.startsWith("ENV ") || cleanLine.startsWith("ARG ")) cleanLine = cleanLine.slice(4).trim();
   if (cleanLine.startsWith("- ")) cleanLine = cleanLine.slice(2).trim();
 
   let key = "";
@@ -879,11 +879,11 @@ export function checkConfigSecret(
 
   const m = /^([a-zA-Z0-9_$.-]+)\s*[:=]\s*(.*)$/.exec(cleanLine);
   if (m) {
-    key = m[1];
+    key = (prevKey && m[1].toLowerCase() === "value") ? prevKey : m[1];
     val = m[2];
-  } else if (prevKey && /^value:\s*(.*)$/.test(cleanLine)) {
+  } else if (prevKey && /^value:\s*(.*)$/i.test(cleanLine)) {
     key = prevKey;
-    val = cleanLine.replace(/^value:\s*/, "");
+    val = cleanLine.replace(/^value:\s*/i, "");
   } else {
     return { isSecret: false, key: "", val: "" };
   }
@@ -1020,21 +1020,45 @@ function checkLineRegex(
     if (rule.pathRegex && !getCachedRegex(rule.pathRegex, "i").test(rel)) return;
     if (rule.excludeRegex && getCachedRegex(rule.excludeRegex, "i").test(rel)) return;
 
-    let prevKey = "";
-    for (let i = 0; i < prep.rawLines.length; i++) {
-      const rawLine = prep.rawLines[i];
-      const codeLine = prep.codeLines[i] || "";
-      if (!codeLine.trim()) continue;
+    const isConfig = profileFor(rel) === "config";
+    if (isConfig) {
+      let prevKey = "";
+      for (let i = 0; i < prep.rawLines.length; i++) {
+        const rawLine = prep.rawLines[i];
+        const codeLine = prep.codeLines[i] || "";
+        if (!codeLine.trim()) continue;
 
-      const res = checkConfigSecret(codeLine, prevKey);
-      if (/- name:\s*([A-Za-z0-9_]+)/.test(codeLine)) {
-        prevKey = /- name:\s*([A-Za-z0-9_]+)/.exec(codeLine)![1];
-      } else if (codeLine.trim()) {
-        prevKey = "";
+        const res = checkConfigSecret(codeLine, prevKey);
+        if (/- name:\s*([A-Za-z0-9_]+)/.test(codeLine)) {
+          prevKey = /- name:\s*([A-Za-z0-9_]+)/.exec(codeLine)![1];
+        } else if (codeLine.trim()) {
+          prevKey = "";
+        }
+
+        if (res.isSecret) {
+          if (checkAllowlist(rel, rule.id, rawLine, allowEntries, state)) {
+            continue;
+          }
+          if (!checkSuppression(prep, i, rule.id, state)) {
+            out.push({
+              ruleId: rule.id,
+              severity: rule.severity,
+              file: rel,
+              line: i + 1,
+              message: rule.description,
+              fix: rule.fix
+            });
+          }
+        }
       }
+      return;
+    }
 
-      if (res.isSecret) {
-        if (checkAllowlist(rel, rule.id, rawLine, allowEntries, state)) {
+    // If a custom ASTESIA-010 rule without pathRegex is applied to code files
+    for (let i = 0; i < targetLines.length; i++) {
+      const line = targetLines[i];
+      if (re.test(line)) {
+        if (checkAllowlist(rel, rule.id, prep.rawLines[i], allowEntries, state)) {
           continue;
         }
         if (!checkSuppression(prep, i, rule.id, state)) {
