@@ -704,6 +704,46 @@ function isSensitiveKey(key: string): boolean {
   return false;
 }
 
+export function isAuthBearerOrBasic(val: string): boolean {
+  if (typeof val !== "string") return false;
+  const trimmed = val.trim();
+
+  // Basic <base64>
+  const basicMatch = /^Basic\s+([A-Za-z0-9+/=]{8,})$/i.exec(trimmed);
+  if (basicMatch) {
+    const raw = basicMatch[1];
+    try {
+      const decoded = Buffer.from(raw, "base64").toString("utf8");
+      const colonIdx = decoded.indexOf(":");
+      if (colonIdx > 0 && colonIdx < decoded.length - 1) {
+        return true;
+      }
+    } catch {
+      // not valid base64
+    }
+  }
+
+  // Bearer <token>
+  const bearerMatch = /^Bearer\s+(\S+)$/i.exec(trimmed);
+  if (bearerMatch) {
+    const token = bearerMatch[1];
+    // Shape A: JWT (2 or 3 dot-separated base64url segments)
+    const isJwt = /^[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}(?:\.[A-Za-z0-9_-]*)?$/.test(token);
+    if (isJwt) return true;
+
+    // Shape B: Opaque token (>= 20 chars, contains both letters and digits, only valid token chars)
+    if (token.length >= 20 && /^[A-Za-z0-9._-]+$/.test(token)) {
+      const hasLetter = /[A-Za-z]/.test(token);
+      const hasDigit = /[0-9]/.test(token);
+      if (hasLetter && hasDigit) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 function checkLineRegex(
   rule: LineRegexRule,
   rel: string,
@@ -797,7 +837,7 @@ function checkLineRegex(
       if (assignMatch) {
         key = assignMatch[1] || "env_fallback";
         val = assignMatch[2];
-        if (isSensitiveKey(key) || KNOWN_PREFIX.test(val)) {
+        if (isSensitiveKey(key) || KNOWN_PREFIX.test(val) || isAuthBearerOrBasic(val)) {
           isCandidate = true;
         }
       } else {
@@ -810,13 +850,26 @@ function checkLineRegex(
         }
       }
 
+      // If not yet a candidate, scan all string literals on the line for Basic/Bearer auth or known prefixes
+      if (!isCandidate) {
+        const strRegex = /['"`]([^'"`\r\n]{12,})['"`]/g;
+        let sm: RegExpExecArray | null;
+        while ((sm = strRegex.exec(line)) !== null) {
+          if (isAuthBearerOrBasic(sm[1]) || KNOWN_PREFIX.test(sm[1])) {
+            key = "auth_header";
+            val = sm[1];
+            isCandidate = true;
+            break;
+          }
+        }
+      }
+
       if (!isCandidate) continue;
 
       let isSecret = false;
-      const isAuthBearerOrBasic = /^(?:Basic|Bearer)\s+[A-Za-z0-9+/=_-]{12,}$/i.test(val);
 
       // 1. Always Trigger on known high-confidence secret prefixes or auth bearer/basic
-      if (KNOWN_PREFIX.test(val) || isAuthBearerOrBasic) {
+      if (KNOWN_PREFIX.test(val) || isAuthBearerOrBasic(val)) {
         isSecret = true;
       } else {
         // 2. E1 (Value exception, any key):
