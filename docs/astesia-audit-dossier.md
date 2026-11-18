@@ -400,4 +400,27 @@ Sesuai prinsip transparansi dan pelacakan registri resmi di `templates/enforceme
    - **279 skenario uji total:** 273 passed, 0 failed, 6 known gaps terverifikasi.
    - Invarian akuntansi `total === passed + failed + known_gaps` terpenuhi secara matematis di seluruh 12 kategori pengujian.
 
+### 7.5 Gelombang 2A.2 (`wave2a.2/fixes`)
+1. **Penutupan Seluruh 10 Temuan Verifier Independen (VER3-001..010):**
+   - **VER3-001 & VER3-002 (Sensitivitas Kunci & Token Boundary):** Tokenisasi nama kunci berbasis delimiter (`_`, `-`), transisi camelCase/PascalCase, dan transisi alpha-digit. Token tunggal `key` tidak lagi dianggap sensitif (menghilangkan FP pada `const key = ...`). Substring `auth` tidak lagi memicu false positive pada nama entitas non-otentikasi seperti `author`, `authorName`, dan `authority`.
+   - **VER3-003 & VER3-008 (Shape-based Auth Token Detection & Titik JWT):** `isAuthBearerOrBasic` memvalidasi kredensial HTTP Basic (base64 ter-encode dengan separator `:`) dan JWT Bearer dengan struktur 3-bagian (`header.payload.signature` memuat titik `.`). Pemindaian literal string pada seluruh baris mendeteksi kredensial ini meskipun di-assign ke variabel dengan nama netral (mis. `label`, `description`).
+   - **VER3-004 (Preservasi Karakter Hash dalam Nilai Konfigurasi):** Pra-pemroses berkas `.yml`, `.yaml`, dan `.env` mengenali tanda kutip (`'`, `"`) dan menjaga karakter `#` yang berada di dalam kutip, mencegah pemotongan nilai kredensial ke komentar.
+   - **VER3-005 (Larangan Tegas Inline Allowlist untuk ASTESIA-010):** Menambahkan `ASTESIA-010` ke dalam himpunan `NEVER_INLINE_SUPPRESS`, menolak tegas penggunaan komentar inline `// astesia-allow: ASTESIA-010` (wajib menggunakan config-based allowlist).
+   - **VER3-006 (Workflow Guard Subcommand Terintegrasi & Fail-Closed CI):** Mengintegrasikan validator workflow langsung ke dalam CLI gate melalui `--check-workflow <path>`. Memvalidasi secara eksplisit keberadaan step guard itu sendiri di dalam AST workflow. Shell snippet pada `astesia-gate.workflow.yml` bersikap *fail-closed* jika berkas skrip gate tidak ditemukan.
+   - **VER3-007a (Eliminasi ReDoS O(N^2) pada Regex Kandidat):** Mengeliminasi catastrophic backtracking dengan penambahan linear pre-check `hasQuote` dan lookbehind `(?<![\w$])` pada ekspresi reguler kandidat penugasan string, memotong waktu eksekusi baris 500k dari 318,397 ms menjadi 98 ms.
+   - **VER3-007b (Batch Git Operations untuk Klasifikasi .env):** Menghilangkan eksekusi individual `spawnSync("git")` per berkas. Klasifikasi berkas `.env` menggunakan batch mode maksimal 2 pemanggilan subprocess (`git ls-files -z` dan `git check-ignore -z --stdin`), dengan 0 spawn jika tidak ada berkas `.env`. Pemindaian 100 berkas `.env` turun dari 5,568 ms menjadi 84.7 ms (peningkatan kecepatan 65x).
+   - **VER3-009 (Uji Mutasi M06 Tracked Ignored .env):** Harness pengujian memverifikasi berkas `.env` tracked yang cocok dengan `.gitignore` tetap ditandai sebagai pelanggaran (*fail-closed*).
+   - **VER3-010 (Penguncian Corpus Independen & Rekonsiliasi Celah):** Mengunci 67 kasus uji independen asli ke `tests/independent/originals.json`, memulihkan kasus `D4-21-GAP` ber-interpolasi template literal, memperbaiki typo path `r007/ec2b_helper.ts`, dan mendokumentasikan relasi duplikasi gap.
+2. **Harness Uji Mutasi 18-Mutan (Mutation Testing Harness):**
+   - Implementasi mandiri `templates/enforcement/tests/mutation/run.ts` menguji 18 mutasi kritis (M01..M18).
+   - Skor mutasi: **18 / 18 dibunuh (100% kill rate, 0 survived)**.
+3. **Hasil Pengujian Harness & Benchmark Performa:**
+   - **Harness Implementer:** 284 total kasus (278 passed, 0 failed, 6 known gaps).
+   - **Harness Verifier Independen:** 90 total kasus (87 passed, 0 failed, 3 known gaps terdaftar). Invarian matematis $90 = 87 + 0 + 3$ terpenuhi 100%.
+   - **Benchmark Performa (15 Pasang Alternating 56dd907 vs Head):**
+     - *Realistic Dataset (2,000 berkas: 5 .env, 1,995 kode):* Base Median 474.4 ms vs Head Median 565.4 ms -> Rasio Median **1.192x** (Ambang batas $\le 1.25$x) -> **PASS**.
+     - *Stress Dataset (2,000 berkas: 100 .env, 1,900 kode):* Base Median 470.8 ms vs Head Median 556.2 ms -> Rasio Median **1.181x** (Ambang batas $\le 1.25$x) -> **PASS**.
+   - **Self-Gate Execution:** Exit code 0, 0 error, 0 warning (`--max-warn 0`), 0 desync, 2 berkas terpindai, 21 berkas dikecualikan.
+
+
 
