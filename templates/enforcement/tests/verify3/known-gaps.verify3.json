@@ -4,11 +4,5 @@
     "ruleId": "ASTESIA-004",
     "description": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
     "status": "DEFERRED_TO_WAVE_3"
-  },
-  {
-    "id": "VER5-001",
-    "ruleId": "ASTESIA-010",
-    "description": "Config interpolation without braces ($VAR) fails to match regex /^[${][^}]+}$/ and triggers false positive on sensitive keys with length >= 8",
-    "status": "RECORDED_IN_WAVE_2A_3"
   }
 ]

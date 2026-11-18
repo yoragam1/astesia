@@ -911,7 +911,12 @@ export function checkConfigSecret(
     if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
       val = val.slice(1, -1).trim();
     }
-  } else if (/^\$\{[^}]+\}$/.test(val) || /^\$\{\{.*\}\}$/.test(val) || /^\{\{.*\}\}$/.test(val)) {
+  } else if (
+    /^\$[A-Za-z_]\w*$/.test(val) ||
+    /^\$\{[^}]+\}$/.test(val) ||
+    /^\$\{\{.*\}\}$/.test(val) ||
+    /^\{\{.*\}\}$/.test(val)
+  ) {
     return { isSecret: false, key, val };
   }
 
