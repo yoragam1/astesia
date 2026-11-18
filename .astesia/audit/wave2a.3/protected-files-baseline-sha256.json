@@ -1,0 +1,16 @@
+{
+  "templates/enforcement/tests/independent/originals.json": "2863b919b0b3d27c4155ecb61d3f7de71227a078a4b600d1778273caf4596a37",
+  "templates\\enforcement\\tests\\verify2\\allowlist-ratchet-suite.ts": "a90aed4d3c6dff230e180fa43617113a925cbd5f45085d87811e7300e30ee630",
+  "templates\\enforcement\\tests\\verify2\\config-comments-suite.ts": "696c992468ebdef67fb9eb7aa5a88bfa6f77aa35e1f1ab1b75273fe80e778da6",
+  "templates\\enforcement\\tests\\verify2\\key-auth-suite.ts": "a72fb1213bc67ba65c2f0741a7b2b25d56d8f01ffd8fbef41b77e989c3e492a9",
+  "templates\\enforcement\\tests\\verify2\\known-gaps.verify2.json": "73a3c3f699c0afc900bbc7453947662c03895cce6fba999c86400c7fadd0edac",
+  "templates\\enforcement\\tests\\verify2\\run.ts": "48ce917076b430222472f4ebe54b31941748ed25d5a51de83f6e075c0a4dac99",
+  "templates\\enforcement\\tests\\verify2\\workflow-guard-suite.ts": "65c0953576dfbad0f987d33a61ecd80429ae5c5519c0c5f8411c01c8f600dd95",
+  "templates\\enforcement\\tests\\verify\\known-gaps.verify.json": "ee133be38706b7b181ba7c002f0bcab213b9269ef9735af52f64af3f260148cb",
+  "templates\\enforcement\\tests\\verify\\run.ts": "2aafde8a4ab6153e63fd884b3a0b829b8fd7658d686d0ae4aa3477316d690141",
+  "templates\\enforcement\\tests\\verify\\v2-secrets.ts": "31465956400eb74daf49902b0733fdc69214618f6f7ded9f2757cd4e84728dfd",
+  "templates\\enforcement\\tests\\verify\\v3-config.ts": "cd65c5a26652ecea09e064e88fc7349713c5a4c1bcb06c1382e180ea81319828",
+  "templates\\enforcement\\tests\\verify\\v4-allowlist.ts": "fae2019e01d63044102469fc6bafef728756de492c01b5d298b492c92c1a62d0",
+  "templates\\enforcement\\tests\\verify\\v5-env-git.ts": "82116615e449272b63f4f380a1eadc291d68464f45a6fd220c076a5f381e6d7d",
+  "templates\\enforcement\\tests\\verify\\v9-rules-diff.ts": "7a255753fc6999ed8c55a09f8403795a48eb467fc4877c8eb53671f04d8b5370"
+}

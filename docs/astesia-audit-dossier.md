@@ -422,5 +422,32 @@ Sesuai prinsip transparansi dan pelacakan registri resmi di `templates/enforceme
      - *Stress Dataset (2,000 berkas: 100 .env, 1,900 kode):* Base Median 470.8 ms vs Head Median 556.2 ms -> Rasio Median **1.181x** (Ambang batas $\le 1.25$x) -> **PASS**.
    - **Self-Gate Execution:** Exit code 0, 0 error, 0 warning (`--max-warn 0`), 0 desync, 2 berkas terpindai, 21 berkas dikecualikan.
 
+### 7.6 Gelombang 2A.3 (`wave2a.3/fixes`)
+1. **Penutupan Temuan Verifikasi 2A.2 & Penutupan Celah Spesifikasi (T1..T4):**
+   - **T1 / VER4-001 (Dispatch Profil Berkas Konsisten):** Fungsi kanonikal `profileFor(filePath)` berbasis `path.basename` POSIX-normalized di seluruh pemanggilan tokenizer dan klasifikasi `.env`. Memastikan path absolut Windows (`C:\...\.env`) tidak lolos dari profil konfigurasi. (Commit `8720438`).
+   - **T2 / VER4-002 & VER4-003 (Kontrak Token Kunci Sensitif):** Menambahkan `pwd`, `pwds`, `passphrase`, `passphrases` ke `hasPassword` dan `isDirectSecretKey`. Mengecualikan token tunggal `auth` per kontrak F1 (`tokens.length === 1 && tokens[0] === 'auth'`). (Commit `5fabcd3`).
+   - **T3 / V3-06 (Nonaktifkan E1 pada Profil Config & Deteksi Rahasia Berspasi):** E1 (pengecualian string berspasi) dinonaktifkan mutlak pada profil config. `checkConfigSecret` mengevaluasi format mapping (`KEY: v`), list (`- KEY=v`), dotenv, dan Kubernetes env. Interpolasi `${VAR:-fallback}` mengevaluasi nilai fallback. (Commit `6a2c652`).
+   - **T4 / V4-06 (Perluasan Cakupan ASTESIA-010 ke Seluruh Konfigurasi & Format List):** `pathRegex` diperluas ke `(Dockerfile|\.dockerfile|\.env|\.ya?ml)`. Konfigurasi docker compose format list (`- KEY=val`) dideteksi penuh. `--rules-diff` membuktikan perubahan tidak melemahkan aturan (exit 0). (Commit `6798f56`).
+2. **Penyelesaian Riil Rekonsiliasi & Klasifikasi Proyek Nyata (R1 & R2 / T5..T6):**
+   - **T5 / R1 (Programmatic Commit-by-Commit Reconciliation):** Skrip programatis `reconcile.ts` memverifikasi 31 commit historis `56dd907..HEAD` pada salinan bersih `pustaka-sekolah-pwa`. Mengoreksi mitos ASTESIA-001: temuan yang tereliminasi di `b4d7e93` secara empiris adalah ASTESIA-004 pada `storageKey`/`cacheKey` (bukan ASTESIA-001 pada JSDoc/imports). Invarian aritmetika $\Delta\text{error} = 22 - 30 = -8$ dan $\Delta\text{warn} = 38 - 39 = -1$ terbukti mutlak. (Commit `6ebe9b2`).
+   - **T6 / R2 (Full Project Classification & Adoption Verification):** Mengklasifikasikan 51 temuan riil pada `pustaka-sekolah-pwa` (TP 51, FP 0, Noise 0, FP Rate 0.0%) dan 0 pelanggaran pada `terminal-portfolio` (Exit 0). Menyusun usulan konfigurasi `.astesia/gate-config.json` mengecualikan aset vendor `dev-dist` dan meng-allowlist kredensial dev. Pembuktian adopsi baseline dan ratchet 100% lulus secara mekanis (`updateBaselineExit=0`, `verifyBaselineExit=0`, `injectedBaselineExit=1` ratchet tertahan, `revertedBaselineExit=0`). (Commit `951e481`).
+3. **Penyatuan Entrypoint Pengujian & Meta-Tests Corpus Lock (T7):**
+   - Implementasi entrypoint tunggal `templates/enforcement/tests/all.ts` yang mendukung flag `--fast` dan `--json`.
+   - Mengonsolidasi Implementer Harness (`run.ts`: 355 kasus), Verifier 2A.1 Harness (`verify/run.ts`: 90 kasus), Verifier 2A.2 Harness (`verify2/run.ts`: 80 kasus), dan 6 suite mandiri (160 kasus).
+   - Penemuan dinamis 14 berkas `*-suite.ts`: **0 orphan suites (14/14 dieksekusi)**.
+   - Meta-tests integritas corpus mengunci SHA-256 `originals.json` (`2863b919...`), memvalidasi simulasi tampering dan penghapusan ID.
+   - Registry known-gaps diperbarui: `verify/known-gaps.verify.json` turun menjadi tepat 1 gap (SEC-23-GAP), `verify2/known-gaps.verify2.json` turun menjadi 0 gap. (Commit `2d1ba00`).
+4. **Perluasan Mutation Testing Harness ke 27 Mutan (T8):**
+   - Menambahkan 9 mutan baru (M19..M27) yang menguji seluruh logika baru T1..T4.
+   - Menerapkan penegakan pergantian teks eksak tunggal (`countMatches === 1`).
+   - Skor mutasi: **27 / 27 mutan dibunuh (100% kill rate, 0 survived)**. (Commit `8f71e7c`).
+5. **Hasil Pengujian Terkonsolidasi, Benchmark & Self-Gate:**
+   - **Total Kasus Uji Unik (`all.ts`):** 689 kasus (682 passed, 0 failed, 7 known gaps terdaftar). Invarian $689 = 682 + 0 + 7$ terpenuhi mutlak.
+   - **Benchmark Performa (15 Pasang Alternating):**
+     - *Realistic Dataset (2,000 berkas):* Median Head 3,018 ms vs 27fe428 3,000 ms (Rasio **1.006x** $\le 1.10$x) dan vs 56dd907 2,632 ms (Rasio **1.147x** $\le 1.25$x) -> **PASS**.
+     - *Stress Dataset (2,000 berkas):* Median Head 3,018 ms vs 27fe428 2,998 ms (Rasio **1.007x** $\le 1.10$x) dan vs 56dd907 2,657 ms (Rasio **1.136x** $\le 1.25$x) -> **PASS**.
+   - **Self-Gate Execution:** Exit 0, 0 error, 0 warning (`--max-warn 0`), 2 berkas terpindai, 31 berkas dikecualikan.
+
+
 
 
