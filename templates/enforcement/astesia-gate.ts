@@ -701,10 +701,34 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
   return { rawLines, codeLines, codeNoStringsLines, commentLines, commentBlocks, desync: isDesync };
 }
 
+export const STRONG_SECRET_RE =
+  /(?:(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-)[A-Za-z0-9_\-]{8,}|eyJ[A-Za-z0-9_-]{8,}(?:\.[A-Za-z0-9_\-=]{2,})*|-----BEGIN[ A-Z0-9]*PRIVATE KEY-----)/;
+
+export function isGeneratedFile(rawLines: string[], relPath: string): boolean {
+  const norm = relPath.replace(/\\/g, "/");
+  const base = (norm.split("/").pop() || "").toLowerCase();
+  if (/\.min\.(js|mjs|cjs|css)$/i.test(base)) {
+    return true;
+  }
+  const headerLimit = Math.min(10, rawLines.length);
+  for (let i = 0; i < headerLimit; i++) {
+    if (/@generated|DO NOT EDIT|Code generated/.test(rawLines[i])) {
+      return true;
+    }
+  }
+  for (let i = 0; i < rawLines.length; i++) {
+    if (rawLines[i].length >= 5000) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function isScannable(filename: string): boolean {
   const norm = filename.replace(/\\/g, "/");
   const base = (norm.split("/").pop() || "").toLowerCase();
   if (base.endsWith(".example") || base.endsWith(".template") || base.endsWith(".sample")) return false;
+  if (/\.min\.(js|mjs|cjs|css)$/i.test(base)) return true;
   const ext = extname(base).toLowerCase();
   if (SOURCE_EXT.has(ext)) return true;
   if (/^dockerfile(\.[a-z0-9_-]+)?$/i.test(base)) return true;
@@ -1963,6 +1987,7 @@ interface BaselineData {
     files_excluded: number;
     desync_files: number;
     allowlisted?: number;
+    generated_skipped?: number;
   };
   coverage: {
     files_scanned: number;
@@ -2116,7 +2141,7 @@ export function classifyEnvFiles(
 function evaluateBaseline(
   baseline: BaselineData,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
   filesScannedTotal: number
 ) {
   const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
@@ -2169,6 +2194,9 @@ function evaluateBaseline(
   if ((counters.allowlisted ?? 0) > (baseline.counters?.allowlisted ?? 0)) {
     counterRegressions.push(`allowlisted increased (${counters.allowlisted ?? 0} > ${baseline.counters?.allowlisted ?? 0})`);
   }
+  if ((counters.generated_skipped ?? 0) > (baseline.counters?.generated_skipped ?? 0)) {
+    counterRegressions.push(`generated_skipped increased (${counters.generated_skipped ?? 0} > ${baseline.counters?.generated_skipped ?? 0})`);
+  }
 
   const minRatio = baseline.coverage?.min_ratio ?? 0.9;
   const expectedMin = Math.ceil((baseline.coverage?.files_scanned ?? 0) * minRatio);
@@ -2198,7 +2226,7 @@ function evaluateBaseline(
 function updateBaseline(
   targetPath: string,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
   filesScannedTotal: number,
   allowRaise: boolean,
   reason: string
@@ -2271,6 +2299,10 @@ function updateBaseline(
       hasMetricIncrease = true;
       diffDetails.counters.allowlisted = { from: oldBaseline.counters?.allowlisted ?? 0, to: counters.allowlisted ?? 0 };
     }
+    if ((counters.generated_skipped ?? 0) > (oldBaseline.counters?.generated_skipped ?? 0)) {
+      hasMetricIncrease = true;
+      diffDetails.counters.generated_skipped = { from: oldBaseline.counters?.generated_skipped ?? 0, to: counters.generated_skipped ?? 0 };
+    }
 
     if (hasMetricIncrease) {
       if (!allowRaise) {
@@ -2312,7 +2344,8 @@ function updateBaseline(
       suppressions: counters.suppressions,
       files_excluded: counters.files_excluded,
       desync_files: counters.desync_files,
-      allowlisted: counters.allowlisted ?? 0
+      allowlisted: counters.allowlisted ?? 0,
+      generated_skipped: counters.generated_skipped ?? 0
     },
     coverage: {
       files_scanned: filesScannedTotal,
@@ -2447,28 +2480,60 @@ function main() {
   }
 
   const envClassification = classifyEnvFiles(root, relFiles);
-  const files: string[] = [];
+  const candidateFiles: string[] = [];
   for (const abs of allFiles) {
     const rel = relFileMap.get(abs)!;
     if (envClassification.ignoredUntracked.has(rel)) {
       gateState.envIgnoredSkipped++;
       continue;
     }
-    files.push(abs);
+    candidateFiles.push(abs);
+  }
+
+  const rule004 = rules.find((r) => r.id === "ASTESIA-004");
+  const generatedFiles: string[] = [];
+  const files: Array<{ abs: string; rel: string; rawContent: string }> = [];
+
+  for (const abs of candidateFiles) {
+    const rel = relFileMap.get(abs) || relative(root, abs).replace(/\\/g, "/");
+    const rawContent = readFileSync(abs, "utf8");
+    let normText = rawContent;
+    if (normText.charCodeAt(0) === 0xfeff) {
+      normText = normText.slice(1);
+    }
+    normText = normText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    const rawLines = normText.split("\n");
+
+    if (isGeneratedFile(rawLines, rel)) {
+      generatedFiles.push(rel);
+      for (let l = 0; l < rawLines.length; l++) {
+        if (STRONG_SECRET_RE.test(rawLines[l])) {
+          violations.push({
+            ruleId: "ASTESIA-004",
+            severity: "error",
+            file: rel,
+            line: l + 1,
+            message: rule004?.description || "Hardcoded secret or API key detected in generated/minified file.",
+            fix: rule004?.fix || "Move secrets to environment variables or secret manager."
+          });
+        }
+      }
+    } else {
+      files.push({ abs, rel, rawContent });
+    }
   }
 
   const filesScanned = {
     total: files.length,
     by_extension: {} as Record<string, number>
   };
-  for (const abs of files) {
-    const ext = extname(abs).toLowerCase() || abs.toLowerCase();
+  for (const f of files) {
+    const ext = extname(f.abs).toLowerCase() || f.abs.toLowerCase();
     filesScanned.by_extension[ext] = (filesScanned.by_extension[ext] || 0) + 1;
   }
 
-  for (const abs of files) {
-    const rel = relFileMap.get(abs) || relative(root, abs).replace(/\\/g, "/");
-    const rawContent = readFileSync(abs, "utf8");
+  for (const f of files) {
+    const { abs, rel, rawContent } = f;
     const prep = preprocessSource(rawContent, abs);
 
     if (prep.desync) {
@@ -2505,7 +2570,8 @@ function main() {
     suppressions: gateState.suppressions,
     files_excluded: excludedFilesState.count,
     desync_files: desyncFiles.length,
-    allowlisted: gateState.allowlistedCount
+    allowlisted: gateState.allowlistedCount,
+    generated_skipped: generatedFiles.length
   };
 
   const staleAllowEntries: GateConfigAllowEntry[] = [];
@@ -2559,6 +2625,8 @@ function main() {
       allowlisted: gateState.allowlistedCount,
       allow_stale: staleAllowEntries,
       env_ignored_skipped: gateState.envIgnoredSkipped,
+      generated_skipped: generatedFiles.length,
+      generated_files: generatedFiles,
       files_scanned: filesScanned,
       files_excluded: excludedFilesState.count,
       excluded_paths: excludedPaths,
@@ -2584,8 +2652,11 @@ function main() {
     }
     const extSummary = Object.entries(filesScanned.by_extension).map(([k, v]) => `${k}: ${v}`).join(", ");
     process.stdout.write(
-      `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}), ${excludedFilesState.count} excluded.\n`
+      `\nastesia-gate: scanned ${filesScanned.total} file(s) (${extSummary || "none"}), ${excludedFilesState.count} excluded, generated_skipped=${generatedFiles.length}.\n`
     );
+    if (generatedFiles.length > 0) {
+      process.stdout.write(`astesia-gate: generated_files: ${generatedFiles.join(", ")}\n`);
+    }
     process.stdout.write(
       `astesia-gate: ${errors.length} error(s), ${warns.length} warning(s), ${rules.length} rule(s) loaded (suppressions: ${gateState.suppressions}, rejected: ${gateState.rejectedSuppressions}, debt markers: ${gateState.debtMarkers}, allowlisted: ${gateState.allowlistedCount}, env skipped: ${gateState.envIgnoredSkipped}).\n`
     );
