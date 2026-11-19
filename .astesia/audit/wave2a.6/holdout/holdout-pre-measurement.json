@@ -1,0 +1,35 @@
+{
+  "audit": "Wave 2A.6 Pre-Fix Hold-Out Baseline Measurement",
+  "gate_commit": "2609008",
+  "timestamp": "2026-11-19T08:50:00.000Z",
+  "projects": {
+    "eduNEXA": {
+      "language": "Go",
+      "files_scanned": 56,
+      "violations_count": 4,
+      "errors": 3,
+      "warnings": 1,
+      "desync_count": 0
+    },
+    "prototype-ami": {
+      "language": "TypeScript / SvelteKit",
+      "files_scanned": 37,
+      "violations_count": 1,
+      "errors": 0,
+      "warnings": 1,
+      "desync_count": 0
+    },
+    "cadetspeak": {
+      "language": "Dart / Python",
+      "files_scanned": 7,
+      "violations_count": 0,
+      "errors": 0,
+      "warnings": 0,
+      "desync_count": 0
+    }
+  },
+  "total_files_scanned": 100,
+  "total_violations": 5,
+  "total_classified": 5,
+  "coverage_ratio": "1.0000 (5/5 census)"
+}
