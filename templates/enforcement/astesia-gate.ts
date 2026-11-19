@@ -1139,6 +1139,96 @@ export function checkConfigSecret(
   return { isSecret: false, key, val };
 }
 
+const ALLOWED_URL_SCHEMES = new Set([
+  "http", "https", "ws", "wss", "libsql",
+  "postgres", "postgresql", "mysql",
+  "mongodb", "mongodb+srv",
+  "redis", "rediss", "amqp", "amqps"
+]);
+
+const SENSITIVE_URL_PARAM_RE =
+  /^(?:token|key|secret|password|passwd|pwd|auth|authtoken|apikey|api_key|access_token|sig|signature|credential)$/i;
+
+const URL_VAR_REF_RE = /^(?:\$[A-Za-z_]\w*|\$\{[A-Za-z_]\w*\}|\{\{[^}]+\}\})$/;
+
+export function analyzeUrlFor004(
+  val: string,
+  lhsKey: string,
+  envKey: string,
+  isEnvFallback: boolean
+): "exempt" | "trigger" | "not_url" {
+  const schemeMatch = /^([a-zA-Z][a-zA-Z0-9+.-]*):\/\/(.*)$/.exec(val);
+  if (!schemeMatch) return "not_url";
+
+  const scheme = schemeMatch[1].toLowerCase();
+  const rest = schemeMatch[2];
+
+  if (STRONG_SECRET_RE.test(val)) {
+    return "trigger";
+  }
+
+  const authEnd = rest.search(/[/?#]/);
+  const authority = authEnd === -1 ? rest : rest.slice(0, authEnd);
+  const pathQueryHash = authEnd === -1 ? "" : rest.slice(authEnd);
+
+  let hostPort = authority;
+  const atIdx = authority.lastIndexOf("@");
+  if (atIdx !== -1) {
+    const userinfo = authority.slice(0, atIdx);
+    hostPort = authority.slice(atIdx + 1);
+    if (STRONG_SECRET_RE.test(userinfo)) {
+      return "trigger";
+    }
+    const colonIdx = userinfo.indexOf(":");
+    if (colonIdx !== -1) {
+      const pass = userinfo.slice(colonIdx + 1);
+      if (!URL_VAR_REF_RE.test(pass)) {
+        return "trigger";
+      }
+    }
+  }
+
+  const lhsSensitive = Boolean(lhsKey && lhsKey !== "env_fallback" && isSensitiveKey(lhsKey));
+  const envSensitive = Boolean(envKey && envKey !== "env_fallback" && isSensitiveKey(envKey));
+  if (lhsSensitive || envSensitive) {
+    return "trigger";
+  }
+
+  if (!ALLOWED_URL_SCHEMES.has(scheme)) {
+    return isEnvFallback ? "trigger" : "not_url";
+  }
+
+  if (!hostPort || hostPort.trim() === "") {
+    return "trigger";
+  }
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL("http://" + hostPort + pathQueryHash);
+  } catch {
+    return "trigger";
+  }
+  if (!parsedUrl.hostname || parsedUrl.hostname.trim() === "") {
+    return "trigger";
+  }
+
+  for (const [k] of parsedUrl.searchParams.entries()) {
+    if (SENSITIVE_URL_PARAM_RE.test(k)) {
+      return "trigger";
+    }
+  }
+  if (parsedUrl.hash && parsedUrl.hash.length > 1) {
+    const hashBody = parsedUrl.hash.slice(1).replace(/^\?/, "");
+    const hashParams = new URLSearchParams(hashBody);
+    for (const [k] of hashParams.entries()) {
+      if (SENSITIVE_URL_PARAM_RE.test(k)) {
+        return "trigger";
+      }
+    }
+  }
+
+  return "exempt";
+}
+
 function checkLineRegex(
   rule: LineRegexRule,
   rel: string,
@@ -1319,6 +1409,54 @@ function checkLineRegex(
       // Quick linear pre-check: string literal secrets always require quotes
       const hasQuote = line.includes("'") || line.includes('"') || line.includes("\x60");
       if (!hasQuote) continue;
+
+      if (line.includes("://")) {
+        const urlRegex = /['"\x60]([a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^'"\x60\r\n]*)['"\x60]/g;
+        let um: RegExpExecArray | null;
+        let foundUrl = false;
+        let urlTriggered = false;
+        let urlAllExempt = true;
+
+        const lhsMatch = /(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]/.exec(line);
+        const envMatch = /(?<![\w$])process\.env\.([a-zA-Z0-9_]+)\s*(?:\?\?|\|\|)|(?<![\w$.])([a-zA-Z0-9_$]+)\s*(?:\?\?|\|\|)/.exec(line);
+        const lhsKey = lhsMatch ? lhsMatch[1] : "";
+        const envKey = envMatch ? (envMatch[1] || envMatch[2] || "") : "";
+        const isEnvFallback = Boolean(envMatch);
+
+        while ((um = urlRegex.exec(line)) !== null) {
+          const verdict = analyzeUrlFor004(um[1], lhsKey, envKey, isEnvFallback);
+          if (verdict === "trigger") {
+            foundUrl = true;
+            urlTriggered = true;
+            urlAllExempt = false;
+            break;
+          } else if (verdict === "exempt") {
+            foundUrl = true;
+          } else {
+            urlAllExempt = false;
+          }
+        }
+
+        if (foundUrl && urlTriggered) {
+          if (checkAllowlist(rel, rule.id, prep.rawLines[i], allowEntries, state)) {
+            continue;
+          }
+          if (!checkSuppression(prep, i, rule.id, state)) {
+            out.push({
+              ruleId: rule.id,
+              severity: rule.severity,
+              file: rel,
+              line: i + 1,
+              message: rule.description,
+              fix: rule.fix
+            });
+          }
+          continue;
+        }
+        if (foundUrl && urlAllExempt) {
+          continue;
+        }
+      }
 
       // Extract candidate assignment: key = "val", key: "val", or process.env.X ?? "val"
       // Linearized with lookbehind (?<![\w$]) to prevent quadratic backtracking ReDoS (VER3-007a)
