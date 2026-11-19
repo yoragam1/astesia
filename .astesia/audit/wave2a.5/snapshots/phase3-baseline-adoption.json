@@ -1,0 +1,94 @@
+{
+  "pustaka-sekolah-pwa": {
+    "project": "pustaka-sekolah-pwa",
+    "config_applied": {
+      "schema": 1,
+      "exclude": [
+        {
+          "path": "dev-dist",
+          "reason": "Exclude Vite/Workbox PWA development build artifacts from source scanning"
+        }
+      ],
+      "allow": [
+        {
+          "rule": "ASTESIA-010",
+          "path": "docker-compose.yml",
+          "match": "JWT_SECRET=${JWT_SECRET:-rahasia-pustaka-sekolah-production-key-2026}",
+          "reason": "Legacy local docker-compose fallback secret tracked for migration to env-only"
+        }
+      ]
+    },
+    "pre_baseline_scan": {
+      "files_scanned": 75,
+      "files_excluded": 2,
+      "generated_skipped": 0,
+      "allowlisted": 1,
+      "errors": 20,
+      "warnings": 29
+    },
+    "step1_update_baseline_exit": 0,
+    "step2_check_clean_exit": 0,
+    "step3_inject_code_violation_exit": 1,
+    "step3_new_violations_count": 1,
+    "step4_inject_bundle_5000_exit": 1,
+    "step4_counter_regressions": [
+      "generated_skipped increased (1 > 0)"
+    ],
+    "step5_restored_clean_exit": 0,
+    "baseline_counters": {
+      "debt_markers": 0,
+      "suppressions": 0,
+      "files_excluded": 2,
+      "desync_files": 0,
+      "allowlisted": 1,
+      "generated_skipped": 0
+    },
+    "all_passed": true
+  },
+  "flora-smk": {
+    "project": "flora-smk",
+    "config_applied": {
+      "schema": 1,
+      "exclude": [
+        {
+          "path": ".vercel/output",
+          "reason": "Exclude Vercel deployment build output directory and bundled chunks"
+        }
+      ],
+      "allow": [
+        {
+          "rule": "ASTESIA-004",
+          "path": "src/lib/repositories/auth.repository.ts",
+          "match": "OFFLINE_AUTH_KEY",
+          "reason": "Local storage key identifier for offline authentication cache, not a secret"
+        }
+      ]
+    },
+    "pre_baseline_scan": {
+      "files_scanned": 73,
+      "files_excluded": 49,
+      "generated_skipped": 0,
+      "allowlisted": 1,
+      "errors": 1,
+      "warnings": 8
+    },
+    "step1_update_baseline_exit": 0,
+    "step2_check_clean_exit": 0,
+    "step3_inject_code_violation_exit": 1,
+    "step3_new_violations_count": 1,
+    "step4_inject_bundle_5000_exit": 1,
+    "step4_counter_regressions": [
+      "generated_skipped increased (1 > 0)"
+    ],
+    "step5_restored_clean_exit": 0,
+    "baseline_counters": {
+      "debt_markers": 0,
+      "suppressions": 0,
+      "files_excluded": 49,
+      "desync_files": 0,
+      "allowlisted": 1,
+      "generated_skipped": 0
+    },
+    "all_passed": true
+  }
+}

@@ -1,0 +1,175 @@
+[
+  {
+    "name": "pustaka-sekolah-pwa",
+    "sourcePath": "D:\\Workspaces\\pustaka-sekolah-pwa",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\pustaka-sekolah-pwa",
+    "headCommit": "75bae20c943fb219250da6c004f0d42fd50826d4",
+    "gitStatusShort": "",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 72,
+      "errors": 30,
+      "warnings": 39,
+      "violationsCount": 69,
+      "sha256": "39c154be4dca0af94a0b4504a03cdbf4630505dafe56ec8009296936fbff7130"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 77,
+      "errors": 22,
+      "warnings": 38,
+      "desyncCount": 0,
+      "violationsCount": 60,
+      "sha256": "164022619cf7a61058b57104c7ea34e89aab4a8f8d3bcef1f0296b928a00621a"
+    },
+    "determinismCheck": {
+      "run1Sha256": "164022619cf7a61058b57104c7ea34e89aab4a8f8d3bcef1f0296b928a00621a",
+      "run2Sha256": "164022619cf7a61058b57104c7ea34e89aab4a8f8d3bcef1f0296b928a00621a",
+      "identical": true
+    }
+  },
+  {
+    "name": "terminal-portfolio",
+    "sourcePath": "D:\\Workspaces\\terminal-portfolio",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\terminal-portfolio",
+    "headCommit": "75d85e6b33486916215f0a05d229982f88fcf1c9",
+    "gitStatusShort": "",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 18,
+      "errors": 1,
+      "warnings": 1,
+      "violationsCount": 2,
+      "sha256": "e7f519199e41ca20da4a0b5e12d6d4a31b8fc68c08665a9898570c34f3bbbcf0"
+    },
+    "scana9e20cd": {
+      "exitCode": 0,
+      "filesScanned": 18,
+      "errors": 0,
+      "warnings": 0,
+      "desyncCount": 0,
+      "violationsCount": 0,
+      "sha256": "bf10b25adf363018e0bb4f7200de461cccbff894be5e3660bff6a727870faa9e"
+    }
+  },
+  {
+    "name": "eunectes",
+    "sourcePath": "D:\\Workspaces\\eunectes",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\eunectes",
+    "headCommit": "0bc6173ba1b883d00aeaa9c7f42c658884fc1c2c",
+    "gitStatusShort": "",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 4061,
+      "errors": 149,
+      "warnings": 270,
+      "violationsCount": 419,
+      "sha256": "2777e9c8cd03df04c2c74bd2aa76e96f3621e060cdb09b2f19117b5d3f1076ed"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 4108,
+      "errors": 111,
+      "warnings": 320,
+      "desyncCount": 12,
+      "violationsCount": 431,
+      "sha256": "066fafc917de72b27b0c0cb0981553bc1af21421ceef406c0ace09db4e11f116"
+    }
+  },
+  {
+    "name": "flora-smk",
+    "sourcePath": "D:\\Workspaces\\flora-smk",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\flora-smk",
+    "headCommit": "0dd24aaf78f4ff9f9c26d89e062c07f26fdfaa09",
+    "gitStatusShort": "",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 123,
+      "errors": 24,
+      "warnings": 24,
+      "violationsCount": 48,
+      "sha256": "43810b4e317758ad6be60b4240c4788158d3e217de95bf995889f31c01a3a0f4"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 122,
+      "errors": 5,
+      "warnings": 24,
+      "desyncCount": 2,
+      "violationsCount": 29,
+      "sha256": "ea6a2e7ad757a1783f995ad5917fa840f026f394804e6f0b1def34acf4720ea4"
+    }
+  },
+  {
+    "name": "ifrit",
+    "sourcePath": "D:\\Workspaces\\ifrit",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\ifrit",
+    "headCommit": "64adbf9544581e57053a8d84a94e7e4471d40d95",
+    "gitStatusShort": "?? ceobe/",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 223,
+      "errors": 37,
+      "warnings": 319,
+      "violationsCount": 356,
+      "sha256": "bae8d4a87edc3afd28dcd629aa89a2ade8f45a593612ae8d09ea748b783595fa"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 233,
+      "errors": 13,
+      "warnings": 319,
+      "desyncCount": 2,
+      "violationsCount": 332,
+      "sha256": "99cb4dd9c63ec0272775fa3f8fe1e46d22e4eb19d5ff030dcb9f2de5f8c321c9"
+    }
+  },
+  {
+    "name": "arene",
+    "sourcePath": "D:\\Workspaces\\arene",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\arene",
+    "headCommit": "841beea45cb25ba51f29fa45b7e272938d19b80a",
+    "gitStatusShort": "",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 256,
+      "errors": 17,
+      "warnings": 120,
+      "violationsCount": 137,
+      "sha256": "33af93cd79fd2ad8a46403b8bf7d1ab4b36f97465bf095e7c932039d9a63ecb7"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 376,
+      "errors": 19,
+      "warnings": 135,
+      "desyncCount": 3,
+      "violationsCount": 154,
+      "sha256": "d58634e3559f347de4a596cba549b1126ba31161a5e815b05142633f35266c14"
+    }
+  },
+  {
+    "name": "SIA",
+    "sourcePath": "D:\\Workspaces\\SIA",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-real\\SIA",
+    "headCommit": "3b8929d57cc6935f5bc3148772826305e0c771b5",
+    "gitStatusShort": "M package-lock.json",
+    "scan56dd907": {
+      "exitCode": 1,
+      "filesScanned": 457,
+      "errors": 2,
+      "warnings": 60,
+      "violationsCount": 62,
+      "sha256": "1a07550bdf52d8c32a575788fbaff5b45b1fd4f2cf7790502ce02a75fd298119"
+    },
+    "scana9e20cd": {
+      "exitCode": 1,
+      "filesScanned": 468,
+      "errors": 1,
+      "warnings": 60,
+      "desyncCount": 1,
+      "violationsCount": 61,
+      "sha256": "8e9562ce68adfe6d8aae4a9caa284506daa9622f195239fee4b4613929226039"
+    }
+  }
+]

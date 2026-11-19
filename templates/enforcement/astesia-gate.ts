@@ -1117,16 +1117,16 @@ export function analyzeUrlFor004(
   }
 
   if (!hostPort || hostPort.trim() === "") {
-    return "trigger";
+    return isEnvFallback ? "trigger" : "not_url";
   }
   let parsedUrl: URL;
   try {
     parsedUrl = new URL("http://" + hostPort + pathQueryHash);
   } catch {
-    return "trigger";
+    return isEnvFallback ? "trigger" : "not_url";
   }
   if (!parsedUrl.hostname || parsedUrl.hostname.trim() === "") {
-    return "trigger";
+    return isEnvFallback ? "trigger" : "not_url";
   }
 
   for (const [k] of parsedUrl.searchParams.entries()) {
@@ -1336,10 +1336,11 @@ function checkLineRegex(
         let urlAllExempt = true;
 
         const lhsMatch = /(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]/.exec(line);
-        const envMatch = /(?<![\w$])process\.env\.([a-zA-Z0-9_]+)\s*(?:\?\?|\|\|)|(?<![\w$.])([a-zA-Z0-9_$]+)\s*(?:\?\?|\|\|)/.exec(line);
+        const procEnvMatch = /(?<![\w$])process\.env\.([a-zA-Z0-9_]+)\s*(?:\?\?|\|\|)/.exec(line);
+        const identFallbackMatch = /(?<![\w$.])([a-zA-Z0-9_$]+)\s*(?:\?\?|\|\|)/.exec(line);
         const lhsKey = lhsMatch ? lhsMatch[1] : "";
-        const envKey = envMatch ? (envMatch[1] || envMatch[2] || "") : "";
-        const isEnvFallback = Boolean(envMatch);
+        const envKey = procEnvMatch ? procEnvMatch[1] : identFallbackMatch ? identFallbackMatch[1] : "";
+        const isEnvFallback = Boolean(procEnvMatch);
 
         while ((um = urlRegex.exec(line)) !== null) {
           const verdict = analyzeUrlFor004(um[1], lhsKey, envKey, isEnvFallback);

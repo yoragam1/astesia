@@ -367,14 +367,14 @@ Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gel
 | `ASTESIA-009` | `warn` | `line-regex` | `code` | Hindari `setTimeout` telanjang di kode produksi tanpa enkapsulasi debounce/throttle atau pengujian terisolasi. |
 | `ASTESIA-010` | `error` | `line-regex` | `code` | Dilarang meletakkan secret plaintext di Dockerfile, docker-compose, CI yaml, dan berkas `.env`. *(NEVER_BASELINE)* |
 
-### 7.3 Status 6 Known Gaps Terverifikasi
-Sesuai prinsip transparansi dan pelacakan registri resmi di `templates/enforcement/tests/known-gaps.json`, enam batasan deteksi berbasis regex statis dicatat secara resmi sebagai celah bawaan yang membutuhkan analisis call-graph/AST penuh (di luar lingkup zero-dependency regex gate):
+### 7.3 Status 6 Active Known Gaps Terverifikasi (Pasca-Gelombang 2A.5)
+Sesuai prinsip transparansi dan pelacakan registri resmi yang disinkronkan dua arah di `templates/enforcement/tests/known-gaps.json` dan `templates/enforcement/tests/verify3/known-gaps.verify3.json` (diverifikasi secara otomatis oleh `META-05` dan `META-06` di `all.ts`), dua celah lama terkait backtick di dalam regex literal (`ADV-BACKTICK-IN-REGEX-GAP` dan `D2-REG-BACKTICK-GAP`) **telah ditutup (`gap -> pass`)** pada Gelombang 2A.5 melalui deteksi regex literal satu baris. Enam batasan deteksi statis aktif saat ini adalah:
 1. **`007-EC2b` (`ASTESIA-007`):** Pemanggilan fungsi helper database tidak langsung lintas fungsi (mis. `await fetchUserOrdersHelper(u.id)`) di dalam loop tidak dapat dipetakan ke kueri database tanpa analisis call-graph antar-berkas.
-2. **`ADV-BACKTICK-IN-REGEX-GAP` (`ASTESIA-005`):** Karakter backtick yang terletak di dalam literal regex (`/`/`) berpotensi memicu pembukaan template literal fiktif pada tokenizer pra-pemrosesan.
-3. **`SEC-23-GAP` (`ASTESIA-004`):** Secret dalam format kata jamak berhuruf kecil murni bergaya snake_case yang berada di bawah kunci bertarget UI (mis. `passwordField = "my_secret_token_words"`) lolos dari filter entropi regex tanpa kamus semantik kata sandi.
-4. **`D2-REG-BACKTICK-GAP` (`ASTESIA-005`):** Backtick di dalam regex literal pada tes adversarial independen verifier.
-5. **`D2-PHP-HEREDOC` (`ASTESIA-002`):** Sintaks PHP heredoc (`<<<TAG`) tidak di-strip sebagai string literal oleh tokenizer regex baris tunggal sederhana.
-6. **`D4-21-GAP` (`ASTESIA-004`):** Secret snake_case lowercase di bawah kunci suffix UI field/text/name pada tes security independen.
+2. **`SEC-23-GAP` (`ASTESIA-004`):** Secret dalam format kata jamak berhuruf kecil murni bergaya snake_case yang berada di bawah kunci bertarget UI (mis. `passwordField = "my_secret_token_words"`) lolos dari filter entropi regex tanpa kamus semantik kata sandi.
+3. **`D2-PHP-HEREDOC` (`ASTESIA-002`):** Sintaks PHP heredoc (`<<<TAG`) tidak di-strip sebagai string literal oleh tokenizer tanpa dependensi eksternal.
+4. **`D4-21-GAP` (`ASTESIA-004`):** Interpolasi template literal `const password = \`pass_\${userId}\`` pada kode sumber masih memicu heuristik line-regex karena tidak ada evaluasi runtime.
+5. **`HELM-KEYNAME-GAP` (`ASTESIA-010`, `helm-keyname-suite.ts#HK-14`):** Passphrase huruf kecil murni di bawah kunci `*PasswordKey` / `*TokenKey` pada berkas YAML cocok dengan pola identifier nama key Helm (`^[a-z][a-z._-]{0,39}$`). Dihitung di `known_gaps` (`13 passed + 1 known_gap = 14`).
+6. **`PHP-MARKUP-OUTSIDE-TAG-GAP` (`TOKENIZER_DESYNC`, `wave2a5-cli-config-suite.ts#T4-GAP`):** Apostrof tak berpasangan pada teks HTML di luar blok `<?php ... ?>` pada berkas `.php`/`.blade.php` (frekuensi D2 $< 20\%$ dan $< 3$ berkas; 1 berkas nyata di `SIA` memiliki baris 28.398 karakter sehingga terklasifikasi ke dalam `generated_skipped`).
 
 ### 7.4 Gelombang 2A.1 (`wave2a.1/fixes`)
 1. **F1: Heuristik ASTESIA-004 Lebih Cerdas & Sensitivitas Kunci:**
@@ -447,6 +447,29 @@ Sesuai prinsip transparansi dan pelacakan registri resmi di `templates/enforceme
      - *Realistic Dataset (2,000 berkas):* Median Head 3,018 ms vs 27fe428 3,000 ms (Rasio **1.006x** $\le 1.10$x) dan vs 56dd907 2,632 ms (Rasio **1.147x** $\le 1.25$x) -> **PASS**.
      - *Stress Dataset (2,000 berkas):* Median Head 3,018 ms vs 27fe428 2,998 ms (Rasio **1.007x** $\le 1.10$x) dan vs 56dd907 2,657 ms (Rasio **1.136x** $\le 1.25$x) -> **PASS**.
    - **Self-Gate Execution:** Exit 0, 0 error, 0 warning (`--max-warn 0`), 2 berkas terpindai, 31 berkas dikecualikan.
+
+### 7.7 Gelombang 2A.4 (`wave2a.4/fixes`, `a9e20cd`)
+1. **Penutupan Temuan Verifikasi 2A.3 (VER5-001, VER5-002, VM02, VM05, Hermetic `env_git`):**
+   - **VER5-001 (Referensi Variabel Konfigurasi Tak Berkurung):** Mendukung `$VAR` (`^\$[A-Za-z_]\w*$`), `${VAR}`, `${{ ... }}`, dan `{{ ... }}` pada `checkConfigSecret`.
+   - **VER5-002 (Aturan Nama Key Helm):** Mengecualikan nama key Helm (`*PasswordKey`, `*TokenKey`, `*CredentialKey`, dll., bukan `secretKey`/`apiKey`/`privateKey`/`accessKey`) yang bernilai identifier murni `^[a-z][a-z._-]{0,39}$`.
+   - **Kontrak `profileFor`:** Hanya `.env`, `.env.<suffix>`, `Dockerfile`, `Dockerfile.<suffix>`, `*.Dockerfile`, `.yml`, dan `.yaml` (kecuali `.example`/`.template`/`.sample`) yang masuk profil `config`; `.json`, `.toml`, `.ini`, `.conf`, `.properties`, `.envrc`, dan `.environment` tetap di profil `code`.
+   - **Hermetic `env_git` Suite:** Menggunakan flag eksplisit `-c user.name -c user.email -c commit.gpgsign=false -c core.autocrlf=false` dan pra-pemeriksaan status git sebelum menjalankan gate.
+   - **Perluasan Uji Mutasi ke 34 Mutan:** Menambahkan mutan `M28..M34` untuk kontrak `profileFor`, referensi variabel `$VAR`, dan aturan Helm.
+
+### 7.8 Gelombang 2A.5 (`wave2a.5/fixes`)
+1. **Eliminasi `TOKENIZER_DESYNC` Lintas 7 Proyek Nyata (20 Berkas Desync $\to$ 0 Berkas Desync):**
+   - **T1 (Deteksi Konservatif Regex Literal Satu Baris):** Pada `.ts .tsx .js .jsx .mjs .cjs` dan blok `<script>` di `.svelte`/`.vue` (tidak aktif di `.py`/`.go`), `/` membuka regex literal satu baris ($\le 2.000$ karakter) setelah awal berkas, operator/delimiter `( , = : [ ! & | ? { ; + - * % ~ ^` (bukan `++`/`--`), `=>`, atau keyword utuh `return typeof case void delete in of do else throw new yield await instanceof` (bukan properti `.keyword` atau flag regex `/flag`). Isi regex literal di-blank menjadi spasi pada `codeNoStringsLines` sementara pembuka/penutup `/` dan flag dipertahankan di `codeNoStringsLines` dan isi utuh dipertahankan di `codeLines`. Menutup `ADV-BACKTICK-IN-REGEX-GAP` dan `D2-REG-BACKTICK-GAP` (`gap -> pass`).
+   - **T2 (Kebijakan Berkas Generated/Minified & Counter Baseline `generated_skipped`):** Berkas terklasifikasi generated bila (a) nama berkas cocok `\.min\.(js|mjs|cjs|css)$`, (b) ada baris $\ge 5.000$ karakter (4.999 bukan generated), atau (c) salah satu dari 10 baris pertama (baris 11 tidak) memuat `@generated`, `DO NOT EDIT`, atau `Code generated`. Berkas generated tidak melewati tokenizer (`0` `TOKENIZER_DESYNC`, tidak dihitung di `files_scanned`), dicatat pada `generated_skipped` dan `generated_files`, diratchet di baseline (`generated_skipped` naik $\to$ exit 1), dan tetap dipindai terhadap prefix rahasia kuat (`sk_live_`, `sk_test_`, `ghp_`, `gho_`, `AKIA`, `xox[abp]-`, JWT `eyJ...`, `-----BEGIN ... PRIVATE KEY-----`) menggunakan satu regex linear tunggal (`ASTESIA-004`, `error`, `NEVER_BASELINE`, tidak dapat disupresi).
+   - **T5 (Interpolasi Template Literal `${ ... }` Satu Baris & Teks JSX):** Pelacakan stack kurung kurawal `templateBraceStack` pada `${ ... }` di dalam template literal memungkinkan regex literal dan nested template literal ber-escape (`` \` ``) di dalam `${ ... }` dipindai tanpa kehilangan paritas backtick, sekaligus mempertahankan sifat *fail-closed* (`TOKENIZER_DESYNC` bila `${` tidak tertutup pada EOF).
+2. **Pengecualian URL Ketat pada `ASTESIA-004` (T3):**
+   - Literal URL dikecualikan dari `ASTESIA-004` **hanya bila kelima syarat terpenuhi sekaligus**: (a) nama variabel LHS maupun variabel `process.env.X` tidak sensitif menurut kontrak token, (b) skema termasuk daftar aman (`http`, `https`, `ws`, `wss`, `libsql`, `postgres`, `postgresql`, `mysql`, `mongodb`, `mongodb+srv`, `redis`, `rediss`, `amqp`, `amqps`), (c) parsing URL berhasil dengan host tak-kosong, (d) tidak ada password hardcoded di userinfo (`user:pass@` atau `:pass@`) kecuali seluruh bagian password adalah referensi variabel (`$VAR`, `${VAR}`, `{{ ... }}`) dan tidak ada prefix rahasia kuat di userinfo, serta (e) tidak ada parameter query/fragment sensitif (`token|key|secret|password|passwd|pwd|auth|authtoken|apikey|api_key|access_token|sig|signature|credential`) maupun prefix rahasia kuat pada path/nilai.
+3. **Kontrak CLI `--baseline`, Template Config, Sinkronisasi Known-Gap & 48 Mutan (T6..T10):**
+   - **T6:** Mengembalikan kontrak `--baseline` tanpa nilai argumen ke *fail-closed* `exit 2` dengan pesan `"use --baseline <path>"`; path default `.astesia/gate-baseline.json` hanya berlaku untuk `--update-baseline`.
+   - **T7 & Fase 3:** Implementasi `stats.ts` (batas atas Wilson 95% satu sisi dengan $z = 1.96$) dan `classify.ts` (sampling deterministik Mulberry32 `seed = 2026 + projectIndex` dan validasi ketat `classification.json` atas 251 temuan yang diklasifikasikan secara individual lintas 7 proyek nyata: `TP=212`, `FP=24`, `NOISE=15`, `TOKENIZER=0`).
+   - **T8:** Sinkronisasi dua arah seluruh `known-gaps*.json` dan 9 meta-tes (`META-01..09`) di `all.ts`, termasuk kunci korpus satu arah (`gap -> pass` diizinkan, `pass -> gap` ditolak).
+   - **T9:** Perluasan harness uji mutasi dari 34 menjadi **48 mutan (`M01..M48`)** dengan perbaikan hermetik lintas drive untuk `M06: tracked_env_skipped` (**48/48 dibunuh, 0 survived**).
+   - **T10:** Penambahan `dev-dist` dan `.vercel/output` beserta alasan $\ge 15$ karakter pada `templates/enforcement/gate-config.template.json`.
+   - **Metrik Uji Terkonsolidasi (`all.ts`):** **939 kasus uji unik** (`932 passed + 0 failed + 7 known_gaps`), invarian akuntansi $939 = 932 + 0 + 7$ terpenuhi di seluruh 22 suite (`0` orphan suites), dan **48/48 mutan terbunuh** pada clone bersih terisolasi di `%TEMP%`.
 
 
 

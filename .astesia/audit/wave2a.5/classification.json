@@ -1,0 +1,1759 @@
+[
+  {
+    "id": "ASTESIA-005|api/index.ts|9",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "let appInstance: any = null;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in api/index.ts"
+  },
+  {
+    "id": "ASTESIA-005|api/index.ts|10",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "let initPromise: Promise<any> | null = null;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in api/index.ts"
+  },
+  {
+    "id": "ASTESIA-005|api/index.ts|36",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "} catch (err: any) {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in api/index.ts"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|770",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO(philipwalton): TypeScript errors without this typecast for",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1145",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO: Remove this log message in v4.",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-009|dev-dist/workbox-61be8b72.js|1558",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "return new Promise(resolve => setTimeout(resolve, ms));",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1853",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO(philipwalton): the `__WB_REVISION__` param is a precaching",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1943",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO(philipwalton): not sure why `any` is needed. It seems like",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1965",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO(philipwalton): not sure why `any` is needed. It seems like",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-009|dev-dist/workbox-61be8b72.js|2567",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|2749",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO: `state` should never be undefined...",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|2761",
+    "project": "pustaka-sekolah-pwa",
+    "class": "NOISE",
+    "quote": "// TODO: `state` should never be undefined...",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "id": "ASTESIA-010|docker-compose.yml|15",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "- JWT_SECRET=${JWT_SECRET:-rahasia-pustaka-sekolah-production-key-2026}",
+    "reason": "Hardcoded fallback JWT secret literal in docker-compose.yml environment configuration"
+  },
+  {
+    "id": "ASTESIA-009|src/client/components/circulation/BarcodeScannerModal.tsx|112",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "await new Promise((r) => setTimeout(r, 120));",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in src/client/components/circulation/BarcodeScannerModal.tsx"
+  },
+  {
+    "id": "ASTESIA-005|src/client/components/ui/moving-border.tsx|23",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "as?: any;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/client/components/ui/moving-border.tsx"
+  },
+  {
+    "id": "ASTESIA-005|src/client/components/ui/moving-border.tsx|28",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "[key: string]: any;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/client/components/ui/moving-border.tsx"
+  },
+  {
+    "id": "ASTESIA-005|src/client/components/ui/moving-border.tsx|81",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "[key: string]: any;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/client/components/ui/moving-border.tsx"
+  },
+  {
+    "id": "ASTESIA-005|src/client/components/ui/moving-border.tsx|83",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const pathRef = useRef<any>(null);",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/client/components/ui/moving-border.tsx"
+  },
+  {
+    "id": "ASTESIA-009|src/client/pages/CatalogPage.tsx|121",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const timer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in src/client/pages/CatalogPage.tsx"
+  },
+  {
+    "id": "ASTESIA-005|src/server/controllers/book.controller.ts|225",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "} catch (err: any) {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/controllers/book.controller.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/controllers/book.controller.ts|293",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "} catch (err: any) {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/controllers/book.controller.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/db/index.ts|22",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "export let sqlite: any;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/db/index.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/db/index.ts|168",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log('[Turso Init]: Superadmin ADMIN01 berhasil diinisialisasi.');",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/db/index.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/db/index.ts|170",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "} catch (err: any) {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/db/index.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/db/seed.ts|20",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log('🧹 Memulai pembersihan seluruh data dummy & inisialisasi basis data bersih...');",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/db/seed.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/db/seed.ts|72",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log('✅ Basis data bersih! (0 buku, 0 eksemplar, 0 pinjaman, 1 akun Superadmin utama: ADMIN01).');",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/db/seed.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/db/seed.ts|73",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log('🎉 Aplikasi siap untuk diinput data buku dan akun secara mandiri.');",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/db/seed.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/index.ts|13",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log(`🚀 [Pustaka Sekolah API] Server berjalan di http://localhost:${config.PORT}`);",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/index.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/index.ts|14",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log(`📚 Database: ${config.databaseFullPath}`);",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/index.ts"
+  },
+  {
+    "id": "ASTESIA-006|src/server/index.ts|15",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "console.log(`📂 Uploads: ${config.uploadsFullPath}`);",
+    "reason": "Direct console.log or console.debug call in source/template file src/server/index.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/book.repository.ts|20",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const list = await db.select().from(categories).orderBy(categories.name);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/book.repository.ts|25",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const res = await db.select().from(categories).where(eq(categories.slug, slug)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/book.repository.ts|97",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const rows = await db.select().from(bookCopies).where(eq(bookCopies.bookId, bookId)).orderBy(bookCopies.id);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/book.repository.ts|149",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const cat = await db.select().from(categories).where(eq(categories.id, data.categoryId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/book.repository.ts|169",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const rows = await db.select()",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/book.repository.ts|214",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/book.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|38",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (result as any).changes ?? (result as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/repositories/loan.repository.ts|160",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const updateRes = await db.update(loans)",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|169",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const changes = (updateRes as any).changes ?? (updateRes as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/repositories/loan.repository.ts|173",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "await db.update(bookCopies)",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/repositories/loan.repository.ts|182",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "await db.update(books)",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|394",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const b = await db.select().from(books).where(eq(books.id, raw.bookId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|395",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const u = await db.select().from(users).where(eq(users.id, raw.userId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|396",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const c = raw.copyId ? await db.select().from(bookCopies).where(eq(bookCopies.id, raw.copyId)).limit(1) : [];",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|423",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const b = await db.select().from(books).where(eq(books.id, raw.bookId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|424",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const u = await db.select().from(users).where(eq(users.id, raw.userId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/loan.repository.ts|425",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const c = await db.select().from(bookCopies).where(eq(bookCopies.id, data.copyId)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|443",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|457",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|474",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|486",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/repositories/loan.repository.ts|505",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "return (res as any).changes ?? (res as any).rowsAffected ?? 0;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/repositories/loan.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/user.repository.ts|20",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const records = await db.select().from(users).where(eq(users.id, id)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/user.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/user.repository.ts|26",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const records = await db.select().from(users).where(eq(users.identityNumber, identityNumber)).limit(1);",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/user.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/server/repositories/user.repository.ts|36",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const records = await db.select().from(users).orderBy(desc(users.id));",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/server/repositories/user.repository.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/services/auth.service.ts|322",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const existing = await this.userRepo.findByIdentityNumber(u.identityNumber);",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/services/auth.service.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/services/auth.service.ts|328",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "await this.userRepo.create({",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/services/auth.service.ts"
+  },
+  {
+    "id": "ASTESIA-007|src/server/services/book.service.ts|56",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "const copy = await this.bookRepo.createCopy(createdBook.id, barcode);",
+    "reason": "Sequential database query or repository mutation executed inside a loop in src/server/services/book.service.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/server/services/storage.service.ts|33",
+    "project": "pustaka-sekolah-pwa",
+    "class": "TP",
+    "quote": "realtime: { transport: WebSocket as any }",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/server/services/storage.service.ts"
+  },
+  {
+    "id": "ASTESIA-000|packages/omop-codex/plugin/components/rules/scripts/bench-codex-rules.mjs|6",
+    "project": "eunectes",
+    "class": "NOISE",
+    "quote": "import { runPostToolUseHook } from \"../dist/codex-hook.js\";",
+    "reason": "Import targets unbuilt ../dist/codex-hook.js output artifact in an uncompiled checkout"
+  },
+  {
+    "id": "ASTESIA-000|packages/omop-opencode/src/tools/grep/result-formatter.test.ts|92",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "'  5: import { hello } from \"./foo\"\\n',",
+    "reason": "String literal inside a test fixture depicting formatted grep output, not a module import"
+  },
+  {
+    "id": "ASTESIA-000|packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts|206",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { connect } from \"@/client.js\";",
+    "reason": "Example import statement embedded inside a multi-line template literal prompt string"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/app/[locale]/layout.tsx|7",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { routing } from \"@/i18n/routing\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|7",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { PrinciplesSection } from \"@/components/manifesto/sections/principles\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|5",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { Link } from \"@/i18n/routing\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/components/landing/sections/architecture.tsx|4",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { PRINCIPLE_KEYS, PRINCIPLE_ICONS } from \"@/components/landing/constants\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/components/landing/sections/sisyphus.tsx|5",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/components/landing/sections/sub-agents.tsx|3",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { Badge } from \"@/components/ui/badge\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-000|packages/web/components/manifesto/sections/cognitive-load.tsx|5",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "import { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "id": "ASTESIA-004|packages/openclaw-core/src/reply-listener-state.ts|10",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "export const REPLY_LISTENER_STARTUP_TOKEN_ENV = \"OMOP_OPENCLAW_REPLY_LISTENER_STARTUP_TOKEN\"",
+    "reason": "Constant holding an environment variable name string rather than an actual secret token value"
+  },
+  {
+    "id": "ASTESIA-004|packages/telemetry-core/index.d.ts|2",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "export declare const DEFAULT_POSTHOG_API_KEY: \"phc_CFJhj5HyvA62QPhvyaUCtaq23aUfznnijg5VaaGkNk74\";",
+    "reason": "Hardcoded PostHog project API key literal declared in DEFAULT_POSTHOG_API_KEY type definition"
+  },
+  {
+    "id": "ASTESIA-004|packages/telemetry-core/src/constants.ts|2",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "export const DEFAULT_POSTHOG_API_KEY = \"phc_CFJhj5HyvA62QPhvyaUCtaq23aUfznnijg5VaaGkNk74\"",
+    "reason": "Hardcoded PostHog project API key literal assigned directly to DEFAULT_POSTHOG_API_KEY constant"
+  },
+  {
+    "id": "ASTESIA-004|tests/hashline/headless.ts|123",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "apiKey: process.env.HASHLINE_TEST_API_KEY ?? \"quotio-local-60A613FE-DB74-40FF-923E-A14151951E5D\",",
+    "reason": "Hardcoded API key fallback literal provided via nullish coalescing on process.env.HASHLINE_TEST_API_KEY"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/cleanup.ts|32",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(JSON.stringify(result, null, 2))",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/cleanup.ts"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/get-local-version/get-local-version.ts|62",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(options.json ? formatJsonOutput(info) : formatVersionOutput(info))",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/get-local-version/get-local-version.ts"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/mcp-oauth/status.ts|33",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(\"No OAuth tokens stored\")",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/mcp-oauth/status.ts"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/run/completion.ts|129",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(pc.dim(`  Waiting: ${message}`))",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/run/completion.ts"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/run/server-connection.ts|129",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(pc.dim(\"Port\"), pc.cyan(port.toString()), pc.dim(\"is occupied, attaching to existing server\"))",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/run/server-connection.ts"
+  },
+  {
+    "id": "ASTESIA-006|packages/omop-opencode/src/cli/run/server-connection.ts|151",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(pc.dim(\"Port range exhausted, attaching to existing server on\"), pc.cyan(DEFAULT_SERVER_PORT.toString()))",
+    "reason": "Direct console.log or console.debug call in source/template file packages/omop-opencode/src/cli/run/server-connection.ts"
+  },
+  {
+    "id": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1058",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log();",
+    "reason": "Direct console.log or console.debug call in source/template file tests/hashline/test-edge-cases.ts"
+  },
+  {
+    "id": "ASTESIA-006|tests/hashline/test-edit-ops.ts|46",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "const fail = (msg: string) => console.log(`  ${RED}✗${RESET} ${msg}`);",
+    "reason": "Direct console.log or console.debug call in source/template file tests/hashline/test-edit-ops.ts"
+  },
+  {
+    "id": "ASTESIA-006|tests/hashline/test-edit-ops.ts|805",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "console.log(`  ${icon} ${r.name} — ${r.detail}`);",
+    "reason": "Direct console.log or console.debug call in source/template file tests/hashline/test-edit-ops.ts"
+  },
+  {
+    "id": "ASTESIA-008|packages/omop-opencode/src/agents/cerberus/gpt-5-4.ts|20",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "*   7. <tasks>             - Task/todo management",
+    "reason": "Docblock comment describing agent task/todo management capability, not a code TODO marker"
+  },
+  {
+    "id": "ASTESIA-008|packages/omop-opencode/src/hooks/tasks-todowrite-disabler/constants.ts|3",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "// the live todo panel UI in sync during execution. Blocking it froze the",
+    "reason": "Comment discussing the todo panel UI feature by name rather than leaving an untracked TODO"
+  },
+  {
+    "id": "ASTESIA-009|packages/lsp-core/src/lsp/connection.ts|71",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "await new Promise((r) => setTimeout(r, INITIALIZE_SETTLE_MS));",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/lsp-core/src/lsp/connection.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|12092",
+    "project": "eunectes",
+    "class": "NOISE",
+    "quote": "return ms > 0 ? new Promise((resolve9) => setTimeout(resolve9, ms)) : Promise.resolve();",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|3926",
+    "project": "eunectes",
+    "class": "NOISE",
+    "quote": "this.poller = setTimeout(() => this.loadFeatureFlags(true), this.getPollingInterval());",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|7489",
+    "project": "eunectes",
+    "class": "NOISE",
+    "quote": "return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/cli/config-manager/opencode-binary.ts|32",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "killGraceTimer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/cli/config-manager/opencode-binary.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/cli/run/poll-for-completion.ts|60",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "await new Promise((resolve) => setTimeout(resolve, pollIntervalMs))",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/cli/run/poll-for-completion.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/features/background-agent/parent-wake-dispatched-tracker.ts|108",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "const timer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/features/background-agent/parent-wake-dispatched-tracker.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/features/background-agent/session-idle-event-handler.ts|43",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "const timer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/features/background-agent/session-idle-event-handler.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/hooks/ast-grep-sg-provision/hook.ts|27",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "const timer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/hooks/ast-grep-sg-provision/hook.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/hooks/preemptive-compaction-trigger.ts|29",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "timeoutID = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/hooks/preemptive-compaction-trigger.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/hooks/runtime-fallback/first-prompt-watchdog.ts|17",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "declare function setTimeout(callback: () => void | Promise<void>, delay?: number): RuntimeFallbackTimeout",
+    "reason": "TypeScript ambient function declaration for setTimeout signature rather than a runtime timer call"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/shared/tmux/tmux-utils/pane-close.ts|7",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "return new Promise((resolve) => setTimeout(resolve, milliseconds))",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/shared/tmux/tmux-utils/pane-close.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/omop-opencode/src/tools/session-manager/tools.ts|26",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`${operation} timed out after ${ms}ms`)), ms)),",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/omop-opencode/src/tools/session-manager/tools.ts"
+  },
+  {
+    "id": "ASTESIA-009|packages/utils/src/command-executor/execute-hook-command.ts|197",
+    "project": "eunectes",
+    "class": "TP",
+    "quote": "const timeoutTimer = setTimeout(() => {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in packages/utils/src/command-executor/execute-hook-command.ts"
+  },
+  {
+    "id": "ASTESIA-010|.github/workflows/publish.yml|180",
+    "project": "eunectes",
+    "class": "FP",
+    "quote": "OIDC_TOKEN=$(curl -sH \"Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}\" \\",
+    "reason": "Shell command assignment capturing dynamic curl output into OIDC_TOKEN variable in workflow"
+  },
+  {
+    "id": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/CeFOi1VF.js|1",
+    "project": "flora-smk",
+    "class": "NOISE",
+    "quote": "import{payload as e}from\"../entry/payload.DSmR2FwN.js\";import{Q as t,R as n,Z as r}from\"./C7EYTeg7.js\";var i=`font-weigh",
+    "reason": "Minified build chunk inside .vercel/output deployment artifact directory; excluded by template config"
+  },
+  {
+    "id": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/DOmy8bqa.js|1",
+    "project": "flora-smk",
+    "class": "NOISE",
+    "quote": "import{o as e}from\"./C7EYTeg7.js\";function t(){let{subscribe:t,update:n}=e([]);function r(e){n(t=>t.filter(t=>t.id!==e))",
+    "reason": "Minified build chunk inside .vercel/output deployment artifact directory; excluded by template config"
+  },
+  {
+    "id": "ASTESIA-004|src/lib/repositories/auth.repository.ts|15",
+    "project": "flora-smk",
+    "class": "FP",
+    "quote": "const OFFLINE_AUTH_KEY = 'flora_smk_auth_user_v1';",
+    "reason": "LocalStorage key constant named OFFLINE_AUTH_KEY storing a static key identifier, not a secret"
+  },
+  {
+    "id": "ASTESIA-005|src/lib/repositories/plant.repository.ts|19",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "export function mapDbRowToPlant(row: Record<string, any>): Plant {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/lib/repositories/plant.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/lib/repositories/plant.repository.ts|47",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "export function mapPlantToDbRow(plant: Plant): Record<string, any> {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/lib/repositories/plant.repository.ts"
+  },
+  {
+    "id": "ASTESIA-002|src/lib/repositories/plant.repository.ts|153",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "const { data, error } = await supabase.from('plants').insert([mapPlantToDbRow(newPlant)]).select().single();",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in src/lib/repositories/plant.repository.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/lib/services/auth.service.ts|29",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "field: firstError?.path[0] as any",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/lib/services/auth.service.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/lib/services/auth.service.ts|60",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "field: firstError?.path[0] as any",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/lib/services/auth.service.ts"
+  },
+  {
+    "id": "ASTESIA-009|src/lib/stores/toast.store.ts|30",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "if (duration > 0 && typeof window !== 'undefined') setTimeout(() => remove(id), duration);",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in src/lib/stores/toast.store.ts"
+  },
+  {
+    "id": "ASTESIA-005|src/routes/+page.svelte|26",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "let deferredPrompt = $state<any>(null);",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/routes/+page.svelte"
+  },
+  {
+    "id": "ASTESIA-005|src/routes/+page.svelte|49",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) isInstalled = true;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/routes/+page.svelte"
+  },
+  {
+    "id": "ASTESIA-005|src/routes/katalog/buku/+page.svelte|360",
+    "project": "flora-smk",
+    "class": "TP",
+    "quote": "<span>{getCategoryBadgeLabel(group.categoryId as any)}</span>",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in src/routes/katalog/buku/+page.svelte"
+  },
+  {
+    "id": "ASTESIA-004|benchmarks/claude-email.js|7",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "const MODELS = (process.env.CE_MODELS || 'claude-haiku-4-5-20251001,claude-sonnet-4-6,claude-opus-4-8').split(',');",
+    "reason": "Benchmark script fallback string listing Claude model identifiers on process.env.CE_MODELS"
+  },
+  {
+    "id": "ASTESIA-004|benchmarks/model-email.js|7",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "const MODELS = (process.env.ME_MODELS || 'gpt-4.1-mini,gpt-5.4-mini').split(',');",
+    "reason": "Benchmark script fallback string listing model identifiers on process.env.ME_MODELS"
+  },
+  {
+    "id": "ASTESIA-004|benchmarks/robustness-audit.js|23",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "const MODEL = process.env.AUDIT_MODEL || 'gpt-5.4-mini';",
+    "reason": "Benchmark script fallback string specifying default model name on process.env.AUDIT_MODEL"
+  },
+  {
+    "id": "ASTESIA-004|ceobe/src/ai/providers/embeddingAdapter.ts|150",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;",
+    "reason": "Template literal constructing an environment variable name suffix _API_KEY, not a hardcoded key"
+  },
+  {
+    "id": "ASTESIA-004|ceobe/src/ai/providers/router.ts|126",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;",
+    "reason": "Template literal constructing an environment variable name suffix _API_KEY, not a hardcoded key"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/executor/toolExecutor.ts|33",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "block: any,",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/executor/toolExecutor.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/pentest/pentestDataLoader.ts|160",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "export function getFuzzerData(): Record<string, any> {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/pentest/pentestDataLoader.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/plugins/pluginLoader.ts|114",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "function validatePlugin(plugin: any): plugin is PluginDefinition {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/plugins/pluginLoader.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/tools/handlers/fileOps.ts|154",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "export async function handleMoveFile(input: Record<string, any>): Promise<string> {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/tools/handlers/fileOps.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/tools/handlers/fileOps.ts|49",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "} catch (err: any) {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/tools/handlers/fileOps.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/tools/handlers/semanticOps.ts|95",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "export async function handleSearchCodebase(input: Record<string, any>): Promise<string> {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/tools/handlers/semanticOps.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/tools/handlers/shellOps.ts|127",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "export async function handleStartBackgroundService(input: Record<string, any>): Promise<string> {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/tools/handlers/shellOps.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/ai/tools/systemTools.ts|21",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "let cachedToolValidator: any = null;",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/ai/tools/systemTools.ts"
+  },
+  {
+    "id": "ASTESIA-005|ceobe/src/telegram/handlers/diagHandlers.ts|48",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "execFile(binary, args, (err: any, stdout: string) => {",
+    "reason": "Explicit TypeScript any type annotation or as any assertion in ceobe/src/telegram/handlers/diagHandlers.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ai/memory/vectorStore.ts|47",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.debug(`[VectorStore Debug] Failed to load embeddings: ${error}`);",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ai/memory/vectorStore.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ai/reflectiveAnalyzer.ts|115",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.yellow('No execution.log found. Run some tasks first.'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ai/reflectiveAnalyzer.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/plan.ts|91",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.dim(`  Review dan edit file-file berikut sesuai kebutuhan:`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/plan.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/plan.ts|92",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.dim(`  ${['brd.md', 'design.md', 'architecture.md', 'devops.md', 'task.md'].map(f => chalk.cyan(prefix",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/plan.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/benchmarkCmd.ts|52",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.gray(`   > Total: ${totalTokens} tokens, ${totalTime}ms\\n`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/benchmarkCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/daemonCmd.ts|18",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.bold.cyan('🤖 [Ceobe Telegram Daemon] Starting...'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/daemonCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/debtCmd.ts|16",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.cyan('Scanning Tech Debt Ledger...\\n'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/debtCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/keyCmd.ts|105",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.yellow(`  ℹ API key untuk ${def.provider} belum dikonfigurasi.`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/keyCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/keyCmd.ts|53",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.dim(`  Value   : ${maskKey(value)}`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/keyCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/resetCmd.ts|29",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.red('  ║  Ini akan menghapus SEMUA plan, arsitektur, state        ║'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/resetCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/commands/system/rollbackCmd.ts|20",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.cyan('=== CEOBE ROLLBACK ===\\n'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/commands/system/rollbackCmd.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/utils/keyWizard.ts|64",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/utils/keyWizard.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/cli/utils/keyWizard.ts|77",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.gray('Untuk mengatur key/provider: ceobe key set <provider> <value>'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/cli/utils/keyWizard.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/telegram/telegramDaemon.ts|105",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.yellow(`[TelegramDaemon] Pesan dari user tidak terotorisasi (ID: ${userId}) → ditolak.`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/telegram/telegramDaemon.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/telegram/telegramDaemon.ts|225",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.green('[TelegramDaemon] All tasks finished. Exiting.'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/telegram/telegramDaemon.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|156",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|257",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "if (detail) console.log(C.muted(`    ${detail}`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|282",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(row('index',          '',                    'Build semantic memory index (RAG)'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|287",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(row('reset',          '--yes',               'Clear all plans & pipeline state'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|294",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(row('key list',       '',                    'Show all keys & active provider config'));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|392",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(C.dim(`  ─────────────────────────────────────────────────────`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/ui/banner.ts|66",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/ui/banner.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/utils/doctor.ts|38",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.gray(`  (Change with: ${chalk.white('ceobe key set planner-provider <name>')})`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/utils/doctor.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/utils/doctor.ts|96",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log(chalk.green(`  ✓ .ceobe/ directory exists.`));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/utils/doctor.ts"
+  },
+  {
+    "id": "ASTESIA-006|ceobe/src/utils/modeManager.ts|254",
+    "project": "ifrit",
+    "class": "TP",
+    "quote": "console.log('\\n' + chalk.bgYellow.black(' KONFIRMASI DIPERLUKAN '));",
+    "reason": "Direct console.log or console.debug call in source/template file ceobe/src/utils/modeManager.ts"
+  },
+  {
+    "id": "ASTESIA-008|benchmarks/agentic/tasks.py|443",
+    "project": "ifrit",
+    "class": "FP",
+    "quote": "# todo-null -- in-memory Todo REST API. The trust-boundary trap is a POST body of literal",
+    "reason": "Comment describing a benchmark task named 'todo-null' (a Todo REST API), not a code TODO marker"
+  },
+  {
+    "id": "ASTESIA-000|tests/lib/utils.test.js|1281",
+    "project": "arene",
+    "class": "FP",
+    "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000}).then(d=>{process.stdout.write(J",
+    "reason": "Inline JavaScript snippet string passed to node -e with root-relative require path, not a file import"
+  },
+  {
+    "id": "ASTESIA-002|scripts/lib/state-store/queries.js|305",
+    "project": "arene",
+    "class": "TP",
+    "quote": "SELECT *",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in scripts/lib/state-store/queries.js"
+  },
+  {
+    "id": "ASTESIA-002|scripts/lib/state-store/queries.js|337",
+    "project": "arene",
+    "class": "TP",
+    "quote": "SELECT *",
+    "reason": "Unbounded database query (SELECT * or unprojected .select()) in scripts/lib/state-store/queries.js"
+  },
+  {
+    "id": "ASTESIA-004|scripts/hooks/pre-bash-commit-quality.js|205",
+    "project": "arene",
+    "class": "FP",
+    "quote": "const pathExt = process.env.PATHEXT || '.COM;.EXE;.BAT;.CMD';",
+    "reason": "Windows PATHEXT environment variable fallback listing executable file extensions, not a secret"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|175",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|177",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Target:  ${codebuddyFullPath}/`);",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|285",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('Installation complete!');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|286",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|287",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('Components installed:');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|292",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|293",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Directory:   ${path.basename(codebuddyFullPath)}`);",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|295",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('Next steps:');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|296",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('  1. Open your project in CodeBuddy');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|300",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('To uninstall later:');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/install.js|303",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/install.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|146",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Target:  ${codebuddyFullPath}/`);",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|161",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|162",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('This could mean:');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|203",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Skipped: ${filePath} (invalid manifest entry)`);",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|235",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Skipped: ${filePath}/ (not empty - contains user files)`);",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|274",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|277",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('Summary:');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.codebuddy/uninstall.js|280",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file .codebuddy/uninstall.js"
+  },
+  {
+    "id": "ASTESIA-006|.github/workflows/monthly-metrics.yml|169",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Created issue #${created.data.number}`);",
+    "reason": "Direct console.log or console.debug call in source/template file .github/workflows/monthly-metrics.yml"
+  },
+  {
+    "id": "ASTESIA-006|.github/workflows/monthly-metrics.yml|192",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`Updated issue #${issue.number}`);",
+    "reason": "Direct console.log or console.debug call in source/template file .github/workflows/monthly-metrics.yml"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/forget.mjs|44",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`✓ Context for '${name}' removed.`);",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/forget.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/list.mjs|18",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('No projects registered. Run /ck:init to get started.');",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/list.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/list.mjs|39",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/list.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/list.mjs|40",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('Resume which? (number or name)');",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/list.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/migrate.mjs|172",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`    nextSteps:   ${nextSteps.length}`);",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/migrate.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/resume.mjs|35",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('');",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/resume.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/resume.mjs|36",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(renderBriefingBox(context));",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/resume.mjs"
+  },
+  {
+    "id": "ASTESIA-006|skills/ck/commands/save.mjs|210",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`  See you next time.`);",
+    "reason": "Direct console.log or console.debug call in source/template file skills/ck/commands/save.mjs"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|112",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('╠' + '═'.repeat(BOX_W) + '╣');",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|113",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(boxLine(`  Total Tests: ${String(totalTests).padStart(4)}`));",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|51",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('╔' + '═'.repeat(BOX_W) + '╗');",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|52",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(boxLine('           Everything Claude Code - Test Suite'));",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|53",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log('╚' + '═'.repeat(BOX_W) + '╝');",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|54",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log();",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-006|tests/run-all.js|97",
+    "project": "arene",
+    "class": "TP",
+    "quote": "console.log(`✗ ${displayPath} failed to start: ${result.error.message}`);",
+    "reason": "Direct console.log or console.debug call in source/template file tests/run-all.js"
+  },
+  {
+    "id": "ASTESIA-008|app/Http/Controllers/Admin/DosenController.php|299",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "// Let's do a simple full replace for now for the list provided",
+    "reason": "Untracked 'for now' temporary implementation comment in controller without an astesia-debt marker"
+  },
+  {
+    "id": "ASTESIA-008|app/Http/Controllers/Dosen/ProfileController.php|77",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "// For now assuming basic profile update handles main 1:1 relations.",
+    "reason": "Untracked 'for now' temporary implementation comment in controller without an astesia-debt marker"
+  },
+  {
+    "id": "ASTESIA-006|public/js/indonesia-regions-cascade.js|221",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Copied address from source to target');",
+    "reason": "Direct console.log or console.debug call in source/template file public/js/indonesia-regions-cascade.js"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/create.blade.php|1089",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('RegionSelector initialized', {",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/create.blade.php|1099",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Restoring state for', this.selectedProvinceName);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/create.blade.php|1134",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching provinces...');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/create.blade.php|1137",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Provinces fetched:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/edit.blade.php|762",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('RegionSelector initialized (Edit)', {",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/edit.blade.php|772",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Restoring state for', this.selectedProvinceName);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/edit.blade.php|807",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching provinces (Edit)...');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/admin/dosen/edit.blade.php|810",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Provinces fetched (Edit):', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/admin/dosen/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-004|resources/views/tendik/create.blade.php|666",
+    "project": "SIA",
+    "class": "FP",
+    "quote": "const password = `${day}${month}${year}`;",
+    "reason": "Client-side script computing initial default password string from birth date variables via template"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/create.blade.php|1019",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/create.blade.php|1028",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/create.blade.php|1036",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/create.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|641",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('=== TENDIK EDIT FORM - DEBUG MODE ===');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|642",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Provinces loaded:', {{ count($provinces) }});",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|654",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Existing alamat KTP:', existingAlamat);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|659",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('No existing provinsi, skipping pre-population');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|669",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected provinsi:', existingAlamat.provinsi, 'Code:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|689",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kota:', existingAlamat.kota, 'Code:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|726",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kecamatan:', existingAlamat.kecamatan, 'Code:', districtCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|759",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kelurahan:', existingAlamat.kelurahan, 'Code:', village.code);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|771",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('DOM loaded, initializing existing address data...');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|785",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Existing alamat Domisili:', existingAlamatDomisili);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|790",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('No existing provinsi domisili, skipping pre-population');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|800",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected provinsi domisili:', existingAlamatDomisili.provinsi, 'Code:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|820",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kota domisili:', existingAlamatDomisili.kota, 'Code:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|857",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kecamatan domisili:', existingAlamatDomisili.kecamatan, 'Code:',",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|891",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ Pre-selected kelurahan domisili:', existingAlamatDomisili.kelurahan, 'Code:', village",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|914",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Province selected:', provinceName, 'Code:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|930",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching cities for province:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|933",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('API Response status:', response.status);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|937",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Cities loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|966",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('City selected:', cityName, 'Code:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|977",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching districts for city:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|981",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Districts loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1009",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('District selected:', districtName, 'Code:', districtCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1016",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching villages for district:', districtCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1020",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Villages loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1050",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Village selected:', villageName, 'Code:', villageCode, 'Postal:', postalCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1055",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ kode_wilayah set to:', villageCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1060",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ kode_pos auto-filled to:', postalCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1073",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili Province selected:', provinceName, 'Code:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1089",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching cities for domisili province:', provinceCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1093",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili cities loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1121",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili City selected:', cityName, 'Code:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1132",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching districts for domisili city:', cityCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1136",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili districts loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1164",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili District selected:', districtName, 'Code:', districtCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1171",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Fetching villages for domisili district:', districtCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1175",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili villages loaded:', data);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1206",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Domisili Village selected:', villageName, 'Code:', villageCode, 'Postal:', postalCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1210",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ kode_wilayah_domisili set to:', villageCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1215",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('✅ kode_pos_domisili auto-filled to:', postalCode);",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1223",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Copying KTP to Domisili');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/edit.blade.php|1245",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/edit.blade.php|1254",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-009|resources/views/tendik/edit.blade.php|1262",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "setTimeout(function() {",
+    "reason": "Direct setTimeout timer call used for delay, polling, or timeout in resources/views/tendik/edit.blade.php"
+  },
+  {
+    "id": "ASTESIA-006|resources/views/tendik/edit.blade.php|1279",
+    "project": "SIA",
+    "class": "TP",
+    "quote": "console.log('Clearing Domisili fields');",
+    "reason": "Direct console.log or console.debug call in source/template file resources/views/tendik/edit.blade.php"
+  }
+]

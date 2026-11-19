@@ -1,0 +1,321 @@
+{
+  "totalDesyncFiles": 20,
+  "byCategory": {
+    "regex_backtick": 15,
+    "template_nested": 2,
+    "minified_bundle": 2,
+    "php_markup": 1
+  },
+  "byProject": {
+    "eunectes": {
+      "regex_backtick": 10,
+      "template_nested": 2
+    },
+    "flora-smk": {
+      "minified_bundle": 2
+    },
+    "ifrit": {
+      "regex_backtick": 2
+    },
+    "arene": {
+      "regex_backtick": 3
+    },
+    "SIA": {
+      "php_markup": 1
+    }
+  },
+  "files": [
+    {
+      "project": "eunectes",
+      "path": "packages/omop-codex/plugin/components/pentest-loop/src/quality-gate-blockers.ts",
+      "language": ".ts",
+      "lastOpenLine": 32,
+      "lastOpenCol": 103,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "return `GHCR_PULL_ACCESS:${status || \"AUTHORIZATION_REQUIRED\"}:GHCR_VISIBILITY_OR_CREDENTIAL_REQUIRED`;",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 5"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-codex/plugin/test/sync-skills-orchestration.test.mjs",
+      "language": ".mjs",
+      "lastOpenLine": 215,
+      "lastOpenCol": 63,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "assert.match(content, /Do not use `multi_agent_v1\\.send_input` as an interrupt/);",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 166"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/cli/sparkshell-condense.ts",
+      "language": ".ts",
+      "lastOpenLine": 186,
+      "lastOpenCol": 34,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "return `${head}${marker}${tail}`",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 68"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/cli/sparkshell.ts",
+      "language": ".ts",
+      "lastOpenLine": 408,
+      "lastOpenCol": 67,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "const SHELL_METACHARACTER_PATTERN = /(\\s&&\\s|\\s\\|\\|\\s|[|;<>]|\\$\\(|`)/",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 408"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/features/background-agent/manager.ts",
+      "language": ".ts",
+      "lastOpenLine": 2999,
+      "lastOpenCol": 103,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "await this.tryCompleteTask(task, `polling (terminal session status: ${sessionStatus.type})`)",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "template_nested",
+      "detail": "Nested template literal inside ${...} on line 855 (**Retry link:** ${retrySessionUrl}${failedSessionLine}${failedModelLine}${failed) inverted backtick parity, leaving open backtick at line 2999"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/features/background-agent/task-history.ts",
+      "language": ".ts",
+      "lastOpenLine": 132,
+      "lastOpenCol": 98,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "const summary = `- ${omittedCount} delegated sessions omitted to stay within compaction budget.`",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 110"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/hooks/think-mode/detector.ts",
+      "language": ".ts",
+      "lastOpenLine": 41,
+      "lastOpenCol": 36,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "const INLINE_CODE_PATTERN = /`[^`]+`/g",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 40"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/plugin/fullscan-model-override.ts",
+      "language": ".ts",
+      "lastOpenLine": 144,
+      "lastOpenCol": 68,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "`${fromModel} → ${override.modelID}. Maximum precision engaged.`,",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 9"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/shared/binary-downloader.ts",
+      "language": ".ts",
+      "lastOpenLine": 122,
+      "lastOpenCol": 76,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "throw new Error(`tar entry listing failed (exit ${exitCode}): ${stderr}`)",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 10"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/shared/markdown-link-audit.test.ts",
+      "language": ".ts",
+      "lastOpenLine": 245,
+      "lastOpenCol": 138,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "return collectMaintainerLocalPathLines(await readFile(filePath, \"utf-8\")).map((line) => `${relativeWorkspacePath(filePat",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 28"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/omop-opencode/src/tools/background-task/create-background-cancel.ts",
+      "language": ".ts",
+      "lastOpenLine": 112,
+      "lastOpenCol": 105,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "return `[ERROR] Error cancelling task: ${error instanceof Error ? error.message : String(error)}`",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "template_nested",
+      "detail": "Nested template literal inside ${...} on line 47 (`| \\`${t.id}\\` | ${t.description} | ${t.status} | ${t.sessionID ? `\\`${t.session) inverted backtick parity, leaving open backtick at line 112"
+    },
+    {
+      "project": "eunectes",
+      "path": "packages/utils/src/command-executor/embedded-commands.ts",
+      "language": ".ts",
+      "lastOpenLine": 8,
+      "lastOpenCol": 35,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "const COMMAND_PATTERN = /!`([^`]+)`/g",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 8"
+    },
+    {
+      "project": "flora-smk",
+      "path": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "language": ".js",
+      "lastOpenLine": 34,
+      "lastOpenCol": 6523,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc",
+      "isGeneratedCandidate": true,
+      "generatedReasons": [
+        "line_ge_5000 (max=72066)"
+      ],
+      "category": "minified_bundle",
+      "detail": "Minified/bundled file (line_ge_5000 (max=72066)) desynced on ` at line 34"
+    },
+    {
+      "project": "flora-smk",
+      "path": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+      "language": ".js",
+      "lastOpenLine": 3,
+      "lastOpenCol": 572,
+      "lastOpenToken": "`",
+      "finalState": "S_LINE_COMMENT",
+      "lastOpenLineText": "\\r\\f\\xA0\\v﻿`];function xi(e,t,n){var r=e==null?``:``+e;if(t&&(r=r?r+` `+t:t),n){for(var i of Object.keys(n))if(n[i])r=r?",
+      "isGeneratedCandidate": true,
+      "generatedReasons": [
+        "line_ge_5000 (max=30934)"
+      ],
+      "category": "minified_bundle",
+      "detail": "Minified/bundled file (line_ge_5000 (max=30934)) desynced on ` at line 3"
+    },
+    {
+      "project": "ifrit",
+      "path": "ceobe/src/ai/planner/qaAuditor.ts",
+      "language": ".ts",
+      "lastOpenLine": 122,
+      "lastOpenCol": 77,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "spinner.fail(chalk.red(`${tag} Failed to audit the plans. Reason: ${msg}`));",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 102"
+    },
+    {
+      "project": "ifrit",
+      "path": "ceobe/src/ai/taskParser.ts",
+      "language": ".ts",
+      "lastOpenLine": 146,
+      "lastOpenCol": 37,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "title: titleLine || `Task ${i}`,",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 102"
+    },
+    {
+      "project": "arene",
+      "path": "scripts/hooks/session-end.js",
+      "language": ".js",
+      "lastOpenLine": 323,
+      "lastOpenCol": 97,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "return `${SUMMARY_START_MARKER}\\n${buildSummarySection(summary).trim()}\\n${SUMMARY_END_MARKER}`;",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 299"
+    },
+    {
+      "project": "arene",
+      "path": "scripts/hooks/session-start.js",
+      "language": ".js",
+      "lastOpenLine": 664,
+      "lastOpenCol": 63,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "log(`[SessionStart] stdout write error: ${err.message}`);",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick on line 382 (.replace(/`([^`]+)`/g, '$1')) inverted template literal parity, leaving open backtick at line 664"
+    },
+    {
+      "project": "arene",
+      "path": "scripts/lib/utils.js",
+      "language": ".js",
+      "lastOpenLine": 495,
+      "lastOpenCol": 70,
+      "lastOpenToken": "`",
+      "finalState": "S_STRING_BACKTICK",
+      "lastOpenLineText": "log(`[Utils] replaceInFile failed for ${filePath}: ${err.message}`);",
+      "isGeneratedCandidate": false,
+      "generatedReasons": [],
+      "category": "regex_backtick",
+      "detail": "Regex literal containing backtick (`) opened false template literal at line 414"
+    },
+    {
+      "project": "SIA",
+      "path": "resources/views/welcome.blade.php",
+      "language": ".php",
+      "lastOpenLine": 273,
+      "lastOpenCol": 31,
+      "lastOpenToken": "'",
+      "finalState": "S_STRING_SINGLE",
+      "lastOpenLineText": "@if (Route::has('login'))",
+      "isGeneratedCandidate": true,
+      "generatedReasons": [
+        "line_ge_5000 (max=28398)"
+      ],
+      "category": "php_markup",
+      "detail": "Quote/apostrophe (') in HTML/Blade markup outside <?php ?> at line 273"
+    }
+  ],
+  "syntheticReproducers": {
+    "regex_backtick": "const stripCode = (s: string) => s.replace(/`([^`]+)`/g, '$1');\nexport const x: any = 1;\n",
+    "regex_block_comment": "const globToRe = (s: string) => s.replace(/\\/\\*\\*/g, '.*');\nexport const x: any = 1;\n",
+    "minified_bundle": "// Simulated single-line bundle >= 5000 chars with regex /`/\nconst bundle = \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\" + /`/.source;\n",
+    "php_markup": "<div>Welcome to Owner's Portal</div>\n<?php\n$q = \"SELECT * FROM users\";\n?>\n"
+  }
+}

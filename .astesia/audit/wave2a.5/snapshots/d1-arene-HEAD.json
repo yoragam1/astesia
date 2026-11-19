@@ -1,0 +1,1237 @@
+{
+  "errors": 19,
+  "warnings": 132,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 376,
+    "by_extension": {
+      ".yaml": 35,
+      ".js": 257,
+      ".yml": 11,
+      ".ts": 17,
+      ".py": 44,
+      ".mjs": 9,
+      ".tsx": 3
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 173,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 174,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 175,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 176,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 177,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 178,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 285,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 286,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 287,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 288,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 289,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 290,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 291,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 292,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 293,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 294,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 295,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 296,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 297,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 298,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 299,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 300,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 301,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 302,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/install.js",
+      "line": 303,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 143,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 144,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 145,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 146,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 147,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 160,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 161,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 162,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 163,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 164,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 165,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 169,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 175,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 176,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 177,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 185,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 186,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 190,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 203,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 215,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 225,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 232,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 235,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 239,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 254,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 266,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 274,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 275,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 276,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 277,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 278,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 279,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 280,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".codebuddy/uninstall.js",
+      "line": 283,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".github/workflows/monthly-metrics.yml",
+      "line": 169,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".github/workflows/monthly-metrics.yml",
+      "line": 179,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".github/workflows/monthly-metrics.yml",
+      "line": 192,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": ".opencode/plugins/ecc-hooks.ts",
+      "line": 379,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": ".opencode/plugins/ecc-hooks.ts",
+      "line": 382,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "scripts/hooks/doc-file-warning.js",
+      "line": 6,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/hooks/mcp-health-check.js",
+      "line": 280,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/hooks/mcp-health-check.js",
+      "line": 362,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/hooks/mcp-health-check.js",
+      "line": 381,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "scripts/hooks/pre-bash-commit-quality.js",
+      "line": 8,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "scripts/hooks/pre-bash-commit-quality.js",
+      "line": 98,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "scripts/hooks/pre-bash-commit-quality.js",
+      "line": 205,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "scripts/lib/state-store/migrations.js",
+      "line": 148,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L148)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "scripts/lib/state-store/migrations.js",
+      "line": 161,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L156)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 290,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 300,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 305,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 311,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 317,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 331,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 337,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 347,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/lib/state-store/queries.js",
+      "line": 354,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/lib/utils.js",
+      "line": 277,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/loop-status.js",
+      "line": 734,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "scripts/skill-create-output.js",
+      "line": 63,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/forget.mjs",
+      "line": 24,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/forget.mjs",
+      "line": 35,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/forget.mjs",
+      "line": 44,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/info.mjs",
+      "line": 19,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/info.mjs",
+      "line": 23,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/info.mjs",
+      "line": 24,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/init.mjs",
+      "line": 143,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/list.mjs",
+      "line": 18,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/list.mjs",
+      "line": 37,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/list.mjs",
+      "line": 38,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/list.mjs",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/list.mjs",
+      "line": 40,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 21,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 101,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 108,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 167,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 168,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 169,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 170,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 171,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 172,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 188,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 191,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 200,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/migrate.mjs",
+      "line": 201,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/resume.mjs",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/resume.mjs",
+      "line": 29,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/resume.mjs",
+      "line": 31,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/resume.mjs",
+      "line": 35,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/resume.mjs",
+      "line": 36,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 38,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 50,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 88,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 89,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 100,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 108,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 208,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 209,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/commands/save.mjs",
+      "line": 210,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "skills/ck/hooks/session-start.mjs",
+      "line": 223,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/hooks/hooks.test.js",
+      "line": 5554,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/hooks/hooks.test.js",
+      "line": 5588,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/lib/utils.test.js",
+      "line": 810,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/lib/utils.test.js",
+      "line": 1050,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/lib/utils.test.js",
+      "line": 1060,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/lib/utils.test.js",
+      "line": 1264,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "tests/lib/utils.test.js",
+      "line": 1281,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 51,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 52,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 53,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 54,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 57,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 70,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 74,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 85,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 86,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 97,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 103,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 110,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 111,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 112,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 113,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 114,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 115,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/run-all.js",
+      "line": 116,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    }
+  ]
+}

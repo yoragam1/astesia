@@ -1,0 +1,576 @@
+{
+  "errors": 30,
+  "warnings": 39,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "files_scanned": {
+    "total": 72,
+    "by_extension": {
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-real\\pustaka-sekolah-pwa\\.env": 1,
+      ".yml": 2,
+      ".ts": 26,
+      ".js": 4,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-real\\pustaka-sekolah-pwa\\dockerfile": 1,
+      ".mjs": 1,
+      ".tsx": 37
+    }
+  },
+  "desync_files": [
+    "Dockerfile"
+  ],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": ".env",
+      "line": 10,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 9,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 10,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 36,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 770,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 1145,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 1853,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 1943,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 1965,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 2749,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 2761,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 1558,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "dev-dist/workbox-61be8b72.js",
+      "line": 2567,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": "docker-compose.yml",
+      "line": 15,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager."
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "Dockerfile",
+      "line": 55,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "scripts/init-turso.mjs",
+      "line": 6,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/client/components/circulation/BarcodeScannerModal.tsx",
+      "line": 112,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/components/reader/PDFReader.tsx",
+      "line": 43,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/components/reader/PDFReader.tsx",
+      "line": 52,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 23,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 28,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 81,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 83,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/client/pages/CatalogPage.tsx",
+      "line": 121,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 211,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 233,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/api.ts",
+      "line": 329,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/offlineStorage.ts",
+      "line": 64,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/client/services/offlineStorage.ts",
+      "line": 108,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 225,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 293,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 22,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 170,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 168,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 72,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 73,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 13,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 14,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 15,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 25,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 97,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 149,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 169,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 214,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 394,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 395,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 396,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 423,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 424,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 425,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 38,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 169,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 443,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 457,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 474,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 486,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 505,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 160,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 173,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 182,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 26,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 36,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 322,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 328,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/book.service.ts",
+      "line": 56,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L54)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/services/storage.service.ts",
+      "line": 33,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    }
+  ]
+}

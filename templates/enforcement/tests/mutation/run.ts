@@ -1118,7 +1118,7 @@ export function runMutationHarness(): {
       mutate: (code) =>
         strictReplace(
           code,
-          '  try {\n    parsedUrl = new URL("http://" + hostPort + pathQueryHash);\n  } catch {\n    return "trigger";\n  }',
+          '  try {\n    parsedUrl = new URL("http://" + hostPort + pathQueryHash);\n  } catch {\n    return isEnvFallback ? "trigger" : "not_url";\n  }',
           '  try {\n    parsedUrl = new URL("http://" + hostPort + pathQueryHash);\n  } catch {\n    return "exempt";\n  }',
           "M47"
         ),

@@ -1,0 +1,260 @@
+{
+  "errors": 5,
+  "warnings": 24,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 1,
+  "files_scanned": {
+    "total": 122,
+    "by_extension": {
+      ".yml": 3,
+      ".js": 50,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-real\\flora-smk\\dockerfile": 1,
+      ".ts": 39,
+      ".svelte": 29
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [
+    ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+    ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js"
+  ],
+  "violations": [
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 34,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 34,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 8,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 9,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 22,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L22)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 34,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L34)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 8,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 9,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+      "line": 14,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+      "line": 3,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+      "line": 1,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/CeFOi1VF.js",
+      "line": 1,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+      "line": 2,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/DOmy8bqa.js",
+      "line": 1,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+      "line": 1,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+      "line": 6,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+      "line": 4,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+      "line": 20,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/lib/repositories/auth.repository.ts",
+      "line": 15,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 153,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 19,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 47,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/services/auth.service.ts",
+      "line": 29,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/services/auth.service.ts",
+      "line": 60,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/lib/stores/toast.store.ts",
+      "line": 30,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/+page.svelte",
+      "line": 26,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/+page.svelte",
+      "line": 49,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/katalog/buku/+page.svelte",
+      "line": 360,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    }
+  ]
+}
