@@ -37,6 +37,7 @@ import { runGeneratedPolicyV2Suite } from "./generated-policy-v2-suite";
 import { runImportResolutionSuite } from "./import-resolution-suite";
 import { runConfigImportsSuite } from "./config-imports-suite";
 import { runFpFixesSuite } from "./fp-fixes-suite";
+import { runPortabilitySuite } from "./portability-suite";
 import { runUrlExemptSuite } from "./url-exempt-suite";
 import { runWave2a5CliConfigSuite } from "./wave2a5-cli-config-suite";
 import { independentCases } from "./independent/corpus";
@@ -271,6 +272,10 @@ const configImportsRes = runConfigImportsSuite(GATE_PATH, join(tmpBase, "cfg-imp
 executedSuites.add("fp-fixes-suite.ts");
 const fpFixesRes = runFpFixesSuite(GATE_PATH, join(tmpBase, "fp-fixes"));
 
+// S. portability-suite.ts
+executedSuites.add("portability-suite.ts");
+const portabilityRes = runPortabilitySuite(GATE_PATH, join(tmpBase, "portability"));
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
@@ -289,7 +294,8 @@ const standaloneTotal =
   generatedPolicyV2Res.total +
   importResolutionRes.total +
   configImportsRes.total +
-  fpFixesRes.total;
+  fpFixesRes.total +
+  portabilityRes.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -309,7 +315,8 @@ const standalonePassed =
   generatedPolicyV2Res.passed +
   importResolutionRes.passed +
   configImportsRes.passed +
-  fpFixesRes.passed;
+  fpFixesRes.passed +
+  portabilityRes.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -329,7 +336,8 @@ const standaloneFailed =
   generatedPolicyV2Res.failed +
   importResolutionRes.failed +
   configImportsRes.failed +
-  fpFixesRes.failed;
+  fpFixesRes.failed +
+  portabilityRes.failed;
 
 const standaloneKnownGaps =
   ((helmKeyNameRes as any).known_gaps ?? 0) +
@@ -340,7 +348,8 @@ const standaloneKnownGaps =
   generatedPolicyV2Res.known_gaps +
   importResolutionRes.known_gaps +
   configImportsRes.known_gaps +
-  fpFixesRes.known_gaps;
+  fpFixesRes.known_gaps +
+  portabilityRes.known_gaps;
 
 if (!isJsonMode) {
   console.log(`  - auth-header-suite:        ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
@@ -359,6 +368,7 @@ if (!isJsonMode) {
   console.log(`  - import-resolution-suite:  ${importResolutionRes.passed}/${importResolutionRes.total} passed`);
   console.log(`  - config-imports-suite:     ${configImportsRes.passed}/${configImportsRes.total} passed`);
   console.log(`  - fp-fixes-suite:           ${fpFixesRes.passed}/${fpFixesRes.total} passed`);
+  console.log(`  - portability-suite:        ${portabilityRes.passed}/${portabilityRes.total} passed`);
   console.log(`  - url-exempt-suite:         ${urlExemptRes.passed}/${urlExemptRes.total} passed`);
   console.log(`  - wave2a5-cli-config-suite: ${wave2a5CliConfigRes.passed}/${wave2a5CliConfigRes.total} passed (${wave2a5CliConfigRes.known_gaps} known gaps)`);
   console.log(`  Standalone Subtotal:        ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed, ${standaloneKnownGaps} known gaps)`);
@@ -563,6 +573,7 @@ const suiteChecks: Array<{ name: string; total: number; passed: number; failed: 
   { name: "import-resolution-suite", total: importResolutionRes.total, passed: importResolutionRes.passed, failed: importResolutionRes.failed, known_gaps: 0 },
   { name: "config-imports-suite", total: configImportsRes.total, passed: configImportsRes.passed, failed: configImportsRes.failed, known_gaps: 0 },
   { name: "fp-fixes-suite", total: fpFixesRes.total, passed: fpFixesRes.passed, failed: fpFixesRes.failed, known_gaps: 0 },
+  { name: "portability-suite", total: portabilityRes.total, passed: portabilityRes.passed, failed: portabilityRes.failed, known_gaps: 0 },
   { name: "url-exempt-suite", total: urlExemptRes.total, passed: urlExemptRes.passed, failed: urlExemptRes.failed, known_gaps: urlExemptRes.known_gaps },
   { name: "wave2a5-cli-config-suite", total: wave2a5CliConfigRes.total, passed: wave2a5CliConfigRes.passed, failed: wave2a5CliConfigRes.failed, known_gaps: wave2a5CliConfigRes.known_gaps }
 ];
@@ -708,6 +719,7 @@ const summaryOut = {
         import_resolution: importResolutionRes,
         config_imports: configImportsRes,
         fp_fixes: fpFixesRes,
+        portability: portabilityRes,
         url_exempt: urlExemptRes,
         wave2a5_cli_config: wave2a5CliConfigRes
       }

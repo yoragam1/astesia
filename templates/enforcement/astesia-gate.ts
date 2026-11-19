@@ -2252,6 +2252,20 @@ export function checkWorkflow(yamlContent: string): { valid: boolean; errors: st
     errors.push("Missing workflow security guard verification step (--check-workflow).");
   }
 
+  // 10. Wave 2A.6: Enforce exact Bun version pinning (Keputusan 8)
+  const bunStep = /uses:\s*oven-sh\/setup-bun@[^\n]+/i.exec(yamlContent);
+  if (bunStep) {
+    const bvm = /bun-version:\s*['"]?([^'"\r\n\s#]+)['"]?/i.exec(yamlContent);
+    if (!bvm) {
+      errors.push("Missing exact 'bun-version' in oven-sh/setup-bun step.");
+    } else {
+      const bVer = bvm[1].trim();
+      if (bVer === "latest" || /[\^~><x*]/.test(bVer) || !/^\d+\.\d+\.\d+$/.test(bVer)) {
+        errors.push(`Bun version must be pinned to an exact semver version (got '${bVer}').`);
+      }
+    }
+  }
+
   return {
     valid: errors.length === 0,
     errors
