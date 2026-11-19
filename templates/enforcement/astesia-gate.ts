@@ -1644,14 +1644,14 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
     raw = readFileSync(configPath, "utf8");
     if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
   } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
-  let parsed: unknown;
-  try { parsed = parseJsonc(raw); } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
-  if (!parsed || typeof parsed !== "object") return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath };
-  const pObj = parsed as Record<string, unknown>;
+  let rawParsed: unknown;
+  try { rawParsed = parseJsonc(raw); } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
+  if (!rawParsed || typeof rawParsed !== "object") return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath };
+  const parsed = rawParsed as Record<string, unknown>;
 
   let mergedPaths: Record<string, string[]> = {}, mergedBaseUrl = configDir;
-  if (pObj.extends && typeof pObj.extends === "string") {
-    const extVal = pObj.extends.trim();
+  if (parsed.extends && typeof parsed.extends === "string") {
+    const extVal = parsed.extends.trim();
     if (extVal.startsWith("./") || extVal.startsWith("../")) {
       if (depth < 3) {
         let extPath = resolve(configDir, extVal);
@@ -1667,7 +1667,7 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
       notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);
     }
   }
-  const compOpts = pObj.compilerOptions as Record<string, unknown> | undefined;
+  const compOpts = parsed.compilerOptions as Record<string, unknown> | undefined;
   if (compOpts && typeof compOpts === "object") {
     if (typeof compOpts.baseUrl === "string") mergedBaseUrl = resolve(configDir, compOpts.baseUrl);
     if (compOpts.paths && typeof compOpts.paths === "object") {
