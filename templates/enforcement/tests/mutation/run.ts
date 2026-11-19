@@ -6,7 +6,7 @@
  */
 import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 
 export function strictReplace(
   code: string,
@@ -69,7 +69,7 @@ export function runMutationHarness(): {
         writeFileSync(testScript, `
           import { spawnSync } from "node:child_process";
           import { mkdirSync, writeFileSync } from "node:fs";
-          import { join } from "node:path";
+          import { join, resolve } from "node:path";
           const dir = join("${td.replace(/\\/g, "/")}", "m01-run");
           mkdirSync(dir, { recursive: true });
           const rules = { rules: [{ id: "ASTESIA-004", name: "sec", severity: "error", kind: "line-regex", pattern: "sec", description: "d", fix: "f" }] };
@@ -286,7 +286,7 @@ export function runMutationHarness(): {
         writeFileSync(testScript, `
           import { spawnSync } from "node:child_process";
           import { mkdirSync, writeFileSync } from "node:fs";
-          import { join } from "node:path";
+          import { join, resolve } from "node:path";
 
           const dir = join("${td.replace(/\\/g, "/")}", "m11-base");
           mkdirSync(dir, { recursive: true });
@@ -320,7 +320,7 @@ export function runMutationHarness(): {
         writeFileSync(testScript, `
           import { handleRulesDiff } from "${mgPath.replace(/\\/g, "/")}";
           import { writeFileSync } from "node:fs";
-          import { join } from "node:path";
+          import { join, resolve } from "node:path";
 
           const bPath = join("${td.replace(/\\/g, "/")}", "base.json");
           const hPath = join("${td.replace(/\\/g, "/")}", "head.json");
@@ -384,7 +384,7 @@ export function runMutationHarness(): {
         writeFileSync(testScript, `
           import { spawnSync } from "node:child_process";
           import { mkdirSync, writeFileSync } from "node:fs";
-          import { join } from "node:path";
+          import { join, resolve } from "node:path";
 
           const dir = join("${td.replace(/\\/g, "/")}", "m15-al");
           mkdirSync(dir, { recursive: true });
@@ -951,15 +951,15 @@ export function runMutationHarness(): {
       mutate: (code) =>
         strictReplace(
           code,
-          "if (rawLines[i].length >= 5000) {",
-          "if (rawLines[i].length >= 100) {",
+          "if (cleanLines[i].length >= 5000) {",
+          "if (cleanLines[i].length >= 100) {",
           "M40"
         ),
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m40.ts");
         writeFileSync(testScript, `
           import { isGeneratedFile } from "${mgPath.replace(/\\/g, "/")}";
-          const normalLine = "// " + "a".repeat(200);
+          const normalLine = "// " + "a".repeat(1200);
           process.exit(!isGeneratedFile([normalLine], "src/app.ts") ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
@@ -981,9 +981,9 @@ export function runMutationHarness(): {
       testCmd: (mgPath, td) => {
         const testScript = join(td, "test_m41.ts");
         writeFileSync(testScript, `
-          import { isGeneratedFile } from "${mgPath.replace(/\\/g, "/")}";
+          import { detectHeaderMarker } from "${mgPath.replace(/\\/g, "/")}";
           const lines = [...Array(10).fill("// normal line"), "// @generated on line 11"];
-          process.exit(!isGeneratedFile(lines, "src/app.ts") ? 0 : 1);
+          process.exit(detectHeaderMarker(lines) === null ? 0 : 1);
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
@@ -1034,6 +1034,7 @@ export function runMutationHarness(): {
             schema: 1,
             violations: {},
             counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 0 },
+            generated_files: ["bundle.min.js"],
             coverage: { files_scanned: 1, min_ratio: 0.9 },
             history: []
           })
@@ -1162,6 +1163,337 @@ export function runMutationHarness(): {
         writeFileSync(join(dir, "index.ts"), "export const a = 1;\n");
         const r = spawnSync("bun", [mgPath, "--root", dir, "--rules", join(dir, "rules.json"), "--baseline"], { encoding: "utf8" });
         return { passed: r.status === 2 };
+      }
+    },
+    // M49: Ratio criteria removed in isGeneratedFile
+    {
+      id: "M49",
+      name: "ratio_criteria_removed",
+      description: "Remove ratio check in isGeneratedFile so any file with line >= 5000 is marked generated",
+      mutate: (code) =>
+        strictReplace(code, "return longLinesBytes / totalBytes >= 0.5;", "return true;", "M49"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m49-repo"); mkdirSync(repo, { recursive: true });
+        const lines = ["// " + "a".repeat(5500)];
+        for (let i = 0; i < 100; i++) lines.push("console.log(1);" + " ".repeat(485));
+        writeFileSync(join(repo, "heavy.ts"), lines.join("\n"));
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M50: Ratio threshold relaxed (0.5 -> 0.05)
+    {
+      id: "M50",
+      name: "ratio_threshold_relaxed",
+      description: "Relax ratio threshold from 0.5 to 0.05 in isGeneratedFile",
+      mutate: (code) =>
+        strictReplace(code, "return longLinesBytes / totalBytes >= 0.5;", "return longLinesBytes / totalBytes >= 0.05;", "M50"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m50-repo"); mkdirSync(repo, { recursive: true });
+        const lines = ["// " + "a".repeat(5500)];
+        for (let i = 0; i < 100; i++) lines.push("console.log(1);" + " ".repeat(485));
+        writeFileSync(join(repo, "heavy.ts"), lines.join("\n"));
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M51: Header marker skips file
+    {
+      id: "M51",
+      name: "header_marker_skips_file",
+      description: "Reintroduce header bypass so // @generated skips file scanning",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (isGeneratedFile(rawLines, rel, normText)) {\n      generatedFiles.push(rel);",
+          "if (isGeneratedFile(rawLines, rel, normText) || detectHeaderMarker(rawLines)) {\n      generatedFiles.push(rel);",
+          "M51"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m51-repo"); mkdirSync(repo, { recursive: true });
+        writeFileSync(join(repo, "file.ts"), "// @generated\nconsole.log(1);\n");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M52: generated_files set ignored in baseline
+    {
+      id: "M52",
+      name: "generated_files_set_ignored",
+      description: "Ignore unbaselined generated files set check (only checking counter)",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const unbaselinedGenerated = generatedFiles.filter((f) => !baselineGeneratedSet.has(f));\n  if (unbaselinedGenerated.length > 0) {",
+          "const unbaselinedGenerated = generatedFiles.filter((f) => !baselineGeneratedSet.has(f));\n  if (false && unbaselinedGenerated.length > 0) {",
+          "M52"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m52-repo"); mkdirSync(join(repo, ".astesia"), { recursive: true });
+        writeFileSync(join(repo, "file.ts"), "export const a = 1;");
+        writeFileSync(join(repo, "new.min.js"), "var a=1;");
+        writeFileSync(join(repo, ".astesia/gate-baseline.json"), JSON.stringify({
+          schema: 1, violations: {},
+          counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 1, imports_declared: 0 },
+          generated_files: ["old.min.js"], coverage: { files_scanned: 1, min_ratio: 0.9 }, history: []
+        }));
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--baseline", join(repo, ".astesia/gate-baseline.json")], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M53: Path normalization removed in generated_files
+    {
+      id: "M53",
+      name: "generated_files_normalization_removed",
+      description: "Remove POSIX path normalization for generated_files output",
+      mutate: (code) =>
+        strictReplace(code, "generated_files: sortedGeneratedFiles,", 'generated_files: sortedGeneratedFiles.map((f) => f.replace(/\\//g, "\\\\")),', "M53"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m53-repo"); mkdirSync(join(repo, "sub"), { recursive: true });
+        writeFileSync(join(repo, "sub/min.min.js"), "var a=1;");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        let j: any = {};
+        try { j = JSON.parse(r.stdout); } catch {}
+        return { passed: Boolean(j.generated_files?.length > 0 && !j.generated_files[0].includes("\\")) };
+      }
+    },
+    // M54: Case sensitivity disabled in existsCaseSensitive
+    {
+      id: "M54",
+      name: "exists_case_sensitive_disabled",
+      description: "Disable case-sensitive check in existsCaseSensitive (using existsSync directly)",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "function existsCaseSensitive(targetPath: string, rootDir: string): boolean {\n  try { if (!existsSync(targetPath) || !statSync(targetPath).isFile()) return false; } catch { return false; }",
+          "function existsCaseSensitive(targetPath: string, rootDir: string): boolean {\n  try { return existsSync(targetPath) && statSync(targetPath).isFile(); } catch { return false; }",
+          "M54"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m54-repo"); mkdirSync(repo, { recursive: true });
+        writeFileSync(join(repo, "target.ts"), "export const x = 1;");
+        writeFileSync(join(repo, "main.ts"), "import { x } from './Target.js';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M55: ESM TS mapping removed
+    {
+      id: "M55",
+      name: "esm_ts_mapping_removed",
+      description: "Remove .js to .ts/.tsx mapping from import resolution candidates",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (tBase.endsWith(".js")) {\n        const baseNoExt = tBase.slice(0, -3);\n        candidates.push(baseNoExt + ".ts", baseNoExt + ".tsx", baseNoExt + ".mts", baseNoExt + ".cts", baseNoExt + ".d.ts");\n      }',
+          "// esm ts mapping removed",
+          "M55"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m55-repo"); mkdirSync(repo, { recursive: true });
+        writeFileSync(join(repo, "target.ts"), "export const x = 1;");
+        writeFileSync(join(repo, "main.ts"), "import { x } from './target.js';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M56: tsconfig paths ignored
+    {
+      id: "M56",
+      name: "tsconfig_paths_ignored",
+      description: "Ignore compilerOptions.paths in tsconfig resolution",
+      mutate: (code) =>
+        strictReplace(code, 'if (compOpts.paths && typeof compOpts.paths === "object") {', 'if (false && compOpts.paths && typeof compOpts.paths === "object") {', "M56"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m56-repo"); mkdirSync(join(repo, "src/custom"), { recursive: true });
+        writeFileSync(join(repo, "src/custom/btn.ts"), "export const btn = 1;");
+        writeFileSync(join(repo, "tsconfig.json"), JSON.stringify({ compilerOptions: { baseUrl: ".", paths: { "@/*": ["src/custom/*"] } } }));
+        writeFileSync(join(repo, "main.ts"), "import { btn } from '@/btn';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M57: tsconfig extends ignored
+    {
+      id: "M57",
+      name: "tsconfig_extends_ignored",
+      description: "Ignore extends clause in tsconfig resolution",
+      mutate: (code) =>
+        strictReplace(code, 'if (parsed.extends && typeof parsed.extends === "string") {', 'if (false && parsed.extends && typeof parsed.extends === "string") {', "M57"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m57-repo"); mkdirSync(join(repo, "src/custom"), { recursive: true });
+        writeFileSync(join(repo, "src/custom/btn.ts"), "export const btn = 1;");
+        writeFileSync(join(repo, "tsconfig.base.json"), JSON.stringify({ compilerOptions: { baseUrl: ".", paths: { "@/*": ["src/custom/*"] } } }));
+        writeFileSync(join(repo, "tsconfig.json"), JSON.stringify({ extends: "./tsconfig.base.json" }));
+        writeFileSync(join(repo, "main.ts"), "import { btn } from '@/btn';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M58: Query parameter stripping disabled
+    {
+      id: "M58",
+      name: "query_stripping_disabled",
+      description: "Disable ?raw and ?url query specifier stripping in import resolution",
+      mutate: (code) =>
+        strictReplace(code, 'const specifier = rawSpecifier.replace(/\\?[a-zA-Z0-9_-]+$/, "");', "const specifier = rawSpecifier;", "M58"),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m58-repo"); mkdirSync(repo, { recursive: true });
+        writeFileSync(join(repo, "icon.svg"), "<svg></svg>");
+        writeFileSync(join(repo, "main.ts"), "import icon from './icon.svg?raw';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M59: imports.virtual relative prefix validation removed
+    {
+      id: "M59",
+      name: "virtual_imports_prefix_validation_removed",
+      description: "Remove ./ relative path prefix validation in imports.virtual config",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (typeof pfx !== "string" || pfx.length < 3 || pfx.startsWith("./") || pfx.startsWith("../") || pfx.startsWith("/") || pfx.startsWith("..") || pfx === ".") {',
+          'if (typeof pfx !== "string" || pfx.length < 3) {',
+          "M59"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m59-repo"); mkdirSync(join(repo, ".astesia"), { recursive: true });
+        writeFileSync(join(repo, "main.ts"), "export const a = 1;");
+        writeFileSync(join(repo, ".astesia/gate-config.json"), JSON.stringify({
+          schema: 1, imports: { virtual: [{ prefix: "./relative", reason: "Valid reason for fifteen characters" }] }
+        }));
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json")], { encoding: "utf8" });
+        return { passed: r.status === 2 };
+      }
+    },
+    // M60: imports_declared counter check ignored in baseline
+    {
+      id: "M60",
+      name: "imports_declared_counter_ignored",
+      description: "Ignore imports_declared counter regression check in baseline evaluation",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "  if ((counters.imports_declared ?? 0) > (baseline.counters?.imports_declared ?? 0)) {\n    counterRegressions.push(`imports_declared increased (${counters.imports_declared ?? 0} > ${baseline.counters?.imports_declared ?? 0})`);\n  }",
+          "  // imports_declared counter ignored",
+          "M60"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m60-repo"); mkdirSync(join(repo, ".astesia"), { recursive: true });
+        writeFileSync(join(repo, "main.ts"), "export const a = 1;");
+        writeFileSync(join(repo, ".astesia/gate-config.json"), JSON.stringify({
+          schema: 1, imports: { virtual: [{ prefix: "#vmod", reason: "Valid reason for fifteen characters" }] }
+        }));
+        writeFileSync(join(repo, ".astesia/gate-baseline.json"), JSON.stringify({
+          schema: 1, violations: {},
+          counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 0, imports_declared: 0 },
+          coverage: { files_scanned: 1, min_ratio: 0.9 }, history: []
+        }));
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--baseline", join(repo, ".astesia/gate-baseline.json")], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M61: Virtual modules widened to all $
+    {
+      id: "M61",
+      name: "virtual_modules_widened_to_all_dollar",
+      description: "Widen virtual module prefix check to match any $ prefix specifier",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (specifier.startsWith("$app/") || specifier.startsWith("$env/") || specifier.startsWith("$service-worker") ||\n        specifier.startsWith("virtual:") || specifier.startsWith("#imports") || specifier.startsWith("#app") || specifier.startsWith("astro:")) return;',
+          'if (specifier.startsWith("$") ||\n        specifier.startsWith("virtual:") || specifier.startsWith("#imports") || specifier.startsWith("#app") || specifier.startsWith("astro:")) return;',
+          "M61"
+        ),
+      testCmd: (mgPath, td) => {
+        const repo = join(td, "m61-repo"); mkdirSync(repo, { recursive: true });
+        writeFileSync(join(repo, "main.ts"), "import x from '$hallucinated/mod';");
+        const r = spawnSync("bun", [mgPath, "--root", repo, "--rules", join(__dirname, "../../anti-patterns.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M62: isolatedEnv uses hardcoded NUL
+    {
+      id: "M62",
+      name: "isolated_env_hardcoded_nul",
+      description: "Reintroduce hardcoded NUL in isolatedEnv helper",
+      mutate: (code) => code + "\n// MUTANT_M62",
+      testCmd: (mgPath, td) => {
+        const isoPath = join(__dirname, "../isolated-env.ts");
+        const isoContent = readFileSync(isoPath, "utf8");
+        const mutatedIso = strictReplace(isoContent, 'const nullDevice = process.platform === "win32" ? "/dev/null" : os.devNull;', 'const nullDevice = "NUL";', "M62_ISO");
+        const script = join(td, "test_m62.ts");
+        writeFileSync(join(td, "iso_m62.ts"), mutatedIso);
+        writeFileSync(script, `
+          import { isolatedEnv } from "./iso_m62";
+          const env = isolatedEnv();
+          process.exit(env.GIT_CONFIG_GLOBAL !== "NUL" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [script], { cwd: td, encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M63: Bun version pin check in --check-workflow removed
+    {
+      id: "M63",
+      name: "workflow_bun_pin_rule_removed",
+      description: "Remove exact bun-version pinning check in --check-workflow",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const bunStep = /uses:\\s*oven-sh\\/setup-bun@[^\\n]+/i.exec(yamlContent);\n  if (bunStep) {",
+          "const bunStep = /uses:\\s*oven-sh\\/setup-bun@[^\\n]+/i.exec(yamlContent);\n  if (false && bunStep) {",
+          "M63"
+        ),
+      testCmd: (mgPath, td) => {
+        const wf = `name: CI\non: [pull_request]\npermissions:\n  contents: read\njobs:\n  gate:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: \${{ github.event.pull_request.base.sha }}\n          path: trusted\n          persist-credentials: false\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: \${{ github.event.pull_request.head.sha }}\n          path: pr\n          persist-credentials: false\n      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5\n      - run: bun trusted/gate.ts --check-workflow pr/workflow.yml\n      - run: bun trusted/gate.ts --rules-diff trusted/rules.json pr/rules.json\n      - run: bun trusted/gate.ts --root pr --baseline trusted/base.json\n`;
+        const wfPath = join(td, "m63_wf.yml");
+        writeFileSync(wfPath, wf);
+        const r = spawnSync("bun", [mgPath, "--check-workflow", wfPath], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M64: Wilson upper bound clamping removed
+    {
+      id: "M64",
+      name: "wilson_clamping_removed",
+      description: "Remove Math.min(1, Math.max(0, rawUpper)) clamping from Wilson calculation",
+      mutate: (code) => code + "\n// MUTANT_M64",
+      testCmd: (mgPath, td) => {
+        const statsPath = resolve(__dirname, "../../../../.astesia/audit/wave2a.6/tools/stats.ts");
+        const statsContent = readFileSync(statsPath, "utf8");
+        const mutatedStats = strictReplace(statsContent, "return Math.min(1, Math.max(0, rawUpper));", "return rawUpper;", "M64_STATS");
+        const script = join(td, "test_m64.ts");
+        writeFileSync(join(td, "stats_m64.ts"), mutatedStats);
+        writeFileSync(script, `
+          import { wilsonUpper95 } from "./stats_m64";
+          const val = wilsonUpper95(5, 5);
+          process.exit(val === 1.0 ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [script], { cwd: td, encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M65: Secret redaction in review-pack disabled
+    {
+      id: "M65",
+      name: "secret_redaction_disabled",
+      description: "Disable automatic secret redaction in redactSecretQuote",
+      mutate: (code) => code + "\n// MUTANT_M65",
+      testCmd: (mgPath, td) => {
+        const classifyPath = resolve(__dirname, "../../../../.astesia/audit/wave2a.6/tools/classify.ts");
+        const classifyContent = readFileSync(classifyPath, "utf8");
+        const mutatedClassify = strictReplace(classifyContent, "export function redactSecretQuote(quote: string, ruleId?: string): string {", "export function redactSecretQuote(quote: string, ruleId?: string): string {\n  return quote;", "M65_CLS");
+        const script = join(td, "test_m65.ts");
+        writeFileSync(join(td, "classify_m65.ts"), mutatedClassify);
+        writeFileSync(script, `
+          import { redactSecretQuote } from "./classify_m65";
+          const res = redactSecretQuote("key = 'sk_live_1234567890abcdef'");
+          process.exit(!res.includes("sk_live") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [script], { cwd: td, encoding: "utf8" });
+        return { passed: r.status === 0 };
       }
     }
   ];
