@@ -19,113 +19,46 @@ export type Severity = "error" | "warn";
 export type RuleScope = "code" | "comment";
 
 export interface LineRegexRule {
-  id: string;
-  kind: "line-regex";
-  severity: Severity;
-  description: string;
-  fix: string;
-  pattern: string;
-  flags?: string;
-  pathRegex?: string;
-  excludeRegex?: string;
-  scope?: RuleScope;
-  origin?: string;
+  id: string; kind: "line-regex"; severity: Severity; description: string; fix: string;
+  pattern: string; flags?: string; pathRegex?: string; excludeRegex?: string; scope?: RuleScope; origin?: string;
 }
 
 export interface RelativeImportRule {
-  id: string;
-  kind: "relative-import-exists";
-  severity: Severity;
-  description: string;
-  fix: string;
-  scope?: RuleScope;
-  origin?: string;
+  id: string; kind: "relative-import-exists"; severity: Severity; description: string; fix: string;
+  scope?: RuleScope; origin?: string;
 }
 
 export interface NestedLoopCallRule {
-  id: string;
-  kind: "nested-loop-call";
-  severity: Severity;
-  description: string;
-  fix: string;
-  loopPattern: string;
-  callPattern: string;
-  flags?: string;
-  pathRegex?: string;
-  excludeRegex?: string;
-  scope?: RuleScope;
-  origin?: string;
+  id: string; kind: "nested-loop-call"; severity: Severity; description: string; fix: string;
+  loopPattern: string; callPattern: string; flags?: string; pathRegex?: string; excludeRegex?: string; scope?: RuleScope; origin?: string;
 }
 
 export type Rule = LineRegexRule | RelativeImportRule | NestedLoopCallRule;
 
 export interface Violation {
-  ruleId: string;
-  severity: Severity;
-  file: string;
-  line: number;
-  message: string;
-  fix: string;
+  ruleId: string; severity: Severity; file: string; line: number; message: string; fix: string;
 }
 
 export interface GateConfigAllowEntry {
-  rule: "ASTESIA-004" | "ASTESIA-010";
-  path: string;
-  match: string;
-  reason: string;
+  rule: "ASTESIA-004" | "ASTESIA-010"; path: string; match: string; reason: string;
 }
 
 export interface GateConfig {
-  schema: 1;
-  exclude?: Array<{ path: string; reason: string }>;
-  allow?: GateConfigAllowEntry[];
+  schema: 1; exclude?: Array<{ path: string; reason: string }>; allow?: GateConfigAllowEntry[];
 }
 
 export interface GateState {
-  suppressions: number;
-  rejectedSuppressions: number;
-  debtMarkers: number;
-  allowlistedCount: number;
-  allowHits: Map<GateConfigAllowEntry, number>;
-  envIgnoredSkipped: number;
-  rule010?: Rule;
+  suppressions: number; rejectedSuppressions: number; debtMarkers: number; allowlistedCount: number;
+  allowHits: Map<GateConfigAllowEntry, number>; envIgnoredSkipped: number; rule010?: Rule;
 }
 
 export interface PreprocessedFile {
-  rawLines: string[];
-  codeLines: string[];
-  codeNoStringsLines: string[];
-  commentLines: string[];
-  commentBlocks: Array<{ text: string; startLine: number; endLine: number }>;
-  desync?: boolean;
+  rawLines: string[]; codeLines: string[]; codeNoStringsLines: string[]; commentLines: string[];
+  commentBlocks: Array<{ text: string; startLine: number; endLine: number }>; desync?: boolean;
 }
 
-const SOURCE_EXT = new Set([
-  ".ts",
-  ".tsx",
-  ".js",
-  ".jsx",
-  ".mjs",
-  ".cjs",
-  ".svelte",
-  ".vue",
-  ".py",
-  ".go",
-  ".php",
-  ".yml",
-  ".yaml"
-]);
-
-const SKIP_DIRS = new Set([
-  "node_modules",
-  ".git",
-  "dist",
-  "build",
-  "coverage",
-  ".next",
-  ".svelte-kit",
-  "vendor"
-]);
+const SOURCE_EXT = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue", ".py", ".go", ".php", ".yml", ".yaml"]);
+const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "build", "coverage", ".next", ".svelte-kit", "vendor"]);
 
 export const NEVER_BASELINE = new Set(["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"]);
 export const NEVER_INLINE_SUPPRESS = new Set([
@@ -136,22 +69,7 @@ export const NEVER_INLINE_SUPPRESS = new Set([
   "LONG_LINE_SKIPPED"
 ]);
 
-const RESOLVE_EXT = [
-  "",
-  ".ts",
-  ".tsx",
-  ".d.ts",
-  ".js",
-  ".jsx",
-  ".mjs",
-  ".cjs",
-  ".svelte",
-  ".vue",
-  "/index.ts",
-  "/index.tsx",
-  "/index.d.ts",
-  "/index.js"
-];
+const RESOLVE_EXT = ["", ".ts", ".tsx", ".d.ts", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue", "/index.ts", "/index.tsx", "/index.d.ts", "/index.js"];
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -2719,6 +2637,12 @@ function main() {
     }
   }
 
+  // Handle --baseline without value -> fail-closed exit 2 (Decision 4 / T6)
+  if (opts.has("baseline") && (!opts.get("baseline") || opts.get("baseline")!.trim() === "")) {
+    console.error("[TOOL_FAILED: missing path for --baseline (use --baseline <path>)]");
+    process.exit(2);
+  }
+
   // Handle --update-baseline
   if (flags.has("update-baseline") || opts.has("update-baseline")) {
     const bTarget = opts.has("baseline")
@@ -2745,7 +2669,7 @@ function main() {
   // Handle --baseline
   let bEval: ReturnType<typeof evaluateBaseline> | null = null;
   if (opts.has("baseline")) {
-    const bTarget = opts.get("baseline") ? resolve(root, opts.get("baseline")!) : join(root, ".astesia/gate-baseline.json");
+    const bTarget = resolve(root, opts.get("baseline")!);
     const baselineData = loadBaseline(bTarget);
     bEval = evaluateBaseline(baselineData, violations, counters, filesScanned.total);
   }
