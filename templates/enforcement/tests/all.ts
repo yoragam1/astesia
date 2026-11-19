@@ -33,6 +33,7 @@ import { runHelmKeyNameSuite } from "./helm-keyname-suite";
 import { runRule010PathSuite } from "./rule010-path-suite";
 import { runRegexLiteralSuite } from "./regex-literal-suite";
 import { runGeneratedPolicySuite } from "./generated-policy-suite";
+import { runGeneratedPolicyV2Suite } from "./generated-policy-v2-suite";
 import { runUrlExemptSuite } from "./url-exempt-suite";
 import { runWave2a5CliConfigSuite } from "./wave2a5-cli-config-suite";
 import { independentCases } from "./independent/corpus";
@@ -251,6 +252,10 @@ const urlExemptRes = runUrlExemptSuite(GATE_PATH, join(tmpBase, "url-exempt"));
 executedSuites.add("wave2a5-cli-config-suite.ts");
 const wave2a5CliConfigRes = runWave2a5CliConfigSuite(GATE_PATH, join(tmpBase, "w2a5-cli"));
 
+// O. generated-policy-v2-suite.ts
+executedSuites.add("generated-policy-v2-suite.ts");
+const generatedPolicyV2Res = runGeneratedPolicyV2Suite(GATE_PATH, join(tmpBase, "gen-v2"));
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
@@ -265,7 +270,8 @@ const standaloneTotal =
   regexLiteralRes.total +
   generatedPolicyRes.total +
   urlExemptRes.total +
-  wave2a5CliConfigRes.total;
+  wave2a5CliConfigRes.total +
+  generatedPolicyV2Res.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -281,7 +287,8 @@ const standalonePassed =
   regexLiteralRes.passed +
   generatedPolicyRes.passed +
   urlExemptRes.passed +
-  wave2a5CliConfigRes.passed;
+  wave2a5CliConfigRes.passed +
+  generatedPolicyV2Res.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -297,14 +304,16 @@ const standaloneFailed =
   regexLiteralRes.failed +
   generatedPolicyRes.failed +
   urlExemptRes.failed +
-  wave2a5CliConfigRes.failed;
+  wave2a5CliConfigRes.failed +
+  generatedPolicyV2Res.failed;
 
 const standaloneKnownGaps =
   ((helmKeyNameRes as any).known_gaps ?? 0) +
   regexLiteralRes.known_gaps +
   generatedPolicyRes.known_gaps +
   urlExemptRes.known_gaps +
-  wave2a5CliConfigRes.known_gaps;
+  wave2a5CliConfigRes.known_gaps +
+  generatedPolicyV2Res.known_gaps;
 
 if (!isJsonMode) {
   console.log(`  - auth-header-suite:        ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
@@ -319,6 +328,7 @@ if (!isJsonMode) {
   console.log(`  - rule010-path-suite:       ${rule010PathRes.passed}/${rule010PathRes.total} passed`);
   console.log(`  - regex-literal-suite:      ${regexLiteralRes.passed}/${regexLiteralRes.total} passed`);
   console.log(`  - generated-policy-suite:   ${generatedPolicyRes.passed}/${generatedPolicyRes.total} passed`);
+  console.log(`  - generated-policy-v2-suite: ${generatedPolicyV2Res.passed}/${generatedPolicyV2Res.total} passed`);
   console.log(`  - url-exempt-suite:         ${urlExemptRes.passed}/${urlExemptRes.total} passed`);
   console.log(`  - wave2a5-cli-config-suite: ${wave2a5CliConfigRes.passed}/${wave2a5CliConfigRes.total} passed (${wave2a5CliConfigRes.known_gaps} known gaps)`);
   console.log(`  Standalone Subtotal:        ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed, ${standaloneKnownGaps} known gaps)`);
@@ -660,6 +670,7 @@ const summaryOut = {
         rule010_path: rule010PathRes,
         regex_literal: regexLiteralRes,
         generated_policy: generatedPolicyRes,
+        generated_policy_v2: generatedPolicyV2Res,
         url_exempt: urlExemptRes,
         wave2a5_cli_config: wave2a5CliConfigRes
       }

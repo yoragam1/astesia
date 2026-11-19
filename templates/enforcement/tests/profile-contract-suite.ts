@@ -72,13 +72,15 @@ export function runProfileContractSuite(): { total: number; passed: number; fail
 
   // 3. locales/en.json secret immunity test
   const jsonContent = '{\n  "password": "Enter your password",\n  "loginPassword": "Password"\n}\n';
-  const tmpDir = fs.mkdtempSync(path.join(path.resolve(".astesia/audit/tmp"), "pc-json-"));
+  const auditTmp = path.resolve(__dirname, "../../../.astesia/audit/tmp");
+  fs.mkdirSync(auditTmp, { recursive: true });
+  const tmpDir = fs.mkdtempSync(path.join(auditTmp, "pc-json-"));
   try {
     fs.mkdirSync(path.join(tmpDir, "locales"), { recursive: true });
     fs.writeFileSync(path.join(tmpDir, "locales", "en.json"), jsonContent, "utf8");
 
-    const gatePath = path.resolve("templates/enforcement/astesia-gate.ts");
-    const rulesPath = path.resolve("templates/enforcement/anti-patterns.json");
+    const gatePath = path.resolve(__dirname, "../astesia-gate.ts");
+    const rulesPath = path.resolve(__dirname, "../anti-patterns.json");
     const res = spawnSync("bun", [gatePath, "--root", tmpDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
     const parsed = JSON.parse(res.stdout);
 
@@ -93,15 +95,15 @@ export function runProfileContractSuite(): { total: number; passed: number; fail
   }
 
   // 4. Parity with gate 27fe428 on non-scanned extensions (.json, .toml, .ini, .cfg)
-  const synthDir = fs.mkdtempSync(path.join(path.resolve(".astesia/audit/tmp"), "pc-parity-"));
+  const synthDir = fs.mkdtempSync(path.join(auditTmp, "pc-parity-"));
   try {
     fs.writeFileSync(path.join(synthDir, "a.json"), "{}", "utf8");
     fs.writeFileSync(path.join(synthDir, "b.toml"), "", "utf8");
     fs.writeFileSync(path.join(synthDir, "c.ini"), "", "utf8");
     fs.writeFileSync(path.join(synthDir, "d.cfg"), "", "utf8");
 
-    const gatePath = path.resolve("templates/enforcement/astesia-gate.ts");
-    const rulesPath = path.resolve("templates/enforcement/anti-patterns.json");
+    const gatePath = path.resolve(__dirname, "../astesia-gate.ts");
+    const rulesPath = path.resolve(__dirname, "../anti-patterns.json");
     const res = spawnSync("bun", [gatePath, "--root", synthDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
     const parsed = JSON.parse(res.stdout);
 

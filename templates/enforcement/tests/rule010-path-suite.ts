@@ -30,16 +30,21 @@ export const RULE010_PATH_CASES: Rule010PathTestCase[] = [
   { id: "R10-P14", name: "nested deploy\\api.Dockerfile with backslash matches", filename: "deploy\\api.Dockerfile", content: 'ENV PASSWORD="SuperSecretPassword123!"\n', shouldTriggerRule010: true }
 ];
 
-export function runRule010PathSuite(): { total: number; passed: number; failed: number; errors: string[] } {
+export function runRule010PathSuite(
+  customGatePath?: string,
+  customTmpDir?: string
+): { total: number; passed: number; failed: number; errors: string[] } {
   let passed = 0;
   let failed = 0;
   const errors: string[] = [];
 
-  const gatePath = path.resolve("templates/enforcement/astesia-gate.ts");
-  const rulesPath = path.resolve("templates/enforcement/anti-patterns.json");
+  const gatePath = customGatePath || path.resolve(__dirname, "../astesia-gate.ts");
+  const rulesPath = path.resolve(__dirname, "../anti-patterns.json");
+  const auditTmp = customTmpDir || path.resolve(__dirname, "../../../.astesia/audit/tmp");
+  fs.mkdirSync(auditTmp, { recursive: true });
 
   for (const tc of RULE010_PATH_CASES) {
-    const tmpDir = fs.mkdtempSync(path.join(path.resolve(".astesia/audit/tmp"), "r010path-"));
+    const tmpDir = fs.mkdtempSync(path.join(auditTmp, "r010path-"));
     try {
       const filePath = path.join(tmpDir, tc.filename);
       fs.mkdirSync(path.dirname(filePath), { recursive: true });

@@ -622,24 +622,47 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
 export const STRONG_SECRET_RE =
   /(?:(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-)[A-Za-z0-9_\-]{8,}|eyJ[A-Za-z0-9_-]{8,}(?:\.[A-Za-z0-9_\-=]{2,})*|-----BEGIN[ A-Z0-9]*PRIVATE KEY-----)/;
 
-export function isGeneratedFile(rawLines: string[], relPath: string): boolean {
+export function isGeneratedFile(rawLines: string[], relPath: string, normalizedText?: string): boolean {
   const norm = relPath.replace(/\\/g, "/");
   const base = (norm.split("/").pop() || "").toLowerCase();
   if (/\.min\.(js|mjs|cjs|css)$/i.test(base)) {
     return true;
   }
+  const cleanLines = rawLines.map((l) => l.replace(/\r/g, ""));
+  let has5000 = false;
+  for (let i = 0; i < cleanLines.length; i++) {
+    if (cleanLines[i].length >= 5000) {
+      has5000 = true;
+      break;
+    }
+  }
+  if (!has5000) {
+    return false;
+  }
+
+  const text = normalizedText ? normalizedText.replace(/\r/g, "") : cleanLines.join("\n");
+  const totalBytes = Buffer.byteLength(text, "utf8");
+  if (totalBytes === 0) return false;
+
+  let longLinesBytes = 0;
+  for (let i = 0; i < cleanLines.length; i++) {
+    if (cleanLines[i].length >= 1000) {
+      const lineLen = Buffer.byteLength(cleanLines[i], "utf8") + (i < cleanLines.length - 1 ? 1 : 0);
+      longLinesBytes += lineLen;
+    }
+  }
+  return longLinesBytes / totalBytes >= 0.5;
+}
+
+export function detectHeaderMarker(rawLines: string[]): { marker: string; line: number } | null {
   const headerLimit = Math.min(10, rawLines.length);
   for (let i = 0; i < headerLimit; i++) {
-    if (/@generated|DO NOT EDIT|Code generated/.test(rawLines[i])) {
-      return true;
+    const match = rawLines[i].match(/(@generated|DO NOT EDIT|Code generated)/);
+    if (match) {
+      return { marker: match[0], line: i + 1 };
     }
   }
-  for (let i = 0; i < rawLines.length; i++) {
-    if (rawLines[i].length >= 5000) {
-      return true;
-    }
-  }
-  return false;
+  return null;
 }
 
 function isScannable(filename: string): boolean {
@@ -2046,6 +2069,7 @@ interface BaselineData {
     allowlisted?: number;
     generated_skipped?: number;
   };
+  generated_files?: string[];
   coverage: {
     files_scanned: number;
     min_ratio: number;
@@ -2199,7 +2223,8 @@ function evaluateBaseline(
   baseline: BaselineData,
   violations: Violation[],
   counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
-  filesScannedTotal: number
+  filesScannedTotal: number,
+  generatedFiles: string[] = []
 ) {
   const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
   const otherViolations = violations.filter((v) => !NEVER_BASELINE.has(v.ruleId));
@@ -2255,6 +2280,15 @@ function evaluateBaseline(
     counterRegressions.push(`generated_skipped increased (${counters.generated_skipped ?? 0} > ${baseline.counters?.generated_skipped ?? 0})`);
   }
 
+  const baselineGeneratedSet = new Set(baseline.generated_files ?? []);
+  const unbaselinedGenerated = generatedFiles.filter((f) => !baselineGeneratedSet.has(f));
+  if (unbaselinedGenerated.length > 0) {
+    counterRegressions.push(`generated_files contains unbaselined file(s): ${unbaselinedGenerated.join(", ")}`);
+  }
+  if (generatedFiles.length < (baseline.generated_files?.length ?? 0)) {
+    tightenable = true;
+  }
+
   const minRatio = baseline.coverage?.min_ratio ?? 0.9;
   const expectedMin = Math.ceil((baseline.coverage?.files_scanned ?? 0) * minRatio);
   const coverageDropped = filesScannedTotal < expectedMin;
@@ -2286,7 +2320,8 @@ function updateBaseline(
   counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
   filesScannedTotal: number,
   allowRaise: boolean,
-  reason: string
+  reason: string,
+  generatedFiles: string[] = []
 ) {
   const neverBaselineViolations = violations.filter((v) => NEVER_BASELINE.has(v.ruleId));
   if (neverBaselineViolations.length > 0) {
@@ -2302,6 +2337,7 @@ function updateBaseline(
     newViolationsMap[v.ruleId][v.file] = (newViolationsMap[v.ruleId][v.file] || 0) + 1;
   }
 
+  const sortedGenFiles = [...new Set(generatedFiles.map((f) => f.replace(/\\/g, "/")))].sort();
   let action: "init" | "tighten" | "raise" = "init";
   let history: BaselineData["history"] = [];
   let diff: Record<string, unknown> = {};
@@ -2360,6 +2396,12 @@ function updateBaseline(
       hasMetricIncrease = true;
       diffDetails.counters.generated_skipped = { from: oldBaseline.counters?.generated_skipped ?? 0, to: counters.generated_skipped ?? 0 };
     }
+    const oldGenSet = new Set(oldBaseline.generated_files ?? []);
+    const addedGenFiles = sortedGenFiles.filter((f) => !oldGenSet.has(f));
+    if (addedGenFiles.length > 0) {
+      hasMetricIncrease = true;
+      (diffDetails.counters as any).generated_files = { added: addedGenFiles };
+    }
 
     if (hasMetricIncrease) {
       if (!allowRaise) {
@@ -2404,6 +2446,7 @@ function updateBaseline(
       allowlisted: counters.allowlisted ?? 0,
       generated_skipped: counters.generated_skipped ?? 0
     },
+    generated_files: sortedGenFiles,
     coverage: {
       files_scanned: filesScannedTotal,
       min_ratio: 0.9
@@ -2549,6 +2592,7 @@ function main() {
 
   const rule004 = rules.find((r) => r.id === "ASTESIA-004");
   const generatedFiles: string[] = [];
+  const generatedHeaderCandidates: Array<{ file: string; marker: string; line: number }> = [];
   const files: Array<{ abs: string; rel: string; rawContent: string }> = [];
 
   for (const abs of candidateFiles) {
@@ -2561,7 +2605,7 @@ function main() {
     normText = normText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
     const rawLines = normText.split("\n");
 
-    if (isGeneratedFile(rawLines, rel)) {
+    if (isGeneratedFile(rawLines, rel, normText)) {
       generatedFiles.push(rel);
       for (let l = 0; l < rawLines.length; l++) {
         if (STRONG_SECRET_RE.test(rawLines[l])) {
@@ -2576,6 +2620,10 @@ function main() {
         }
       }
     } else {
+      const headerMarker = detectHeaderMarker(rawLines);
+      if (headerMarker) {
+        generatedHeaderCandidates.push({ file: rel, marker: headerMarker.marker, line: headerMarker.line });
+      }
       files.push({ abs, rel, rawContent });
     }
   }
@@ -2622,13 +2670,14 @@ function main() {
     }
   }
 
+  const sortedGeneratedFiles = [...new Set(generatedFiles.map((f) => f.replace(/\\/g, "/")))].sort();
   const counters = {
     debt_markers: gateState.debtMarkers,
     suppressions: gateState.suppressions,
     files_excluded: excludedFilesState.count,
     desync_files: desyncFiles.length,
     allowlisted: gateState.allowlistedCount,
-    generated_skipped: generatedFiles.length
+    generated_skipped: sortedGeneratedFiles.length
   };
 
   const staleAllowEntries: GateConfigAllowEntry[] = [];
@@ -2663,7 +2712,7 @@ function main() {
         process.exit(2);
       }
     }
-    updateBaseline(bTarget, violations, counters, filesScanned.total, allowRaise, reason);
+    updateBaseline(bTarget, violations, counters, filesScanned.total, allowRaise, reason, sortedGeneratedFiles);
     return;
   }
 
@@ -2672,7 +2721,7 @@ function main() {
   if (opts.has("baseline")) {
     const bTarget = resolve(root, opts.get("baseline")!);
     const baselineData = loadBaseline(bTarget);
-    bEval = evaluateBaseline(baselineData, violations, counters, filesScanned.total);
+    bEval = evaluateBaseline(baselineData, violations, counters, filesScanned.total, sortedGeneratedFiles);
   }
 
   const errors = violations.filter((v) => v.severity === "error");
@@ -2688,12 +2737,16 @@ function main() {
       allowlisted: gateState.allowlistedCount,
       allow_stale: staleAllowEntries,
       env_ignored_skipped: gateState.envIgnoredSkipped,
-      generated_skipped: generatedFiles.length,
-      generated_files: generatedFiles,
+      generated_skipped: sortedGeneratedFiles.length,
+      generated_files: sortedGeneratedFiles,
       files_scanned: filesScanned,
       files_excluded: excludedFilesState.count,
       excluded_paths: excludedPaths,
       desync_files: desyncFiles,
+      notices: {
+        tokenizer_desyncs: desyncFiles,
+        generated_header_candidates: generatedHeaderCandidates
+      },
       violations
     };
     if (bEval) {
@@ -2709,6 +2762,9 @@ function main() {
   } else {
     for (const v of violations) {
       process.stdout.write(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}\n`);
+    }
+    for (const cand of generatedHeaderCandidates) {
+      process.stdout.write(`astesia-gate: notice: header marker '${cand.marker}' in ${cand.file}:${cand.line} (generated_header_candidates); suggest adding to config 'exclude' if generated.\n`);
     }
     for (const stale of staleAllowEntries) {
       process.stdout.write(`astesia-gate: notice: stale allowlist entry for ${stale.rule} at ${stale.path} ('${stale.match}').\n`);

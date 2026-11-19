@@ -32,16 +32,21 @@ export const VARREF_CASES: VarRefTestCase[] = [
   { id: "VR-16", name: "Prefix and suffix secret_$VAR_secret", filename: ".env", line: "API_SECRET=mysecret_$ENV_SUFFIX_1234\n", shouldTrigger: true }
 ];
 
-export function runConfigVarRefSuite(): { total: number; passed: number; failed: number; errors: string[] } {
+export function runConfigVarRefSuite(
+  customGatePath?: string,
+  customTmpDir?: string
+): { total: number; passed: number; failed: number; errors: string[] } {
   let passed = 0;
   let failed = 0;
   const errors: string[] = [];
 
-  const gatePath = path.resolve("templates/enforcement/astesia-gate.ts");
-  const rulesPath = path.resolve("templates/enforcement/anti-patterns.json");
+  const gatePath = customGatePath || path.resolve(__dirname, "../astesia-gate.ts");
+  const rulesPath = path.resolve(__dirname, "../anti-patterns.json");
+  const auditTmp = customTmpDir || path.resolve(__dirname, "../../../.astesia/audit/tmp");
+  fs.mkdirSync(auditTmp, { recursive: true });
 
   for (const tc of VARREF_CASES) {
-    const tmpDir = fs.mkdtempSync(path.join(path.resolve(".astesia/audit/tmp"), "varref-"));
+    const tmpDir = fs.mkdtempSync(path.join(auditTmp, "varref-"));
     try {
       const filePath = path.join(tmpDir, tc.filename);
       fs.mkdirSync(path.dirname(filePath), { recursive: true });
