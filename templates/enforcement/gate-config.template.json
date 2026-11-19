@@ -9,5 +9,9 @@
       "path": ".vercel/output",
       "reason": "Exclude Vercel deployment build output directory and bundled chunks"
     }
-  ]
+  ],
+  "imports": {
+    "alias": [],
+    "virtual": []
+  }
 }

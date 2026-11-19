@@ -34,6 +34,8 @@ import { runRule010PathSuite } from "./rule010-path-suite";
 import { runRegexLiteralSuite } from "./regex-literal-suite";
 import { runGeneratedPolicySuite } from "./generated-policy-suite";
 import { runGeneratedPolicyV2Suite } from "./generated-policy-v2-suite";
+import { runImportResolutionSuite } from "./import-resolution-suite";
+import { runConfigImportsSuite } from "./config-imports-suite";
 import { runUrlExemptSuite } from "./url-exempt-suite";
 import { runWave2a5CliConfigSuite } from "./wave2a5-cli-config-suite";
 import { independentCases } from "./independent/corpus";
@@ -256,6 +258,14 @@ const wave2a5CliConfigRes = runWave2a5CliConfigSuite(GATE_PATH, join(tmpBase, "w
 executedSuites.add("generated-policy-v2-suite.ts");
 const generatedPolicyV2Res = runGeneratedPolicyV2Suite(GATE_PATH, join(tmpBase, "gen-v2"));
 
+// P. import-resolution-suite.ts
+executedSuites.add("import-resolution-suite.ts");
+const importResolutionRes = runImportResolutionSuite(GATE_PATH, join(tmpBase, "import-res"));
+
+// Q. config-imports-suite.ts
+executedSuites.add("config-imports-suite.ts");
+const configImportsRes = runConfigImportsSuite(GATE_PATH, join(tmpBase, "cfg-imports"));
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
@@ -271,7 +281,9 @@ const standaloneTotal =
   generatedPolicyRes.total +
   urlExemptRes.total +
   wave2a5CliConfigRes.total +
-  generatedPolicyV2Res.total;
+  generatedPolicyV2Res.total +
+  importResolutionRes.total +
+  configImportsRes.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -288,7 +300,9 @@ const standalonePassed =
   generatedPolicyRes.passed +
   urlExemptRes.passed +
   wave2a5CliConfigRes.passed +
-  generatedPolicyV2Res.passed;
+  generatedPolicyV2Res.passed +
+  importResolutionRes.passed +
+  configImportsRes.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -305,7 +319,9 @@ const standaloneFailed =
   generatedPolicyRes.failed +
   urlExemptRes.failed +
   wave2a5CliConfigRes.failed +
-  generatedPolicyV2Res.failed;
+  generatedPolicyV2Res.failed +
+  importResolutionRes.failed +
+  configImportsRes.failed;
 
 const standaloneKnownGaps =
   ((helmKeyNameRes as any).known_gaps ?? 0) +
@@ -313,7 +329,9 @@ const standaloneKnownGaps =
   generatedPolicyRes.known_gaps +
   urlExemptRes.known_gaps +
   wave2a5CliConfigRes.known_gaps +
-  generatedPolicyV2Res.known_gaps;
+  generatedPolicyV2Res.known_gaps +
+  importResolutionRes.known_gaps +
+  configImportsRes.known_gaps;
 
 if (!isJsonMode) {
   console.log(`  - auth-header-suite:        ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
@@ -329,6 +347,8 @@ if (!isJsonMode) {
   console.log(`  - regex-literal-suite:      ${regexLiteralRes.passed}/${regexLiteralRes.total} passed`);
   console.log(`  - generated-policy-suite:   ${generatedPolicyRes.passed}/${generatedPolicyRes.total} passed`);
   console.log(`  - generated-policy-v2-suite: ${generatedPolicyV2Res.passed}/${generatedPolicyV2Res.total} passed`);
+  console.log(`  - import-resolution-suite:  ${importResolutionRes.passed}/${importResolutionRes.total} passed`);
+  console.log(`  - config-imports-suite:     ${configImportsRes.passed}/${configImportsRes.total} passed`);
   console.log(`  - url-exempt-suite:         ${urlExemptRes.passed}/${urlExemptRes.total} passed`);
   console.log(`  - wave2a5-cli-config-suite: ${wave2a5CliConfigRes.passed}/${wave2a5CliConfigRes.total} passed (${wave2a5CliConfigRes.known_gaps} known gaps)`);
   console.log(`  Standalone Subtotal:        ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed, ${standaloneKnownGaps} known gaps)`);
@@ -529,6 +549,9 @@ const suiteChecks: Array<{ name: string; total: number; passed: number; failed: 
   { name: "rule010-path-suite", total: rule010PathRes.total, passed: rule010PathRes.passed, failed: rule010PathRes.failed, known_gaps: 0 },
   { name: "regex-literal-suite", total: regexLiteralRes.total, passed: regexLiteralRes.passed, failed: regexLiteralRes.failed, known_gaps: regexLiteralRes.known_gaps },
   { name: "generated-policy-suite", total: generatedPolicyRes.total, passed: generatedPolicyRes.passed, failed: generatedPolicyRes.failed, known_gaps: generatedPolicyRes.known_gaps },
+  { name: "generated-policy-v2-suite", total: generatedPolicyV2Res.total, passed: generatedPolicyV2Res.passed, failed: generatedPolicyV2Res.failed, known_gaps: 0 },
+  { name: "import-resolution-suite", total: importResolutionRes.total, passed: importResolutionRes.passed, failed: importResolutionRes.failed, known_gaps: 0 },
+  { name: "config-imports-suite", total: configImportsRes.total, passed: configImportsRes.passed, failed: configImportsRes.failed, known_gaps: 0 },
   { name: "url-exempt-suite", total: urlExemptRes.total, passed: urlExemptRes.passed, failed: urlExemptRes.failed, known_gaps: urlExemptRes.known_gaps },
   { name: "wave2a5-cli-config-suite", total: wave2a5CliConfigRes.total, passed: wave2a5CliConfigRes.passed, failed: wave2a5CliConfigRes.failed, known_gaps: wave2a5CliConfigRes.known_gaps }
 ];
@@ -671,6 +694,8 @@ const summaryOut = {
         regex_literal: regexLiteralRes,
         generated_policy: generatedPolicyRes,
         generated_policy_v2: generatedPolicyV2Res,
+        import_resolution: importResolutionRes,
+        config_imports: configImportsRes,
         url_exempt: urlExemptRes,
         wave2a5_cli_config: wave2a5CliConfigRes
       }

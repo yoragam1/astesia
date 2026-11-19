@@ -43,8 +43,31 @@ export interface GateConfigAllowEntry {
   rule: "ASTESIA-004" | "ASTESIA-010"; path: string; match: string; reason: string;
 }
 
+export interface GateConfigImportAlias {
+  prefix: string; target: string; reason: string;
+}
+
+export interface GateConfigImportVirtual {
+  prefix: string; reason: string;
+}
+
 export interface GateConfig {
-  schema: 1; exclude?: Array<{ path: string; reason: string }>; allow?: GateConfigAllowEntry[];
+  schema: 1;
+  exclude?: Array<{ path: string; reason: string }>;
+  allow?: GateConfigAllowEntry[];
+  imports?: {
+    alias?: GateConfigImportAlias[];
+    virtual?: GateConfigImportVirtual[];
+  };
+}
+
+export interface GateConfigResult {
+  excludedPaths: string[];
+  allowEntries: GateConfigAllowEntry[];
+  importAliases: GateConfigImportAlias[];
+  importVirtuals: GateConfigImportVirtual[];
+  importsDeclared: number;
+  configFound: boolean;
 }
 
 export interface GateState {
@@ -69,7 +92,7 @@ export const NEVER_INLINE_SUPPRESS = new Set([
   "LONG_LINE_SKIPPED"
 ]);
 
-const RESOLVE_EXT = ["", ".ts", ".tsx", ".d.ts", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue", "/index.ts", "/index.tsx", "/index.d.ts", "/index.js"];
+const RESOLVE_EXT = ["", ".ts", ".tsx", ".d.ts", ".js", ".jsx", ".mjs", ".cjs", ".mts", ".cts", ".svelte", ".vue", "/index.ts", "/index.tsx", "/index.d.ts", "/index.js", "/index.mjs", "/index.cjs", "/index.mts", "/index.cts"];
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -105,7 +128,7 @@ const HASH_COMMENT_EXTS = new Set([".py", ".sh", ".bash"]);
 const SINGLE_LINE_QUOTE_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"]);
 const REGEX_LANG_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
 const MARKUP_EXTS = new Set([".svelte", ".vue"]);
-const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"]);
+const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".mts", ".cts", ".svelte", ".vue"]);
 
 const REGEX_PRECEDING_CHARS = new Set(["(", ",", "=", ":", "[", "!", "&", "|", "?", "{", ";", "+", "-", "*", "%", "~", "^"]);
 const REGEX_PRECEDING_KEYWORDS = new Set([
@@ -1543,6 +1566,116 @@ function checkLineRegex(
   }
 }
 
+const readdirCache = new Map<string, Set<string> | null>();
+function getCachedReaddir(dir: string): Set<string> | null {
+  if (readdirCache.has(dir)) return readdirCache.get(dir)!;
+  try {
+    const entries = new Set(readdirSync(dir));
+    readdirCache.set(dir, entries);
+    return entries;
+  } catch {
+    readdirCache.set(dir, null);
+    return null;
+  }
+}
+
+function existsCaseSensitive(targetPath: string, rootDir: string): boolean {
+  try { if (!existsSync(targetPath) || !statSync(targetPath).isFile()) return false; } catch { return false; }
+  const normTarget = resolve(targetPath), normRoot = resolve(rootDir);
+  const rootParts = normRoot.split(/[\\/]/).filter(Boolean), targetParts = normTarget.split(/[\\/]/).filter(Boolean);
+  let commonLen = 0;
+  const maxLen = Math.min(rootParts.length, targetParts.length);
+  while (commonLen < maxLen && rootParts[commonLen].toLowerCase() === targetParts[commonLen].toLowerCase()) commonLen++;
+  const isWin = process.platform === "win32" || normTarget.includes(":\\");
+  let curr = isWin ? targetParts.slice(0, commonLen).join("\\") + (commonLen === 1 ? "\\" : "") : "/" + targetParts.slice(0, commonLen).join("/");
+  if (!curr) curr = isWin ? targetParts[0] + "\\" : "/";
+  for (let i = commonLen; i < targetParts.length; i++) {
+    const entries = getCachedReaddir(curr);
+    if (!entries || !entries.has(targetParts[i])) return false;
+    curr = join(curr, targetParts[i]);
+  }
+  return true;
+}
+
+function parseJsonc(raw: string): any {
+  let inStr = false, q = "", inLine = false, inBlk = false, out = "";
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw[i], next = raw[i + 1] || "";
+    if (inLine) { if (ch === "\n") { inLine = false; out += ch; } continue; }
+    if (inBlk) { if (ch === "*" && next === "/") { inBlk = false; i++; } continue; }
+    if (inStr) {
+      out += ch;
+      if (ch === "\\" && i + 1 < raw.length) { out += raw[++i]; } else if (ch === q) inStr = false;
+      continue;
+    }
+    if (ch === '"' || ch === "'") { inStr = true; q = ch; out += ch; continue; }
+    if (ch === "/" && next === "/") { inLine = true; i++; continue; }
+    if (ch === "/" && next === "*") { inBlk = true; i++; continue; }
+    out += ch;
+  }
+  return JSON.parse(out.replace(/,\s*([}\]])/g, "$1"));
+}
+
+interface TsconfigInfo { dir: string; baseUrl: string; paths: Record<string, string[]>; broken: boolean; brokenPath?: string; }
+const tsconfigCache = new Map<string, TsconfigInfo | null>();
+
+function loadTsconfigForDir(dir: string, root: string, notices: { tsconfig_unresolved_extends: string[] }): TsconfigInfo | null {
+  if (tsconfigCache.has(dir)) return tsconfigCache.get(dir)!;
+  let curr = dir, found: string | null = null;
+  while (true) {
+    const ts = join(curr, "tsconfig.json"), js = join(curr, "jsconfig.json");
+    if (existsSync(ts)) { found = ts; break; }
+    if (existsSync(js)) { found = js; break; }
+    if (curr === root || dirname(curr) === curr) break;
+    curr = dirname(curr);
+  }
+  if (!found) { tsconfigCache.set(dir, null); return null; }
+  const loaded = loadTsconfigRecursive(found, 0, notices);
+  tsconfigCache.set(dir, loaded);
+  return loaded;
+}
+
+function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsconfig_unresolved_extends: string[] }): TsconfigInfo {
+  const configDir = dirname(configPath);
+  let raw = "";
+  try {
+    raw = readFileSync(configPath, "utf8");
+    if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
+  } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
+  let parsed: any;
+  try { parsed = parseJsonc(raw); } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
+  if (!parsed || typeof parsed !== "object") return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath };
+
+  let mergedPaths: Record<string, string[]> = {}, mergedBaseUrl = configDir;
+  if (parsed.extends && typeof parsed.extends === "string") {
+    const extVal = parsed.extends.trim();
+    if (extVal.startsWith("./") || extVal.startsWith("../")) {
+      if (depth < 3) {
+        let extPath = resolve(configDir, extVal);
+        if (!extPath.endsWith(".json")) extPath += ".json";
+        if (existsSync(extPath)) {
+          const parent = loadTsconfigRecursive(extPath, depth + 1, notices);
+          if (parent.broken) return parent;
+          mergedPaths = { ...parent.paths };
+          mergedBaseUrl = parent.baseUrl;
+        }
+      }
+    } else {
+      notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);
+    }
+  }
+  const compOpts = parsed.compilerOptions;
+  if (compOpts && typeof compOpts === "object") {
+    if (typeof compOpts.baseUrl === "string") mergedBaseUrl = resolve(configDir, compOpts.baseUrl);
+    if (compOpts.paths && typeof compOpts.paths === "object") {
+      for (const [k, v] of Object.entries(compOpts.paths)) {
+        if (Array.isArray(v)) mergedPaths[k] = v.filter((x): x is string => typeof x === "string");
+      }
+    }
+  }
+  return { dir: configDir, baseUrl: mergedBaseUrl, paths: mergedPaths, broken: false };
+}
+
 function checkRelativeImports(
   rule: RelativeImportRule,
   root: string,
@@ -1550,56 +1683,95 @@ function checkRelativeImports(
   rel: string,
   prep: PreprocessedFile,
   out: Violation[],
-  state: GateState
+  state: GateState,
+  config: GateConfigResult,
+  notices: { tsconfig_unresolved_extends: string[]; alias_unverified: string[] }
 ) {
   const ext = extname(abs);
-  if (!RELATIVE_IMPORT_EXTS.has(ext)) {
-    return;
-  }
-
-  const importRe = /(?:from|import|require)\s*(?:\(\s*|\s+)['"](\.{1,2}\/[^'"]+|@[^'"]+)['"]/;
+  if (!RELATIVE_IMPORT_EXTS.has(ext)) return;
+  const importRe = /(?:from|import|require)\s*(?:\(\s*|\s+)['"]([^'"]+)['"]/;
 
   prep.codeLines.forEach((text, i) => {
     const m = importRe.exec(text);
     if (!m) return;
-    const specifier = m[1];
+    const rawSpecifier = m[1];
+    const specifier = rawSpecifier.replace(/\?[a-zA-Z0-9_-]+$/, "");
+    if (specifier === "$types" || specifier.endsWith("/$types") || specifier.startsWith("./$types") || specifier.startsWith("../$types")) return;
+    if (specifier.startsWith("$app/") || specifier.startsWith("$env/") || specifier.startsWith("$service-worker") ||
+        specifier.startsWith("virtual:") || specifier.startsWith("#imports") || specifier.startsWith("#app") || specifier.startsWith("astro:")) return;
+    if (config.importVirtuals.some((v) => specifier.startsWith(v.prefix))) return;
 
-    let targetBase: string;
+    const targetBases: string[] = [];
+    let isHandled = false;
     if (specifier.startsWith("./") || specifier.startsWith("../")) {
-      targetBase = resolve(dirname(abs), specifier);
-    } else if (specifier.startsWith("@/")) {
-      targetBase = resolve(root, "src", specifier.slice(2));
-    } else {
-      // Scoped npm package (e.g. @prisma/client), not a local alias
-      return;
+      targetBases.push(resolve(dirname(abs), specifier));
+      isHandled = true;
+    } else if (specifier.startsWith("$lib/")) {
+      targetBases.push(resolve(root, "src/lib", specifier.slice(5)));
+      isHandled = true;
     }
-
+    if (!isHandled) {
+      for (const al of config.importAliases) {
+        if (specifier.startsWith(al.prefix)) {
+          targetBases.push(resolve(root, al.target, specifier.slice(al.prefix.length)));
+          isHandled = true;
+          break;
+        }
+      }
+    }
+    let tsconfigHasAtAlias = false;
+    if (!isHandled) {
+      const tsInfo = loadTsconfigForDir(dirname(abs), root, notices);
+      if (tsInfo) {
+        if (tsInfo.broken) {
+          if (specifier.startsWith("@") || specifier.startsWith("~")) {
+            notices.alias_unverified.push(`${rel}:${i + 1} (${specifier} in broken tsconfig ${tsInfo.brokenPath})`);
+            return;
+          }
+        } else {
+          if (tsInfo.paths["@/*"] || tsInfo.paths["@/"]) tsconfigHasAtAlias = true;
+          for (const [pattern, targets] of Object.entries(tsInfo.paths)) {
+            if (pattern.includes("*")) {
+              const pfx = pattern.slice(0, pattern.indexOf("*")), sfx = pattern.slice(pattern.indexOf("*") + 1);
+              if (specifier.startsWith(pfx) && specifier.endsWith(sfx)) {
+                const wildcard = specifier.slice(pfx.length, specifier.length - sfx.length);
+                for (const t of targets) targetBases.push(resolve(tsInfo.baseUrl, t.replace("*", wildcard)));
+                isHandled = true;
+                break;
+              }
+            } else if (specifier === pattern) {
+              for (const t of targets) targetBases.push(resolve(tsInfo.baseUrl, t));
+              isHandled = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (!isHandled && specifier.startsWith("@/") && !tsconfigHasAtAlias) {
+      targetBases.push(resolve(root, "src", specifier.slice(2)), resolve(root, specifier.slice(2)));
+      isHandled = true;
+    }
+    if (!isHandled || targetBases.length === 0) return;
     if (checkSuppression(prep, i, rule.id, state)) return;
 
-    const candidates = RESOLVE_EXT.flatMap((e) => [
-      targetBase + e,
-      targetBase.replace(/\.js$/, "") + e
-    ]);
-
-    // Also check root/specifier fallback for @/ if root/src/ does not exist
-    if (specifier.startsWith("@/")) {
-      const altBase = resolve(root, specifier.slice(2));
-      RESOLVE_EXT.forEach((e) => {
-        candidates.push(altBase + e);
-        candidates.push(altBase.replace(/\.js$/, "") + e);
-      });
+    const candidates: string[] = [];
+    for (const tBase of targetBases) {
+      for (const e of RESOLVE_EXT) candidates.push(tBase + e);
+      if (tBase.endsWith(".js")) {
+        const baseNoExt = tBase.slice(0, -3);
+        candidates.push(baseNoExt + ".ts", baseNoExt + ".tsx", baseNoExt + ".mts", baseNoExt + ".cts", baseNoExt + ".d.ts");
+      } else if (tBase.endsWith(".mjs")) {
+        candidates.push(tBase.slice(0, -4) + ".mts");
+      } else if (tBase.endsWith(".cjs")) {
+        candidates.push(tBase.slice(0, -4) + ".cts");
+      } else if (tBase.endsWith(".jsx")) {
+        candidates.push(tBase.slice(0, -4) + ".tsx");
+      }
     }
-
-    const exists = candidates.some((c) => existsSync(c) && statSync(c).isFile());
+    const exists = candidates.some((c) => existsCaseSensitive(c, root));
     if (!exists) {
-      out.push({
-        ruleId: rule.id,
-        severity: rule.severity,
-        file: rel,
-        line: i + 1,
-        message: `${rule.description} (${specifier})`,
-        fix: rule.fix
-      });
+      out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: `${rule.description} (${rawSpecifier})`, fix: rule.fix });
     }
   });
 }
@@ -1736,14 +1908,14 @@ function checkNestedLoopCall(
 function loadConfig(
   root: string,
   explicitPath?: string
-): { excludedPaths: string[]; allowEntries: GateConfigAllowEntry[]; configFound: boolean } {
+): GateConfigResult {
   let targetPath = explicitPath ? resolve(root, explicitPath) : join(root, ".astesia/gate-config.json");
   if (!existsSync(targetPath)) {
     if (explicitPath) {
       console.error(`[TOOL_FAILED: config file not found: ${targetPath}]`);
       process.exit(2);
     }
-    return { excludedPaths: [], allowEntries: [], configFound: false };
+    return { excludedPaths: [], allowEntries: [], importAliases: [], importVirtuals: [], importsDeclared: 0, configFound: false };
   }
 
   let raw = readFileSync(targetPath, "utf8");
@@ -1842,7 +2014,56 @@ function loadConfig(
     }
   }
 
-  return { excludedPaths, allowEntries, configFound: true };
+  const importAliases: GateConfigImportAlias[] = [], importVirtuals: GateConfigImportVirtual[] = [];
+  if (parsed.imports !== undefined) {
+    if (!parsed.imports || typeof parsed.imports !== "object" || Array.isArray(parsed.imports)) {
+      console.error(`[TOOL_FAILED: 'imports' in config must be an object]`);
+      process.exit(2);
+    }
+    const checkPfx = (pfx: unknown, k: string) => {
+      if (typeof pfx !== "string" || pfx.length < 3 || pfx.startsWith("./") || pfx.startsWith("../") || pfx.startsWith("/") || pfx.startsWith("..") || pfx === ".") {
+        console.error(`[TOOL_FAILED: invalid import ${k} prefix: '${pfx}']`);
+        process.exit(2);
+      }
+    };
+    const checkRsn = (rsn: unknown, k: string) => {
+      if (typeof rsn !== "string" || rsn.trim().length < 15) {
+        console.error(`[TOOL_FAILED: import ${k} reason must be >= 15 characters: '${rsn}']`);
+        process.exit(2);
+      }
+    };
+    if (parsed.imports.alias !== undefined) {
+      if (!Array.isArray(parsed.imports.alias)) { console.error(`[TOOL_FAILED: 'imports.alias' in config must be an array]`); process.exit(2); }
+      for (const item of parsed.imports.alias) {
+        if (!item || typeof item !== "object") { console.error(`[TOOL_FAILED: invalid import alias entry in config]`); process.exit(2); }
+        checkPfx(item.prefix, "alias");
+        checkRsn(item.reason, "alias");
+        if (typeof item.target !== "string" || !item.target || item.target.includes("..") || item.target.startsWith("/") || /^[a-zA-Z]:/.test(item.target)) {
+          console.error(`[TOOL_FAILED: invalid import alias target: '${item?.target}']`);
+          process.exit(2);
+        }
+        importAliases.push({ prefix: item.prefix, target: item.target.replace(/\\/g, "/"), reason: item.reason });
+      }
+    }
+    if (parsed.imports.virtual !== undefined) {
+      if (!Array.isArray(parsed.imports.virtual)) { console.error(`[TOOL_FAILED: 'imports.virtual' in config must be an array]`); process.exit(2); }
+      for (const item of parsed.imports.virtual) {
+        if (!item || typeof item !== "object") { console.error(`[TOOL_FAILED: invalid import virtual entry in config]`); process.exit(2); }
+        checkPfx(item.prefix, "virtual");
+        checkRsn(item.reason, "virtual");
+        importVirtuals.push({ prefix: item.prefix, reason: item.reason });
+      }
+    }
+  }
+
+  return {
+    excludedPaths,
+    allowEntries,
+    importAliases,
+    importVirtuals,
+    importsDeclared: importAliases.length + importVirtuals.length,
+    configFound: true
+  };
 }
 
 function handleRulesDiff(basePath: string, headPath: string): number {
@@ -2068,6 +2289,7 @@ interface BaselineData {
     desync_files: number;
     allowlisted?: number;
     generated_skipped?: number;
+    imports_declared?: number;
   };
   generated_files?: string[];
   coverage: {
@@ -2222,7 +2444,7 @@ export function classifyEnvFiles(
 function evaluateBaseline(
   baseline: BaselineData,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number; imports_declared?: number },
   filesScannedTotal: number,
   generatedFiles: string[] = []
 ) {
@@ -2279,6 +2501,9 @@ function evaluateBaseline(
   if ((counters.generated_skipped ?? 0) > (baseline.counters?.generated_skipped ?? 0)) {
     counterRegressions.push(`generated_skipped increased (${counters.generated_skipped ?? 0} > ${baseline.counters?.generated_skipped ?? 0})`);
   }
+  if ((counters.imports_declared ?? 0) > (baseline.counters?.imports_declared ?? 0)) {
+    counterRegressions.push(`imports_declared increased (${counters.imports_declared ?? 0} > ${baseline.counters?.imports_declared ?? 0})`);
+  }
 
   const baselineGeneratedSet = new Set(baseline.generated_files ?? []);
   const unbaselinedGenerated = generatedFiles.filter((f) => !baselineGeneratedSet.has(f));
@@ -2317,7 +2542,7 @@ function evaluateBaseline(
 function updateBaseline(
   targetPath: string,
   violations: Violation[],
-  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number },
+  counters: { debt_markers: number; suppressions: number; files_excluded: number; desync_files: number; allowlisted?: number; generated_skipped?: number; imports_declared?: number },
   filesScannedTotal: number,
   allowRaise: boolean,
   reason: string,
@@ -2396,6 +2621,10 @@ function updateBaseline(
       hasMetricIncrease = true;
       diffDetails.counters.generated_skipped = { from: oldBaseline.counters?.generated_skipped ?? 0, to: counters.generated_skipped ?? 0 };
     }
+    if ((counters.imports_declared ?? 0) > (oldBaseline.counters?.imports_declared ?? 0)) {
+      hasMetricIncrease = true;
+      (diffDetails.counters as any).imports_declared = { from: oldBaseline.counters?.imports_declared ?? 0, to: counters.imports_declared ?? 0 };
+    }
     const oldGenSet = new Set(oldBaseline.generated_files ?? []);
     const addedGenFiles = sortedGenFiles.filter((f) => !oldGenSet.has(f));
     if (addedGenFiles.length > 0) {
@@ -2444,7 +2673,8 @@ function updateBaseline(
       files_excluded: counters.files_excluded,
       desync_files: counters.desync_files,
       allowlisted: counters.allowlisted ?? 0,
-      generated_skipped: counters.generated_skipped ?? 0
+      generated_skipped: counters.generated_skipped ?? 0,
+      imports_declared: counters.imports_declared ?? 0
     },
     generated_files: sortedGenFiles,
     coverage: {
@@ -2557,6 +2787,12 @@ function main() {
   const rules = parsedRegistry.rules;
   const violations: Violation[] = [];
   const desyncFiles: string[] = [];
+  const gateNotices = {
+    tokenizer_desyncs: desyncFiles,
+    generated_header_candidates: [] as Array<{ file: string; marker: string; line: number }>,
+    tsconfig_unresolved_extends: [] as string[],
+    alias_unverified: [] as string[]
+  };
   const gateState: GateState = {
     suppressions: 0,
     rejectedSuppressions: 0,
@@ -2567,7 +2803,8 @@ function main() {
     rule010: rules.find((r) => r.id === "ASTESIA-010")
   };
 
-  const { excludedPaths, allowEntries } = loadConfig(root, opts.get("config"));
+  const gateConfig = loadConfig(root, opts.get("config"));
+  const { excludedPaths, allowEntries } = gateConfig;
   const excludedFilesState = { count: 0 };
   const allFiles = walk(root, root, excludedPaths, excludedFilesState);
 
@@ -2592,7 +2829,7 @@ function main() {
 
   const rule004 = rules.find((r) => r.id === "ASTESIA-004");
   const generatedFiles: string[] = [];
-  const generatedHeaderCandidates: Array<{ file: string; marker: string; line: number }> = [];
+  const generatedHeaderCandidates = gateNotices.generated_header_candidates;
   const files: Array<{ abs: string; rel: string; rawContent: string }> = [];
 
   for (const abs of candidateFiles) {
@@ -2663,7 +2900,7 @@ function main() {
       if (rule.kind === "line-regex") {
         checkLineRegex(rule, rel, prep, violations, gateState, allowEntries);
       } else if (rule.kind === "relative-import-exists") {
-        checkRelativeImports(rule, root, abs, rel, prep, violations, gateState);
+        checkRelativeImports(rule, root, abs, rel, prep, violations, gateState, gateConfig, gateNotices);
       } else if (rule.kind === "nested-loop-call") {
         checkNestedLoopCall(rule, rel, prep, violations, gateState);
       }
@@ -2677,7 +2914,8 @@ function main() {
     files_excluded: excludedFilesState.count,
     desync_files: desyncFiles.length,
     allowlisted: gateState.allowlistedCount,
-    generated_skipped: sortedGeneratedFiles.length
+    generated_skipped: sortedGeneratedFiles.length,
+    imports_declared: gateConfig.importsDeclared
   };
 
   const staleAllowEntries: GateConfigAllowEntry[] = [];
@@ -2745,7 +2983,9 @@ function main() {
       desync_files: desyncFiles,
       notices: {
         tokenizer_desyncs: desyncFiles,
-        generated_header_candidates: generatedHeaderCandidates
+        generated_header_candidates: gateNotices.generated_header_candidates,
+        tsconfig_unresolved_extends: gateNotices.tsconfig_unresolved_extends,
+        alias_unverified: gateNotices.alias_unverified
       },
       violations
     };
@@ -2763,8 +3003,14 @@ function main() {
     for (const v of violations) {
       process.stdout.write(`[${v.severity.toUpperCase()}] ${v.ruleId} ${v.file}:${v.line}\n  ${v.message}\n  fix: ${v.fix}\n`);
     }
-    for (const cand of generatedHeaderCandidates) {
+    for (const cand of gateNotices.generated_header_candidates) {
       process.stdout.write(`astesia-gate: notice: header marker '${cand.marker}' in ${cand.file}:${cand.line} (generated_header_candidates); suggest adding to config 'exclude' if generated.\n`);
+    }
+    for (const item of gateNotices.tsconfig_unresolved_extends) {
+      process.stdout.write(`astesia-gate: notice: package extends in ${item} (tsconfig_unresolved_extends).\n`);
+    }
+    for (const item of gateNotices.alias_unverified) {
+      process.stdout.write(`astesia-gate: notice: unverified alias in ${item} (alias_unverified).\n`);
     }
     for (const stale of staleAllowEntries) {
       process.stdout.write(`astesia-gate: notice: stale allowlist entry for ${stale.rule} at ${stale.path} ('${stale.match}').\n`);
