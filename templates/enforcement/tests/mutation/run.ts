@@ -183,7 +183,7 @@ export function runMutationHarness(): {
           "M06"
         ),
       testCmd: (mgPath, td) => {
-        const r = spawnSync("bun", [join(__dirname, "../env-git-suite.ts")], {
+        const r = spawnSync("bun", [join(__dirname, "../env-git-suite.ts"), mgPath], {
           encoding: "utf8",
           env: { ...process.env, GATE_PATH: mgPath }
         });
@@ -826,6 +826,342 @@ export function runMutationHarness(): {
         `);
         const r = spawnSync("bun", [testScript], { encoding: "utf8" });
         return { passed: r.status === 0 };
+      }
+    },
+    // M35: / after identifier treated as regex (division a / b / c broken)
+    {
+      id: "M35",
+      name: "regex_after_ident_treated_as_regex",
+      description: "Treat slash after any identifier as opening a regex literal",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "return REGEX_PRECEDING_KEYWORDS.has(word);",
+          "return true;",
+          "M35"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m35.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource('const x = a / b / c; const s = "hello";', "div.ts");
+          process.exit(!prep.desync && prep.codeNoStringsLines[0].includes("b") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M36: / after return treated as division (regex /`/ triggers desync)
+    {
+      id: "M36",
+      name: "regex_after_return_treated_as_division",
+      description: "Remove 'return' from REGEX_PRECEDING_KEYWORDS so return /`/ desyncs",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '"return", "typeof", "case", "void", "delete", "in", "of",',
+          '"typeof", "case", "void", "delete", "in", "of",',
+          "M36"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m36.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource("function f() { return /\`/g; }\\n", "ret.ts");
+          process.exit(!prep.desync ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M37: [/] inside regex closes regex too early
+    {
+      id: "M37",
+      name: "regex_char_class_slash_terminates_early",
+      description: "Disable character class tracking in tryScanRegexLiteral so [/] closes regex early",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (c === "[") {\n      inClass = true;',
+          'if (c === "[") {\n      inClass = false;',
+          "M37"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m37.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource("const r = /[/]\`/g;\\n", "cls.ts");
+          process.exit(!prep.desync ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M38: Regex handling disabled inside <script> of .svelte/.vue
+    {
+      id: "M38",
+      name: "regex_disabled_inside_svelte_script",
+      description: "Disable regex literal scanning inside <script> blocks of .svelte/.vue files",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const regexEnabled = isRegexLang || (isMarkupFile && inScriptTag);",
+          "const regexEnabled = isRegexLang;",
+          "M38"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m38.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource('<script lang="ts">\\nconst r = /\`/g;\\n</script>\\n', "Comp.svelte");
+          process.exit(!prep.desync ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M39: Regex handling enabled in .py or .go
+    {
+      id: "M39",
+      name: "regex_enabled_in_python_or_go",
+      description: "Enable JS regex literal scanner in .py and .go files",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'const REGEX_LANG_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);',
+          'const REGEX_LANG_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"]);',
+          "M39"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m39.ts");
+        writeFileSync(testScript, `
+          import { preprocessSource } from "${mgPath.replace(/\\/g, "/")}";
+          const prep = preprocessSource('def f(): return / "py_str" /', "script.py");
+          process.exit(prep.codeNoStringsLines[0].includes('"') ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M40: Generated line length threshold lowered to 100
+    {
+      id: "M40",
+      name: "generated_threshold_lowered_to_100",
+      description: "Lower generated line length threshold from 5000 to 100 so normal files are skipped",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (rawLines[i].length >= 5000) {",
+          "if (rawLines[i].length >= 100) {",
+          "M40"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m40.ts");
+        writeFileSync(testScript, `
+          import { isGeneratedFile } from "${mgPath.replace(/\\/g, "/")}";
+          const normalLine = "// " + "a".repeat(200);
+          process.exit(!isGeneratedFile([normalLine], "src/app.ts") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M41: @generated header marker checked across entire file instead of first 10 lines
+    {
+      id: "M41",
+      name: "generated_header_checked_after_line_10",
+      description: "Check @generated header marker across all lines instead of first 10 lines",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const headerLimit = Math.min(10, rawLines.length);",
+          "const headerLimit = rawLines.length;",
+          "M41"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m41.ts");
+        writeFileSync(testScript, `
+          import { isGeneratedFile } from "${mgPath.replace(/\\/g, "/")}";
+          const lines = [...Array(10).fill("// normal line"), "// @generated on line 11"];
+          process.exit(!isGeneratedFile(lines, "src/app.ts") ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M42: Strong-prefix secret scan on generated files disabled
+    {
+      id: "M42",
+      name: "generated_secret_scan_disabled",
+      description: "Disable STRONG_SECRET_RE scan on generated/minified files",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (STRONG_SECRET_RE.test(rawLines[l])) {",
+          "if (false && STRONG_SECRET_RE.test(rawLines[l])) {",
+          "M42"
+        ),
+      testCmd: (mgPath, td) => {
+        const dir = join(td, "m42-gen");
+        mkdirSync(dir, { recursive: true });
+        const rules = { rules: [{ id: "ASTESIA-004", name: "sec", severity: "error", kind: "line-regex", pattern: "sec", description: "d", fix: "f" }] };
+        writeFileSync(join(dir, "rules.json"), JSON.stringify(rules));
+        writeFileSync(join(dir, "app.min.js"), 'const k = "sk_live_1234567890abcdef";\n');
+        const r = spawnSync("bun", [mgPath, "--root", dir, "--rules", join(dir, "rules.json"), "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M43: Increase in generated_skipped does not fail --baseline
+    {
+      id: "M43",
+      name: "generated_skipped_ratchet_ignored",
+      description: "Ignore increase in generated_skipped counter during --baseline check",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if ((counters.generated_skipped ?? 0) > (baseline.counters?.generated_skipped ?? 0)) {\n    counterRegressions.push(`generated_skipped increased (${counters.generated_skipped ?? 0} > ${baseline.counters?.generated_skipped ?? 0})`);\n  }',
+          "if (false) {}",
+          "M43"
+        ),
+      testCmd: (mgPath, td) => {
+        const dir = join(td, "m43-base");
+        mkdirSync(dir, { recursive: true });
+        const rules = { rules: [{ id: "ASTESIA-005", name: "any", severity: "error", kind: "line-regex", pattern: ": any", description: "d", fix: "f" }] };
+        writeFileSync(join(dir, "rules.json"), JSON.stringify(rules));
+        writeFileSync(
+          join(dir, "base.json"),
+          JSON.stringify({
+            schema: 1,
+            violations: {},
+            counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 0 },
+            coverage: { files_scanned: 1, min_ratio: 0.9 },
+            history: []
+          })
+        );
+        writeFileSync(join(dir, "index.ts"), "export const a = 1;\n");
+        writeFileSync(join(dir, "bundle.min.js"), "const b = 2;\n");
+        const r = spawnSync("bun", [mgPath, "--root", dir, "--rules", join(dir, "rules.json"), "--baseline", join(dir, "base.json")], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M44: URL exemption ignores user:pass@ in userinfo
+    {
+      id: "M44",
+      name: "url_exempt_ignores_userinfo_password",
+      description: "Exempt URL even when userinfo contains a hardcoded password",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (!URL_VAR_REF_RE.test(pass)) {\n        return "trigger";\n      }',
+          'if (false) {\n        return "trigger";\n      }',
+          "M44"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m44.ts");
+        writeFileSync(testScript, `
+          import { analyzeUrlFor004 } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(analyzeUrlFor004("postgres://admin:hunter2@db/app", "u", "DATABASE_URL", true) === "trigger" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M45: URL exemption ignores sensitive query parameter token= / api_key=
+    {
+      id: "M45",
+      name: "url_exempt_ignores_sensitive_query_param",
+      description: "Exempt URL even when query parameters contain token= or api_key=",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'for (const [k] of parsedUrl.searchParams.entries()) {\n    if (SENSITIVE_URL_PARAM_RE.test(k)) {\n      return "trigger";\n    }\n  }',
+          'for (const [k] of parsedUrl.searchParams.entries()) {\n    if (false) {\n      return "trigger";\n    }\n  }',
+          "M45"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m45.ts");
+        writeFileSync(testScript, `
+          import { analyzeUrlFor004 } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(analyzeUrlFor004("https://api.example.com?api_key=abcd1234", "u", "API_URL", true) === "trigger" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M46: URL exemption applies even when key/env name is sensitive (JWT_SECRET)
+    {
+      id: "M46",
+      name: "url_exempt_ignores_sensitive_key_name",
+      description: "Exempt URL even when assigned to a sensitive key or sensitive env var like JWT_SECRET",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (lhsSensitive || envSensitive) {\n    return "trigger";\n  }',
+          'if (false) {\n    return "trigger";\n  }',
+          "M46"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m46.ts");
+        writeFileSync(testScript, `
+          import { analyzeUrlFor004 } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(analyzeUrlFor004("https://x.example.com", "s", "JWT_SECRET", true) === "trigger" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M47: URL parse failure still treated as exempt
+    {
+      id: "M47",
+      name: "url_parse_failure_treated_as_exempt",
+      description: "Return exempt instead of trigger when URL parsing fails",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          '  try {\n    parsedUrl = new URL("http://" + hostPort + pathQueryHash);\n  } catch {\n    return "trigger";\n  }',
+          '  try {\n    parsedUrl = new URL("http://" + hostPort + pathQueryHash);\n  } catch {\n    return "exempt";\n  }',
+          "M47"
+        ),
+      testCmd: (mgPath, td) => {
+        const testScript = join(td, "test_m47.ts");
+        writeFileSync(testScript, `
+          import { analyzeUrlFor004 } from "${mgPath.replace(/\\/g, "/")}";
+          process.exit(analyzeUrlFor004("http://[::1", "u", "API_URL", true) === "trigger" ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [testScript], { encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
+    },
+    // M48: Bare --baseline without argument falls back to default path (exit 0 instead of exit 2)
+    {
+      id: "M48",
+      name: "bare_baseline_flag_uses_default_path",
+      description: "Allow bare --baseline without path to fall back to .astesia/gate-baseline.json instead of exiting 2",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          'if (opts.has("baseline") && (!opts.get("baseline") || opts.get("baseline")!.trim() === "")) {\n    console.error("[TOOL_FAILED: missing path for --baseline (use --baseline <path>)]");\n    process.exit(2);\n  }',
+          'if (opts.has("baseline") && (!opts.get("baseline") || opts.get("baseline")!.trim() === "")) {\n    opts.set("baseline", ".astesia/gate-baseline.json");\n  }',
+          "M48"
+        ),
+      testCmd: (mgPath, td) => {
+        const dir = join(td, "m48-bare");
+        mkdirSync(join(dir, ".astesia"), { recursive: true });
+        const rules = { rules: [{ id: "ASTESIA-005", name: "any", severity: "error", kind: "line-regex", pattern: ": any", description: "d", fix: "f" }] };
+        writeFileSync(join(dir, "rules.json"), JSON.stringify(rules));
+        writeFileSync(
+          join(dir, ".astesia/gate-baseline.json"),
+          JSON.stringify({
+            schema: 1,
+            violations: {},
+            counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 0 },
+            coverage: { files_scanned: 1, min_ratio: 0.9 },
+            history: []
+          })
+        );
+        writeFileSync(join(dir, "index.ts"), "export const a = 1;\n");
+        const r = spawnSync("bun", [mgPath, "--root", dir, "--rules", join(dir, "rules.json"), "--baseline"], { encoding: "utf8" });
+        return { passed: r.status === 2 };
       }
     }
   ];

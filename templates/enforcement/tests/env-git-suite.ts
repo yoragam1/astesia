@@ -155,6 +155,7 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
     writeFileSync(join(caseDir, ".astesia/rules.json"), JSON.stringify(rules, null, 2), "utf8");
     writeFileSync(join(caseDir, ".env"), 'SECRET_KEY="sk_live_1234567890abcdef"\n', "utf8");
 
+    const hasPath = Boolean(process.env.PATH && process.env.PATH.length > 0);
     const pathWithoutGit = (process.env.PATH || "")
       .split(delimiter)
       .filter((p) => !p.toLowerCase().includes("git"))
@@ -162,7 +163,7 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
 
     const r = spawnSync(process.execPath, [gatePath, "--root", caseDir, "--rules", join(caseDir, ".astesia/rules.json"), "--json"], {
       encoding: "utf8",
-      env: { ...process.env, PATH: pathWithoutGit }
+      ...(hasPath ? { env: { ...process.env, PATH: pathWithoutGit } } : {})
     });
     let parsed: Record<string, unknown> = {};
     try { parsed = JSON.parse(r.stdout); } catch {}
@@ -212,7 +213,7 @@ export function runEnvGitSuite(gatePath: string, testTmpDir: string): {
 }
 
 if (import.meta.main) {
-  const gate = process.env.GATE_PATH || join(__dirname, "../astesia-gate.ts");
+  const gate = process.argv[2] || process.env.GATE_PATH || join(__dirname, "../astesia-gate.ts");
   const tmp = join(__dirname, "../../../.astesia/audit/tmp");
   const out = runEnvGitSuite(gate, tmp);
   console.log(`Env Git Suite: ${out.passed}/${out.total} passed`);
