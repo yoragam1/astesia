@@ -1,0 +1,130 @@
+{
+  "date": "2026-11-19T10:35:45.607Z",
+  "results": [
+    {
+      "projectName": "flora-smk",
+      "passed": true,
+      "steps": [
+        {
+          "step": "1. init_baseline",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "2. check_baseline_clean",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "3. add_violation_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "4. revert_violation_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "5. add_unbaselined_generated_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": "astesia-gate: baseline regression: generated_skipped increased (1 > 0)\nastesia-gate: baseline regression: generated_files contains unbaselined file(s): new_bundle.min.js\n"
+        },
+        {
+          "step": "6. revert_generated_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "7. add_imports_declared_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": "astesia-gate: baseline regression: imports_declared increased (2 > 1)\n"
+        },
+        {
+          "step": "8. revert_imports_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "projectName": "eduNEXA",
+      "passed": true,
+      "steps": [
+        {
+          "step": "1. init_baseline",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "2. check_baseline_clean",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "3. add_violation_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "4. revert_violation_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "5. add_unbaselined_generated_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": "astesia-gate: baseline regression: generated_skipped increased (1 > 0)\nastesia-gate: baseline regression: generated_files contains unbaselined file(s): new_bundle.min.js\n"
+        },
+        {
+          "step": "6. revert_generated_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        },
+        {
+          "step": "7. add_imports_declared_triggers_exit_1",
+          "expectedExit": 1,
+          "actualExit": 1,
+          "passed": true,
+          "stderr": "astesia-gate: baseline regression: imports_declared increased (2 > 1)\n"
+        },
+        {
+          "step": "8. revert_imports_returns_exit_0",
+          "expectedExit": 0,
+          "actualExit": 0,
+          "passed": true,
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "allPassed": true
+}

@@ -471,6 +471,34 @@ Sesuai prinsip transparansi dan pelacakan registri resmi yang disinkronkan dua a
    - **T10:** Penambahan `dev-dist` dan `.vercel/output` beserta alasan $\ge 15$ karakter pada `templates/enforcement/gate-config.template.json`.
    - **Metrik Uji Terkonsolidasi (`all.ts`):** **939 kasus uji unik** (`932 passed + 0 failed + 7 known_gaps`), invarian akuntansi $939 = 932 + 0 + 7$ terpenuhi di seluruh 22 suite (`0` orphan suites), dan **48/48 mutan terbunuh** pada clone bersih terisolasi di `%TEMP%`.
 
+### 7.9 Gelombang 2A.6 (`wave2a.6/fixes`)
+1. **Kebijakan Berkas Generated v2 & Baseline Path Ratchet (Task G):**
+   - Pengetatan kriteria berkas *generated* (`isGeneratedFileV2`): penanda `@generated` / `DO NOT EDIT` pada 10 baris pertama hanya berlaku jika berkas memiliki panjang baris $\ge 500$ karakter atau berakhiran ekstensi minified (`.min.js`, `.min.css`), mencegah bypass berkas kode sumber biasa.
+   - Format baseline v2 menambahkan field `generated_files: string[]` yang mencatat daftar berkas generated secara leksikografis terurut. Penambahan berkas generated baru yang tidak terdaftar di baseline ditolak dengan `exit 1` (*fail-closed*).
+2. **Resolusi Impor Case-Sensitive & Dukungan Tsconfig/Config Imports (Task R):**
+   - Validasi eksistensi fisik segmen path secara case-sensitive (`resolveCaseSensitivePath`) menggunakan `readdirSync`, mencegah import dengan salah kapitalisasi yang lolos di Windows namun gagal di Linux.
+   - Dukungan resolusi alias monorepo via `loadTsconfigRecursive` (mendukung `compilerOptions.paths` dan rantai `extends`) serta integrasi `config.imports.alias` dari `.astesia/gate-config.json` dengan prioritas di atas pemetaan bawaan.
+3. **Penurunan False Positive pada Proyek Nyata (Task F):**
+   - **`ASTESIA-004`:** URL publik dengan skema aman (`http`, `https`, dll.) yang diparsing tanpa kredensial rahasia dan parameter query sensitif dikecualikan secara deterministik.
+   - **`ASTESIA-008`:** Pembatasan frasa *workaround* agar kalimat wajar dalam komentar tidak ditandai sebagai pelanggaran arsitektur kecuali berdiri sebagai instruksi penundaan utuh.
+   - Mengeliminasi 101 false positive di proyek nyata `eunectes` dan 6 di `ifrit` dengan mempertahankan 100% true positive rahasia.
+4. **Isolasi Lingkungan Pengujian, Portabilitas Linux & CI Pinning (Task L):**
+   - Standardisasi eksekusi pengujian menggunakan runner mandiri dengan environment terisolasi (`HOME`, `GIT_CONFIG_GLOBAL=/dev/null`, `LC_ALL=C`).
+   - Pinning versi Bun `1.3.9` pada GitHub Actions workflow `astesia-gate.workflow.yml`.
+   - Dokumentasi lengkap protokol verifikasi independen di Linux pada `docs/LINUX-VERIFICATION.md`.
+5. **Interval Kepercayaan Wilson 95% & Review Pack Otomatis (Task S):**
+   - Implementasi perhitungan batas atas Wilson 95% binomial satu sisi ($z = 1.96$) dengan pelaporan rasio cakupan (*coverage ratio*).
+   - Pembuatan review pack otomatis `review-pack.md` dengan penyuntingan redaksi rahasia $\ge 6$ karakter menjadi `<redacted>`.
+6. **Perluasan Uji Mutasi ke 65 Mutan (Task M):**
+   - Menambahkan 17 mutan baru (`M49..M65`) yang menguji seluruh perilaku baru: generated policy v2, case-sensitivity, tsconfig recursive extends, baseline path ratchet, dan keamanan URL.
+   - **100% Kill Rate:** 65/65 mutan berhasil dibunuh, 0 bertahan.
+7. **Metrik Uji Terkonsolidasi (`all.ts`):**
+   - **1.068 kasus uji total:** 1.061 passed, 0 failed, 7 active known gaps terverifikasi.
+   - Invarian matematika $1.068 \equiv 1.061 + 0 + 7$ terpenuhi di seluruh 27 suite (0 orphan suites).
+   - Pengujian siklus hidup baseline adoption 8 tahap lulus 100% pada proyek `flora-smk` dan `eduNEXA`.
+   - Arsitektur single-file zero-dependency dipertahankan pada **3.082 baris** (di bawah batas maksimal 3.100 baris).
+
+
 
 
 
