@@ -7,26 +7,11 @@
     "source": "wave1.1-report"
   },
   {
-    "id": "ADV-BACKTICK-IN-REGEX-GAP",
-    "rule": "ASTESIA-005",
-    "fixture": "adv/backtick-in-regex.ts",
-    "reason": "Backtick inside regex literal (/`/) can open false template literal in tokenizer",
-    "source": "wave1.1-report"
-  },
-  {
     "id": "SEC-23-GAP",
     "rule": "ASTESIA-004",
     "fixture": "sec/sec23.ts",
     "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
     "source": "wave1.1-report"
-  },
-  {
-    "id": "D2-REG-BACKTICK-GAP",
-    "rule": "ASTESIA-005",
-    "fixture": "indep/d2_gap1.ts",
-    "reason": "Adversarial known-gap: backtick inside regex literal",
-    "source": "wave1.1-verification",
-    "duplicate_of": "ADV-BACKTICK-IN-REGEX-GAP"
   },
   {
     "id": "D2-PHP-HEREDOC",

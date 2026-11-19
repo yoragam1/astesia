@@ -185,8 +185,92 @@ function parseArgs() {
 const CONFIG_EXTS = new Set([".yml", ".yaml"]);
 const HASH_COMMENT_EXTS = new Set([".py", ".sh", ".bash"]);
 const SINGLE_LINE_QUOTE_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go"]);
+const REGEX_LANG_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
 const MARKUP_EXTS = new Set([".svelte", ".vue"]);
 const RELATIVE_IMPORT_EXTS = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".svelte", ".vue"]);
+
+const REGEX_PRECEDING_CHARS = new Set(["(", ",", "=", ":", "[", "!", "&", "|", "?", "{", ";", "+", "-", "*", "%", "~", "^"]);
+const REGEX_PRECEDING_KEYWORDS = new Set([
+  "return", "typeof", "case", "void", "delete", "in", "of",
+  "do", "else", "throw", "new", "yield", "await", "instanceof"
+]);
+
+function canOpenRegex(codeNoStringsChars: string[], slashIdx: number): boolean {
+  let p = slashIdx - 1;
+  while (p >= 0) {
+    const ch = codeNoStringsChars[p];
+    if (ch !== " " && ch !== "\t" && ch !== "\n" && ch !== "\r") break;
+    p--;
+  }
+  if (p < 0) return true;
+
+  const prev = codeNoStringsChars[p];
+  if (prev === "<" || (prev === ">" && (p === 0 || codeNoStringsChars[p - 1] !== "="))) {
+    return false;
+  }
+  if (prev === "}" || prev === ")" || prev === "]") {
+    return false;
+  }
+  if (prev === ">" && p > 0 && codeNoStringsChars[p - 1] === "=") {
+    return true;
+  }
+  if ((prev === "+" && p > 0 && codeNoStringsChars[p - 1] === "+") || (prev === "-" && p > 0 && codeNoStringsChars[p - 1] === "-")) {
+    return false;
+  }
+  if (REGEX_PRECEDING_CHARS.has(prev)) {
+    return true;
+  }
+  if (/[a-zA-Z_$]/.test(prev)) {
+    let wStart = p;
+    while (wStart > 0 && /[a-zA-Z0-9_$]/.test(codeNoStringsChars[wStart - 1])) {
+      wStart--;
+    }
+    if (wStart > 0 && (codeNoStringsChars[wStart - 1] === "." || codeNoStringsChars[wStart - 1] === "/")) {
+      return false;
+    }
+    const word = codeNoStringsChars.slice(wStart, p + 1).join("");
+    return REGEX_PRECEDING_KEYWORDS.has(word);
+  }
+  return false;
+}
+
+function tryScanRegexLiteral(text: string, startIdx: number, len: number): { closeSlashIdx: number; endIdx: number } | null {
+  let j = startIdx + 1;
+  let inClass = false;
+  while (j < len && j - startIdx <= 2000) {
+    const c = text[j];
+    if (c === "\n" || c === "\r") {
+      return null;
+    }
+    if (c === "\\") {
+      if (j + 1 >= len || text[j + 1] === "\n" || text[j + 1] === "\r") {
+        return null;
+      }
+      j += 2;
+      continue;
+    }
+    if (inClass) {
+      if (c === "]") inClass = false;
+      j++;
+      continue;
+    }
+    if (c === "[") {
+      inClass = true;
+      j++;
+      continue;
+    }
+    if (c === "/") {
+      let endIdx = j;
+      while (endIdx + 1 < len && /[a-z]/.test(text[endIdx + 1])) {
+        endIdx++;
+      }
+      if (endIdx - startIdx + 1 > 2000) return null;
+      return { closeSlashIdx: j, endIdx };
+    }
+    j++;
+  }
+  return null;
+}
 
 export function profileFor(filePath: string): "config" | "code" {
   const norm = filePath.replace(/\\/g, "/");
@@ -279,6 +363,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
 
   const isHashCommentLang = HASH_COMMENT_EXTS.has(ext);
   const isSingleLineQuoteLang = SINGLE_LINE_QUOTE_EXTS.has(ext);
+  const isRegexLang = REGEX_LANG_EXTS.has(ext);
   const isMarkupFile = MARKUP_EXTS.has(ext);
   const isPython = ext === ".py";
 
@@ -302,6 +387,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
   let blockStartIndex = 0;
   let currentLine = 1;
   let inScriptTag = false;
+  const templateBraceStack: number[] = [];
 
   for (let i = 0; i < len; i++) {
     const ch = text[i];
@@ -345,6 +431,30 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
           }
         }
       }
+      const regexEnabled = isRegexLang || (isMarkupFile && inScriptTag);
+
+      if (regexEnabled && templateBraceStack.length > 0 && ch === "{") {
+        templateBraceStack[templateBraceStack.length - 1]++;
+        codeChars[i] = "{";
+        codeNoStringsChars[i] = "{";
+        commentChars[i] = " ";
+        continue;
+      }
+      if (regexEnabled && templateBraceStack.length > 0 && ch === "}") {
+        if (templateBraceStack[templateBraceStack.length - 1] > 0) {
+          templateBraceStack[templateBraceStack.length - 1]--;
+          codeChars[i] = "}";
+          codeNoStringsChars[i] = "}";
+          commentChars[i] = " ";
+        } else {
+          templateBraceStack.pop();
+          state = S_STRING_BACKTICK;
+          codeChars[i] = "}";
+          codeNoStringsChars[i] = "}";
+          commentChars[i] = " ";
+        }
+        continue;
+      }
 
       if (isPython && ch === '"' && text.slice(i, i + 3) === '"""') {
         state = S_PY_TRIPLE_DOUBLE;
@@ -378,6 +488,24 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
         commentChars[i] = "/";
         commentChars[i + 1] = "*";
         i++;
+      } else if (regexEnabled && ch === "/" && canOpenRegex(codeNoStringsChars, i)) {
+        const rx = tryScanRegexLiteral(text, i, len);
+        if (rx !== null) {
+          for (let k = i; k <= rx.endIdx; k++) {
+            codeChars[k] = text[k];
+            commentChars[k] = " ";
+            if (k === i || k >= rx.closeSlashIdx) {
+              codeNoStringsChars[k] = text[k];
+            } else {
+              codeNoStringsChars[k] = " ";
+            }
+          }
+          i = rx.endIdx;
+        } else {
+          codeChars[i] = "/";
+          codeNoStringsChars[i] = "/";
+          commentChars[i] = " ";
+        }
       } else if (isHashCommentLang && ch === "#") {
         state = S_LINE_COMMENT;
         codeChars[i] = " ";
@@ -388,7 +516,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
         codeChars[i] = '"';
         codeNoStringsChars[i] = '"';
         commentChars[i] = " ";
-      } else if (ch === "'") {
+      } else if (ch === "'" && !(regexEnabled && i > 0 && /[A-Za-z0-9]/.test(text[i - 1]))) {
         state = S_STRING_SINGLE;
         codeChars[i] = "'";
         codeNoStringsChars[i] = "'";
@@ -516,6 +644,16 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
           codeNoStringsChars[i] = " ";
           commentChars[i] = " ";
         }
+      } else if ((isRegexLang || (isMarkupFile && inScriptTag)) && ch === "$" && next === "{") {
+        templateBraceStack.push(0);
+        codeChars[i] = "$";
+        codeChars[i + 1] = "{";
+        codeNoStringsChars[i] = "$";
+        codeNoStringsChars[i + 1] = "{";
+        commentChars[i] = " ";
+        commentChars[i + 1] = " ";
+        i++;
+        state = S_NORMAL;
       } else if (ch === "`") {
         codeChars[i] = "`";
         codeNoStringsChars[i] = "`";
@@ -558,7 +696,7 @@ export function preprocessSource(rawContent: string, filename: string): Preproce
   const codeNoStringsLines = codeNoStringsChars.join("").split("\n");
   const commentLines = commentChars.join("").split("\n");
 
-  const isDesync = state !== S_NORMAL;
+  const isDesync = state !== S_NORMAL || templateBraceStack.length > 0;
 
   return { rawLines, codeLines, codeNoStringsLines, commentLines, commentBlocks, desync: isDesync };
 }

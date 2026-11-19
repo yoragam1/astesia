@@ -76,9 +76,7 @@ export const independentCases: TestCase[] = [
     relPath: "indep/d2_gap1.ts",
     content: "const r = /`/;\nconst x: any = 1;\n",
     expectedShouldTrigger: true,
-    isKnownGap: true,
-    gapReason: "Adversarial known-gap: backtick inside regex literal",
-    description: "Adversarial known-gap: backtick inside regex literal"
+    description: "Adversarial closed-gap (gap -> pass): backtick inside regex literal"
   },
   {
     id: "D2-08-STR-CONTINUATION",

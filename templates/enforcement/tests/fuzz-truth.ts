@@ -16,8 +16,10 @@ function mulberry32(seed: number) {
 }
 
 interface Segment {
-  type: "code" | "string" | "comment";
+  type: "code" | "string" | "comment" | "regex";
   text: string;
+  rxOpenIdx?: number;
+  rxCloseIdx?: number;
 }
 
 export function runGroundTruthFuzz(
@@ -28,29 +30,69 @@ export function runGroundTruthFuzz(
   const rng = mulberry32(seed);
   const profiles = ["ts", "py", "go"] as const;
   const errors: string[] = [];
+  const enableRegexJsx = seed >= 7100;
 
   mkdirSync(counterexamplesDir, { recursive: true });
 
   for (let i = 0; i < fileCount; i++) {
     const profile = profiles[Math.floor(rng() * profiles.length)];
-    const filename = `truth_${seed}_${i}.${profile}`;
+    const ext = enableRegexJsx && profile === "ts" && i % 2 === 1 ? "tsx" : profile;
+    const filename = `truth_${seed}_${i}.${ext}`;
     const segments: Segment[] = [];
     const numSegments = 3 + Math.floor(rng() * 5);
 
     for (let s = 0; s < numSegments; s++) {
-      const segType = rng() < 0.4 ? "code" : rng() < 0.7 ? "string" : "comment";
+      const rVal = rng();
+      const segType: Segment["type"] =
+        enableRegexJsx && profile === "ts"
+          ? rVal < 0.35
+            ? "code"
+            : rVal < 0.55
+            ? "regex"
+            : rVal < 0.8
+            ? "string"
+            : "comment"
+          : rVal < 0.4
+          ? "code"
+          : rVal < 0.7
+          ? "string"
+          : "comment";
       let segText = "";
 
       if (profile === "ts") {
         if (segType === "code") {
-          const snippets = ["const val = 42;\n", "let active = true;\n", "function doTask() { return 1; }\n"];
+          const snippets = enableRegexJsx
+            ? [
+                "const val = 42;\n",
+                "let active = true;\n",
+                "function doTask() { return 1; }\n",
+                "const view = <div id={val}><span>hello</span></div>;\n",
+                "const ratio = (val + 2) / 4;\n"
+              ]
+            : ["const val = 42;\n", "let active = true;\n", "function doTask() { return 1; }\n"];
           segText = snippets[Math.floor(rng() * snippets.length)];
+          segments.push({ type: "code", text: segText });
+        } else if (segType === "regex") {
+          const rxSnippets: Array<{ text: string; rxOpenIdx: number; rxCloseIdx: number }> = [
+            { text: "const rx = /`a`b`/gi;\n", rxOpenIdx: 11, rxCloseIdx: 17 },
+            { text: "const rx2 = /[/]`/g;\n", rxOpenIdx: 12, rxCloseIdx: 17 },
+            { text: "function chk(s: string) { return /\"q\"/.test(s); }\n", rxOpenIdx: 33, rxCloseIdx: 37 }
+          ];
+          const chosen = rxSnippets[Math.floor(rng() * rxSnippets.length)];
+          segments.push({
+            type: "regex",
+            text: chosen.text,
+            rxOpenIdx: chosen.rxOpenIdx,
+            rxCloseIdx: chosen.rxCloseIdx
+          });
         } else if (segType === "string") {
           const quotes = ['"simple typescript string"\n', "'single quote ts string'\n", "`simple template literal`\n"];
           segText = quotes[Math.floor(rng() * quotes.length)];
+          segments.push({ type: "string", text: segText });
         } else {
           const comments = ["// typescript line comment\n", "/* typescript block comment */\n"];
           segText = comments[Math.floor(rng() * comments.length)];
+          segments.push({ type: "comment", text: segText });
         }
       } else if (profile === "py") {
         if (segType === "code") {
@@ -62,6 +104,7 @@ export function runGroundTruthFuzz(
         } else {
           segText = "# python line comment\n";
         }
+        segments.push({ type: segType, text: segText });
       } else {
         // Go
         if (segType === "code") {
@@ -74,9 +117,8 @@ export function runGroundTruthFuzz(
           const comments = ["// go line comment\n", "/* go block comment */\n"];
           segText = comments[Math.floor(rng() * comments.length)];
         }
+        segments.push({ type: segType, text: segText });
       }
-
-      segments.push({ type: segType, text: segText });
     }
 
     // Snippet injection test
@@ -124,6 +166,20 @@ export function runGroundTruthFuzz(
       if (seg.type === "code") {
         for (let c = 0; c < seg.text.length; c++) {
           charTypes.push(seg.text[c] === "\n" ? "newline" : "code");
+        }
+      } else if (seg.type === "regex") {
+        const openIdx = seg.rxOpenIdx ?? 0;
+        const closeIdx = seg.rxCloseIdx ?? seg.text.length - 1;
+        for (let c = 0; c < seg.text.length; c++) {
+          if (seg.text[c] === "\n") {
+            charTypes.push("newline");
+          } else if (c > openIdx && c < closeIdx) {
+            charTypes.push("string_content");
+          } else if (c === openIdx || c === closeIdx) {
+            charTypes.push("string_delim");
+          } else {
+            charTypes.push("code");
+          }
         }
       } else if (seg.type === "comment") {
         for (let c = 0; c < seg.text.length; c++) {

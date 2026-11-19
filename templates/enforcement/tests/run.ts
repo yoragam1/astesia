@@ -379,9 +379,7 @@ export const testCases: TestCase[] = [
     relPath: "adv/backtick-in-regex.ts",
     content: "const r = /`/;\nconst val: any = 1;\n",
     expectedShouldTrigger: true,
-    isKnownGap: true,
-    gapReason: "Backtick inside regex literal (/`/) can open false template literal in tokenizer",
-    description: "Adversarial known-gap: backtick inside regex literal"
+    description: "Adversarial closed-gap (gap -> pass): backtick inside regex literal"
   },
 
   // ================= T2 ASTESIA-004 SECURITY TEST CASES =================
@@ -762,25 +760,20 @@ if (!guardRes.passed) {
   failedCases.push({ id: "workflow-guard", category: "ci_guard", reason: "Workflow guard failed on authentic or mutations" });
 }
 
-// ================= GROUND TRUTH FUZZING (C6: Seeds 7001, 7002 & 7003, 2,000 files each) =================
-const fuzz7001Dir = join(TEST_DIR, "fuzz-7001-ce");
-const fuzz7002Dir = join(TEST_DIR, "fuzz-7002-ce");
-const fuzz7003Dir = join(TEST_DIR, "fuzz-7003-ce");
-const f7001 = runGroundTruthFuzz(7001, 2000, fuzz7001Dir);
-const f7002 = runGroundTruthFuzz(7002, 2000, fuzz7002Dir);
-const f7003 = runGroundTruthFuzz(7003, 2000, fuzz7003Dir);
-categoryStats.fuzz_truth.total = 3;
-categoryStats.fuzz_truth.passed = (f7001.passed ? 1 : 0) + (f7002.passed ? 1 : 0) + (f7003.passed ? 1 : 0);
-categoryStats.fuzz_truth.failed = 3 - categoryStats.fuzz_truth.passed;
-if (!f7001.passed) {
-  failedCases.push({ id: "fuzz-7001", category: "fuzz_truth", reason: f7001.errors.slice(0, 3).join("; ") });
+// ================= GROUND TRUTH FUZZING (C6: Seeds 7001, 7002, 7003, 7101, 7102 & 7103, 2,000 files each) =================
+const fuzzSeeds = [7001, 7002, 7003, 7101, 7102, 7103];
+categoryStats.fuzz_truth.total = fuzzSeeds.length;
+categoryStats.fuzz_truth.passed = 0;
+for (const fSeed of fuzzSeeds) {
+  const fDir = join(TEST_DIR, `fuzz-${fSeed}-ce`);
+  const fRes = runGroundTruthFuzz(fSeed, 2000, fDir);
+  if (fRes.passed) {
+    categoryStats.fuzz_truth.passed++;
+  } else {
+    failedCases.push({ id: `fuzz-${fSeed}`, category: "fuzz_truth", reason: fRes.errors.slice(0, 3).join("; ") });
+  }
 }
-if (!f7002.passed) {
-  failedCases.push({ id: "fuzz-7002", category: "fuzz_truth", reason: f7002.errors.slice(0, 3).join("; ") });
-}
-if (!f7003.passed) {
-  failedCases.push({ id: "fuzz-7003", category: "fuzz_truth", reason: f7003.errors.slice(0, 3).join("; ") });
-}
+categoryStats.fuzz_truth.failed = categoryStats.fuzz_truth.total - categoryStats.fuzz_truth.passed;
 
 // ================= ALLOWLIST SUITE (F3: 15 Scenarios) =================
 const allowlistTmpDir = join(TEST_DIR, "suite-allowlist");
