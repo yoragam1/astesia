@@ -1363,8 +1363,8 @@ function checkLineRegex(
       return;
     }
 
-    const KNOWN_PREFIX = /^(?:sk_live_|sk_test_|ghp_|gho_|AKIA|xox[abp]-|eyJ)/;
-    const SUFFIX_KEY_RE = /(?:label|placeholder|field|text|name|type)$/i;
+    const KNOWN_PREFIX = /^(?:sk[_-](?:live[_-]|test[_-]|proj[_-])|ghp_|gho_|AKIA|xox[abp]-|eyJ)/;
+    const SUFFIX_KEY_RE = /(?:label|placeholder|field|text|name|type|env|envvar|var)$/i;
 
     for (let i = 0; i < targetLines.length; i++) {
       const line = targetLines[i];
@@ -1425,16 +1425,18 @@ function checkLineRegex(
 
       // Extract candidate assignment: key = "val", key: "val", or process.env.X ?? "val"
       // Linearized with lookbehind (?<![\w$]) to prevent quadratic backtracking ReDoS (VER3-007a)
-      const assignMatch = /(?:(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]|(?<![\w$])process\.env\.[a-zA-Z0-9_]+\s*(?:\?\?|\|\|))\s*['"\x60]([^'"\x60\r\n]{12,})['"\x60]/i.exec(line);
+      const assignMatch = /(?:(?<![\w$])([a-zA-Z0-9_$]+)\s*[:=]|(?<![\w$])process\.env\.([a-zA-Z0-9_]+)\s*(?:\?\?|\|\|))\s*['"\x60]([^'"\x60\r\n]{12,})['"\x60]/i.exec(line);
 
       let key = "";
       let val = "";
       let isCandidate = false;
 
       if (assignMatch) {
-        key = assignMatch[1] || "env_fallback";
-        val = assignMatch[2];
-        if (isSensitiveKey(key) || KNOWN_PREFIX.test(val) || isAuthBearerOrBasic(val)) {
+        key = assignMatch[1] || assignMatch[2] || "";
+        val = assignMatch[3];
+        if (val.includes("${")) {
+          isCandidate = false;
+        } else if (isSensitiveKey(key) || KNOWN_PREFIX.test(val) || isAuthBearerOrBasic(val)) {
           isCandidate = true;
         }
       } else {

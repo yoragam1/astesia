@@ -53,7 +53,7 @@
       "description": "Probable hardcoded secret.",
       "fix": "Read it from the environment (process.env / config module) and document it in .env.example.",
       "scope": "code",
-      "pattern": "(?:api[_-]?key|secret|passw(?:or)?d|token)\\s*[:=]\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]|process\\.env\\.[A-Za-z0-9_]+\\s*(?:\\?\\?|\\|\\|)\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]",
+      "pattern": "(?:api[_-]?key|secret|passw(?:or)?d|token)\\s*[:=]\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]|process\\.env\\.[A-Za-z0-9_]*(?:api[_-]?key|secret|passw(?:or)?d|token|auth|cred)[A-Za-z0-9_]*\\s*(?:\\?\\?|\\|\\|)\\s*['\"`][A-Za-z0-9_\\-\\/.+=!@#$%^&*]{12,}['\"`]",
       "flags": "i",
       "excludeRegex": "\\.(test|spec)\\.|\\.example|fixtures?/",
       "origin": "AUD-001 (Wave 1 hardening)"
@@ -101,8 +101,8 @@
       "description": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
       "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately.",
       "scope": "comment",
-      "pattern": "^(?!.*astesia-debt:).*?\\b(TODO|FIXME|HACK|WORKAROUND|FOR NOW|TEMPORARY FIX)\\b",
-      "flags": "i",
+      "pattern": "^(?!.*astesia-debt:).*?(?:\\b(?:TODO|FIXME|HACK|WORKAROUND)\\b|\\b(?:todo|fixme|hack|workaround)\\s*[:(]|\\b(?:[fF][oO][rR] [nN][oO][wW]|[tT][eE][mM][pP][oO][rR][aA][rR][yY] [fF][iI][xX])\\b)",
+      "flags": "",
       "origin": "AUD-009 (Wave 1 hardening)"
     },
     {
