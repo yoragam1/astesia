@@ -1599,7 +1599,7 @@ function existsCaseSensitive(targetPath: string, rootDir: string): boolean {
   return true;
 }
 
-function parseJsonc(raw: string): any {
+function parseJsonc(raw: string): unknown {
   let inStr = false, q = "", inLine = false, inBlk = false, out = "";
   for (let i = 0; i < raw.length; i++) {
     const ch = raw[i], next = raw[i + 1] || "";
@@ -1644,13 +1644,14 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
     raw = readFileSync(configPath, "utf8");
     if (raw.charCodeAt(0) === 0xfeff) raw = raw.slice(1);
   } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
-  let parsed: any;
+  let parsed: unknown;
   try { parsed = parseJsonc(raw); } catch { return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath }; }
   if (!parsed || typeof parsed !== "object") return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath };
+  const pObj = parsed as Record<string, unknown>;
 
   let mergedPaths: Record<string, string[]> = {}, mergedBaseUrl = configDir;
-  if (parsed.extends && typeof parsed.extends === "string") {
-    const extVal = parsed.extends.trim();
+  if (pObj.extends && typeof pObj.extends === "string") {
+    const extVal = pObj.extends.trim();
     if (extVal.startsWith("./") || extVal.startsWith("../")) {
       if (depth < 3) {
         let extPath = resolve(configDir, extVal);
@@ -1666,7 +1667,7 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
       notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);
     }
   }
-  const compOpts = parsed.compilerOptions;
+  const compOpts = pObj.compilerOptions as Record<string, unknown> | undefined;
   if (compOpts && typeof compOpts === "object") {
     if (typeof compOpts.baseUrl === "string") mergedBaseUrl = resolve(configDir, compOpts.baseUrl);
     if (compOpts.paths && typeof compOpts.paths === "object") {
@@ -1708,9 +1709,6 @@ function checkRelativeImports(
     if (specifier.startsWith("./") || specifier.startsWith("../")) {
       targetBases.push(resolve(dirname(abs), specifier));
       isHandled = true;
-    } else if (specifier.startsWith("$lib/")) {
-      targetBases.push(resolve(root, "src/lib", specifier.slice(5)));
-      isHandled = true;
     }
     if (!isHandled) {
       for (const al of config.importAliases) {
@@ -1720,6 +1718,10 @@ function checkRelativeImports(
           break;
         }
       }
+    }
+    if (!isHandled && specifier.startsWith("$lib/")) {
+      targetBases.push(resolve(root, "src/lib", specifier.slice(5)));
+      isHandled = true;
     }
     let tsconfigHasAtAlias = false;
     if (!isHandled) {
@@ -2600,7 +2602,7 @@ function updateBaseline(
     let hasMetricIncrease = false;
     const diffDetails: {
       violations: Record<string, Record<string, { from: number; to: number }>>;
-      counters: Record<string, { from: number; to: number }>;
+      counters: Record<string, unknown>;
     } = { violations: {}, counters: {} };
 
     for (const [rId, files] of Object.entries(newViolationsMap)) {
@@ -2639,13 +2641,13 @@ function updateBaseline(
     }
     if ((counters.imports_declared ?? 0) > (oldBaseline.counters?.imports_declared ?? 0)) {
       hasMetricIncrease = true;
-      (diffDetails.counters as any).imports_declared = { from: oldBaseline.counters?.imports_declared ?? 0, to: counters.imports_declared ?? 0 };
+      diffDetails.counters.imports_declared = { from: oldBaseline.counters?.imports_declared ?? 0, to: counters.imports_declared ?? 0 };
     }
     const oldGenSet = new Set(oldBaseline.generated_files ?? []);
     const addedGenFiles = sortedGenFiles.filter((f) => !oldGenSet.has(f));
     if (addedGenFiles.length > 0) {
       hasMetricIncrease = true;
-      (diffDetails.counters as any).generated_files = { added: addedGenFiles };
+      diffDetails.counters.generated_files = { added: addedGenFiles };
     }
 
     if (hasMetricIncrease) {
