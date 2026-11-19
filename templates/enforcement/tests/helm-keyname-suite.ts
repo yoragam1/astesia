@@ -9,6 +9,7 @@ export interface HelmKeyTestCase {
   content: string;
   shouldTrigger: boolean; // true = expect violation, false = exempt
   isKnownGap?: boolean;
+  gapId?: string;
 }
 
 export const HELM_CASES: HelmKeyTestCase[] = [
@@ -30,19 +31,30 @@ export const HELM_CASES: HelmKeyTestCase[] = [
   { id: "HK-13", name: "accessKey is ALWAYS sensitive", filename: "values.yaml", content: "accessKey: AKIAIOSFODNN7EXAMPLE\n", shouldTrigger: true },
 
   // KNOWN GAP (Accepted consequence: lowercase passphrase under *PasswordKey is treated as key name)
-  { id: "HK-14", name: "HELM-KEYNAME-GAP: lowercase passphrase under passwordKey", filename: "values.yaml", content: "passwordKey: correcthorsebatterystaple\n", shouldTrigger: false, isKnownGap: true }
+  { id: "HK-14", gapId: "HELM-KEYNAME-GAP", name: "HELM-KEYNAME-GAP: lowercase passphrase under passwordKey", filename: "values.yaml", content: "passwordKey: correcthorsebatterystaple\n", shouldTrigger: true, isKnownGap: true }
 ];
 
-export function runHelmKeyNameSuite(): { total: number; passed: number; failed: number; errors: string[] } {
+export function runHelmKeyNameSuite(): {
+  total: number;
+  passed: number;
+  failed: number;
+  known_gaps: number;
+  gapIds: string[];
+  errors: string[];
+} {
   let passed = 0;
   let failed = 0;
+  let known_gaps = 0;
+  const gapIds: string[] = [];
   const errors: string[] = [];
 
-  const gatePath = path.resolve("templates/enforcement/astesia-gate.ts");
-  const rulesPath = path.resolve("templates/enforcement/anti-patterns.json");
+  const gatePath = path.resolve(__dirname, "../astesia-gate.ts");
+  const rulesPath = path.resolve(__dirname, "../anti-patterns.json");
+  const tmpRoot = path.resolve(__dirname, "../../../.astesia/audit/tmp");
+  fs.mkdirSync(tmpRoot, { recursive: true });
 
   for (const tc of HELM_CASES) {
-    const tmpDir = fs.mkdtempSync(path.join(path.resolve(".astesia/audit/tmp"), "helm-"));
+    const tmpDir = fs.mkdtempSync(path.join(tmpRoot, "helm-"));
     try {
       const filePath = path.join(tmpDir, tc.filename);
       fs.mkdirSync(path.dirname(filePath), { recursive: true });
@@ -55,6 +67,9 @@ export function runHelmKeyNameSuite(): { total: number; passed: number; failed: 
 
       if (hasViolation === tc.shouldTrigger) {
         passed++;
+      } else if (tc.isKnownGap) {
+        known_gaps++;
+        gapIds.push(tc.gapId || tc.id);
       } else {
         failed++;
         errors.push(
@@ -66,12 +81,12 @@ export function runHelmKeyNameSuite(): { total: number; passed: number; failed: 
     }
   }
 
-  return { total: passed + failed, passed, failed, errors };
+  return { total: passed + failed + known_gaps, passed, failed, known_gaps, gapIds, errors };
 }
 
 if (import.meta.main) {
   const r = runHelmKeyNameSuite();
-  console.log(`Helm KeyName Suite: ${r.passed}/${r.total} passed (${r.failed} failed)`);
+  console.log(`Helm KeyName Suite: ${r.passed}/${r.total} passed (${r.failed} failed, ${r.known_gaps} known gaps)`);
   if (r.errors.length > 0) {
     console.error(r.errors.join("\n"));
     process.exit(1);

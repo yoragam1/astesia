@@ -26,5 +26,21 @@
     "fixture": "indep/d4_gap.ts",
     "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
     "source": "wave1.1-verification"
+  },
+  {
+    "id": "HELM-KEYNAME-GAP",
+    "rule": "ASTESIA-010",
+    "fixture": "helm-keyname-suite.ts#HK-14",
+    "reason": "Pure lowercase passphrase under *PasswordKey/*TokenKey matches Helm key-name identifier pattern ^[a-z][a-z._-]{0,39}$",
+    "source": "wave2a.4-helm-keyname",
+    "runner": "helm-keyname-suite.ts"
+  },
+  {
+    "id": "PHP-MARKUP-OUTSIDE-TAG-GAP",
+    "rule": "TOKENIZER_DESYNC",
+    "fixture": "wave2a5-cli-config-suite.ts#T4-GAP",
+    "reason": "Unbalanced apostrophe in HTML markup outside <?php ?> in .php/.blade.php files (<20% and <3 files threshold in D2)",
+    "source": "wave2a.5-d2-t4",
+    "runner": "wave2a5-cli-config-suite.ts"
   }
 ]

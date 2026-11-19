@@ -852,6 +852,7 @@ const registryIds = new Set(registryContent.map((k) => k.id));
 const executionIds = new Set(knownGapList.map((k) => k.id));
 
 for (const reg of registryContent) {
+  if ((reg as any).runner && (reg as any).runner !== "run.ts") continue;
   if (!executionIds.has(reg.id)) {
     console.error(`FATAL: known-gaps.json entry '${reg.id}' was NOT executed in harness!`);
     process.exit(2);

@@ -31,6 +31,11 @@ import { runProfileContractSuite } from "./profile-contract-suite";
 import { runConfigVarRefSuite } from "./config-varref-suite";
 import { runHelmKeyNameSuite } from "./helm-keyname-suite";
 import { runRule010PathSuite } from "./rule010-path-suite";
+import { runRegexLiteralSuite } from "./regex-literal-suite";
+import { runGeneratedPolicySuite } from "./generated-policy-suite";
+import { runUrlExemptSuite } from "./url-exempt-suite";
+import { runWave2a5CliConfigSuite } from "./wave2a5-cli-config-suite";
+import { independentCases } from "./independent/corpus";
 
 const startTime = performance.now();
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -230,6 +235,22 @@ const helmKeyNameRes = runHelmKeyNameSuite();
 executedSuites.add("rule010-path-suite.ts");
 const rule010PathRes = runRule010PathSuite();
 
+// K. regex-literal-suite.ts
+executedSuites.add("regex-literal-suite.ts");
+const regexLiteralRes = runRegexLiteralSuite(GATE_PATH, join(tmpBase, "regex-literal"));
+
+// L. generated-policy-suite.ts
+executedSuites.add("generated-policy-suite.ts");
+const generatedPolicyRes = runGeneratedPolicySuite(GATE_PATH, join(tmpBase, "gen-policy"));
+
+// M. url-exempt-suite.ts
+executedSuites.add("url-exempt-suite.ts");
+const urlExemptRes = runUrlExemptSuite(GATE_PATH, join(tmpBase, "url-exempt"));
+
+// N. wave2a5-cli-config-suite.ts
+executedSuites.add("wave2a5-cli-config-suite.ts");
+const wave2a5CliConfigRes = runWave2a5CliConfigSuite(GATE_PATH, join(tmpBase, "w2a5-cli"));
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
@@ -240,7 +261,11 @@ const standaloneTotal =
   profileContractRes.total +
   configVarRefRes.total +
   helmKeyNameRes.total +
-  rule010PathRes.total;
+  rule010PathRes.total +
+  regexLiteralRes.total +
+  generatedPolicyRes.total +
+  urlExemptRes.total +
+  wave2a5CliConfigRes.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -252,7 +277,11 @@ const standalonePassed =
   profileContractRes.passed +
   configVarRefRes.passed +
   helmKeyNameRes.passed +
-  rule010PathRes.passed;
+  rule010PathRes.passed +
+  regexLiteralRes.passed +
+  generatedPolicyRes.passed +
+  urlExemptRes.passed +
+  wave2a5CliConfigRes.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -264,20 +293,35 @@ const standaloneFailed =
   profileContractRes.failed +
   configVarRefRes.failed +
   helmKeyNameRes.failed +
-  rule010PathRes.failed;
+  rule010PathRes.failed +
+  regexLiteralRes.failed +
+  generatedPolicyRes.failed +
+  urlExemptRes.failed +
+  wave2a5CliConfigRes.failed;
+
+const standaloneKnownGaps =
+  ((helmKeyNameRes as any).known_gaps ?? 0) +
+  regexLiteralRes.known_gaps +
+  generatedPolicyRes.known_gaps +
+  urlExemptRes.known_gaps +
+  wave2a5CliConfigRes.known_gaps;
 
 if (!isJsonMode) {
-  console.log(`  - auth-header-suite:      ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
-  console.log(`  - check-workflow-suite:   ${checkWorkflowRes.passed}/${checkWorkflowRes.total} passed`);
-  console.log(`  - config-quote-suite:     ${configQuoteRes.passed}/${configQuoteRes.total} passed`);
-  console.log(`  - env-batch-suite:        ${envBatchRes.passed}/${envBatchRes.total} passed`);
-  console.log(`  - key-sensitivity-suite:  ${keySensitivityRes.passed}/${keySensitivityRes.total} passed`);
-  console.log(`  - redos-suite:            ${redosRes.passed}/${redosRes.total} passed`);
-  console.log(`  - profile-contract-suite: ${profileContractRes.passed}/${profileContractRes.total} passed`);
-  console.log(`  - config-varref-suite:    ${configVarRefRes.passed}/${configVarRefRes.total} passed`);
-  console.log(`  - helm-keyname-suite:     ${helmKeyNameRes.passed}/${helmKeyNameRes.total} passed`);
-  console.log(`  - rule010-path-suite:     ${rule010PathRes.passed}/${rule010PathRes.total} passed`);
-  console.log(`  Standalone Subtotal:      ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed)`);
+  console.log(`  - auth-header-suite:        ${authHeaderRes.passed}/${authHeaderRes.total} passed`);
+  console.log(`  - check-workflow-suite:     ${checkWorkflowRes.passed}/${checkWorkflowRes.total} passed`);
+  console.log(`  - config-quote-suite:       ${configQuoteRes.passed}/${configQuoteRes.total} passed`);
+  console.log(`  - env-batch-suite:          ${envBatchRes.passed}/${envBatchRes.total} passed`);
+  console.log(`  - key-sensitivity-suite:    ${keySensitivityRes.passed}/${keySensitivityRes.total} passed`);
+  console.log(`  - redos-suite:              ${redosRes.passed}/${redosRes.total} passed`);
+  console.log(`  - profile-contract-suite:   ${profileContractRes.passed}/${profileContractRes.total} passed`);
+  console.log(`  - config-varref-suite:      ${configVarRefRes.passed}/${configVarRefRes.total} passed`);
+  console.log(`  - helm-keyname-suite:       ${helmKeyNameRes.passed}/${helmKeyNameRes.total} passed`);
+  console.log(`  - rule010-path-suite:       ${rule010PathRes.passed}/${rule010PathRes.total} passed`);
+  console.log(`  - regex-literal-suite:      ${regexLiteralRes.passed}/${regexLiteralRes.total} passed`);
+  console.log(`  - generated-policy-suite:   ${generatedPolicyRes.passed}/${generatedPolicyRes.total} passed`);
+  console.log(`  - url-exempt-suite:         ${urlExemptRes.passed}/${urlExemptRes.total} passed`);
+  console.log(`  - wave2a5-cli-config-suite: ${wave2a5CliConfigRes.passed}/${wave2a5CliConfigRes.total} passed (${wave2a5CliConfigRes.known_gaps} known gaps)`);
+  console.log(`  Standalone Subtotal:        ${standalonePassed}/${standaloneTotal} passed (${standaloneFailed} failed, ${standaloneKnownGaps} known gaps)`);
 }
 
 // -------------------------------------------------------------
@@ -350,6 +394,165 @@ metaCases.push({
   passed: corpusCompletenessPassed
 });
 
+// E. Active Known-Gap Registries Synchronization (T8)
+const registryFiles = [
+  "known-gaps.json",
+  "verify/known-gaps.verify.json",
+  "verify2/known-gaps.verify2.json",
+  "verify3/known-gaps.verify3.json"
+];
+
+interface ActiveGapEntry {
+  id: string;
+  rule: string;
+  reason: string;
+  source: string;
+  registryFile: string;
+}
+
+const activeRegistryMap = new Map<string, ActiveGapEntry>();
+for (const rf of registryFiles) {
+  const fullP = join(TESTS_DIR, rf);
+  if (!existsSync(fullP)) continue;
+  try {
+    const arr = JSON.parse(readFileSync(fullP, "utf8")) as Array<Record<string, any>>;
+    for (const item of arr) {
+      const status = String(item.status || "");
+      if (status.startsWith("RESOLVED")) continue;
+      const id = String(item.id);
+      if (!activeRegistryMap.has(id)) {
+        activeRegistryMap.set(id, {
+          id,
+          rule: String(item.rule || item.ruleId || ""),
+          reason: String(item.reason || item.description || ""),
+          source: String(item.source || status || rf),
+          registryFile: rf
+        });
+      }
+    }
+  } catch {}
+}
+
+const printedActiveGaps = Array.from(activeRegistryMap.values());
+const printedGapIds = new Set(printedActiveGaps.map((g) => g.id));
+
+// Collect executed known-gap IDs across all runners
+const executedGapIds = new Set<string>();
+if (Array.isArray(implData?.known_gaps)) {
+  for (const kg of implData.known_gaps) {
+    if (kg?.id) executedGapIds.add(String(kg.id));
+  }
+}
+if (v1KnownGaps > 0) {
+  executedGapIds.add("SEC-23-GAP");
+}
+if (Array.isArray(v3Data?.details)) {
+  for (const d of v3Data.details) {
+    if (d?.status === "KNOWN_GAP" && d?.id) executedGapIds.add(String(d.id));
+  }
+}
+for (const gid of helmKeyNameRes.gapIds || []) {
+  executedGapIds.add(gid);
+}
+for (const gid of wave2a5CliConfigRes.gapIds || []) {
+  executedGapIds.add(gid);
+}
+
+const printedMatchesRegistry =
+  printedGapIds.size === activeRegistryMap.size &&
+  Array.from(activeRegistryMap.keys()).every((k) => printedGapIds.has(k));
+
+metaCases.push({
+  id: "META-05-GAP-PRINTED-MATCHES-REGISTRY",
+  name: "Printed active known-gap IDs equal union of active known-gaps*.json entries",
+  passed: printedMatchesRegistry && printedGapIds.size > 0
+});
+
+const missingInExec = Array.from(activeRegistryMap.keys()).filter((id) => !executedGapIds.has(id));
+const missingInReg = Array.from(executedGapIds).filter((id) => !activeRegistryMap.has(id));
+const bidirectionalGapOk = missingInExec.length === 0 && missingInReg.length === 0;
+
+metaCases.push({
+  id: "META-06-GAP-BIDIRECTIONAL",
+  name: "1-to-1 bidirectional correspondence between active gap registries and gap-marked tests",
+  passed: bidirectionalGapOk,
+  message: bidirectionalGapOk
+    ? undefined
+    : `missingInExec=[${missingInExec.join(",")}], missingInReg=[${missingInReg.join(",")}]`
+});
+
+const helmGapInKnownGapsJson = (() => {
+  try {
+    const mainReg = JSON.parse(readFileSync(join(TESTS_DIR, "known-gaps.json"), "utf8")) as Array<{ id: string }>;
+    return mainReg.some((e) => e.id === "HELM-KEYNAME-GAP");
+  } catch {
+    return false;
+  }
+})();
+const helmGapAccountingOk =
+  helmKeyNameRes.known_gaps === 1 &&
+  helmKeyNameRes.passed === 13 &&
+  helmKeyNameRes.total === 14 &&
+  helmGapInKnownGapsJson;
+
+metaCases.push({
+  id: "META-07-HELM-GAP-ACCOUNTING",
+  name: "HELM-KEYNAME-GAP is counted in known_gaps (13 passed + 1 gap = 14) and registered in known-gaps.json",
+  passed: helmGapAccountingOk
+});
+
+// Check per-suite invariant total === passed + failed + known_gaps on every suite
+const suiteChecks: Array<{ name: string; total: number; passed: number; failed: number; known_gaps: number }> = [
+  { name: "run.ts", total: implTotal, passed: implPassed, failed: implFailed, known_gaps: implKnownGaps },
+  { name: "verify/run.ts", total: v1Total, passed: v1Passed, failed: v1Failed, known_gaps: v1KnownGaps },
+  { name: "verify2/run.ts", total: v2Total, passed: v2Passed, failed: v2Failed, known_gaps: v2KnownGaps },
+  { name: "verify3/run.ts", total: v3Total, passed: v3Passed, failed: v3Failed, known_gaps: v3KnownGaps },
+  { name: "auth-header-suite", total: authHeaderRes.total, passed: authHeaderRes.passed, failed: authHeaderRes.failed, known_gaps: 0 },
+  { name: "check-workflow-suite", total: checkWorkflowRes.total, passed: checkWorkflowRes.passed, failed: checkWorkflowRes.failed, known_gaps: 0 },
+  { name: "config-quote-suite", total: configQuoteRes.total, passed: configQuoteRes.passed, failed: configQuoteRes.failed, known_gaps: 0 },
+  { name: "env-batch-suite", total: envBatchRes.total, passed: envBatchRes.passed, failed: envBatchRes.failed, known_gaps: 0 },
+  { name: "key-sensitivity-suite", total: keySensitivityRes.total, passed: keySensitivityRes.passed, failed: keySensitivityRes.failed, known_gaps: 0 },
+  { name: "redos-suite", total: redosRes.total, passed: redosRes.passed, failed: redosRes.failed, known_gaps: 0 },
+  { name: "profile-contract-suite", total: profileContractRes.total, passed: profileContractRes.passed, failed: profileContractRes.failed, known_gaps: 0 },
+  { name: "config-varref-suite", total: configVarRefRes.total, passed: configVarRefRes.passed, failed: configVarRefRes.failed, known_gaps: 0 },
+  { name: "helm-keyname-suite", total: helmKeyNameRes.total, passed: helmKeyNameRes.passed, failed: helmKeyNameRes.failed, known_gaps: helmKeyNameRes.known_gaps },
+  { name: "rule010-path-suite", total: rule010PathRes.total, passed: rule010PathRes.passed, failed: rule010PathRes.failed, known_gaps: 0 },
+  { name: "regex-literal-suite", total: regexLiteralRes.total, passed: regexLiteralRes.passed, failed: regexLiteralRes.failed, known_gaps: regexLiteralRes.known_gaps },
+  { name: "generated-policy-suite", total: generatedPolicyRes.total, passed: generatedPolicyRes.passed, failed: generatedPolicyRes.failed, known_gaps: generatedPolicyRes.known_gaps },
+  { name: "url-exempt-suite", total: urlExemptRes.total, passed: urlExemptRes.passed, failed: urlExemptRes.failed, known_gaps: urlExemptRes.known_gaps },
+  { name: "wave2a5-cli-config-suite", total: wave2a5CliConfigRes.total, passed: wave2a5CliConfigRes.passed, failed: wave2a5CliConfigRes.failed, known_gaps: wave2a5CliConfigRes.known_gaps }
+];
+const allSuitesInvariantOk = suiteChecks.every((s) => s.total === s.passed + s.failed + s.known_gaps);
+metaCases.push({
+  id: "META-08-SUITE-INVARIANTS",
+  name: "Every individual suite satisfies total === passed + failed + known_gaps",
+  passed: allSuitesInvariantOk
+});
+
+// Directional corpus lock: permits gap -> pass, rejects pass -> gap
+const ALLOWED_ORIGINAL_GAPS = new Set(["D2-REG-BACKTICK-GAP", "D2-PHP-HEREDOC", "D4-21-GAP"]);
+function verifyDirectionalCorpusLock(cases: Array<{ id: string; isKnownGap?: boolean }>): boolean {
+  for (const c of cases) {
+    if (c.isKnownGap && !ALLOWED_ORIGINAL_GAPS.has(c.id)) {
+      return false; // Rejected pass -> gap transition!
+    }
+  }
+  // Also verify closed gap D2-REG-BACKTICK-GAP is present and transitioned gap -> pass
+  const d2Backtick = cases.find((c) => c.id === "D2-REG-BACKTICK-GAP");
+  if (!d2Backtick || d2Backtick.isKnownGap) return false;
+  return true;
+}
+
+const actualCorpusLockOk = verifyDirectionalCorpusLock(independentCases);
+const simulatedPassToGapRejected = !verifyDirectionalCorpusLock([
+  ...independentCases.map((c) => (c.id === "D2-01-REG-DOUBLE" ? { ...c, isKnownGap: true } : c))
+]);
+metaCases.push({
+  id: "META-09-CORPUS-LOCK-DIRECTIONAL",
+  name: "Directional corpus lock permits gap -> pass (D2-REG-BACKTICK-GAP) and rejects pass -> gap",
+  passed: actualCorpusLockOk && simulatedPassToGapRejected
+});
+
 const metaTotal = metaCases.length;
 const metaPassed = metaCases.filter((c) => c.passed).length;
 const metaFailed = metaTotal - metaPassed;
@@ -383,7 +586,7 @@ if (!isFastMode) {
 const grandTotal = implTotal + v1Total + v2Total + v3Total + standaloneTotal + metaTotal;
 const grandPassed = implPassed + v1Passed + v2Passed + v3Passed + standalonePassed + metaPassed;
 const grandFailed = implFailed + v1Failed + v2Failed + v3Failed + standaloneFailed + metaFailed;
-const grandKnownGaps = implKnownGaps + v1KnownGaps + v2KnownGaps + v3KnownGaps;
+const grandKnownGaps = implKnownGaps + v1KnownGaps + v2KnownGaps + v3KnownGaps + standaloneKnownGaps;
 
 const invariantHolds = grandTotal === grandPassed + grandFailed + grandKnownGaps;
 const meetsScaleThreshold = grandTotal >= 450;
@@ -443,6 +646,7 @@ const summaryOut = {
       total: standaloneTotal,
       passed: standalonePassed,
       failed: standaloneFailed,
+      known_gaps: standaloneKnownGaps,
       breakdown: {
         auth_header: authHeaderRes,
         check_workflow: checkWorkflowRes,
@@ -453,7 +657,11 @@ const summaryOut = {
         profile_contract: profileContractRes,
         config_varref: configVarRefRes,
         helm_keyname: helmKeyNameRes,
-        rule010_path: rule010PathRes
+        rule010_path: rule010PathRes,
+        regex_literal: regexLiteralRes,
+        generated_policy: generatedPolicyRes,
+        url_exempt: urlExemptRes,
+        wave2a5_cli_config: wave2a5CliConfigRes
       }
     },
     meta_tests: {
@@ -471,12 +679,17 @@ const summaryOut = {
     total_executed_suites: executedSuites.size,
     discovered_suites: discoveredSuites,
     orphan_suites: orphanSuites
-  }
+  },
+  active_known_gaps: printedActiveGaps
 };
 
 if (isJsonMode) {
   process.stdout.write(JSON.stringify(summaryOut, null, 2) + "\n");
 } else {
+  console.log("\n--- ACTIVE KNOWN GAPS (SYNCHRONIZED ACROSS REGISTRIES) ---");
+  for (const g of printedActiveGaps) {
+    console.log(`  - [${g.id}] (${g.source}): ${g.reason}`);
+  }
   console.log("\n==================================================================");
   console.log("                   CONSOLIDATED HARNESS SUMMARY                   ");
   console.log("==================================================================");
