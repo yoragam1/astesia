@@ -114,6 +114,102 @@ export function runCheckWorkflowSuite(testTmpDir: string, gatePath: string): {
     assert(`CLI catches mutation: ${m.name} (exit 1)`, r.status === 1, `Got exit ${r.status}`);
   }
 
+  // 6. Bun version pinning tests (Task W1)
+  // Positive 1: missing bun-version -> exit 1
+  {
+    const wfMissing = authenticYaml.replace(/bun-version:\s*1\.3\.9/, "# bun-version removed");
+    const mPath = join(tmpSuiteDir, "bun_missing.yml");
+    writeFileSync(mPath, wfMissing, "utf8");
+    const r = spawnSync("bun", [gatePath, "--check-workflow", mPath], { encoding: "utf8" });
+    assert("Bun version missing is rejected (exit 1)", r.status === 1, `Got exit ${r.status}`);
+  }
+
+  // Positive 2: floating bun-version ('latest' or '1.x') -> exit 1
+  {
+    const wfFloating = authenticYaml.replace(/bun-version:\s*1\.3\.9/, "bun-version: latest");
+    const mPath = join(tmpSuiteDir, "bun_floating.yml");
+    writeFileSync(mPath, wfFloating, "utf8");
+    const r = spawnSync("bun", [gatePath, "--check-workflow", mPath], { encoding: "utf8" });
+    assert("Bun version floating 'latest' is rejected (exit 1)", r.status === 1, `Got exit ${r.status}`);
+  }
+
+  // Negative 1: exact unquoted bun-version ('1.3.9') -> exit 0
+  {
+    const wfExact = authenticYaml.replace(/bun-version:\s*1\.3\.9/, "bun-version: 1.3.9");
+    const mPath = join(tmpSuiteDir, "bun_exact_unquoted.yml");
+    writeFileSync(mPath, wfExact, "utf8");
+    const r = spawnSync("bun", [gatePath, "--check-workflow", mPath], { encoding: "utf8" });
+    assert("Bun version exact unquoted '1.3.9' passes (exit 0)", r.status === 0, `Got exit ${r.status}`);
+  }
+
+  // Negative 2: exact quoted bun-version ('"1.3.9"') -> exit 0
+  {
+    const wfQuoted = authenticYaml.replace(/bun-version:\s*1\.3\.9/, 'bun-version: "1.3.9"');
+    const mPath = join(tmpSuiteDir, "bun_exact_quoted.yml");
+    writeFileSync(mPath, wfQuoted, "utf8");
+    const r = spawnSync("bun", [gatePath, "--check-workflow", mPath], { encoding: "utf8" });
+    assert("Bun version exact quoted '\"1.3.9\"' passes (exit 0)", r.status === 0, `Got exit ${r.status}`);
+  }
+
+  // 7. CLI --rules-diff tests (Task W2)
+  const baseRulesObj = {
+    version: 1,
+    rules: [
+      { id: "TEST-001", kind: "line-regex", severity: "error", description: "d", fix: "f", pattern: "foo", origin: "unit-test" },
+      { id: "TEST-002", kind: "line-regex", severity: "warn", description: "d", fix: "f", pattern: "bar", origin: "unit-test" }
+    ]
+  };
+  const baseRulesPath = join(tmpSuiteDir, "base-rules.json");
+  writeFileSync(baseRulesPath, JSON.stringify(baseRulesObj), "utf8");
+
+  // Rules-diff case 1: identical -> exit 0
+  {
+    const r = spawnSync("bun", [gatePath, "--rules-diff", baseRulesPath, baseRulesPath], { encoding: "utf8" });
+    assert("rules-diff: identical rules exits 0", r.status === 0, `Got exit ${r.status}`);
+  }
+
+  // Rules-diff case 2: rule added in head -> exit 0
+  {
+    const headObj = {
+      version: 1,
+      rules: [
+        ...baseRulesObj.rules,
+        { id: "TEST-003", kind: "line-regex", severity: "error", description: "d", fix: "f", pattern: "baz", origin: "unit-test" }
+      ]
+    };
+    const headPath = join(tmpSuiteDir, "head-added.json");
+    writeFileSync(headPath, JSON.stringify(headObj), "utf8");
+    const r = spawnSync("bun", [gatePath, "--rules-diff", baseRulesPath, headPath], { encoding: "utf8" });
+    assert("rules-diff: rule added in head exits 0", r.status === 0, `Got exit ${r.status}`);
+  }
+
+  // Rules-diff case 3: rule deleted in head -> exit 1
+  {
+    const headObj = {
+      version: 1,
+      rules: [baseRulesObj.rules[0]]
+    };
+    const headPath = join(tmpSuiteDir, "head-deleted.json");
+    writeFileSync(headPath, JSON.stringify(headObj), "utf8");
+    const r = spawnSync("bun", [gatePath, "--rules-diff", baseRulesPath, headPath], { encoding: "utf8" });
+    assert("rules-diff: rule deleted in head exits 1", r.status === 1, `Got exit ${r.status}`);
+  }
+
+  // Rules-diff case 4: rule severity lowered (error -> warn) -> exit 1
+  {
+    const headObj = {
+      version: 1,
+      rules: [
+        { ...baseRulesObj.rules[0], severity: "warn" },
+        baseRulesObj.rules[1]
+      ]
+    };
+    const headPath = join(tmpSuiteDir, "head-lowered.json");
+    writeFileSync(headPath, JSON.stringify(headObj), "utf8");
+    const r = spawnSync("bun", [gatePath, "--rules-diff", baseRulesPath, headPath], { encoding: "utf8" });
+    assert("rules-diff: rule severity lowered exits 1", r.status === 1, `Got exit ${r.status}`);
+  }
+
   try { rmSync(tmpSuiteDir, { recursive: true, force: true }); } catch {}
 
   return { total, passed, failed: total - passed, errors };
