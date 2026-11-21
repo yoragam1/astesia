@@ -34,6 +34,7 @@ import { runRule010PathSuite } from "./rule010-path-suite";
 import { runRegexLiteralSuite } from "./regex-literal-suite";
 import { runGeneratedPolicySuite } from "./generated-policy-suite";
 import { runGeneratedPolicyV2Suite } from "./generated-policy-v2-suite";
+import { runGeneratedPolicyV3Suite } from "./generated-policy-v3-suite";
 import { runImportResolutionSuite } from "./import-resolution-suite";
 import { runConfigImportsSuite } from "./config-imports-suite";
 import { runFpFixesSuite } from "./fp-fixes-suite";
@@ -260,6 +261,10 @@ const wave2a5CliConfigRes = runWave2a5CliConfigSuite(GATE_PATH, join(tmpBase, "w
 executedSuites.add("generated-policy-v2-suite.ts");
 const generatedPolicyV2Res = runGeneratedPolicyV2Suite(GATE_PATH, join(tmpBase, "gen-v2"));
 
+// O2. generated-policy-v3-suite.ts
+executedSuites.add("generated-policy-v3-suite.ts");
+const generatedPolicyV3Res = runGeneratedPolicyV3Suite(GATE_PATH, join(tmpBase, "gen-v3"));
+
 // P. import-resolution-suite.ts
 executedSuites.add("import-resolution-suite.ts");
 const importResolutionRes = runImportResolutionSuite(GATE_PATH, join(tmpBase, "import-res"));
@@ -292,6 +297,7 @@ const standaloneTotal =
   urlExemptRes.total +
   wave2a5CliConfigRes.total +
   generatedPolicyV2Res.total +
+  generatedPolicyV3Res.total +
   importResolutionRes.total +
   configImportsRes.total +
   fpFixesRes.total +
@@ -313,6 +319,7 @@ const standalonePassed =
   urlExemptRes.passed +
   wave2a5CliConfigRes.passed +
   generatedPolicyV2Res.passed +
+  generatedPolicyV3Res.passed +
   importResolutionRes.passed +
   configImportsRes.passed +
   fpFixesRes.passed +
@@ -334,6 +341,7 @@ const standaloneFailed =
   urlExemptRes.failed +
   wave2a5CliConfigRes.failed +
   generatedPolicyV2Res.failed +
+  generatedPolicyV3Res.failed +
   importResolutionRes.failed +
   configImportsRes.failed +
   fpFixesRes.failed +
@@ -570,6 +578,7 @@ const suiteChecks: Array<{ name: string; total: number; passed: number; failed: 
   { name: "regex-literal-suite", total: regexLiteralRes.total, passed: regexLiteralRes.passed, failed: regexLiteralRes.failed, known_gaps: regexLiteralRes.known_gaps },
   { name: "generated-policy-suite", total: generatedPolicyRes.total, passed: generatedPolicyRes.passed, failed: generatedPolicyRes.failed, known_gaps: generatedPolicyRes.known_gaps },
   { name: "generated-policy-v2-suite", total: generatedPolicyV2Res.total, passed: generatedPolicyV2Res.passed, failed: generatedPolicyV2Res.failed, known_gaps: 0 },
+  { name: "generated-policy-v3-suite", total: generatedPolicyV3Res.total, passed: generatedPolicyV3Res.passed, failed: generatedPolicyV3Res.failed, known_gaps: 0 },
   { name: "import-resolution-suite", total: importResolutionRes.total, passed: importResolutionRes.passed, failed: importResolutionRes.failed, known_gaps: 0 },
   { name: "config-imports-suite", total: configImportsRes.total, passed: configImportsRes.passed, failed: configImportsRes.failed, known_gaps: 0 },
   { name: "fp-fixes-suite", total: fpFixesRes.total, passed: fpFixesRes.passed, failed: fpFixesRes.failed, known_gaps: 0 },
@@ -716,6 +725,7 @@ const summaryOut = {
         regex_literal: regexLiteralRes,
         generated_policy: generatedPolicyRes,
         generated_policy_v2: generatedPolicyV2Res,
+        generated_policy_v3: generatedPolicyV3Res,
         import_resolution: importResolutionRes,
         config_imports: configImportsRes,
         fp_fixes: fpFixesRes,
