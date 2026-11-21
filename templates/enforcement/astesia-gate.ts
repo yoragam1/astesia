@@ -1012,6 +1012,20 @@ export function isHelmKeyName(key: string, val: string): boolean {
   return false;
 }
 
+export function isStorageKeyName(key: string, val: string): boolean {
+  const k = key.toLowerCase();
+  if (k.includes("password") || k.includes("passwd") || k.includes("pwd") || k.includes("passphrase") || k.includes("secret")) {
+    return false;
+  }
+  const isVersionedIdent = /^[a-z][a-z0-9_.-]*_v\d+$/i.test(val);
+  const hasStorageToken = /(?:storage|offline|cache|session|cookie|local)/i.test(key);
+  if (hasStorageToken && isVersionedIdent) return true;
+  if (isVersionedIdent && k.includes("key") && !k.includes("api") && !k.includes("priv") && !k.includes("sign")) {
+    return true;
+  }
+  return false;
+}
+
 export function checkConfigSecret(
   line: string,
   prevKey?: string
@@ -1087,8 +1101,8 @@ export function checkConfigSecret(
     }
   }
 
-  // 6b. Helm Key Name rule (Decision 4 / VER5-002)
-  if (isHelmKeyName(key, val)) {
+  // 6b. Helm Key Name rule (Decision 4 / VER5-002) and Storage Key Name
+  if (isHelmKeyName(key, val) || isStorageKeyName(key, val)) {
     return { isSecret: false, key, val };
   }
 
@@ -1508,7 +1522,7 @@ function checkLineRegex(
             }
           }
 
-          if (isHelmKeyName(key, val)) {
+          if (isHelmKeyName(key, val) || isStorageKeyName(key, val)) {
             isSecret = false;
           }
         }
