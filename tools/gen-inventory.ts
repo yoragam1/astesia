@@ -133,7 +133,7 @@ export function parseFrontmatter(raw: string): {
 
   for (let i = 0; i < fmLines.length; i++) {
     const line = fmLines[i];
-    if (line.startsWith("\t") || /^\s*\t/.test(line)) {
+    if (line.includes("\t")) {
       hasTabs = true;
       valid = false;
     }

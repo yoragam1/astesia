@@ -749,7 +749,7 @@ export const LINT_RULE_TESTS: TestCase[] = [
   },
 ];
 
-export function runLintRulesSuite(): { total: number; passed: number; failed: number } {
+export function runLintRulesSuite(): { total: number; passed: number; failed: number; known_gaps: number } {
   let passed = 0;
   let failed = 0;
   console.log(`\n=== Running Framework Lint Rules Suite (${LINT_RULE_TESTS.length} test cases) ===`);
@@ -771,7 +771,7 @@ export function runLintRulesSuite(): { total: number; passed: number; failed: nu
   }
 
   console.log(`Summary: ${passed} passed, ${failed} failed out of ${LINT_RULE_TESTS.length} tests\n`);
-  return { total: LINT_RULE_TESTS.length, passed, failed };
+  return { total: LINT_RULE_TESTS.length, passed, failed, known_gaps: 0 };
 }
 
 if (import.meta.main || require.main === module) {

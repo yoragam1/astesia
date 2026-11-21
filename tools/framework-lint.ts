@@ -367,16 +367,21 @@ export function checkReferences(root: string, _config: LintConfig): LintViolatio
         let match: RegExpExecArray | null;
         while ((match = linkRegex.exec(raw)) !== null) {
           let target = match[2].trim();
-          if (/^(https?:|mailto:|file:|#)/.test(target)) continue;
+          if (/^(https?:|mailto:|#)/.test(target)) continue;
 
-          const anchorIdx = target.indexOf("#");
-          if (anchorIdx !== -1) target = target.slice(0, anchorIdx);
-          if (!target) continue;
+          let targetPath = target;
+          if (targetPath.startsWith("file:///")) {
+            targetPath = targetPath.replace(/^file:\/\/\//, "");
+          }
 
-          const resolvedRel = resolve(dirname(full), target);
-          const resolvedRoot = resolve(root, target.replace(/^\//, ""));
+          const anchorIdx = targetPath.indexOf("#");
+          if (anchorIdx !== -1) targetPath = targetPath.slice(0, anchorIdx);
+          if (!targetPath) continue;
 
-          if (!existsSync(resolvedRel) && !existsSync(resolvedRoot)) {
+          const resolvedRel = resolve(dirname(full), targetPath);
+          const resolvedRoot = resolve(root, targetPath.replace(/^\//, ""));
+
+          if (!existsSync(resolvedRel) && !existsSync(resolvedRoot) && !existsSync(targetPath)) {
             violations.push({
               code: "FL-008",
               file: relPath,
@@ -499,6 +504,17 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
     "--reason",
   ];
 
+  const gateScript = join(root, "templates/enforcement/astesia-gate.ts");
+  if (existsSync(gateScript)) {
+    const rawScript = readFileSync(gateScript, "utf8");
+    const foundFlags = rawScript.match(/--[a-z0-9-]+/g) || [];
+    for (const f of foundFlags) {
+      if (f.startsWith("--") && !f.startsWith("---") && !gateCliFlags.includes(f)) {
+        gateCliFlags.push(f);
+      }
+    }
+  }
+
   const exemptFlags = new Set(
     (config.gate_internal_flags_exempt || [])
       .filter((e) => e.reason && e.reason.length >= 15)
@@ -613,7 +629,16 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
  */
 export function checkTokenBudget(root: string, config: LintConfig): LintViolation[] {
   const violations: LintViolation[] = [];
-  const maxBudget = config.token_budget_max;
+  let maxBudget = config.token_budget_max;
+  const budgetFile = join(root, "runtime/token-budget.json");
+  if (existsSync(budgetFile)) {
+    try {
+      const bData = JSON.parse(readFileSync(budgetFile, "utf8"));
+      if (typeof bData.boot_tokens_est === "number") {
+        maxBudget = bData.boot_tokens_est;
+      }
+    } catch {}
+  }
   if (!maxBudget) return violations;
 
   const inv = generateInventory(root);
