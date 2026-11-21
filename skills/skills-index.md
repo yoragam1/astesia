@@ -63,6 +63,7 @@ In accordance with Google Antigravity Native Standards, every skill resides in i
 - **`trust-pyramid`**: Place every constraint at the hardest layer (types > lint/CI > prose > human). Decision protocol for rule placement.
 - **`lint-ratchet`**: Convert repeated agent mistakes into permanent machine-enforced rules in `.astesia/anti-patterns.json`.
 - **`independent-verification`**: Separate Verifier agent + evidence files; never trust self-reported success.
+- **`property-based-testing`**: Invariant property tests for parsers, validators, math, and state machines with randomized shrinking.
 
 ## 5. DevOps Layer Skills
 - **`budget-circuit-breaker`**: Enforce hard stops on token consumption during infinite loops to prevent financial waste.

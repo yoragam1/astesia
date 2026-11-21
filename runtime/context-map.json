@@ -46,7 +46,8 @@
     "skills/debt-scanner",
     "skills/trust-pyramid",
     "skills/lint-ratchet",
-    "skills/independent-verification"
+    "skills/independent-verification",
+    "skills/property-based-testing"
   ],
   "devops": [
     "skills/docker-optimization",

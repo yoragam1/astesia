@@ -390,5 +390,13 @@
   {
     "skill": "zod-validation",
     "prompt": "Define Zod schema to parse and validate incoming API payload"
+  },
+  {
+    "skill": "property-based-testing",
+    "prompt": "Write property-based tests using fast-check to verify the JSON serializer roundtrip invariant"
+  },
+  {
+    "skill": "property-based-testing",
+    "prompt": "Tulis pengujian berbasis properti (property-based test) untuk membuktikan invarian fungsi terhadap input acak dan shrinking"
   }
 ]

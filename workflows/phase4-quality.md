@@ -17,6 +17,7 @@
 - [ ] Verify code coverage meets **80% baseline** (Quality Rule #4).
 - [ ] Generate **Integration Tests** covering cross-module interactions.
 - [ ] Generate **E2E Tests** (if applicable) using Playwright or equivalent.
+- [ ] **Property-Based Testing (Quality Rule #12):** Verify parsers, validators, math, and state machines have ≥ 1 property test with invariant named in title (`skills/property-based-testing/SKILL.md`).
 - [ ] Map every test back to a specific Acceptance Criterion from the BRD (Quality Rule #2 — Strict Traceability):
 
 ```

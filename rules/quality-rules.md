@@ -55,3 +55,6 @@ Every pattern-shaped FAIL, or the same failure twice, MUST trigger `lint-ratchet
 
 ## 11. Independent Verification & Evidence *(NEW - Verification-First)*
 Never accept an Executor's self-reported success. Verification is performed by a separate agent, ends in `.astesia/verification/<id>.md` (claim, commands, output, AC ids, verdict), and must include a behavioral run (start the app / exercise the flow), not just compilation.
+
+## 12. Property-Based Testing Requirement *(NEW - Verification-First)*
+Parsers, validators, financial/time calculations, and state machines MUST include ≥ 1 property-based test with invariants named in the title (TS: `fast-check`, Python: `hypothesis`, Go: `go test -fuzz`). Mutation testing is recommended as an optional check.
