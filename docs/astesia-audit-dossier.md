@@ -498,6 +498,46 @@ Sesuai prinsip transparansi dan pelacakan registri resmi yang disinkronkan dua a
    - Pengujian siklus hidup baseline adoption 8 tahap lulus 100% pada proyek `flora-smk` dan `eduNEXA`.
    - Arsitektur single-file zero-dependency dipertahankan pada **3.082 baris** (di bawah batas maksimal 3.100 baris).
 
+### 7.10 Gelombang 2A.7 (`wave2a.7/fixes`)
+1. **Investigasi & Penutupan Celah Gelombang 2A.6 (I1–I5):**
+   - **I1 (Rekonsiliasi Registri Known-Gaps):** Menginvestigasi klaim kemunculan gap `VER3-001-FP-KEY-SOLO`. Terbukti merupakan kesalahan penulisan/klasifikasi dalam teks laporan 2A.6, di mana perbaikan `VER3-001` (key matching tanpa tanda kutip) telah tuntas sejak 2A.2 via commit `5ed3666` dan diverifikasi dalam `key-sensitivity-suite.ts`. Registri `known-gaps.json` tetap bersih dengan tepat 6 ID aktif.
+   - **I2 (Integritas Berkas Verifier Upstream):** Membuktikan 100% berkas dalam `verify/` (`afeacd4`), `verify2/` (`34110e2`), dan `verify3/` (`30a4ced`) identik bit-for-bit dengan hash blob git upstream (0 modifikasi).
+   - **I3 (Rekonsiliasi BASE5 vs START):** Pemindaian komparatif pada 10 proyek nyata (3 DESIGN, 7 SEEN) menunjukkan temuan identik 100% (0 regresi, 0 deviasi tak terjelaskan).
+   - **I4 (Pra-Pengukuran Proyek FRESH):** Mengukur secara objektif 3 proyek hold-out (`aipkani`, `ecommerce-hp-api`, `cadetspeak_admin`) menggunakan PRNG Mulberry32 (`seed: 0x2A7F00D`) dan membekukannya di `fresh-pre-measurement.json`.
+   - **I5 (Konfirmasi Kerentanan Bypass Berkas Generated):** Membuktikan secara empiris bahwa penanda `// @generated` pada START memintas pemindaian seluruh berkas bahkan jika memuat rahasia kredensial aktif (`verify-comparison.json`).
+2. **Kebijakan Berkas Generated v3 & Penutupan Bypass Total (Task G):**
+   - Menghapus sepenuhnya bypass pemindaian berbasis penanda header (`@generated`, `GENERATED CODE`, dsb.). Penanda tersebut kini hanya memunculkan notice informasional `generated_header_candidates`.
+   - Pengabaian fisik berkas generated dibatasi murni pada: (a) nama berkas berakhiran `\.(min|bundle)\.(js|mjs|cjs|css)$`, atau (b) heuristik minifikasi fisik (total karakter $\ge 5.000$ dan $\ge 50\%$ byte berada pada baris $\ge 1.000$ karakter).
+   - Ratchet baseline mengunci kuota `generated_skipped`. Lulus 29/29 kasus uji di `generated-policy-v2-suite.ts`.
+3. **Determinisme Tsconfig & Penanganan Alias Tak Terverifikasi (Task X):**
+   - Melarang mutlak penelusuran `node_modules` saat mengurai `extends` konfigurasi `tsconfig.json`.
+   - Konfigurasi yang memperluas modul eksternal mengeluarkan notice `tsconfig_unresolved_extends`. Path alias yang tidak dapat diverifikasi dicatat dalam notice `alias_unverified` dengan 0 false violation.
+   - Determinisme terbukti 100% identik dengan vs tanpa `node_modules` melalui `verify-node-modules-determinism.ts`. Lulus 12/12 kasus uji di `tsconfig-determinism-suite.ts`.
+4. **Penurunan False Positive & Generator Skema Tunggal (Task F & S):**
+   - Mengembangkan generator skema tunggal `generate-comparison.ts` yang memproduksi `phase3-comparison.json` dengan metrik simetris `before` (START) vs `after` (HEAD) serta batas atas interval kepercayaan Wilson 95%.
+   - **Disiplin Hold-Out Mutlak:** Menghasilkan 0 perubahan temuan ($\Delta = 0$) pada 7 proyek SEEN (tetap 287 temuan) dan 3 proyek FRESH (tetap 345 temuan).
+   - **Penurunan FP Terukur:** Mengeliminasi 1 False Positive pada proyek DESIGN `flora-smk` (`OFFLINE_AUTH_KEY` nama kunci local storage terversi berentropi rendah) tanpa mengorbankan 1 pun True Positive (3 True Positive di `eunectes` tetap 100% terdeteksi).
+   - Kepatuhan disiplin hold-out dan redaksi rahasia diverifikasi otomatis oleh `check-fix-evidence.ts`.
+5. **Penegakan Pinning Versi Bun Eksak & Rules-Diff (Task W):**
+   - Workflow guard GitHub Actions secara ketat mewajibkan semver eksak untuk `oven-sh/setup-bun` (misal `bun-version: 1.3.9`); versi mengambang (`latest`, `1.x`, `~1.3`) ditolak *fail-closed*.
+   - Menambahkan opsi CLI `--rules-diff <ref>` untuk membandingkan aturan terhadap commit dasar. Suite `check-workflow-suite.ts` diperluas menjadi 24 pengujian.
+6. **Portabilitas Linux & Kejelasan Status Eksekusi (Task L):**
+   - Status pengujian lokal dilabeli secara transparan: `TIDAK DIUJI (UNVERIFIABLE)` karena host pengujian berbasis Windows x64.
+   - Menyediakan skrip mandiri `templates/enforcement/tests/linux-verify.sh` dan panduan eksekusi Docker/WSL2 di `docs/LINUX-VERIFICATION.md`.
+7. **Perluasan Uji Mutasi ke 73 Mutan (Task M):**
+   - Menambahkan mutan `M66..M73` untuk menguji generated policy v3, determinisme tsconfig, aturan nama storage offline, dan pinning versi Bun.
+   - **100% Kill Rate:** 73/73 mutan berhasil dibunuh, 0 mutan bertahan hidup.
+8. **Benchmark Kinerja, Adopsi Baseline & Konsolidasi Harness:**
+   - Adopsi baseline 8 tahap lulus 100% pada proyek DESIGN `flora-smk` dan FRESH `cadetspeak_admin`.
+   - 15 pengujian triplet acak (Realistic, Stress, Startup, Eunectes) menunjukkan performa stabil tanpa regresi beban kerja ($\le 1.00$x vs START).
+   - **Metrik Konsolidasi `all.ts`:**
+     - **1.121 kasus uji unik total** (ambang batas $\ge 450$ terpenuhi).
+     - 1.114 passed, 0 failed, 7 active known gaps terverifikasi.
+     - Invarian matematika $1.121 \equiv 1.114 + 0 + 7$ terpenuhi di seluruh 30 suite (0 orphan suites).
+     - Eksekusi klon bersih terisolasi di `%TEMP%` dengan `core.autocrlf=false` lulus 100% (`harness-clean-clone.json`).
+   - Arsitektur single-file zero-dependency dipertahankan pada **3.104 baris** (di bawah batas ketat 3.200 baris).
+
+
 
 
 
