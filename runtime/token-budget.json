@@ -1,0 +1,65 @@
+{
+  "method": "ceil(bytes_utf8 / 3.5)",
+  "boot_set_definition": "AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md",
+  "boot_tokens_est": 11973,
+  "total_bytes": 41889,
+  "per_file": [
+    {
+      "path": "rules/AGENTS.md",
+      "bytes": 2419,
+      "tokens_est": 692
+    },
+    {
+      "path": "rules/coding-standards.md",
+      "bytes": 2264,
+      "tokens_est": 647
+    },
+    {
+      "path": "rules/design-rules.md",
+      "bytes": 1159,
+      "tokens_est": 332
+    },
+    {
+      "path": "rules/devops-rules.md",
+      "bytes": 1392,
+      "tokens_est": 398
+    },
+    {
+      "path": "rules/engineering-rules.md",
+      "bytes": 12023,
+      "tokens_est": 3436
+    },
+    {
+      "path": "rules/product-rules.md",
+      "bytes": 1760,
+      "tokens_est": 503
+    },
+    {
+      "path": "rules/quality-rules.md",
+      "bytes": 3628,
+      "tokens_est": 1037
+    },
+    {
+      "path": "skills/skills-index.md",
+      "bytes": 6195,
+      "tokens_est": 1770
+    },
+    {
+      "path": "runtime/context-map.json",
+      "bytes": 1705,
+      "tokens_est": 488
+    }
+  ],
+  "skills_metadata": {
+    "count": 53,
+    "bytes": 9344,
+    "tokens_est": 2670
+  },
+  "history": [
+    {
+      "timestamp": "2026-11-21T15:41:51.895Z",
+      "action": "init",
+      "new_tokens": 11973
+    }
+  ]
+}
