@@ -1618,7 +1618,7 @@ function parseJsonc(raw: string): unknown {
   return JSON.parse(out.replace(/,\s*([}\]])/g, "$1"));
 }
 
-interface TsconfigInfo { dir: string; baseUrl: string; paths: Record<string, string[]>; broken: boolean; brokenPath?: string; }
+interface TsconfigInfo { dir: string; baseUrl: string; paths: Record<string, string[]>; broken: boolean; brokenPath?: string; hasUnresolvedExtends?: boolean; }
 const tsconfigCache = new Map<string, TsconfigInfo | null>();
 
 function loadTsconfigForDir(dir: string, root: string, notices: { tsconfig_unresolved_extends: string[] }): TsconfigInfo | null {
@@ -1649,7 +1649,7 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
   if (!rawParsed || typeof rawParsed !== "object") return { dir: configDir, baseUrl: configDir, paths: {}, broken: true, brokenPath: configPath };
   const parsed = rawParsed as Record<string, unknown>;
 
-  let mergedPaths: Record<string, string[]> = {}, mergedBaseUrl = configDir;
+  let mergedPaths: Record<string, string[]> = {}, mergedBaseUrl = configDir, hasUnresolvedExtends = false;
   if (parsed.extends && typeof parsed.extends === "string") {
     const extVal = parsed.extends.trim();
     if (extVal.startsWith("./") || extVal.startsWith("../")) {
@@ -1661,10 +1661,12 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
           if (parent.broken) return parent;
           mergedPaths = { ...parent.paths };
           mergedBaseUrl = parent.baseUrl;
+          if (parent.hasUnresolvedExtends) hasUnresolvedExtends = true;
         }
       }
     } else {
       notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);
+      hasUnresolvedExtends = true;
     }
   }
   const compOpts = parsed.compilerOptions as Record<string, unknown> | undefined;
@@ -1676,7 +1678,7 @@ function loadTsconfigRecursive(configPath: string, depth: number, notices: { tsc
       }
     }
   }
-  return { dir: configDir, baseUrl: mergedBaseUrl, paths: mergedPaths, broken: false };
+  return { dir: configDir, baseUrl: mergedBaseUrl, paths: mergedPaths, broken: false, hasUnresolvedExtends };
 }
 
 function checkRelativeImports(
@@ -1748,6 +1750,10 @@ function checkRelativeImports(
               isHandled = true;
               break;
             }
+          }
+          if (!isHandled && tsInfo.hasUnresolvedExtends && (specifier.startsWith("@") || specifier.startsWith("~"))) {
+            notices.alias_unverified.push(`${rel}:${i + 1} (${specifier} in unverified package extends)`);
+            return;
           }
         }
       }
@@ -2811,6 +2817,7 @@ function main() {
     tsconfig_unresolved_extends: [] as string[],
     alias_unverified: [] as string[]
   };
+  loadTsconfigForDir(root, root, gateNotices);
   const gateState: GateState = {
     suppressions: 0,
     rejectedSuppressions: 0,

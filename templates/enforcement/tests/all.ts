@@ -39,6 +39,7 @@ import { runImportResolutionSuite } from "./import-resolution-suite";
 import { runConfigImportsSuite } from "./config-imports-suite";
 import { runFpFixesSuite } from "./fp-fixes-suite";
 import { runPortabilitySuite } from "./portability-suite";
+import { runTsconfigDeterminismSuite } from "./tsconfig-determinism-suite";
 import { runUrlExemptSuite } from "./url-exempt-suite";
 import { runWave2a5CliConfigSuite } from "./wave2a5-cli-config-suite";
 import { independentCases } from "./independent/corpus";
@@ -281,6 +282,10 @@ const fpFixesRes = runFpFixesSuite(GATE_PATH, join(tmpBase, "fp-fixes"));
 executedSuites.add("portability-suite.ts");
 const portabilityRes = runPortabilitySuite(GATE_PATH, join(tmpBase, "portability"));
 
+// T. tsconfig-determinism-suite.ts
+executedSuites.add("tsconfig-determinism-suite.ts");
+const tsconfigDeterminismRes = runTsconfigDeterminismSuite(GATE_PATH, join(tmpBase, "tsconfig-det"));
+
 const standaloneTotal =
   authHeaderRes.total +
   checkWorkflowRes.total +
@@ -301,7 +306,8 @@ const standaloneTotal =
   importResolutionRes.total +
   configImportsRes.total +
   fpFixesRes.total +
-  portabilityRes.total;
+  portabilityRes.total +
+  tsconfigDeterminismRes.total;
 
 const standalonePassed =
   authHeaderRes.passed +
@@ -323,7 +329,8 @@ const standalonePassed =
   importResolutionRes.passed +
   configImportsRes.passed +
   fpFixesRes.passed +
-  portabilityRes.passed;
+  portabilityRes.passed +
+  tsconfigDeterminismRes.passed;
 
 const standaloneFailed =
   authHeaderRes.failed +
@@ -345,7 +352,8 @@ const standaloneFailed =
   importResolutionRes.failed +
   configImportsRes.failed +
   fpFixesRes.failed +
-  portabilityRes.failed;
+  portabilityRes.failed +
+  tsconfigDeterminismRes.failed;
 
 const standaloneKnownGaps =
   ((helmKeyNameRes as any).known_gaps ?? 0) +
@@ -583,6 +591,7 @@ const suiteChecks: Array<{ name: string; total: number; passed: number; failed: 
   { name: "config-imports-suite", total: configImportsRes.total, passed: configImportsRes.passed, failed: configImportsRes.failed, known_gaps: 0 },
   { name: "fp-fixes-suite", total: fpFixesRes.total, passed: fpFixesRes.passed, failed: fpFixesRes.failed, known_gaps: 0 },
   { name: "portability-suite", total: portabilityRes.total, passed: portabilityRes.passed, failed: portabilityRes.failed, known_gaps: 0 },
+  { name: "tsconfig-determinism-suite", total: tsconfigDeterminismRes.total, passed: tsconfigDeterminismRes.passed, failed: tsconfigDeterminismRes.failed, known_gaps: 0 },
   { name: "url-exempt-suite", total: urlExemptRes.total, passed: urlExemptRes.passed, failed: urlExemptRes.failed, known_gaps: urlExemptRes.known_gaps },
   { name: "wave2a5-cli-config-suite", total: wave2a5CliConfigRes.total, passed: wave2a5CliConfigRes.passed, failed: wave2a5CliConfigRes.failed, known_gaps: wave2a5CliConfigRes.known_gaps }
 ];
@@ -730,6 +739,7 @@ const summaryOut = {
         config_imports: configImportsRes,
         fp_fixes: fpFixesRes,
         portability: portabilityRes,
+        tsconfig_determinism: tsconfigDeterminismRes,
         url_exempt: urlExemptRes,
         wave2a5_cli_config: wave2a5CliConfigRes
       }
