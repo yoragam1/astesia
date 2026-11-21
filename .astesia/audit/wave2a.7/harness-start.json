@@ -1,0 +1,423 @@
+{
+  "harness": "Astesia Unified Test Runner (all.ts)",
+  "timestamp": "2026-11-21T05:52:17.485Z",
+  "duration_ms": 77125,
+  "accounting": {
+    "total": 1068,
+    "passed": 1061,
+    "failed": 0,
+    "known_gaps": 7,
+    "invariant_holds": true,
+    "meets_scale_threshold": true,
+    "zero_orphans": true
+  },
+  "runners": {
+    "implementer": {
+      "name": "run.ts",
+      "total": 358,
+      "passed": 354,
+      "failed": 0,
+      "known_gaps": 4
+    },
+    "verifier_2a1": {
+      "name": "verify/run.ts",
+      "total": 90,
+      "passed": 89,
+      "failed": 0,
+      "known_gaps": 1
+    },
+    "verifier_2a2": {
+      "name": "verify2/run.ts",
+      "total": 80,
+      "passed": 80,
+      "failed": 0,
+      "known_gaps": 0
+    },
+    "verifier_2a3": {
+      "name": "verify3/run.ts",
+      "total": 80,
+      "passed": 80,
+      "failed": 0,
+      "known_gaps": 0
+    },
+    "standalone_suites": {
+      "total": 451,
+      "passed": 449,
+      "failed": 0,
+      "known_gaps": 2,
+      "breakdown": {
+        "auth_header": {
+          "total": 24,
+          "passed": 24,
+          "failed": 0,
+          "errors": []
+        },
+        "check_workflow": {
+          "total": 16,
+          "passed": 16,
+          "failed": 0,
+          "errors": []
+        },
+        "config_quote": {
+          "total": 21,
+          "passed": 21,
+          "failed": 0,
+          "errors": []
+        },
+        "env_batch": {
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "errors": []
+        },
+        "key_sensitivity": {
+          "total": 75,
+          "passed": 75,
+          "failed": 0,
+          "errors": []
+        },
+        "redos": {
+          "total": 15,
+          "passed": 15,
+          "failed": 0,
+          "results": [
+            {
+              "id": "rd_a_100k_ts",
+              "name": "Repeated 'a' 100k chars on .ts",
+              "passed": true,
+              "durationMs": 75,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_100k_js",
+              "name": "Repeated 'a=a=' 100k chars on .js",
+              "passed": true,
+              "durationMs": 127,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_100k_py",
+              "name": "Alternating quotes 100k chars on .py",
+              "passed": true,
+              "durationMs": 83,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_100k_go",
+              "name": "Minified bundle pattern 100k chars on .go",
+              "passed": true,
+              "durationMs": 78,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_a_500k_ts",
+              "name": "Repeated 'a' 500k chars on .ts",
+              "passed": true,
+              "durationMs": 75,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_500k_js",
+              "name": "Repeated 'a=a=' 500k chars on .js",
+              "passed": true,
+              "durationMs": 471,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_500k_py",
+              "name": "Alternating quotes 500k chars on .py",
+              "passed": true,
+              "durationMs": 73,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_500k_go",
+              "name": "Minified bundle pattern 500k chars on .go",
+              "passed": true,
+              "durationMs": 76,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_a_1M_ts",
+              "name": "Repeated 'a' 1M chars on .ts",
+              "passed": true,
+              "durationMs": 76,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_1M_js",
+              "name": "Repeated 'a=a=' 1M chars on .js",
+              "passed": true,
+              "durationMs": 877,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_1M_py",
+              "name": "Alternating quotes 1M chars on .py",
+              "passed": true,
+              "durationMs": 85,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_1M_go",
+              "name": "Minified bundle pattern 1M chars on .go",
+              "passed": true,
+              "durationMs": 101,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_yaml_500k",
+              "name": "YAML config line with 500k chars",
+              "passed": true,
+              "durationMs": 102,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_env_500k",
+              "name": "Env line with 500k chars",
+              "passed": true,
+              "durationMs": 98,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_secret_eof_200k",
+              "name": "Secret at EOF of 200k char minified line must trigger",
+              "passed": true,
+              "durationMs": 82,
+              "detectedSecret": true
+            }
+          ]
+        },
+        "profile_contract": {
+          "total": 23,
+          "passed": 23,
+          "failed": 0,
+          "errors": []
+        },
+        "config_varref": {
+          "total": 16,
+          "passed": 16,
+          "failed": 0,
+          "errors": []
+        },
+        "helm_keyname": {
+          "total": 14,
+          "passed": 13,
+          "failed": 0,
+          "known_gaps": 1,
+          "gapIds": [
+            "HELM-KEYNAME-GAP"
+          ],
+          "errors": []
+        },
+        "rule010_path": {
+          "total": 14,
+          "passed": 14,
+          "failed": 0,
+          "errors": []
+        },
+        "regex_literal": {
+          "total": 36,
+          "passed": 36,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "generated_policy": {
+          "total": 23,
+          "passed": 23,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "generated_policy_v2": {
+          "total": 29,
+          "passed": 29,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "import_resolution": {
+          "total": 42,
+          "passed": 42,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "config_imports": {
+          "total": 18,
+          "passed": 18,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "fp_fixes": {
+          "total": 22,
+          "passed": 22,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "portability": {
+          "total": 18,
+          "passed": 18,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "url_exempt": {
+          "total": 26,
+          "passed": 26,
+          "failed": 0,
+          "known_gaps": 0,
+          "errors": []
+        },
+        "wave2a5_cli_config": {
+          "total": 10,
+          "passed": 9,
+          "failed": 0,
+          "known_gaps": 1,
+          "gapIds": [
+            "PHP-MARKUP-OUTSIDE-TAG-GAP"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "meta_tests": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "cases": [
+        {
+          "id": "META-01-INTEGRITY",
+          "name": "Authentic originals.json matches known SHA256",
+          "passed": true
+        },
+        {
+          "id": "META-02-TAMPERING-DETECTED",
+          "name": "Tampering simulation rejected by SHA256 lock",
+          "passed": true
+        },
+        {
+          "id": "META-03-ID-DELETION-DETECTED",
+          "name": "ID deletion simulation strictly detected in parsed corpus",
+          "passed": true
+        },
+        {
+          "id": "META-04-CORPUS-COMPLETENESS",
+          "name": "Corpus completeness >= 60 cases (actual: 67)",
+          "passed": true
+        },
+        {
+          "id": "META-05-GAP-PRINTED-MATCHES-REGISTRY",
+          "name": "Printed active known-gap IDs equal union of active known-gaps*.json entries",
+          "passed": true
+        },
+        {
+          "id": "META-06-GAP-BIDIRECTIONAL",
+          "name": "1-to-1 bidirectional correspondence between active gap registries and gap-marked tests",
+          "passed": true
+        },
+        {
+          "id": "META-07-HELM-GAP-ACCOUNTING",
+          "name": "HELM-KEYNAME-GAP is counted in known_gaps (13 passed + 1 gap = 14) and registered in known-gaps.json",
+          "passed": true
+        },
+        {
+          "id": "META-08-SUITE-INVARIANTS",
+          "name": "Every individual suite satisfies total === passed + failed + known_gaps",
+          "passed": true
+        },
+        {
+          "id": "META-09-CORPUS-LOCK-DIRECTIONAL",
+          "name": "Directional corpus lock permits gap -> pass (D2-REG-BACKTICK-GAP) and rejects pass -> gap",
+          "passed": true
+        }
+      ]
+    },
+    "mutation_testing": {
+      "total": 65,
+      "killed": 65,
+      "survived": 0
+    }
+  },
+  "discovery": {
+    "total_discovered_suites": 27,
+    "total_executed_suites": 27,
+    "discovered_suites": [
+      "allowlist-suite.ts",
+      "auth-header-suite.ts",
+      "baseline-suite.ts",
+      "check-workflow-suite.ts",
+      "config-imports-suite.ts",
+      "config-quote-suite.ts",
+      "config-secrets-suite.ts",
+      "config-varref-suite.ts",
+      "env-batch-suite.ts",
+      "env-git-suite.ts",
+      "fp-fixes-suite.ts",
+      "generated-policy-suite.ts",
+      "generated-policy-v2-suite.ts",
+      "helm-keyname-suite.ts",
+      "import-resolution-suite.ts",
+      "key-contract-suite.ts",
+      "key-sensitivity-suite.ts",
+      "portability-suite.ts",
+      "profile-contract-suite.ts",
+      "profile-dispatch-suite.ts",
+      "redos-suite.ts",
+      "regex-literal-suite.ts",
+      "rule010-path-suite.ts",
+      "rule010-scope-suite.ts",
+      "rules-diff-suite.ts",
+      "url-exempt-suite.ts",
+      "wave2a5-cli-config-suite.ts"
+    ],
+    "orphan_suites": []
+  },
+  "active_known_gaps": [
+    {
+      "id": "007-EC2b",
+      "rule": "ASTESIA-007",
+      "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
+      "source": "wave1.1-report",
+      "registryFile": "known-gaps.json"
+    },
+    {
+      "id": "SEC-23-GAP",
+      "rule": "ASTESIA-004",
+      "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+      "source": "wave1.1-report",
+      "registryFile": "known-gaps.json"
+    },
+    {
+      "id": "D2-PHP-HEREDOC",
+      "rule": "ASTESIA-002",
+      "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer",
+      "source": "wave1.1-verification",
+      "registryFile": "known-gaps.json"
+    },
+    {
+      "id": "D4-21-GAP",
+      "rule": "ASTESIA-004",
+      "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
+      "source": "wave1.1-verification",
+      "registryFile": "known-gaps.json"
+    },
+    {
+      "id": "HELM-KEYNAME-GAP",
+      "rule": "ASTESIA-010",
+      "reason": "Pure lowercase passphrase under *PasswordKey/*TokenKey matches Helm key-name identifier pattern ^[a-z][a-z._-]{0,39}$",
+      "source": "wave2a.4-helm-keyname",
+      "registryFile": "known-gaps.json"
+    },
+    {
+      "id": "PHP-MARKUP-OUTSIDE-TAG-GAP",
+      "rule": "TOKENIZER_DESYNC",
+      "reason": "Unbalanced apostrophe in HTML markup outside <?php ?> in .php/.blade.php files (<20% and <3 files threshold in D2)",
+      "source": "wave2a.5-d2-t4",
+      "registryFile": "known-gaps.json"
+    }
+  ]
+}
