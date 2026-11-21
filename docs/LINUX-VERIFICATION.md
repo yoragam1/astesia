@@ -1,12 +1,19 @@
 # Panduan Verifikasi Reproduktif Lingkungan Linux (Astesia Framework v3.0.0)
 
-> **Status Host Audit Windows:** `UNVERIFIABLE` pada host eksekusi Windows lokal saat setup awal (WSL tidak terpasang, Docker daemon/CLI tidak tersedia). Dokumen ini menyajikan protokol deterministik untuk menjalankan verifikasi independen pada Linux (Ubuntu 22.04 LTS / Debian) menggunakan Bun v1.3.9 via WSL2 maupun Docker container `oven/bun:1.3.9`.
+> **Status Host Audit Windows:** `TIDAK DIUJI (UNVERIFIABLE)` pada host eksekusi Windows lokal (WSL tidak terpasang, Docker daemon/CLI tidak tersedia pada sesi implementer). Dokumen ini menyajikan protokol deterministik untuk menjalankan verifikasi independen pada Linux (Ubuntu 22.04 LTS / Debian) menggunakan Bun v1.3.9 via WSL2 maupun Docker container `oven/bun:1.3.9` melalui skrip otomatis `templates/enforcement/tests/linux-verify.sh`.
 
 ---
 
 ## 1. Verifikasi Menggunakan Docker (`oven/bun:1.3.9`)
 
-Jalankan container terisolasi dengan me-mount direktori repository Astesia atau melakukan clone bersih:
+Jalankan container terisolasi secara one-shot langsung menggunakan skrip verifikasi Linux resmi:
+
+```bash
+# Eksekusi one-shot runner otomatis:
+docker run --rm -v $(pwd):/workspace -w /workspace oven/bun:1.3.9 sh templates/enforcement/tests/linux-verify.sh
+```
+
+Atau lakukan verifikasi interaktif di dalam container:
 
 ```bash
 # 1. Jalankan container interaktif oven/bun:1.3.9
@@ -16,27 +23,10 @@ docker run --rm -it -v "D:/Workspaces/Astesia:/workspace" -w /workspace oven/bun
 mkdir -p /tmp/astesia-linux-verify
 cd /tmp/astesia-linux-verify
 git clone /workspace .
-git checkout wave2a.6/fixes
+git checkout wave2a.7/fixes
 
-# 3. Pastikan versi Bun tepat
-bun --version # Wajib: 1.3.9
-
-# 4. Siapkan environment terisolasi
-export HOME=/tmp/astesia-empty-home
-export USERPROFILE=/tmp/astesia-empty-home
-export XDG_CONFIG_HOME=/tmp/astesia-empty-home
-export GIT_CONFIG_GLOBAL=/dev/null
-export GIT_CONFIG_SYSTEM=/dev/null
-export GIT_CONFIG_NOSYSTEM=1
-export LC_ALL=C
-mkdir -p $HOME
-
-# 5. Jalankan suite pengujian penuh
-bun templates/enforcement/tests/all.ts --json > /workspace/.astesia/audit/wave2a.6/linux-clean-clone-all.json
-
-# 6. Jalankan perbandingan golden terhadap proyek nyata (jika volume proyek nyata di-mount ke /projects)
-# docker run --rm -it -v "D:/Workspaces/Astesia:/workspace" -v "D:/Workspaces:/projects" oven/bun:1.3.9 ...
-bun .astesia/audit/wave2a.6/tools/golden-verify.ts
+# 3. Jalankan skrip verifikasi otomatis
+sh templates/enforcement/tests/linux-verify.sh
 ```
 
 ---
@@ -56,23 +46,10 @@ bun --version # Wajib 1.3.9
 mkdir -p ~/astesia-verify
 cd ~/astesia-verify
 git clone /mnt/d/Workspaces/Astesia .
-git checkout wave2a.6/fixes
+git checkout wave2a.7/fixes
 
-# 4. Set environment terisolasi
-export HOME=/tmp/astesia-empty-home
-export USERPROFILE=/tmp/astesia-empty-home
-export XDG_CONFIG_HOME=/tmp/astesia-empty-home
-export GIT_CONFIG_GLOBAL=/dev/null
-export GIT_CONFIG_SYSTEM=/dev/null
-export GIT_CONFIG_NOSYSTEM=1
-export LC_ALL=C
-mkdir -p $HOME
-
-# 5. Jalankan suite penuh
-bun templates/enforcement/tests/all.ts --json
-
-# 6. Salin hasil pengujian kembali ke repo Windows jika diperlukan
-cp /tmp/astesia-linux-output.json /mnt/d/Workspaces/Astesia/.astesia/audit/wave2a.6/
+# 4. Jalankan skrip verifikasi terisolasi
+sh templates/enforcement/tests/linux-verify.sh
 ```
 
 ---
