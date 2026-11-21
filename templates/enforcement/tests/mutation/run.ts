@@ -1495,6 +1495,212 @@ export function runMutationHarness(): {
         const r = spawnSync("bun", [script], { cwd: td, encoding: "utf8" });
         return { passed: r.status === 0 };
       }
+    },
+    // M66: Generated file ratio check removed (Keputusan 1 / Task M)
+    {
+      id: "M66",
+      name: "generated_ratio_check_removed",
+      description: "Remove ratio check in isGeneratedFile, checking only length >= 5000",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "return longLinesBytes / totalBytes >= 0.5;",
+          "return true; // MUTANT M66",
+          "M66"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m66_fix");
+        mkdirSync(fixtureDir, { recursive: true });
+        const normalLines = Array.from({ length: 100 }, (_, i) => `// normal line ${i} ` + "x".repeat(80)).join("\n");
+        const bomb = "// " + "A".repeat(5000) + "\n" + normalLines + "\n";
+        writeFileSync(join(fixtureDir, "bomb.ts"), bomb, "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
+        const parsed = JSON.parse(r.stdout || "{}");
+        return { passed: parsed.counters?.generated_skipped === 0 };
+      }
+    },
+    // M67: Generated length threshold lowered from 5000 to 1000 (Task M)
+    {
+      id: "M67",
+      name: "generated_threshold_lowered",
+      description: "Lower generated threshold from 5000 to 1000 chars",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (cleanLines[i].length >= 5000) {",
+          "if (cleanLines[i].length >= 1000) { // MUTANT M67",
+          "M67"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m67_fix");
+        mkdirSync(fixtureDir, { recursive: true });
+        writeFileSync(join(fixtureDir, "short_long.ts"), "// " + "B".repeat(2000) + "\n", "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
+        const parsed = JSON.parse(r.stdout || "{}");
+        return { passed: parsed.counters?.generated_skipped === 0 };
+      }
+    },
+    // M68: Header marker restores direct bypass without long-line heuristic (Task M)
+    {
+      id: "M68",
+      name: "header_marker_direct_bypass_restored",
+      description: "Restore header marker (@generated) as direct bypass in isGeneratedFile",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (/\\.min\\.(js|mjs|cjs|css)$/i.test(base)) {\n    return true;\n  }",
+          "if (/\\.min\\.(js|mjs|cjs|css)$/i.test(base)) {\n    return true;\n  }\n  if (rawLines.some((l) => /@generated|DO NOT EDIT/i.test(l))) return true; // MUTANT M68",
+          "M68"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m68_fix");
+        mkdirSync(fixtureDir, { recursive: true });
+        writeFileSync(join(fixtureDir, "gen_hdr.ts"), "// @generated\nconst a = 1;\n", "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
+        const parsed = JSON.parse(r.stdout || "{}");
+        return { passed: parsed.counters?.generated_skipped === 0 };
+      }
+    },
+    // M69: Node_modules reading for package extends restored (Task M)
+    {
+      id: "M69",
+      name: "node_modules_extends_restored",
+      description: "Restore reading node_modules for package extends in loadTsconfigRecursive",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);\n      hasUnresolvedExtends = true;",
+          "const nmPath = resolve(configDir, 'node_modules', extVal, 'tsconfig.json');\n      if (existsSync(nmPath)) {\n        const parent = loadTsconfigRecursive(nmPath, depth + 1, notices);\n        mergedPaths = { ...parent.paths };\n        mergedBaseUrl = parent.baseUrl;\n      } else {\n        notices.tsconfig_unresolved_extends.push(`${configPath}: extends '${extVal}' ignored (package extends not resolved)`);\n        hasUnresolvedExtends = true;\n      }",
+          "M69"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m69_fix");
+        mkdirSync(join(fixtureDir, "node_modules/@pkg/config"), { recursive: true });
+        mkdirSync(join(fixtureDir, "src"), { recursive: true });
+        writeFileSync(join(fixtureDir, "node_modules/@pkg/config/tsconfig.json"), JSON.stringify({ compilerOptions: { paths: { "@/*": ["src/*"] } } }), "utf8");
+        writeFileSync(join(fixtureDir, "tsconfig.json"), JSON.stringify({ extends: "@pkg/config" }), "utf8");
+        writeFileSync(join(fixtureDir, "src/index.ts"), "export const x = 1;\n", "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
+        const parsed = JSON.parse(r.stdout || "{}");
+        // Authentic gate emits notice: (parsed.notices?.tsconfig_unresolved_extends?.length ?? 0) >= 1 -> passed: true
+        // Mutated gate reads node_modules and does not emit notice: length === 0 -> passed: false (killed)
+        return { passed: (parsed.notices?.tsconfig_unresolved_extends?.length ?? 0) >= 1 };
+      }
+    },
+    // M70: Unverified alias triggers ASTESIA-000 violation directly (Task M)
+    {
+      id: "M70",
+      name: "alias_unverified_triggers_violation",
+      description: "Trigger ASTESIA-000 violation instead of alias_unverified notice",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "notices.alias_unverified.push(`${rel}:${i + 1} (${specifier} in unverified package extends)`);\n            return;",
+          "out.push({ ruleId: rule.id, severity: rule.severity, file: rel, line: i + 1, message: 'Unverified alias', fix: rule.fix });\n            return;",
+          "M70"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m70_fix");
+        mkdirSync(join(fixtureDir, "src"), { recursive: true });
+        writeFileSync(join(fixtureDir, "tsconfig.json"), JSON.stringify({ extends: "@pkg/config" }), "utf8");
+        writeFileSync(join(fixtureDir, "src/main.ts"), "import { foo } from '@/unresolved';\n", "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--json"], { encoding: "utf8" });
+        const parsed = JSON.parse(r.stdout || "{}");
+        return { passed: (parsed.violations?.length ?? 0) === 0 };
+      }
+    },
+    // M71: Bun version pin check in checkWorkflow removed (Task M)
+    {
+      id: "M71",
+      name: "workflow_bun_pin_check_removed",
+      description: "Remove bun-version semver pinning check from checkWorkflow",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "if (bVer === \"latest\" || /[\\^~><x*]/.test(bVer) || !/^\\d+\\.\\d+\\.\\d+$/.test(bVer)) {",
+          "if (false && (bVer === \"latest\" || /[\\^~><x*]/.test(bVer) || !/^\\d+\\.\\d+\\.\\d+$/.test(bVer))) { // MUTANT M71",
+          "M71"
+        ),
+      testCmd: (mgPath, td) => {
+        const wf = `name: CI\non: [pull_request]\npermissions:\n  contents: read\njobs:\n  gate:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: \${{ github.event.pull_request.base.sha }}\n          path: trusted\n          persist-credentials: false\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683\n        with:\n          ref: \${{ github.event.pull_request.head.sha }}\n          path: pr\n          persist-credentials: false\n      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5\n        with:\n          bun-version: latest\n      - run: bun trusted/gate.ts --check-workflow pr/workflow.yml\n      - run: bun trusted/gate.ts --rules-diff trusted/rules.json pr/rules.json\n      - run: bun trusted/gate.ts --root pr --baseline trusted/base.json\n`;
+        const wfPath = join(td, "m71_wf.yml");
+        writeFileSync(wfPath, wf, "utf8");
+        const r = spawnSync("bun", [mgPath, "--check-workflow", wfPath], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M72: Generated files baseline check replaced by count-only (Task M)
+    {
+      id: "M72",
+      name: "generated_files_set_check_replaced_by_count",
+      description: "Replace generated_files set equality check with count-only in evaluateBaseline",
+      mutate: (code) =>
+        strictReplace(
+          code,
+          "const baselineGeneratedSet = new Set(baseline.generated_files ?? []);\n  const unbaselinedGenerated = generatedFiles.filter((f) => !baselineGeneratedSet.has(f));\n  if (unbaselinedGenerated.length > 0) {\n    counterRegressions.push(`generated_files contains unbaselined file(s): ${unbaselinedGenerated.join(\", \")}`);\n  }",
+          "// MUTANT M72: count-only generated_files comparison\n  if ((counters.generated_skipped ?? 0) > (baseline.counters?.generated_skipped ?? 0)) {\n    // count only\n  }",
+          "M72"
+        ),
+      testCmd: (mgPath, td) => {
+        const rulesPath = resolve(__dirname, "../../anti-patterns.json");
+        const fixtureDir = join(td, "m72_fix");
+        mkdirSync(fixtureDir, { recursive: true });
+        const baseObj = {
+          version: 1,
+          counters: { debt_markers: 0, suppressions: 0, files_excluded: 0, desync_files: 0, allowlisted: 0, generated_skipped: 1, imports_declared: 0 },
+          generated_files: ["fileA.min.js"],
+          violations: {}
+        };
+        const basePath = join(fixtureDir, "baseline.json");
+        writeFileSync(basePath, JSON.stringify(baseObj), "utf8");
+        writeFileSync(join(fixtureDir, "fileB.min.js"), "console.log(1);", "utf8");
+        const r = spawnSync("bun", [mgPath, "--root", fixtureDir, "--rules", rulesPath, "--baseline", basePath, "--json"], { encoding: "utf8" });
+        return { passed: r.status === 1 };
+      }
+    },
+    // M73: Secret redaction in check-fix-evidence disabled (Task M)
+    {
+      id: "M73",
+      name: "secret_redaction_disabled_in_audit_tools",
+      description: "Disable secret pattern rejection in check-fix-evidence",
+      mutate: (code) => code + "\n// MUTANT_M73",
+      testCmd: (mgPath, td) => {
+        const cfePath = resolve(__dirname, "../../../../.astesia/audit/wave2a.7/tools/check-fix-evidence.ts");
+        const cfeContent = readFileSync(cfePath, "utf8");
+        const mutatedCfe = strictReplace(
+          cfeContent,
+          "if (/(?:sk_live_|ghp_|AKIA|xox[abp]-)[a-zA-Z0-9_-]{6,}/.test(pat.source_line_raw)) {",
+          "if (false && /(?:sk_live_|ghp_|AKIA|xox[abp]-)[a-zA-Z0-9_-]{6,}/.test(pat.source_line_raw)) { // MUTANT M73",
+          "M73_CFE"
+        );
+        const script = join(td, "test_m73.ts");
+        writeFileSync(join(td, "cfe_m73.ts"), mutatedCfe);
+        writeFileSync(join(td, "fix-evidence.json"), JSON.stringify({
+          version: "1.0.0",
+          scope: "wave2a.7",
+          patterns: [{
+            pattern_id: "FP-LEAK",
+            rule: "ASTESIA-004",
+            source_project: "flora-smk",
+            source_finding_id: "ASTESIA-004|foo.ts|1",
+            source_line_raw: "key = 'sk_live_1234567890abcdef'",
+            rationale: "valid rationale >= 15 chars",
+            tests_added: ["t1", "t2"]
+          }]
+        }));
+        writeFileSync(script, `
+          import { checkFixEvidence } from "./cfe_m73";
+          const res = checkFixEvidence("${join(td, "fix-evidence.json").replace(/\\/g, "/")}");
+          process.exit(!res.valid ? 0 : 1);
+        `);
+        const r = spawnSync("bun", [script], { cwd: td, encoding: "utf8" });
+        return { passed: r.status === 0 };
+      }
     }
   ];
 
