@@ -13,7 +13,6 @@ In accordance with Google Antigravity Native Standards, every skill resides in i
 - **`brd-generation`**: Draft scalable business requirements, business rules, and acceptance criteria.
 - **`cuj-mapping`**: Map end-to-end Critical User Journeys (CUJ) with edge cases.
 - **`reverse-engineering`**: Extract competitor tech stacks, APIs, and design tokens via web reconnaissance.
-- **`template-caching`**: Zero-shot execution by reusing cached architectural templates.
 
 ## 2. Design Layer Skills
 - **`ux-systems`**: Building abstract design systems, token structures, and typography scales.
@@ -35,10 +34,9 @@ In accordance with Google Antigravity Native Standards, every skill resides in i
 
 ### Engineering Core & Execution
 - **`minimalist-executor`**: Minimalist execution. YAGNI, codebase reuse, stdlib, native APIs over 3rd party bloat.
-- **`multi-model-routing`**: Emulate multi-model verification via Red Team / Blue Team subagent personas.
+- **`adversarial-review`**: Emulate multi-model verification via Red Team / Blue Team subagent personas.
 - **`worktree-isolation`**: Execute destructive tasks safely inside temporary Git worktrees.
 - **`blast-radius`**: Map dependency graphs before modifying core services to prevent cascading failures.
-- **`hybrid-search`**: Reciprocal Rank Fusion (RRF) combining keyword and semantic search.
 - **`brownfield-entry`**: Protocol for entering existing codebases, including Threat Assessment, Scope Declaration, and Conceptual Tags generation.
 - **`zod-validation`**: Schema-first input validation with Zod.
 - **`sveltekit-frontend`**: SvelteKit architecture — server/client loads, runes, superforms.
@@ -49,7 +47,6 @@ In accordance with Google Antigravity Native Standards, every skill resides in i
 - **`self-healing`**: Autonomic debugging, retry logic, and circuit breakers.
 - **`context-navigation`**: Tag-based semantic navigation hierarchy, conceptual query patterns, token budget enforcement.
 - **`tdd-workflow`**: Strict RED-GREEN-REFACTOR workflow for implementation.
-- **`cost-reducer`**: LLM token cost optimization — temperature discipline, prompt compression, chunked retrieval.
 - **`zero-downtime-migration`**: Expand and Contract pattern for live database schema changes without downtime.
 - **`codebase-gardening`**: Behavior-preserving refactor waves that delete deprecated patterns and clear new rule violations so agents don't copy slop.
 - **`task-waves`**: Decompose implementation plans into independent, parallel task waves.
@@ -58,7 +55,6 @@ In accordance with Google Antigravity Native Standards, every skill resides in i
 - **`architectural-linter`**: Programmatic architectural validation to prevent N+1 queries and Layered Architecture breaches.
 - **`anti-silent-failure`**: Tool validation safeguard to prevent hallucination cascades from failed shell commands.
 - **`anti-bloat-review`**: Anti-bloat code review focusing exclusively on deleting over-engineered code.
-- **`anti-bloat-audit`**: Repository-wide audit for dead flexibility and YAGNI violations.
 - **`debt-scanner`**: Automated detection and resolution of `// astesia-debt:` markers.
 - **`vitest-unit-testing`**: Vitest setup, TDD workflow, service layer mocking.
 - **`e2e-testing`**: Setting up Playwright tests.

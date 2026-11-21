@@ -8,14 +8,6 @@
     "prompt": "Record an architectural decision record explaining why we chose Drizzle over Prisma"
   },
   {
-    "skill": "anti-bloat-audit",
-    "prompt": "Audit entire codebase for over-engineering and give me a deletion roadmap"
-  },
-  {
-    "skill": "anti-bloat-audit",
-    "prompt": "Lakukan audit menyeluruh untuk mencari fitur over-engineering dan kode yang harus dihapus"
-  },
-  {
     "skill": "anti-bloat-review",
     "prompt": "Review PR ini dan cari kode yang over-engineered atau tidak perlu ditulis"
   },
@@ -102,14 +94,6 @@
   {
     "skill": "context-navigation",
     "prompt": "Navigate the codebase to locate where payment webhook processing is handled"
-  },
-  {
-    "skill": "cost-reducer",
-    "prompt": "Optimalkan prompt dan kurangi biaya pemanggilan model dengan teknik kompresi context"
-  },
-  {
-    "skill": "cost-reducer",
-    "prompt": "Minimize token usage and reduce cost of agent operations during bulk processing"
   },
   {
     "skill": "cuj-mapping",
@@ -208,14 +192,6 @@
     "prompt": "Build modular Hono server endpoints with middleware and OpenAPI documentation"
   },
   {
-    "skill": "hybrid-search",
-    "prompt": "Gunakan kombinasi pencarian teks dan semantik untuk menemukan kode yang relevan"
-  },
-  {
-    "skill": "hybrid-search",
-    "prompt": "Perform hybrid search combining keyword grep and semantic indexing across files"
-  },
-  {
     "skill": "independent-verification",
     "prompt": "Jalankan verifikasi independen atas hasil kerja agen lain dan catat bukti eksekusi"
   },
@@ -256,11 +232,11 @@
     "prompt": "Implement surgical code change adhering to YAGNI with zero unnecessary dependencies"
   },
   {
-    "skill": "multi-model-routing",
+    "skill": "adversarial-review",
     "prompt": "Lakukan tinjauan adversarial dengan sudut pandang red team dan blue team"
   },
   {
-    "skill": "multi-model-routing",
+    "skill": "adversarial-review",
     "prompt": "Perform adversarial red-team review to challenge design assumptions"
   },
   {
@@ -342,14 +318,6 @@
   {
     "skill": "tdd-workflow",
     "prompt": "Follow red-green-refactor TDD cycle by writing failing unit test before code"
-  },
-  {
-    "skill": "template-caching",
-    "prompt": "Gunakan template scaffolding yang sudah tersimpan untuk mempercepat inisiasi modul"
-  },
-  {
-    "skill": "template-caching",
-    "prompt": "Leverage cached template boilerplate for standard CRUD resource creation"
   },
   {
     "skill": "trigger-dev",

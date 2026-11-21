@@ -25,7 +25,7 @@ Invoke this protocol constantly during the execution phase, specifically immedia
 ## 4. Operational Rules
 
 ### Rule 1: Always Verify Mutating Tools
-If you use a tool to write, edit, or move a file, DO NOT assume it succeeded just because the tool didn't throw a JSON exception. Verify the file exists and its contents are correct (using `view_file` or `grep_search`) before proceeding to the next step.
+If you use a tool to write, edit, or move a file, DO NOT assume it succeeded just because the tool didn't throw a JSON exception. Verify the file exists and its contents are correct (using `read_file` or running a verification command) before proceeding to the next step.
 
 ### Rule 2: Intercept Empty Outputs
 If you run a shell command (`run_command`) and the output is completely empty, you MUST verify the exit code or check the side-effects of the command. Do not blindly assume success.

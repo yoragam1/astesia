@@ -47,13 +47,12 @@ Within a single wave, **no two tasks can modify the same file**. If Subagent A i
 - If two tasks must modify the same file, they MUST be placed in sequential waves, or assigned to the exact same subagent sequentially.
 
 ### Step 4: Subagent Invocation
-Use the `invoke_subagent` tool to spawn Executor agents for the current wave:
+Use the `invoke_subagent` tool to spawn Executor agents for each independent task in the current wave:
 ```json
 {
-  "Subagents": [
-    { "TypeName": "Executor", "Role": "Schema Builder", "Prompt": "Create src/db/schema.ts..." },
-    { "TypeName": "Executor", "Role": "Types Builder", "Prompt": "Create src/types/user.ts..." }
-  ]
+  "TypeName": "self",
+  "Role": "Task Wave Executor",
+  "Prompt": "Create src/db/schema.ts according to the approved architecture specification..."
 }
 ```
 Wait for all subagents in Wave N to complete and report success before invoking Wave N+1.

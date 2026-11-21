@@ -27,9 +27,9 @@ git worktree add ../astesia-worktree-feature-x -b astesia/feature-x
 ```
 
 ### Step 2: Relocate the Execution Context
-Once the worktree is created, any subagents or commands you run MUST be executed within that new directory (`../astesia-worktree-feature-x`), not the current `cwd`.
-- Pass `Cwd: "../astesia-worktree-feature-x"` when using the `run_command` tool.
-- Pass the absolute path to the worktree when assigning files to the `invoke_subagent` tool.
+Once the worktree is created, any subagents or commands you run MUST target that new directory (`../astesia-worktree-feature-x`).
+- Execute commands targeting the worktree directory (e.g., using `git -C ../astesia-worktree-feature-x` or `cd ../astesia-worktree-feature-x && ...` in `run_command`).
+- Pass the absolute path to the worktree when assigning files to subagents.
 
 ### Step 3: Execute and Verify
 Run all Task Waves, `npm run build`, and `npm run test` inside the worktree.

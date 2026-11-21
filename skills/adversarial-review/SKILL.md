@@ -1,13 +1,13 @@
 ---
-name: multi-model-routing
+name: adversarial-review
 description: >-
-  Simulate multi-model governance by enforcing strict antagonistic personas between Planner/Executor and QA subagents.
+  Simulate adversarial governance by enforcing strict antagonistic personas between Planner/Executor and QA subagents.
 ---
 
-# Skill: Multi-Model Routing (Red Team / Blue Team)
+# Skill: Adversarial Review (Red Team / Blue Team)
 
 ## 1. Metadata
-- **Name:** `multi-model-routing`
+- **Name:** `adversarial-review`
 - **Origin:** `Astesia Engineering (Ceobe Upgrade Phase 4)`
 - **Description:** Protocol to prevent "Confirmation Bias" (hallucination cascades) in single-engine AI environments. By giving Executor subagents a "Blue Team" persona and QA Auditor subagents a "Red Team" persona, Astesia forces the underlying AI to evaluate code through fundamentally opposed logical pathways.
 

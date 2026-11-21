@@ -246,7 +246,6 @@ Seluruh skill menggunakan format standar Google Antigravity (`skills/<nama>/SKIL
 | 1 | `brd-generation` | Product | [SKILL.md](file:///D:/Workspaces/Astesia/skills/brd-generation/SKILL.md) | Penyusunan BRD terstruktur, aturan bisnis, dan Acceptance Criteria. |
 | 2 | `cuj-mapping` | Product | [SKILL.md](file:///D:/Workspaces/Astesia/skills/cuj-mapping/SKILL.md) | Pemetaan alur *Critical User Journey* dari ujung ke ujung beserta skenario gagal. |
 | 3 | `reverse-engineering` | Product | [SKILL.md](file:///D:/Workspaces/Astesia/skills/reverse-engineering/SKILL.md) | Ekstraksi intelijen kompetitor (API, tech stack, token desain) melalui observasi web. |
-| 4 | `template-caching` | Product | [SKILL.md](file:///D:/Workspaces/Astesia/skills/template-caching/SKILL.md) | Penggunaan ulang template arsitektur teruji untuk mempercepat inisiasi proyek. |
 | 5 | `ux-systems` | Design | [SKILL.md](file:///D:/Workspaces/Astesia/skills/ux-systems/SKILL.md) | Perancangan sistem desain abstrak, skala tipografi, dan palet warna HSL. |
 | 6 | `component-tokens` | Design | [SKILL.md](file:///D:/Workspaces/Astesia/skills/component-tokens/SKILL.md) | Definisi token komponen, *responsive breakpoints*, dan *interactive states*. |
 | 7 | `layered-architecture` | Engineering (Arch) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/layered-architecture/SKILL.md) | Penegakan struktur direktori dan pemisahan Controller → Service → Repository. |
@@ -264,13 +263,11 @@ Seluruh skill menggunakan format standar Google Antigravity (`skills/<nama>/SKIL
 | 19 | `frontend-integration` | Engineering (FE) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/frontend-integration/SKILL.md) | Penerjemahan Design Tokens (`design-system.md`) ke dalam kode komponen UI. |
 | 20 | `minimalist-executor` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/minimalist-executor/SKILL.md) | Protokol *Minimalist Ladder* (YAGNI, stdlib, fitur native, anti-bloat). |
 | 21 | `task-waves` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/task-waves/SKILL.md) | Dekomposisi rencana implementasi ke dalam gelombang eksekusi subagent paralel. |
-| 22 | `multi-model-routing` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/multi-model-routing/SKILL.md) | Tata kelola verifikasi silang antar-subagent dengan persona Red Team / Blue Team. |
+| 22 | `dversarial-review` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/adversarial-review/SKILL.md) | Tata kelola verifikasi silang antar-subagent dengan persona Red Team / Blue Team. |
 | 23 | `worktree-isolation` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/worktree-isolation/SKILL.md) | Isolasi tugas berisiko/paralel di dalam `git worktree` terpisah. |
 | 24 | `blast-radius` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/blast-radius/SKILL.md) | Pemetaan grafik dependensi file sebelum memodifikasi layanan inti. |
-| 25 | `hybrid-search` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/hybrid-search/SKILL.md) | Pencarian kode *Reciprocal Rank Fusion (RRF)* (leksikal + semantik). |
 | 26 | `brownfield-entry` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/brownfield-entry/SKILL.md) | Protokol masuk proyek legacy (*Threat Assessment*, *Scope*, `system-map.md`). |
 | 27 | `context-navigation` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/context-navigation/SKILL.md) | Navigasi berbasis tag konseptual dan penghematan anggaran token konteks. |
-| 28 | `cost-reducer` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/cost-reducer/SKILL.md) | Taktik pemangkasan konsumsi token LLM dan disiplin kompresi prompt. |
 | 29 | `tdd-workflow` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/tdd-workflow/SKILL.md) | Siklus pengembangan berbasis pengujian ketat (RED → GREEN → REFACTOR). |
 | 30 | `zod-validation` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/zod-validation/SKILL.md) | Validasi skema input di batas aplikasi menggunakan Zod. |
 | 31 | `self-healing` | Engineering (Core) | [SKILL.md](file:///D:/Workspaces/Astesia/skills/self-healing/SKILL.md) | Debugging otonom, *retry with backoff*, dan pola *circuit breaker*. |
@@ -282,7 +279,6 @@ Seluruh skill menggunakan format standar Google Antigravity (`skills/<nama>/SKIL
 | 37 | `architectural-linter` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/architectural-linter/SKILL.md) | Aturan makro pencegah pelanggaran layer, N+1 query, `SELECT *`, dan import fiktif. |
 | 38 | `anti-silent-failure` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/anti-silent-failure/SKILL.md) | Validasi efek samping tool untuk mencegah halusinasi akibat perintah gagal diam-diam. |
 | 39 | `anti-bloat-review` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/anti-bloat-review/SKILL.md) | Review kode yang berfokus menghapus kode dan abstraksi berlebih. |
-| 40 | `anti-bloat-audit` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/anti-bloat-audit/SKILL.md) | Audit repositori menyeluruh untuk menyusun peta penghapusan *over-engineering*. |
 | 41 | `debt-scanner` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/debt-scanner/SKILL.md) | Pelacakan dan pelunasan komentar `// astesia-debt: <alasan>, upgrade: <tindakan>`. |
 | 42 | `vitest-unit-testing` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/vitest-unit-testing/SKILL.md) | Konfigurasi dan pola pengujian unit serta mocking lapisan service dengan Vitest. |
 | 43 | `e2e-testing` | Quality | [SKILL.md](file:///D:/Workspaces/Astesia/skills/e2e-testing/SKILL.md) | Pengujian End-to-End lintas modul menggunakan Playwright. |

@@ -28,7 +28,7 @@ The agent MUST auto-classify which skills are relevant to the current user reque
 - Request mentions "auth / JWT / password" → always select `security-review`
 - Request mentions any database → always select the matching ORM skill
 - Request mentions "resilience / retry / fault" → always select `self-healing`
-- Request mentions "performance / cost" → always select `cost-reducer`
+- Request mentions "performance / cost" → always select `minimalist-executor`
 - **MANDATORY FOR ALL SESSIONS (DevOps/Safety):** `budget-circuit-breaker`
 - **MANDATORY FOR ALL SESSIONS (Quality/Safety):** `anti-silent-failure`
 - **IF Engineering Layer:** always select `minimalist-executor`
