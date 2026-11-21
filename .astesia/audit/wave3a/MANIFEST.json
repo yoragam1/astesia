@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-11-21T16:33:08.219Z",
+  "wave": "wave3a",
+  "head_commit": "10d76a42cd0803f0bed5c9b9a4224e9892bcb5a1",
+  "files": [
+    {
+      "path": ".astesia/audit/wave3a/clean-clone-start.json",
+      "sha256": "840e13d0abff1666400bb6eb4812e13d77aa42949042e421b6dd2f8d97753b46",
+      "bytes": 12365,
+      "description": "Clean-clone gate test baseline at START commit"
+    },
+    {
+      "path": ".astesia/audit/wave3a/clean-clone-end.json",
+      "sha256": "5484098dcf4b9142ff1fa257640d8e471e3bfbcad5993a239316217505398902",
+      "bytes": 12356,
+      "description": "Clean-clone gate test verification at end of Wave 3A"
+    },
+    {
+      "path": ".astesia/audit/wave3a/frozen-blobs-start.json",
+      "sha256": "5b160b5a9057692c7ca061b6b8b00c008ea574d2f46a5fb6a938015e8201b39c",
+      "bytes": 9822,
+      "description": "62 git blob SHA-1 hashes of frozen gate files at START commit"
+    },
+    {
+      "path": ".astesia/audit/wave3a/inventory-before.json",
+      "sha256": "78e85ce8415149d2dba120e773410f182c1ffc86f8620f65b420c026c7c54cea",
+      "bytes": 30556,
+      "description": "Framework baseline inventory (53 skills, 41,889 boot set bytes)"
+    },
+    {
+      "path": ".astesia/audit/wave3a/inventory-after.json",
+      "sha256": "1c752a90dd20f5564cb3dac24c09b4fe4a0e0292af4409fd270c6f581c696098",
+      "bytes": 25710,
+      "description": "Framework inventory after wave 3a (50 skills, 30,816 boot set bytes)"
+    },
+    {
+      "path": ".astesia/audit/wave3a/lint-before.json",
+      "sha256": "3c611c04f132745619e4eedb1a90a3f5dd7d5a93d0fd8c8167e40a9d756fe672",
+      "bytes": 5955,
+      "description": "Framework linter violations before fixes (30 violations)"
+    },
+    {
+      "path": ".astesia/audit/wave3a/merge-map.json",
+      "sha256": "f02df93922b990a45228a4251b1b46f743350f6ad501ec72591951d12fc05992",
+      "bytes": 3137,
+      "description": "Mapping and rationale for merged/deleted/renamed skills"
+    },
+    {
+      "path": ".astesia/audit/wave3a/prose-trim-log.json",
+      "sha256": "77ed04355a7a6044ddffd409260b5051a701f7a42e91edc66bfdb7b15ef87ed9",
+      "bytes": 2638,
+      "description": "Per-rule-file byte and token reduction log"
+    },
+    {
+      "path": ".astesia/audit/wave3a/trigger-before.json",
+      "sha256": "fece619a7ce33fd17597c4ef1991ba7f687683cdbe8797cd52e54f7e2e456fb1",
+      "bytes": 81877,
+      "description": "Skill trigger proxy baseline (106 samples, 68.87% pass rate)"
+    },
+    {
+      "path": ".astesia/audit/wave3a/trigger-after.json",
+      "sha256": "ac869f0bd88a6ccf91dd3ec326fbff3161ccb7ccecf0451b426edccfbc6e406c",
+      "bytes": 77548,
+      "description": "Skill trigger proxy after consolidation (100 samples, 73.00% pass rate)"
+    }
+  ]
+}
