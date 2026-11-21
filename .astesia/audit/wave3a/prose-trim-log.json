@@ -1,0 +1,65 @@
+[
+  {
+    "file": "rules/engineering-rules.md",
+    "before_bytes": 12023,
+    "after_bytes": 5991,
+    "category": "b, c",
+    "rationale": "Replaced repeated gate rule narratives (ASTESIA-000, 001, 002, 004, 007) with 1-line rule references; trimmed excessive JSON state update and duplicate context-navigation directives while preserving all 29 normative structural rules."
+  },
+  {
+    "file": "skills/skills-index.md",
+    "before_bytes": 6195,
+    "after_bytes": 5259,
+    "category": "c",
+    "rationale": "Condensed multi-sentence verbose skill descriptions to concise single-clause summaries; removed hardcoded skill counts and redundant intro prose."
+  },
+  {
+    "file": "rules/quality-rules.md",
+    "before_bytes": 3628,
+    "after_bytes": 2839,
+    "category": "b, c",
+    "rationale": "Trimmed duplicate narrative in Rules 6 and 7 by referencing deterministic gate rules ASTESIA-001, ASTESIA-002, and ASTESIA-007; tightened prose across all rules while preserving normative verification constraints."
+  },
+  {
+    "file": "rules/coding-standards.md",
+    "before_bytes": 2264,
+    "after_bytes": 1336,
+    "category": "b, c",
+    "rationale": "Cross-referenced ASTESIA-005 (no-any) and ASTESIA-006 (no-debug-artifacts); trimmed conversational preambles and boilerplate explanations while keeping all strict formatting and syntax rules."
+  },
+  {
+    "file": "rules/AGENTS.md",
+    "before_bytes": 2419,
+    "after_bytes": 1909,
+    "category": "c",
+    "rationale": "Streamlined operating mode declarations and trust pyramid rules; integrated required untrusted content rule concisely under 100 words."
+  },
+  {
+    "file": "rules/product-rules.md",
+    "before_bytes": 1760,
+    "after_bytes": 1019,
+    "category": "c",
+    "rationale": "Removed verbose narrative padding and conversational instructions while preserving all 6 normative acceptance thresholds and product audit triggers."
+  },
+  {
+    "file": "rules/design-rules.md",
+    "before_bytes": 1159,
+    "after_bytes": 842,
+    "category": "c",
+    "rationale": "Condensed token definitions and multimodal inspiration guidelines into crisp directives preserving all 5 design rules."
+  },
+  {
+    "file": "rules/devops-rules.md",
+    "before_bytes": 1392,
+    "after_bytes": 1095,
+    "category": "b, c",
+    "rationale": "Trimmed repetitive explanations of CI and Docker configs by referencing ASTESIA-004 and auto-merge gate skill."
+  },
+  {
+    "file": "runtime/context-map.json",
+    "before_bytes": 1705,
+    "after_bytes": 1624,
+    "category": "a",
+    "rationale": "Removed entries for deleted skills and updated renamed skill adversarial-review."
+  }
+]

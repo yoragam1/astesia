@@ -63,20 +63,20 @@
 
 ## 2. Boot Set Token Budget
 - **Definition:** AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md
-- **Total Boot Set Bytes:** 42587
-- **Total Estimated Tokens:** 12171
+- **Total Boot Set Bytes:** 30816
+- **Total Estimated Tokens:** 8809
 - **Skills Frontmatter Metadata Tokens:** 2544 (50 skills)
 
 | Boot File | Bytes | Est. Tokens |
 |---|---|---|
-| `rules/AGENTS.md` | 2877 | 822 |
-| `rules/coding-standards.md` | 2264 | 647 |
-| `rules/design-rules.md` | 1159 | 332 |
-| `rules/devops-rules.md` | 1392 | 398 |
-| `rules/engineering-rules.md` | 12152 | 3472 |
-| `rules/product-rules.md` | 1760 | 503 |
-| `rules/quality-rules.md` | 4517 | 1291 |
-| `skills/skills-index.md` | 5940 | 1698 |
+| `rules/AGENTS.md` | 1909 | 546 |
+| `rules/coding-standards.md` | 1336 | 382 |
+| `rules/design-rules.md` | 842 | 241 |
+| `rules/devops-rules.md` | 1095 | 313 |
+| `rules/engineering-rules.md` | 5991 | 1712 |
+| `rules/product-rules.md` | 1019 | 292 |
+| `rules/quality-rules.md` | 2839 | 812 |
+| `skills/skills-index.md` | 5259 | 1503 |
 | `runtime/context-map.json` | 1624 | 464 |
 | *Skill Metadata (name + desc)* | 8902 | 2544 |
 
@@ -99,14 +99,14 @@
 ### Anti-Pattern Rule IDs (11)
 | Rule ID | Documented | Doc Occurrences |
 |---|---|---|
-| `ASTESIA-000` | Yes | 13 |
-| `ASTESIA-001` | Yes | 9 |
-| `ASTESIA-002` | Yes | 6 |
+| `ASTESIA-000` | Yes | 15 |
+| `ASTESIA-001` | Yes | 12 |
+| `ASTESIA-002` | Yes | 8 |
 | `ASTESIA-003` | Yes | 3 |
-| `ASTESIA-004` | Yes | 19 |
-| `ASTESIA-005` | Yes | 3 |
-| `ASTESIA-006` | Yes | 3 |
-| `ASTESIA-007` | Yes | 6 |
+| `ASTESIA-004` | Yes | 21 |
+| `ASTESIA-005` | Yes | 4 |
+| `ASTESIA-006` | Yes | 4 |
+| `ASTESIA-007` | Yes | 9 |
 | `ASTESIA-008` | Yes | 5 |
 | `ASTESIA-009` | Yes | 4 |
 | `ASTESIA-010` | Yes | 13 |

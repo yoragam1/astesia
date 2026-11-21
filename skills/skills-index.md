@@ -1,76 +1,72 @@
 # Astesia Skills Index & Dependency Map
 
-This document indexes all 53 native skills available across Astesia's 5 cognitive layers.
-In accordance with Google Antigravity Native Standards, every skill resides in its dedicated directory:
-`skills/<skill-name>/SKILL.md` with structured YAML frontmatter for automatic progressive disclosure.
-
-> **Auto Skill Classification & Progressive Disclosure:** 
-> When Astesia runs as an Antigravity plugin, Antigravity automatically indexes all skills by their frontmatter description. For explicit pipeline state tracking, selected skills are recorded in `.astesia/astesia-state.json → active_skills[]`.
+Indexes native skills across Astesia's cognitive layers (see `docs/GENERATED-INVENTORY.md`).
+Each skill resides in `skills/<skill-name>/SKILL.md` with structured YAML frontmatter for progressive disclosure.
 
 ---
 
 ## 1. Product Layer Skills
-- **`brd-generation`**: Draft scalable business requirements, business rules, and acceptance criteria.
-- **`cuj-mapping`**: Map end-to-end Critical User Journeys (CUJ) with edge cases.
+- **`brd-generation`**: Draft structured Business Requirement Documents and acceptance criteria.
+- **`cuj-mapping`**: Map end-to-end Critical User Journeys with edge cases.
 - **`reverse-engineering`**: Extract competitor tech stacks, APIs, and design tokens via web reconnaissance.
 
 ## 2. Design Layer Skills
-- **`ux-systems`**: Building abstract design systems, token structures, and typography scales.
-- **`component-tokens`**: Defining responsive breakpoints, component states, and theme variables.
+- **`ux-systems`**: Design user flows, visual hierarchy, wireframes, and design token structures.
+- **`component-tokens`**: Define responsive breakpoints, token scales, and component state variables.
 
 ## 3. Engineering Layer Skills
 
-### Architecture
-- **`layered-architecture`**: Strict Controller → Service → Repository enforcement with clean domain boundaries.
-- **`adr-management`**: Capture architectural decisions as structured ADRs to maintain historical context.
-
-### Backend Frameworks & ORM
-- **`hono-rest-api`**: Hono REST API patterns — route design, thin controllers, middleware chains.
-- **`elysia-rest-api`**: Elysia REST API patterns — plugins, TypeBox validation, Eden treaty.
-- **`golang-rest-api`**: Golang REST API patterns — standard layout, dependency injection, domain interfaces.
-- **`python-fastapi`**: Python FastAPI REST API patterns — Pydantic, Dependency Injection.
-- **`laravel-api`**: PHP Laravel REST API patterns — Form Requests, API Resources.
-- **`drizzle-orm`**: Drizzle ORM + PostgreSQL — schema definition, migrations, repository pattern.
-
-### Engineering Core & Execution
-- **`minimalist-executor`**: Minimalist execution. YAGNI, codebase reuse, stdlib, native APIs over 3rd party bloat.
-- **`adversarial-review`**: Emulate multi-model verification via Red Team / Blue Team subagent personas.
+### Architecture & Core
+- **`layered-architecture`**: Enforce Controller → Service → Repository layering with clean domain boundaries.
+- **`adr-management`**: Record architectural decisions with context, alternatives, and rationale in ADRs.
+- **`minimalist-executor`**: Minimalist execution adhering to YAGNI and native platform capabilities.
+- **`adversarial-review`**: Adversarial verification via Red Team and Blue Team subagent personas.
 - **`worktree-isolation`**: Execute destructive tasks safely inside temporary Git worktrees.
 - **`blast-radius`**: Map dependency graphs before modifying core services to prevent cascading failures.
-- **`brownfield-entry`**: Protocol for entering existing codebases, including Threat Assessment, Scope Declaration, and Conceptual Tags generation.
-- **`zod-validation`**: Schema-first input validation with Zod.
-- **`sveltekit-frontend`**: SvelteKit architecture — server/client loads, runes, superforms.
-- **`vue-frontend`**: Vue/Nuxt architecture — Composition API, Pinia, useFetch.
-- **`react-frontend`**: React/Next.js architecture — RSC, Client Components.
-- **`react-native-mobile`**: React Native/Expo architecture — Expo Router, SafeArea.
-- **`frontend-integration`**: Connecting Design Tokens to React/Vue/Svelte logic.
-- **`self-healing`**: Autonomic debugging, retry logic, and circuit breakers.
-- **`context-navigation`**: Tag-based semantic navigation hierarchy, conceptual query patterns, token budget enforcement.
-- **`tdd-workflow`**: Strict RED-GREEN-REFACTOR workflow for implementation.
-- **`zero-downtime-migration`**: Expand and Contract pattern for live database schema changes without downtime.
-- **`codebase-gardening`**: Behavior-preserving refactor waves that delete deprecated patterns and clear new rule violations so agents don't copy slop.
+- **`brownfield-entry`**: Map legacy codebases and generate system-map.md via trace navigation.
+- **`context-navigation`**: Navigate large repositories using conceptual tags and reciprocal rank fusion.
+- **`self-healing`**: Autonomic error analysis, retry loops, and circuit breakers.
 - **`task-waves`**: Decompose implementation plans into independent, parallel task waves.
+- **`tdd-workflow`**: Strict RED-GREEN-REFACTOR workflow for implementation.
+- **`codebase-gardening`**: Refactor waves clearing rule violations, debt markers, and deprecated patterns.
+
+### Backend Frameworks & ORM
+- **`hono-rest-api`**: High-performance Edge/Node REST APIs with Hono, Zod, and middleware.
+- **`elysia-rest-api`**: Bun REST APIs using Elysia with TypeBox validation and Eden treaty.
+- **`golang-rest-api`**: Scalable Go REST API microservices with clean architecture and domain interfaces.
+- **`python-fastapi`**: Python FastAPI REST API patterns with Pydantic validation and DI.
+- **`laravel-api`**: PHP Laravel REST API patterns using Form Requests and API Resources.
+- **`drizzle-orm`**: PostgreSQL schema definitions, migrations, and repository pattern with Drizzle.
+- **`zero-downtime-migration`**: Safe schema migrations using expand-and-contract patterns.
+
+### Frontend & Mobile
+- **`zod-validation`**: Schema-first input validation and TypeScript type inference.
+- **`sveltekit-frontend`**: SvelteKit architecture, server/client loads, runes, and superforms.
+- **`vue-frontend`**: Vue 3 and Nuxt architecture with Composition API and Pinia stores.
+- **`react-frontend`**: React and Next.js architecture using Server Components and hooks.
+- **`react-native-mobile`**: Mobile app architecture for React Native and Expo with safe area views.
+- **`frontend-integration`**: Connect frontend state to backend REST APIs using TanStack Query.
 
 ## 4. Quality Layer Skills
-- **`architectural-linter`**: Programmatic architectural validation to prevent N+1 queries and Layered Architecture breaches.
-- **`anti-silent-failure`**: Tool validation safeguard to prevent hallucination cascades from failed shell commands.
-- **`anti-bloat-review`**: Anti-bloat code review focusing exclusively on deleting over-engineered code.
-- **`debt-scanner`**: Automated detection and resolution of `// astesia-debt:` markers.
-- **`vitest-unit-testing`**: Vitest setup, TDD workflow, service layer mocking.
-- **`e2e-testing`**: Setting up Playwright tests.
-- **`security-review`**: Comprehensive security checklist preventing SQLi, XSS, CSRF, and secret leaks.
-- **`visual-qa`**: UI testing protocol and Automated Visual Auditing via Headless Browser.
-- **`trust-pyramid`**: Place every constraint at the hardest layer (types > lint/CI > prose > human). Decision protocol for rule placement.
-- **`lint-ratchet`**: Convert repeated agent mistakes into permanent machine-enforced rules in `.astesia/anti-patterns.json`.
-- **`independent-verification`**: Separate Verifier agent + evidence files; never trust self-reported success.
-- **`property-based-testing`**: Invariant property tests for parsers, validators, math, and state machines with randomized shrinking.
+- **`architectural-linter`**: Programmatic validation preventing N+1 queries and controller-DB breaches.
+- **`anti-silent-failure`**: Tool validation safeguard to prevent hallucination cascades.
+- **`anti-bloat-review`**: Code review and codebase audit focused on deleting over-engineered code.
+- **`debt-scanner`**: Automated detection and resolution of `astesia-debt:` markers.
+- **`vitest-unit-testing`**: Unit and integration testing with Vitest, mocking, and coverage.
+- **`e2e-testing`**: End-to-end browser testing with Playwright.
+- **`security-review`**: Comprehensive security checklist preventing SQLi, XSS, and secret leaks.
+- **`visual-qa`**: UI testing and visual regression auditing via headless browser inspection.
+- **`trust-pyramid`**: Enforce constraints at hardest layer: types > lint/CI > prose > review.
+- **`lint-ratchet`**: Convert repeated agent mistakes into permanent rules in anti-patterns.json.
+- **`independent-verification`**: Separate verifier agent executing real behavior and recording evidence.
+- **`property-based-testing`**: Invariant property tests for parsers, validators, math, and state machines.
 
 ## 5. DevOps Layer Skills
-- **`budget-circuit-breaker`**: Enforce hard stops on token consumption during infinite loops to prevent financial waste.
-- **`dynamic-plugins`**: Author and execute custom runtime scripts to extend Astesia's capabilities.
-- **`auto-merge-gates`**: Deterministic eligibility, shadow-mode trust progression, post-merge sampling, and auto-disable for agent PRs.
-- **`docker-optimization`**: Building multi-stage non-root containers.
-- **`docker-compose`**: Multi-service Docker Compose orchestration.
-- **`github-actions`**: Setting up CI/CD pipelines.
-- **`trigger-dev`**: Background jobs and async task queues using Trigger.dev v3 — scheduled tasks, retry logic, multi-step pipelines.
-- **`n8n-automation`**: n8n workflow automation patterns — webhook integration, self-hosted setup, HMAC authentication.
+- **`budget-circuit-breaker`**: Enforce hard stops on token consumption during infinite loops.
+- **`dynamic-plugins`**: Author and execute quarantined runtime scripts with manifest registration.
+- **`auto-merge-gates`**: Deterministic PR eligibility, shadow-mode progression, and auto-merge gates.
+- **`docker-optimization`**: Build lightweight multi-stage Docker containers running as non-root.
+- **`docker-compose`**: Multi-service container orchestration for development and production.
+- **`github-actions`**: Standardized CI/CD pipeline with base-checkout trust model and workflow guards.
+- **`trigger-dev`**: Background jobs and async task queues using Trigger.dev v3.
+- **`n8n-automation`**: Webhook and workflow automation patterns using self-hosted n8n.
