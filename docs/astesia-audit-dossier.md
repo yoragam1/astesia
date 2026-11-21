@@ -4,7 +4,7 @@
 **Status Git Terakhir:** `c0e253e` (`main`)  
 **Lokasi Workspace:** `D:\Workspaces\Astesia`
 
-Dokumen ini disusun sebagai panduan referensi menyeluruh sekaligus lembar kerja audit (*Audit Dossier*) untuk memeriksa arsitektur, alur kerja, sistem aturan, mesin verifikasi deterministik, dan katalog 53 skill native pada **Astesia Framework v3.0.0**.
+Dokumen ini disusun sebagai panduan referensi menyeluruh sekaligus lembar kerja audit (*Audit Dossier*) untuk memeriksa arsitektur, alur kerja, sistem aturan, mesin verifikasi deterministik, dan katalog skill native (lihat docs/GENERATED-INVENTORY.md) pada **Astesia Framework v3.0.0**.
 
 ---
 
@@ -29,11 +29,11 @@ D:\Workspaces\Astesia\
 ├── rules/
 │   ├── AGENTS.md                            # Titik masuk aturan global plugin & 4 Mode Operasi
 │   ├── coding-standards.md                  # Standar format, TypeScript strict, import & error
-│   ├── product-rules.md                     # 6 aturan Layer 1 (Product)
-│   ├── design-rules.md                      # 5 aturan Layer 2 (Design)
-│   ├── engineering-rules.md                 # 29 direktif struktural Layer 3 (Engineering)
-│   ├── quality-rules.md                     # 11 aturan audit & verifikasi Layer 4 (Quality)
-│   └── devops-rules.md                      # 5 aturan infrastruktur & merge Layer 5 (DevOps)
+│   ├── product-rules.md                     # aturan Layer 1 (Product) (lihat docs/GENERATED-INVENTORY.md)
+│   ├── design-rules.md                      # aturan Layer 2 (Design) (lihat docs/GENERATED-INVENTORY.md)
+│   ├── engineering-rules.md                 # direktif struktural Layer 3 (Engineering) (lihat docs/GENERATED-INVENTORY.md)
+│   ├── quality-rules.md                     # aturan audit & verifikasi Layer 4 (Quality) (lihat docs/GENERATED-INVENTORY.md)
+│   └── devops-rules.md                      # aturan infrastruktur & merge Layer 5 (DevOps) (lihat docs/GENERATED-INVENTORY.md)
 ├── workflows/
 │   ├── phase1-product.md                    # Checklist eksekusi fase Product
 │   ├── phase2-design.md                     # Checklist eksekusi fase Design
@@ -54,8 +54,8 @@ D:\Workspaces\Astesia\
 │       └── astesia-gate.workflow.yml        # Template GitHub Actions CI (rebased-head check)
 └── skills/
     ├── SKILL-TEMPLATE.md                    # Standar pembuatan skill baru
-    ├── skills-index.md                      # Indeks katalog 53 skill
-    └── <53 folder skill>/SKILL.md           # Skill native Antigravity (Progressive Disclosure)
+    ├── skills-index.md                      # Indeks katalog skill (lihat docs/GENERATED-INVENTORY.md)
+    └── <folder skill>/SKILL.md           # Skill native Antigravity (Progressive Disclosure)
 ```
 
 ### Tiga Dokumen Fondasi (`docs/`)
@@ -114,7 +114,7 @@ Setiap proyek yang dikelola Astesia wajib memiliki direktori `.astesia/` dengan 
 * **Peran:** Product Manager (PM) & Business Analyst (BA)
 * **Berkas:** [product-rules.md](file:///D:/Workspaces/Astesia/rules/product-rules.md) | [phase1-product.md](file:///D:/Workspaces/Astesia/workflows/phase1-product.md) | [brd-template.md](file:///D:/Workspaces/Astesia/templates/brd-template.md)
 * **Output Artefak:** `.astesia/brd.md`
-* **6 Aturan Utama:**
+* **Aturan Utama (lihat docs/GENERATED-INVENTORY.md):**
   1. Dilarang menulis detail implementasi (kode, SQL, CSS).
   2. Wajib menyertakan *Acceptance Criteria* yang dapat diuji untuk setiap fitur.
   3. Wajib mendefinisikan bagian *Explicit Out-of-Scope* untuk mencegah halusinasi fitur di layer Engineering.
@@ -126,7 +126,7 @@ Setiap proyek yang dikelola Astesia wajib memiliki direktori `.astesia/` dengan 
 * **Peran:** UI/UX Designer & Design Systems Architect
 * **Berkas:** [design-rules.md](file:///D:/Workspaces/Astesia/rules/design-rules.md) | [phase2-design.md](file:///D:/Workspaces/Astesia/workflows/phase2-design.md) | [design-system-template.md](file:///D:/Workspaces/Astesia/templates/design-system-template.md)
 * **Output Artefak:** `.astesia/design-system.md`
-* **5 Aturan Utama:**
+* **Aturan Utama (lihat docs/GENERATED-INVENTORY.md):**
   1. *Abstract Tokens First:* Definisi warna (HSL/CSS variables), tipografi, skala spasi (basis 4px), radius, dan bayangan sebelum menyentuh komponen. Dilarang menggunakan hex statis secara acak.
   2. Dilarang mencampur logika bisnis atau skema database ke dalam spesifikasi desain.
   3. Standar aksesibilitas **WCAG AA** wajib terpenuhi untuk kontras warna, ditambah state fokus pada seluruh elemen interaktif.
@@ -138,7 +138,7 @@ Setiap proyek yang dikelola Astesia wajib memiliki direktori `.astesia/` dengan 
 * **Berkas:** [engineering-rules.md](file:///D:/Workspaces/Astesia/rules/engineering-rules.md) | [coding-standards.md](file:///D:/Workspaces/Astesia/rules/coding-standards.md) | [phase3-engineering.md](file:///D:/Workspaces/Astesia/workflows/phase3-engineering.md) | [architecture-template.md](file:///D:/Workspaces/Astesia/templates/architecture-template.md) | [system-map-template.md](file:///D:/Workspaces/Astesia/templates/system-map-template.md)
 * **Output Artefak:** `.astesia/architecture.md`, `.astesia/system-map.md` (brownfield), dan kode sumber di `src/`
 * **Standar Kode ([coding-standards.md](file:///D:/Workspaces/Astesia/rules/coding-standards.md)):** Indentasi 2 spasi, panjang baris 80–100 karakter, titik koma wajib, kutip tunggal (`'`), TypeScript `strict: true`, larangan tipe `any` (gunakan `unknown` + narrowing), tipe kembalian eksplisit, urutan import terstandarisasi, *named exports* diutamakan di atas `export default`, larangan meninggalkan `console.log`/`debugger`, serta penggunaan *typed error classes*.
-* **29 Direktif Struktural ([engineering-rules.md](file:///D:/Workspaces/Astesia/rules/engineering-rules.md)):**
+* **Direktif Struktural (lihat docs/GENERATED-INVENTORY.md) ([engineering-rules.md](file:///D:/Workspaces/Astesia/rules/engineering-rules.md)):**
   * **#1 & #1.5:** Layered Architecture (`API/Controller → Service → Repository`) dengan *Adaptive Legacy Fallback* untuk proyek brownfield, serta pemisahan ketat UI dari logika *data fetching* di frontend.
   * **#2–#12:** *Single Responsibility*, *Thin Controllers*, penanganan error terstruktur, penamaan deskriptif, desain modular per domain, isolasi framework HTTP di layer API, akses DB wajib melalui Repository, kesederhanaan di atas trik rumit, pencatatan ADR, dekomposisi tugas (`DB → Service → API`), dan strategi modifikasi aman (*add, don't break*).
   * **#13–#18:** Verifikasi keberadaan file sebelum baca/edit, larangan halusinasi import, isolasi dokumen di `.astesia/`, prinsip *immutability*, **Shift-Left TDD wajib** (RED–GREEN–REFACTOR dengan unit test coverage $\ge 80\%$), validasi skema input di batas aplikasi (Zod) tanpa hardcoded secret, serta Conventional Commits.
@@ -158,7 +158,7 @@ Setiap proyek yang dikelola Astesia wajib memiliki direktori `.astesia/` dengan 
 * **Peran:** QA Auditor, Security Reviewer & Verifier Independen
 * **Berkas:** [quality-rules.md](file:///D:/Workspaces/Astesia/rules/quality-rules.md) | [phase4-quality.md](file:///D:/Workspaces/Astesia/workflows/phase4-quality.md) | [qa-test-plan-template.md](file:///D:/Workspaces/Astesia/templates/qa-test-plan-template.md)
 * **Output Artefak:** `.astesia/qa-test-plan.md`, `.astesia/verification/*.md`, serta pengujian integrasi/E2E di `tests/`
-* **11 Aturan Utama:**
+* **Aturan Utama (lihat docs/GENERATED-INVENTORY.md):**
   1. Verifikasi independen atas unit test Engineering serta penulisan Integration & E2E test.
   2. *Strict Traceability:* Setiap tes wajib memetakan kembali ke Acceptance Criterion spesifik di `brd.md`.
   3. *Security Checkpoint:* Menggagalkan pipeline seketika jika ditemukan SQLi, XSS, CSRF, token terekspos, atau ketiadaan validasi input.
@@ -175,7 +175,7 @@ Setiap proyek yang dikelola Astesia wajib memiliki direktori `.astesia/` dengan 
 * **Peran:** DevOps & Release Engineer
 * **Berkas:** [devops-rules.md](file:///D:/Workspaces/Astesia/rules/devops-rules.md) | [phase5-devops.md](file:///D:/Workspaces/Astesia/workflows/phase5-devops.md) | [deployment-template.md](file:///D:/Workspaces/Astesia/templates/deployment-template.md)
 * **Output Artefak:** `.astesia/deployment.md`, `Dockerfile`, `docker-compose.dev.yml`, `docker-compose.prod.yml`, `.github/workflows/ci.yml`, `.github/workflows/astesia-gate.yml`, `.env.example`
-* **5 Aturan Utama:**
+* **Aturan Utama (lihat docs/GENERATED-INVENTORY.md):**
   1. *Immutable Infrastructure:* Seluruh konfigurasi harus deklaratif.
   2. *Security First (Least Privilege):* Container wajib berjalan sebagai non-root user (`appuser`) dan bebas dari kredensial statis.
   3. *Pre-Requisite Checks:* Dilarang menjalankan deployment jika Quality Layer belum berstatus `done`.
@@ -301,7 +301,7 @@ Tabel ini memisahkan fitur yang **sudah ditegakkan secara deterministik oleh kod
 
 | Area Audit | Tingkat Penegakan Saat Ini | Bukti Berkas | Catatan & Celah Potensial untuk Anda Audit |
 |---|---|---|---|
-| **Struktur Skill & Progressive Disclosure** | **L2 — Native Structure** | `skills/*/SKILL.md` (53 folder) | Seluruh 53 skill telah memiliki frontmatter YAML (`name`, `description`). Anda hanya perlu menjalankan `.\install.ps1` di terminal host agar symlink/junction di `~/.gemini/config/plugins/astesia` aktif. |
+| **Struktur Skill & Progressive Disclosure** | **L2 — Native Structure** | `skills/*/SKILL.md` (lihat docs/GENERATED-INVENTORY.md) | Seluruh skill telah memiliki frontmatter YAML (`name`, `description`). Anda hanya perlu menjalankan `.\install.ps1` di terminal host agar symlink/junction di `~/.gemini/config/plugins/astesia` aktif. |
 | **Deteksi Import Fiktif, Layer Breach, `SELECT *`, Vague Debt, Secret, `any`, `console.log`** | **L2 — Enforced by Code** | [astesia-gate.ts](file:///D:/Workspaces/Astesia/templates/enforcement/astesia-gate.ts), [anti-patterns.json](file:///D:/Workspaces/Astesia/templates/enforcement/anti-patterns.json) | Berjalan deterministik tanpa dependensi eksternal dan mengembalikan `exit 1` jika melanggar. |
 | **Deteksi N+1 Database Query (`ASTESIA-007`)** | **L2 — Heuristic Block Scanner** | [astesia-gate.ts](file:///D:/Workspaces/Astesia/templates/enforcement/astesia-gate.ts#L124-L163) | Menggunakan pelacak kedalaman kurung kurawal `{}` untuk menangkap pemanggilan DB di dalam blok `for`/`while`/`.map`/`.forEach`. Efektif untuk pemanggilan langsung, namun belum melacak pemanggilan tidak langsung lintas fungsi helper (membutuhkan parser AST penuh jika ingin 100% kedap). |
 | **Kewajiban Header Doc (Direktif #19)** | **L3 — Prose Rule** | [engineering-rules.md](file:///D:/Workspaces/Astesia/rules/engineering-rules.md#L81-L91) | Saat ini diperiksa secara visual oleh Quality Agent, belum dijadikan rule otomatis di `astesia-gate.ts`. |
@@ -319,7 +319,7 @@ Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gel
    - Penambahan CLI flag `--json`, `--max-warn`, penanganan UTF-8 BOM dan CRLF deterministik, serta `exit 2` untuk kegagalan alat.
    - Pra-pemrosesan tokenizer multi-bahasa (`TS`, `JS`, `Python`, `Go`, `PHP`, `Svelte`, `Vue`) memisahkan kode dari komentar dan string.
    - Penegakan `astesia-allow` ketat ($\ge 15$ karakter alasan) dengan larangan mutlak untuk `ASTESIA-000` dan `ASTESIA-004`.
-   - Registri aturan diperluas dari 8 aturan dasar (`ASTESIA-000`..`007`) menjadi 11 aturan (`ASTESIA-000`..`010`):
+   - Registri aturan diperluas dari aturan dasar menjadi aturan registri aktif (lihat docs/GENERATED-INVENTORY.md):
      - `ASTESIA-008` (`warn`): Anti-workaround (`workaround|hack|for now|temporary fix`) tanpa penanda utang `astesia-debt:`.
      - `ASTESIA-009` (`warn`): Penggunaan `setTimeout` telanjang di luar berkas pengujian dan modul debounce/throttle.
      - `ASTESIA-010` (`error`): Hardcoded secrets di konfigurasi deployment, Dockerfile, `.env`, dan CI compose YAML.
@@ -348,7 +348,7 @@ Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gel
      - Seluruh GitHub Actions di-pin menggunakan 40-character commit SHA permanen.
      - Dilengkapi `CODEOWNERS.template` dan panduan `BRANCH-PROTECTION.md`.
 
-### 7.2 Daftar Aturan Registri Aktif (11 Aturan: ASTESIA-000..010)
+### 7.2 Daftar Aturan Registri Aktif (lihat docs/GENERATED-INVENTORY.md)
 | Rule ID | Severity | Kind | Scope | Target & Deskripsi |
 |---|---|---|---|---|
 | `ASTESIA-000` | `error` | `relative-import-exists` | `code` | Import relatif ESM/CJS, re-export, dan alias `@/` wajib menunjuk ke berkas fisik yang eksis. *(NEVER_BASELINE)* |

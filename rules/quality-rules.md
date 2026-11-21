@@ -44,7 +44,10 @@ When reviewing code, your primary goal is NOT just finding bugs; it is finding c
 
 
 ## 9. Deterministic Gate Ownership *(NEW - Verification-First)*
-- Run `astesia-gate` on the rebased head; any `error` is an automatic FAIL. Warn count may never exceed `enforcement.max_warn`.
+- Run `bun .astesia/enforcement/astesia-gate.ts --json` on the rebased head; any `error` is an automatic FAIL. Warn count may never exceed `enforcement.max_warn`.
+- Supported CLI flags: `--baseline`, `--update-baseline`, `--max-warn`, `--json`, `--root`, `--rules`, `--rules-diff`, `--check-workflow`, `--allow-raise`, `--reason` (see `docs/GENERATED-INVENTORY.md`).
+- Policy: `NEVER_BASELINE = [ASTESIA-000, ASTESIA-004, ASTESIA-010]`, `NEVER_INLINE_SUPPRESS = [ASTESIA-000, ASTESIA-004]`. Generated files policy prevents suppression bypass.
+- Known limitations: elevated false-positives on 000/004 on certain repos; gate validated on Windows; `--check-workflow` is a static PR lint.
 - You own `.astesia/anti-patterns.json`. Executors may not modify it.
 
 ## 10. Mistake-to-Rule Ratchet *(NEW - Verification-First)*

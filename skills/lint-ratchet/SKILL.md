@@ -32,7 +32,9 @@ description: >-
 ### Ratchet rules
 - Rules are **append-only**. Removal requires an ADR (`adr-management`).
 - `warn` → `error` promotion when warn count reaches 0, or set `--max-warn` to the current count and lower it each wave. The warn budget may only decrease.
-- Suppression requires `astesia-allow: <rule-id> -- <reason>`; a missing reason is itself a violation.
+- Suppression requires `astesia-allow: <rule-id> -- <reason>` (≥15 characters); missing reason is a violation.
+- Invariants: `ASTESIA-000` and `ASTESIA-004` can NEVER be suppressed inline. `ASTESIA-000`, `ASTESIA-004`, and `ASTESIA-010` can NEVER be baselined (`NEVER_BASELINE`).
+- Baseline updates via `--update-baseline` require `--allow-raise --reason "<reason>"` to raise thresholds.
 - Cap: if a rule needs > 10 suppressions, it is the wrong rule — redesign it.
 
 ## 4. Anti-Patterns
