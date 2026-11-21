@@ -1,0 +1,21 @@
+[
+  "read_file",
+  "write_file",
+  "edit_file",
+  "run_command",
+  "search_web",
+  "invoke_subagent",
+  "define_subagent",
+  "manage_subagents",
+  "schedule",
+  "manage_task",
+  "send_message",
+  "run_workflow",
+  "search_marketplace",
+  "list_plugin_accounts",
+  "ask_question",
+  "call_mcp_tool",
+  "list_resources",
+  "read_resource",
+  "swarm"
+]
