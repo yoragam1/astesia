@@ -38,8 +38,8 @@
 | `independent-verification` | `skills/independent-verification` | 179 | 2329 | 666 |
 | `laravel-api` | `skills/laravel-api` | 94 | 3350 | 958 |
 | `layered-architecture` | `skills/layered-architecture` | 162 | 6175 | 1765 |
-| `lint-ratchet` | `skills/lint-ratchet` | 147 | 2570 | 735 |
-| `minimalist-executor` | `skills/minimalist-executor` | 101 | 3068 | 877 |
+| `lint-ratchet` | `skills/lint-ratchet` | 147 | 2662 | 761 |
+| `minimalist-executor` | `skills/minimalist-executor` | 101 | 3085 | 882 |
 | `n8n-automation` | `skills/n8n-automation` | 210 | 4565 | 1305 |
 | `property-based-testing` | `skills/property-based-testing` | 108 | 2692 | 770 |
 | `python-fastapi` | `skills/python-fastapi` | 107 | 3166 | 905 |
@@ -54,7 +54,7 @@
 | `trigger-dev` | `skills/trigger-dev` | 199 | 4830 | 1380 |
 | `trust-pyramid` | `skills/trust-pyramid` | 176 | 2653 | 758 |
 | `ux-systems` | `skills/ux-systems` | 127 | 1969 | 563 |
-| `visual-qa` | `skills/visual-qa` | 222 | 4502 | 1287 |
+| `visual-qa` | `skills/visual-qa` | 222 | 4501 | 1286 |
 | `vitest-unit-testing` | `skills/vitest-unit-testing` | 159 | 5127 | 1465 |
 | `vue-frontend` | `skills/vue-frontend` | 138 | 4637 | 1325 |
 | `worktree-isolation` | `skills/worktree-isolation` | 97 | 2599 | 743 |
@@ -63,19 +63,19 @@
 
 ## 2. Boot Set Token Budget
 - **Definition:** AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md
-- **Total Boot Set Bytes:** 30816
-- **Total Estimated Tokens:** 8809
+- **Total Boot Set Bytes:** 31405
+- **Total Estimated Tokens:** 8976
 - **Skills Frontmatter Metadata Tokens:** 2544 (50 skills)
 
 | Boot File | Bytes | Est. Tokens |
 |---|---|---|
-| `rules/AGENTS.md` | 1909 | 546 |
-| `rules/coding-standards.md` | 1336 | 382 |
-| `rules/design-rules.md` | 842 | 241 |
-| `rules/devops-rules.md` | 1095 | 313 |
-| `rules/engineering-rules.md` | 5991 | 1712 |
-| `rules/product-rules.md` | 1019 | 292 |
-| `rules/quality-rules.md` | 2839 | 812 |
+| `rules/AGENTS.md` | 2004 | 573 |
+| `rules/coding-standards.md` | 1440 | 412 |
+| `rules/design-rules.md` | 846 | 242 |
+| `rules/devops-rules.md` | 1112 | 318 |
+| `rules/engineering-rules.md` | 6404 | 1830 |
+| `rules/product-rules.md` | 1060 | 303 |
+| `rules/quality-rules.md` | 2754 | 787 |
 | `skills/skills-index.md` | 5259 | 1503 |
 | `runtime/context-map.json` | 1624 | 464 |
 | *Skill Metadata (name + desc)* | 8902 | 2544 |
@@ -84,29 +84,29 @@
 ### Supported CLI Flags (11)
 | CLI Flag | Documented | Doc Occurrences |
 |---|---|---|
-| `--baseline` | Yes | 6 |
+| `--baseline` | Yes | 7 |
 | `--update-baseline` | Yes | 5 |
 | `--max-warn` | Yes | 8 |
 | `--json` | Yes | 9 |
 | `--root` | Yes | 3 |
-| `--rules` | Yes | 9 |
-| `--rules-diff` | Yes | 6 |
-| `--check-workflow` | Yes | 6 |
+| `--rules` | Yes | 11 |
+| `--rules-diff` | Yes | 7 |
+| `--check-workflow` | Yes | 8 |
 | `--stdin` | Yes | 2 |
-| `--allow-raise` | Yes | 4 |
-| `--reason` | Yes | 4 |
+| `--allow-raise` | Yes | 5 |
+| `--reason` | Yes | 6 |
 
 ### Anti-Pattern Rule IDs (11)
 | Rule ID | Documented | Doc Occurrences |
 |---|---|---|
-| `ASTESIA-000` | Yes | 15 |
-| `ASTESIA-001` | Yes | 12 |
-| `ASTESIA-002` | Yes | 8 |
-| `ASTESIA-003` | Yes | 3 |
+| `ASTESIA-000` | Yes | 18 |
+| `ASTESIA-001` | Yes | 14 |
+| `ASTESIA-002` | Yes | 9 |
+| `ASTESIA-003` | Yes | 4 |
 | `ASTESIA-004` | Yes | 21 |
-| `ASTESIA-005` | Yes | 4 |
-| `ASTESIA-006` | Yes | 4 |
-| `ASTESIA-007` | Yes | 9 |
-| `ASTESIA-008` | Yes | 5 |
-| `ASTESIA-009` | Yes | 4 |
-| `ASTESIA-010` | Yes | 13 |
+| `ASTESIA-005` | Yes | 5 |
+| `ASTESIA-006` | Yes | 5 |
+| `ASTESIA-007` | Yes | 10 |
+| `ASTESIA-008` | Yes | 6 |
+| `ASTESIA-009` | Yes | 5 |
+| `ASTESIA-010` | Yes | 15 |
