@@ -13,22 +13,22 @@
 | `adr-management` | `skills/adr-management` | 263 | 3339 | 954 |
 | `adversarial-review` | `skills/adversarial-review` | 116 | 2548 | 728 |
 | `anti-bloat-review` | `skills/anti-bloat-review` | 130 | 3618 | 1034 |
-| `anti-silent-failure` | `skills/anti-silent-failure` | 103 | 2386 | 682 |
+| `anti-silent-failure` | `skills/anti-silent-failure` | 103 | 2379 | 680 |
 | `architectural-linter` | `skills/architectural-linter` | 121 | 2656 | 759 |
 | `auto-merge-gates` | `skills/auto-merge-gates` | 146 | 2280 | 652 |
 | `blast-radius` | `skills/blast-radius` | 79 | 2394 | 684 |
 | `brd-generation` | `skills/brd-generation` | 142 | 2585 | 739 |
 | `brownfield-entry` | `skills/brownfield-entry` | 180 | 7471 | 2135 |
-| `budget-circuit-breaker` | `skills/budget-circuit-breaker` | 98 | 2717 | 777 |
+| `budget-circuit-breaker` | `skills/budget-circuit-breaker` | 98 | 2711 | 775 |
 | `codebase-gardening` | `skills/codebase-gardening` | 170 | 2014 | 576 |
 | `component-tokens` | `skills/component-tokens` | 119 | 2084 | 596 |
-| `context-navigation` | `skills/context-navigation` | 123 | 2664 | 762 |
+| `context-navigation` | `skills/context-navigation` | 123 | 2674 | 764 |
 | `cuj-mapping` | `skills/cuj-mapping` | 109 | 2062 | 590 |
 | `debt-scanner` | `skills/debt-scanner` | 85 | 2155 | 616 |
 | `docker-compose` | `skills/docker-compose` | 164 | 5231 | 1495 |
 | `docker-optimization` | `skills/docker-optimization` | 131 | 2201 | 629 |
 | `drizzle-orm` | `skills/drizzle-orm` | 180 | 5139 | 1469 |
-| `dynamic-plugins` | `skills/dynamic-plugins` | 87 | 3317 | 948 |
+| `dynamic-plugins` | `skills/dynamic-plugins` | 87 | 3310 | 946 |
 | `e2e-testing` | `skills/e2e-testing` | 119 | 2666 | 762 |
 | `elysia-rest-api` | `skills/elysia-rest-api` | 148 | 3324 | 950 |
 | `frontend-integration` | `skills/frontend-integration` | 135 | 2892 | 827 |
@@ -54,17 +54,17 @@
 | `trigger-dev` | `skills/trigger-dev` | 199 | 4830 | 1380 |
 | `trust-pyramid` | `skills/trust-pyramid` | 176 | 2653 | 758 |
 | `ux-systems` | `skills/ux-systems` | 127 | 1969 | 563 |
-| `visual-qa` | `skills/visual-qa` | 222 | 4501 | 1286 |
+| `visual-qa` | `skills/visual-qa` | 222 | 4503 | 1287 |
 | `vitest-unit-testing` | `skills/vitest-unit-testing` | 159 | 5127 | 1465 |
 | `vue-frontend` | `skills/vue-frontend` | 138 | 4637 | 1325 |
-| `worktree-isolation` | `skills/worktree-isolation` | 97 | 2599 | 743 |
+| `worktree-isolation` | `skills/worktree-isolation` | 97 | 2601 | 744 |
 | `zero-downtime-migration` | `skills/zero-downtime-migration` | 166 | 4558 | 1303 |
 | `zod-validation` | `skills/zod-validation` | 146 | 3626 | 1036 |
 
 ## 2. Boot Set Token Budget
 - **Definition:** AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md
-- **Total Boot Set Bytes:** 31405
-- **Total Estimated Tokens:** 8976
+- **Total Boot Set Bytes:** 31391
+- **Total Estimated Tokens:** 8972
 - **Skills Frontmatter Metadata Tokens:** 2544 (50 skills)
 
 | Boot File | Bytes | Est. Tokens |
@@ -73,7 +73,7 @@
 | `rules/coding-standards.md` | 1440 | 412 |
 | `rules/design-rules.md` | 846 | 242 |
 | `rules/devops-rules.md` | 1112 | 318 |
-| `rules/engineering-rules.md` | 6404 | 1830 |
+| `rules/engineering-rules.md` | 6390 | 1826 |
 | `rules/product-rules.md` | 1060 | 303 |
 | `rules/quality-rules.md` | 2754 | 787 |
 | `skills/skills-index.md` | 5259 | 1503 |
@@ -91,19 +91,19 @@
 | `--root` | Yes | 3 |
 | `--rules` | Yes | 11 |
 | `--rules-diff` | Yes | 7 |
-| `--check-workflow` | Yes | 8 |
-| `--stdin` | Yes | 2 |
+| `--check-workflow` | Yes | 7 |
+| `--stdin` | Yes | 4 |
 | `--allow-raise` | Yes | 5 |
 | `--reason` | Yes | 6 |
 
 ### Anti-Pattern Rule IDs (11)
 | Rule ID | Documented | Doc Occurrences |
 |---|---|---|
-| `ASTESIA-000` | Yes | 18 |
+| `ASTESIA-000` | Yes | 17 |
 | `ASTESIA-001` | Yes | 14 |
 | `ASTESIA-002` | Yes | 9 |
 | `ASTESIA-003` | Yes | 4 |
-| `ASTESIA-004` | Yes | 21 |
+| `ASTESIA-004` | Yes | 20 |
 | `ASTESIA-005` | Yes | 5 |
 | `ASTESIA-006` | Yes | 5 |
 | `ASTESIA-007` | Yes | 10 |
