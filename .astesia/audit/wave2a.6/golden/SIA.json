@@ -1,0 +1,514 @@
+{
+  "errors": 0,
+  "warnings": 60,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 469,
+    "by_extension": {
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-p3-1795083756754\\sia\\.env": 1,
+      ".php": 462,
+      ".js": 6
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [
+    "resources/views/welcome.blade.php"
+  ],
+  "notices": {
+    "tokenizer_desyncs": [
+      "resources/views/welcome.blade.php"
+    ],
+    "generated_header_candidates": [],
+    "tsconfig_unresolved_extends": [],
+    "alias_unverified": []
+  },
+  "violations": [
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "app/Http/Controllers/Admin/DosenController.php",
+      "line": 299,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "app/Http/Controllers/Dosen/ProfileController.php",
+      "line": 77,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "public/js/indonesia-regions-cascade.js",
+      "line": 221,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/create.blade.php",
+      "line": 1089,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/create.blade.php",
+      "line": 1099,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/create.blade.php",
+      "line": 1134,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/create.blade.php",
+      "line": 1137,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/edit.blade.php",
+      "line": 762,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/edit.blade.php",
+      "line": 772,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/edit.blade.php",
+      "line": 807,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/admin/dosen/edit.blade.php",
+      "line": 810,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/create.blade.php",
+      "line": 1019,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/create.blade.php",
+      "line": 1028,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/create.blade.php",
+      "line": 1036,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 641,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 642,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 654,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 659,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 669,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 689,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 726,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 759,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 771,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 785,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 790,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 800,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 820,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 857,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 891,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 914,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 930,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 933,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 937,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 966,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 977,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 981,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1009,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1016,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1020,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1050,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1055,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1060,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1073,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1089,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1093,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1121,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1132,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1136,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1164,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1171,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1175,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1206,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1210,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1215,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1223,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1245,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1254,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1262,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "resources/views/tendik/edit.blade.php",
+      "line": 1279,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "resources/views/welcome.blade.php",
+      "line": 278,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    }
+  ]
+}

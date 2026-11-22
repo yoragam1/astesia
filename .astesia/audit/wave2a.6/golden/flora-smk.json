@@ -1,0 +1,171 @@
+{
+  "errors": 2,
+  "warnings": 10,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "env_ignored_skipped": 0,
+  "generated_skipped": 13,
+  "generated_files": [
+    ".vercel/output/static/_app/immutable/chunks/Br6pCSIg.js",
+    ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+    ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+    ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+    ".vercel/output/static/_app/immutable/nodes/0.D9g6nVG2.js",
+    ".vercel/output/static/_app/immutable/nodes/2.CcpcbZ3Z.js",
+    ".vercel/output/static/_app/immutable/nodes/3.JtwuhtY6.js",
+    ".vercel/output/static/_app/immutable/nodes/4.Z-_zpI-I.js",
+    ".vercel/output/static/_app/immutable/nodes/5.DJvL8WBN.js",
+    ".vercel/output/static/_app/immutable/nodes/6.D9daTxU1.js",
+    ".vercel/output/static/_app/immutable/nodes/7.DwFI_SHj.js",
+    ".vercel/output/static/_app/immutable/nodes/8.CgsDrbHU.js",
+    ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js"
+  ],
+  "files_scanned": {
+    "total": 110,
+    "by_extension": {
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-p3-1795083756754\\flora-smk\\.env": 1,
+      ".yml": 3,
+      ".js": 37,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-p3-1795083756754\\flora-smk\\dockerfile": 1,
+      ".ts": 39,
+      ".svelte": 29
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "notices": {
+    "tokenizer_desyncs": [],
+    "generated_header_candidates": [],
+    "tsconfig_unresolved_extends": [
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)",
+      "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-p3-1795083756754\\flora-smk\\tsconfig.json: extends '$app/tsconfig' ignored (package extends not resolved)"
+    ],
+    "alias_unverified": []
+  },
+  "violations": [
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/CeFOi1VF.js",
+      "line": 1,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".vercel/output/static/_app/immutable/chunks/DOmy8bqa.js",
+      "line": 1,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/lib/repositories/auth.repository.ts",
+      "line": 15,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 19,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 47,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/lib/repositories/plant.repository.ts",
+      "line": 153,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/services/auth.service.ts",
+      "line": 29,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/services/auth.service.ts",
+      "line": 60,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/lib/stores/toast.store.ts",
+      "line": 30,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/+page.svelte",
+      "line": 26,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/+page.svelte",
+      "line": 49,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/routes/katalog/buku/+page.svelte",
+      "line": 360,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    }
+  ]
+}

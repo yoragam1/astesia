@@ -33,7 +33,7 @@ If a task has failed and triggered the `self-healing` protocol **3 times in a ro
 ### Step 3: Context Minimization (AST Compression)
 To prevent tripping the breaker in the first place, always use **AST Context Compression** (Directive #20 in `engineering-rules.md`).
 - Never pass full files to subagents if they only need a specific function signature.
-- Use `grep_search` to extract exactly the 20 lines needed, rather than reading a 2000-line file.
+- Search text to extract exactly the 20 lines needed, rather than reading a 2000-line file.
 
 ## 4. Anti-Patterns
 - ❌ **The "One More Try" Fallacy:** Thinking "I almost got it, let me spawn one more subagent to fix this syntax error" after already failing 3 times.

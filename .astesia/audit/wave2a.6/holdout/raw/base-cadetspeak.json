@@ -1,0 +1,25 @@
+{
+  "errors": 0,
+  "warnings": 0,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 1,
+  "generated_files": [
+    ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js"
+  ],
+  "files_scanned": {
+    "total": 7,
+    "by_extension": {
+      ".yaml": 3,
+      ".py": 4
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "violations": []
+}

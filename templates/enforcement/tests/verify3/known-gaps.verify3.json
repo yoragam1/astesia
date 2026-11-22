@@ -1,0 +1,8 @@
+[
+  {
+    "id": "SEC-23-GAP",
+    "ruleId": "ASTESIA-004",
+    "description": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+    "status": "DEFERRED_TO_WAVE_3"
+  }
+]

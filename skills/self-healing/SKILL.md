@@ -32,11 +32,11 @@ async function withRetry<T>(
   maxRetries = 3,
   baseDelayMs = 1000
 ): Promise<T> {
-  let lastError: Error;
+  let lastError: unknown;
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await fn();
-    } catch (err: any) {
+    } catch (err: unknown) {
       lastError = err;
       const delay = baseDelayMs * Math.pow(2, attempt);
       const jitter = Math.random() * 500;

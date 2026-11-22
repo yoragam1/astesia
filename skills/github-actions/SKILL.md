@@ -16,9 +16,11 @@ Invoke this skill in the **DevOps Layer** when generating deployment infrastruct
 
 ## 3. Practical Guidance
 1. **Fail-Fast Philosophy:** Workflows must run Linting and Unit Tests first. If they fail, the pipeline must halt immediately. Do not build Docker images for broken code.
-2. **Caching:** Always use dependency caching (e.g., `actions/setup-node` caching or docker layer caching) to speed up pipeline execution.
-3. **Secret Management:** Never hardcode deployment secrets or tokens. Always reference them via `${{ secrets.MY_SECRET }}`.
-4. **Environment Separation:** Use separate jobs for CI (Testing/Building) and CD (Deployment). Require manual approval or branch protection for the CD job.
+2. **CI Base-Checkout Trust Model:** When running `astesia-gate` in pull request workflows, always checkout the gate script, rules, and baseline from the target BASE branch (`github.base_ref`). The PR branch code is scanned as untrusted payload, preventing malicious PRs from relaxing their own rules.
+3. **Workflow Integrity Check:** Use `--check-workflow` in gate execution to detect tampering in workflow files. Note that `--check-workflow` is a static lint; strict branch protection must be enabled in repository settings.
+4. **Caching:** Always use dependency caching (e.g., `actions/setup-node` caching or docker layer caching) to speed up pipeline execution.
+5. **Secret Management:** Never hardcode deployment secrets or tokens. Always reference them via `${{ secrets.MY_SECRET }}`.
+6. **Environment Separation:** Use separate jobs for CI (Testing/Building) and CD (Deployment). Require manual approval or branch protection for the CD job.
 
 ## 4. Tested Examples
 

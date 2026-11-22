@@ -1,0 +1,99 @@
+{
+  "source": "antigravity_agent_session_declaration",
+  "enumerated_at": "2026-11-22T13:16:00.000+08:00",
+  "tools": [
+    "ask_question",
+    "call_mcp_tool",
+    "define_subagent",
+    "edit_file",
+    "invoke_subagent",
+    "list_plugin_accounts",
+    "list_resources",
+    "manage_subagents",
+    "manage_task",
+    "read_file",
+    "read_resource",
+    "run_command",
+    "run_workflow",
+    "schedule",
+    "search_marketplace",
+    "search_web",
+    "send_message",
+    "swarm",
+    "write_file"
+  ],
+  "tool_audit_table": [
+    {
+      "name": "read_file",
+      "in_agent_tools": true,
+      "used_in_skills_diff": [
+        "anti-silent-failure",
+        "task-waves",
+        "context-navigation"
+      ],
+      "in_denied_names": false,
+      "verdict": "pertahankan (sah di enumerasi agen)"
+    },
+    {
+      "name": "run_command",
+      "in_agent_tools": true,
+      "used_in_skills_diff": [
+        "worktree-isolation"
+      ],
+      "in_denied_names": false,
+      "verdict": "pertahankan (sah di enumerasi agen)"
+    },
+    {
+      "name": "view_file",
+      "in_agent_tools": false,
+      "used_in_skills_diff": [
+        "anti-silent-failure (BASE3A)",
+        "context-navigation (BASE3A)",
+        "task-waves (BASE3A)",
+        "template-caching (BASE3A)"
+      ],
+      "in_denied_names": true,
+      "verdict": "pertahankan penggantian ke read_file atau bahasa kapabilitas generik (baca isi berkas)"
+    },
+    {
+      "name": "grep_codebase",
+      "in_agent_tools": false,
+      "used_in_skills_diff": [
+        "blast-radius (BASE3A)",
+        "debt-scanner (BASE3A)"
+      ],
+      "in_denied_names": true,
+      "verdict": "ganti kapabilitas generik (cari teks di repositori / regex search via ripgrep/run_command)"
+    },
+    {
+      "name": "list_dir",
+      "in_agent_tools": false,
+      "used_in_skills_diff": [
+        "anti-bloat-audit (BASE3A)",
+        "template-caching (BASE3A)",
+        "worktree-isolation (BASE3A)"
+      ],
+      "in_denied_names": true,
+      "verdict": "ganti kapabilitas generik (daftar isi direktori) atau run_command"
+    },
+    {
+      "name": "grep_search",
+      "in_agent_tools": false,
+      "used_in_skills_diff": [
+        "context-navigation (BASE3A)"
+      ],
+      "in_denied_names": false,
+      "verdict": "ganti kapabilitas generik (pencarian leksikal / grep)"
+    },
+    {
+      "name": "ripgrep/search",
+      "in_agent_tools": false,
+      "used_in_skills_diff": [
+        "blast-radius",
+        "debt-scanner"
+      ],
+      "in_denied_names": false,
+      "verdict": "ganti kapabilitas generik (cari teks/regex di repositori menggunakan ripgrep atau run_command)"
+    }
+  ]
+}

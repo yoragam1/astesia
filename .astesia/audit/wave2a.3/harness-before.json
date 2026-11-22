@@ -1,0 +1,264 @@
+{
+  "summary": {
+    "total": 355,
+    "passed": 328,
+    "failed": 21,
+    "known_gaps": 6,
+    "by_category": {
+      "baseline72": {
+        "total": 73,
+        "passed": 72,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "regressions": {
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "adversarial": {
+        "total": 12,
+        "passed": 11,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "security": {
+        "total": 29,
+        "passed": 28,
+        "failed": 0,
+        "known_gaps": 1
+      },
+      "new": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "independent": {
+        "total": 67,
+        "passed": 64,
+        "failed": 0,
+        "known_gaps": 3
+      },
+      "baseline": {
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "rules_diff": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "ci_guard": {
+        "total": 13,
+        "passed": 13,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "fuzz_truth": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "allowlist": {
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "env_git": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "known_gaps": 0
+      },
+      "profile_dispatch": {
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "known_gaps": 0
+      },
+      "key_contract": {
+        "total": 17,
+        "passed": 12,
+        "failed": 5,
+        "known_gaps": 0
+      },
+      "config_secrets": {
+        "total": 26,
+        "passed": 19,
+        "failed": 7,
+        "known_gaps": 0
+      },
+      "rule010_scope": {
+        "total": 17,
+        "passed": 10,
+        "failed": 7,
+        "known_gaps": 0
+      }
+    }
+  },
+  "known_gaps": [
+    {
+      "id": "007-EC2b",
+      "ruleId": "ASTESIA-007",
+      "file": "r007/ec2b_helper.ts",
+      "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis"
+    },
+    {
+      "id": "ADV-BACKTICK-IN-REGEX-GAP",
+      "ruleId": "ASTESIA-005",
+      "file": "adv/backtick-in-regex.ts",
+      "reason": "Backtick inside regex literal (/`/) can open false template literal in tokenizer"
+    },
+    {
+      "id": "SEC-23-GAP",
+      "ruleId": "ASTESIA-004",
+      "file": "sec/sec23.ts",
+      "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic"
+    },
+    {
+      "id": "D2-REG-BACKTICK-GAP",
+      "ruleId": "ASTESIA-005",
+      "file": "indep/d2_gap1.ts",
+      "reason": "Adversarial known-gap: backtick inside regex literal"
+    },
+    {
+      "id": "D2-PHP-HEREDOC",
+      "ruleId": "ASTESIA-002",
+      "file": "indep/d2_gap2.php",
+      "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer"
+    },
+    {
+      "id": "D4-21-GAP",
+      "ruleId": "ASTESIA-004",
+      "file": "indep/d4_gap.ts",
+      "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation"
+    }
+  ],
+  "failed_cases": [
+    {
+      "id": "profile-dispatch",
+      "category": "profile_dispatch",
+      "reason": "FAIL: PD-01-ROOT-ENV-COMMENTED - expect010Trigger=false, got has010=true"
+    },
+    {
+      "id": "profile-dispatch",
+      "category": "profile_dispatch",
+      "reason": "FAIL: PD-02-SUB-ENV-UNCLOSED-QUOTE - expectDesync=false, got hasDesync=true"
+    },
+    {
+      "id": "key-contract",
+      "category": "key_contract",
+      "reason": "FAIL: KC-01-USERPWD (userPwd) - expectTrigger=true, got hasSecret=false [userPwd sensitive token]"
+    },
+    {
+      "id": "key-contract",
+      "category": "key_contract",
+      "reason": "FAIL: KC-02-DBPWD (dbPwd) - expectTrigger=true, got hasSecret=false [dbPwd sensitive token]"
+    },
+    {
+      "id": "key-contract",
+      "category": "key_contract",
+      "reason": "FAIL: KC-03-PASSPHRASE-LOWER (passphrase) - expectTrigger=true, got hasSecret=false [passphrase lowercase sensitive token]"
+    },
+    {
+      "id": "key-contract",
+      "category": "key_contract",
+      "reason": "FAIL: KC-04-PASSPHRASE-UPPER (PASSPHRASE) - expectTrigger=true, got hasSecret=false [PASSPHRASE uppercase sensitive token]"
+    },
+    {
+      "id": "key-contract",
+      "category": "key_contract",
+      "reason": "FAIL: KC-05-AUTH-SOLO (auth) - expectTrigger=false, got hasSecret=true [auth alone non-sensitive]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-01-YAML-HASH-WITH-SPACE (docker-compose.yml) - expectTrigger=true, got triggered=false [YAML password containing hash with space must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-02-ENV-SECRET-HASH-SPACE (.env) - expectTrigger=true, got triggered=false [Dotenv secret with space and hash must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-03-YAML-PREFIX-AFTER-HASH (docker-compose.yml) - expectTrigger=true, got triggered=false [YAML token with strong prefix after hash must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-04-YAML-UNQUOTED-SPACED-PASSWORD (config.yaml) - expectTrigger=true, got triggered=false [YAML unquoted password with spaces must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-05-ENV-SPACED-PASSWORD (.env.production) - expectTrigger=true, got triggered=false [Dotenv DB_PASSWORD with space must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-12-ENV-PASS-TOKEN (.env) - expectTrigger=true, got triggered=false [Dotenv DB_PASS must trigger]"
+    },
+    {
+      "id": "config-secrets",
+      "category": "config_secrets",
+      "reason": "FAIL: CS-21-ENV-INTERPOLATION-REQUIRED (docker-compose.yml) - expectTrigger=false, got triggered=true [Required env interpolation must not trigger]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-01-APP-YML (config/app.yml) - expectTrigger=true, got triggered=false [config/app.yml with password must trigger ASTESIA-010]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-02-SRC-DB-YML (src/db.yml) - expectTrigger=true, got triggered=false [src/db.yml (V4-06 case) must trigger ASTESIA-010]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-03-K8S-DEPLOYMENT-YAML (k8s/deployment.yaml) - expectTrigger=true, got triggered=false [k8s/deployment.yaml literal password in env list must trigger]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-04-WORKFLOW-LITERAL-SECRET (.github/workflows/ci.yml) - expectTrigger=true, got triggered=false [.github/workflows/ci.yml literal secret must trigger]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-05-VALUES-YAML-HELM (values.yaml) - expectTrigger=true, got triggered=false [values.yaml Helm secret must trigger]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-10-HELM-NESTED-VALUES (helm/app/values.yaml) - expectTrigger=true, got triggered=false [Nested values.yaml with adminToken must trigger]"
+    },
+    {
+      "id": "rule010-scope",
+      "category": "rule010_scope",
+      "reason": "FAIL: R010-11-COMPOSE-OVERRIDE-YAML (compose.override.yaml) - expectTrigger=true, got triggered=false [compose.override.yaml with SECRET_KEY must trigger]"
+    }
+  ],
+  "cli_tests": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "non_existent_root_exit_2": true,
+    "desync_max_warn_0_exit_1": true
+  },
+  "property_test": {
+    "seed": 1337,
+    "files_tested": 2000,
+    "invariant_passed": true,
+    "errors": []
+  }
+}

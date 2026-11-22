@@ -24,8 +24,8 @@ Suppose you need to add a `role: string` parameter to `UserService.createUser()`
 
 ### Step 2: Search for Dependent Files
 Before editing `UserService`, you must find every file that currently calls `createUser()`.
-- Use the `grep_codebase` tool to search for the exact import path or function usage.
-- E.g., `grep_search("UserService")` or `grep_search("createUser")`.
+- Search the codebase to find the exact import path or function usage.
+- E.g., search for `"UserService"` or `"createUser"` across the repository.
 
 ### Step 3: Analyze the Blast Radius
 List the dependent files. (e.g., `AuthController.ts`, `AdminController.ts`, `seed.ts`).

@@ -1,0 +1,72 @@
+[
+  {
+    "deleted": "anti-bloat-audit",
+    "survivor": "anti-bloat-review",
+    "sections_moved": [
+      "Step 1: Scan for Heavy Dependencies",
+      "Step 2: Scan for Structural Bloat (YAGNI)",
+      "Step 3: Scan for Dead Code",
+      "Step 5: Deletion Task Wave"
+    ],
+    "sections_dropped": [
+      {
+        "section": "Step 4: The Audit Report separate artifact and list_dir scan",
+        "rationale": "Tool list_dir is hallucinated (AUD-014); artifact formatting is unified under standard anti-bloat-review tag format"
+      }
+    ],
+    "rationale": "Redundant with anti-bloat-review; audit and review represent whole-repo and diff modes of the same anti-over-engineering discipline."
+  },
+  {
+    "deleted": "hybrid-search",
+    "survivor": "context-navigation",
+    "sections_moved": [
+      "Step 1: Formulate Dual Queries (Lexical + Semantic)",
+      "Step 3: Reciprocal Rank Fusion (Mental Model)",
+      "Anti-Patterns (Grep-Only Blindness, Semantic Hallucination, Mass Loading)"
+    ],
+    "sections_dropped": [
+      {
+        "section": "Step 2: search_codebase invocation and Step 4: view_file reading",
+        "rationale": "search_codebase and view_file are hallucinated tools (AUD-014); replaced with ripgrep/search commands and read_file"
+      }
+    ],
+    "rationale": "RRF dual-query protocol is an algorithmic mechanism of codebase navigation; consolidated into context-navigation to prevent fragmented search skills."
+  },
+  {
+    "deleted": "cost-reducer",
+    "survivor": null,
+    "sections_moved": [],
+    "sections_dropped": [
+      {
+        "section": "Pattern 1: Temperature Discipline",
+        "rationale": "LLM temperature API setting is inaccessible to IDE runtime agent"
+      },
+      {
+        "section": "Patterns 2-5: Prompt Compression, Scope Control, Chunked Retrieval, Short-Circuit Classification",
+        "rationale": "Token efficiency principles are already enforced by minimalist-executor, context-navigation, and budget-circuit-breaker"
+      }
+    ],
+    "rationale": "Infeasible temperature controls for IDE agent runtime; token thriftiness is already enforced by minimalist-executor and budget-circuit-breaker."
+  },
+  {
+    "deleted": "template-caching",
+    "survivor": null,
+    "sections_moved": [],
+    "sections_dropped": [
+      {
+        "section": "Zero-shot template caching from .astesia/templates/ using list_dir and view_file",
+        "rationale": "Violates core Astesia architectural rule 'No code without BRD' and references non-existent cache directory and hallucinated tools"
+      }
+    ],
+    "rationale": "Speculative plan caching violates Astesia pipeline verification discipline (Product -> Design -> Architecture) and referenced fictitious directories."
+  },
+  {
+    "deleted": "multi-model-routing",
+    "survivor": "adversarial-review",
+    "sections_moved": [
+      "All sections preserved (Blue Team Executor, Red Team QA Auditor, Conflict Resolution, Anti-Patterns)"
+    ],
+    "sections_dropped": [],
+    "rationale": "Renamed to accurately reflect functionality: adversarial red-team/blue-team role governance rather than model routing."
+  }
+]

@@ -1,0 +1,2582 @@
+{
+  "errors": 22,
+  "warnings": 296,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 4108,
+    "by_extension": {
+      ".mjs": 114,
+      ".py": 26,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\eunectes\\.devcontainer\\dockerfile": 1,
+      ".dockerfile": 1,
+      ".yml": 43,
+      ".js": 5,
+      ".ts": 3843,
+      ".yaml": 28,
+      ".go": 4,
+      ".tsx": 43
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "notices": {
+    "tokenizer_desyncs": [],
+    "generated_header_candidates": [],
+    "tsconfig_unresolved_extends": [],
+    "alias_unverified": []
+  },
+  "violations": [
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".agents/skills/codex-qa/scripts/lib/app-server-client.mjs",
+      "line": 117,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".agents/skills/opencode-qa/scripts/lib/fake-openai-server.mjs",
+      "line": 31,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": ".github/workflows/publish.yml",
+      "line": 180,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/git-bash-mcp/src/runner.ts",
+      "line": 58,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/client.ts",
+      "line": 56,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/client.ts",
+      "line": 129,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/connection.ts",
+      "line": 71,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/transport.ts",
+      "line": 81,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/transport.ts",
+      "line": 163,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/transport.ts",
+      "line": 245,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-core/src/lsp/transport.ts",
+      "line": 262,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-daemon/src/daemon-client.ts",
+      "line": 113,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-daemon/src/ensure-daemon.ts",
+      "line": 83,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-daemon/src/ensure-daemon.ts",
+      "line": 121,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-tools-mcp/test/helpers/fake-lsp-client.ts",
+      "line": 31,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-tools-mcp/test/helpers/fake-lsp-client.ts",
+      "line": 42,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/lsp-tools-mcp/test/helpers/fake-lsp-client.ts",
+      "line": 61,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/callback-server.ts",
+      "line": 102,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/callback-server.ts",
+      "line": 139,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/callback-server.ts",
+      "line": 160,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/callback-server.ts",
+      "line": 172,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/callback-server.ts",
+      "line": 182,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-client-core/src/mcp-oauth/oauth-authorization-flow.ts",
+      "line": 82,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/mcp-stdio-core/src/server.ts",
+      "line": 97,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omo-codex/src/install/codex-project-local-cleanup.test.ts",
+      "line": 8,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./codex-project-local-cleanup)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-codex/plugin/components/lsp/scripts/build-lsp-tools.test.mjs",
+      "line": 27,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./npm.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-codex/plugin/components/rules/scripts/bench-codex-rules.mjs",
+      "line": 6,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (../dist/codex-hook.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-codex/plugin/components/rules/scripts/bench-codex-rules.mjs",
+      "line": 7,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (../dist/rules/engine.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-codex/plugin/test/payload-equivalence.test.mjs",
+      "line": 50,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (../components/telemetry/dist/posthog.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 1278,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 1294,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 3926,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 4038,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 4816,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 7489,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 8897,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 11976,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 12092,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 12097,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 12330,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+      "line": 12643,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/src/install/codex-config-atomic-write.ts",
+      "line": 60,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-codex/src/install/lsp-daemon-reaper.ts",
+      "line": 61,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 32,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 36,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 38,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 44,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 50,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 53,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cleanup.ts",
+      "line": 56,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 45,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 143,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 145,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 147,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 162,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 169,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 181,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 182,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 212,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 218,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/cli-installer.ts",
+      "line": 220,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/config-manager/bun-install.ts",
+      "line": 24,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/config-manager/bun-install.ts",
+      "line": 95,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/config-manager/opencode-binary.ts",
+      "line": 30,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/config-manager/opencode-binary.ts",
+      "line": 32,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/config-manager/opencode-binary.ts",
+      "line": 57,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/doctor/framework/spawn-with-timeout.ts",
+      "line": 58,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/doctor/runner.ts",
+      "line": 57,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/doctor/runner.ts",
+      "line": 116,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/doctor/runner.ts",
+      "line": 118,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/doctor/runner.ts",
+      "line": 81,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 30,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 62,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 81,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 96,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/get-local-version/get-local-version.ts",
+      "line": 109,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 96,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 97,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 98,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 99,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 100,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 105,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 109,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 113,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 117,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 121,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 133,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 135,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 142,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 148,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 151,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/install-validators.ts",
+      "line": 152,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/login.ts",
+      "line": 37,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/login.ts",
+      "line": 40,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/login.ts",
+      "line": 43,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/logout.ts",
+      "line": 19,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 9,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 13,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 15,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 16,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 18,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 25,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 33,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 37,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/mcp-oauth/status.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/agent-resolver.ts",
+      "line": 72,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/agent-resolver.ts",
+      "line": 79,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/completion.ts",
+      "line": 129,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/poll-for-completion.ts",
+      "line": 96,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/poll-for-completion.ts",
+      "line": 164,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/poll-for-completion.ts",
+      "line": 192,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/poll-for-completion.ts",
+      "line": 60,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/prompt-start.ts",
+      "line": 22,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/runner.ts",
+      "line": 83,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/runner.ts",
+      "line": 99,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/runner.ts",
+      "line": 102,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/runner.ts",
+      "line": 31,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 82,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 93,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 109,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 122,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 129,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 151,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 158,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 160,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/server-connection.ts",
+      "line": 171,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/session-resolver.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/session-resolver.ts",
+      "line": 64,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/session-resolver.ts",
+      "line": 47,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/run/session-resolver.ts",
+      "line": 65,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/runtime-commands.ts",
+      "line": 43,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/sparkshell-appserver.ts",
+      "line": 157,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 79,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 80,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 81,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 215,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 216,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 217,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 218,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 220,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/cli/tui-installer.ts",
+      "line": 222,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/abort-with-timeout.ts",
+      "line": 41,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/manager.ts",
+      "line": 2332,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/parent-wake-dispatched-tracker.ts",
+      "line": 108,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/parent-wake-pending-queue.ts",
+      "line": 95,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/process-cleanup.ts",
+      "line": 51,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/session-idle-event-handler.ts",
+      "line": 43,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/background-agent/wait-for-task-session.ts",
+      "line": 24,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/monitor/batcher.ts",
+      "line": 21,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/monitor/manager-internals.ts",
+      "line": 79,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/monitor/monitor-state-factory.ts",
+      "line": 133,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/team-mode/team-runtime/create.ts",
+      "line": 91,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/tmux-subagent/session-ready-waiter.ts",
+      "line": 37,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/features/tui-sidebar/mirror-manager.ts",
+      "line": 53,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/anthropic-context-window-limit-recovery/aggressive-truncation-strategy.ts",
+      "line": 76,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/anthropic-context-window-limit-recovery/recovery-hook.ts",
+      "line": 113,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/anthropic-context-window-limit-recovery/summarize-retry-strategy.ts",
+      "line": 91,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/anthropic-context-window-limit-recovery/summarize-retry-strategy.ts",
+      "line": 186,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/argus/idle-continuation.ts",
+      "line": 168,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/ast-grep-sg-provision/hook.ts",
+      "line": 27,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/auto-update-checker/checker/latest-version.ts",
+      "line": 6,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/auto-update-checker/hook/connected-providers-status.ts",
+      "line": 18,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/auto-update-checker/hook/deferred-startup-check.ts",
+      "line": 2,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/auto-update-checker/hook/model-capabilities-status.ts",
+      "line": 27,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/auto-update-checker/hook/spinner-toast.ts",
+      "line": 24,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/codegraph-bootstrap/hook.ts",
+      "line": 68,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/pentest-loop/completion-promise-detector.ts",
+      "line": 164,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/pentest-loop/event-handler-activity.ts",
+      "line": 15,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/pentest-loop/loop-session-recovery.ts",
+      "line": 25,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/pentest-loop/with-timeout.ts",
+      "line": 8,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/preemptive-compaction-degradation-monitor.ts",
+      "line": 11,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/preemptive-compaction-degradation-monitor.ts",
+      "line": 57,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/preemptive-compaction-trigger.ts",
+      "line": 18,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/preemptive-compaction-trigger.ts",
+      "line": 29,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/auto-retry-dispatch.ts",
+      "line": 156,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/auto-retry-timeout.ts",
+      "line": 8,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/auto-retry-timeout.ts",
+      "line": 45,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/first-prompt-watchdog.ts",
+      "line": 17,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/first-prompt-watchdog.ts",
+      "line": 203,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/runtime-fallback/test-timeout-clock.test-support.ts",
+      "line": 40,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/session-notification-scheduler.ts",
+      "line": 164,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/hooks/todo-continuation-enforcer/countdown.ts",
+      "line": 68,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/plugin/fullscan-db-model-override.ts",
+      "line": 52,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/plugin/session-compacting.ts",
+      "line": 142,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/plugin-handlers/plugin-components-loader.ts",
+      "line": 39,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/context-window-usage.ts",
+      "line": 20,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/context-window-usage.ts",
+      "line": 123,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-opencode/src/shared/dist-bundle-bun-globals.test.ts",
+      "line": 11,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./dist/index.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-opencode/src/shared/dist-bundle-bun-globals.test.ts",
+      "line": 94,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./dist/index.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/live-server-route.ts",
+      "line": 98,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/live-server-route.ts",
+      "line": 100,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 23,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 28,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 33,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 38,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 43,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 48,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 53,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/mock-module-lifecycle-audit.test.ts",
+      "line": 58,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/prompt-timeout-context.ts",
+      "line": 35,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/system-directive.ts",
+      "line": 14,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/system-directive.ts",
+      "line": 15,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/shared/tmux/tmux-utils/pane-close.ts",
+      "line": 7,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/background-task/delay.ts",
+      "line": 2,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/background-task/with-sdk-call-timeout.ts",
+      "line": 34,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/call-omop-agent/background-agent-executor.ts",
+      "line": 68,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/call-omop-agent/background-executor.ts",
+      "line": 77,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/call-omop-agent/completion-poller.ts",
+      "line": 33,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/delegate-task/background-task.ts",
+      "line": 44,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/delegate-task/background-task.ts",
+      "line": 96,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/delegate-task/sync-session-lifecycle.ts",
+      "line": 56,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/delegate-task/unstable-agent-task.ts",
+      "line": 59,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/delegate-task/unstable-agent-task.ts",
+      "line": 125,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-opencode/src/tools/grep/result-formatter.test.ts",
+      "line": 77,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./foo)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/omop-opencode/src/tools/grep/result-formatter.test.ts",
+      "line": 92,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./foo)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/interactive-bash/tools.ts",
+      "line": 184,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/look-at/session-poller.ts",
+      "line": 160,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/session-manager/tools.ts",
+      "line": 26,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tools/shared/search-process-output.ts",
+      "line": 20,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "packages/omop-opencode/src/tools/skill-mcp/tools.ts",
+      "line": 27,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/omop-opencode/src/tui.ts",
+      "line": 147,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/openclaw-core/src/dispatcher.ts",
+      "line": 130,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/openclaw-core/src/dispatcher.ts",
+      "line": 194,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/openclaw-core/src/reply-listener-discord.ts",
+      "line": 39,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/openclaw-core/src/reply-listener-sleep.ts",
+      "line": 2,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/openclaw-core/src/reply-listener-telegram.ts",
+      "line": 43,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts",
+      "line": 73,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/client.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts",
+      "line": 90,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/client.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts",
+      "line": 161,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/client.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts",
+      "line": 206,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/client.js)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/team-core/src/team-state-store/locks.ts",
+      "line": 22,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "packages/telemetry-core/index.d.ts",
+      "line": 2,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "packages/telemetry-core/src/constants.ts",
+      "line": 2,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/tmux-core/src/runner.ts",
+      "line": 61,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/tmux-core/src/tmux-utils/pane-close.ts",
+      "line": 4,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/tmux-core/src/tmux-utils/server-health.ts",
+      "line": 18,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/tmux-core/src/tmux-utils/server-health.ts",
+      "line": 59,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/ast-grep/install-script.ts",
+      "line": 112,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/codegraph/provision.ts",
+      "line": 77,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/command-executor/execute-hook-command.ts",
+      "line": 197,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/command-executor/execute-hook-command.ts",
+      "line": 213,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/logging/logger.ts",
+      "line": 88,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/port-utils.ts",
+      "line": 34,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/prompt-async-gate/queue.ts",
+      "line": 9,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/prompt-async-gate/queue.ts",
+      "line": 65,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/prompt-async-gate/timing.ts",
+      "line": 7,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/prompt-async-gate/timing.ts",
+      "line": 35,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/session-idle-settle.ts",
+      "line": 6,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/utils/src/session-idle-settle.ts",
+      "line": 12,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/web/app/_components/landing-page.tsx",
+      "line": 5,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/scylla)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/web/app/_components/landing-page.tsx",
+      "line": 7,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/talos-atlas)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/web/app/_components/landing-page.tsx",
+      "line": 9,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/cerberus)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "packages/web/components/landing/install-command.tsx",
+      "line": 14,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "packages/web/lib/docs-source.ts",
+      "line": 1,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./docs-content.generated)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "postinstall.mjs",
+      "line": 185,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "script/build-binaries.test.ts",
+      "line": 13,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "script/publish.ts",
+      "line": 228,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "tests/hashline/headless.ts",
+      "line": 123,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/headless.ts",
+      "line": 19,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 48,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 49,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1051,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1058,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1064,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1075,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1098,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1110,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1114,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1117,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1119,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1120,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1132,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 1137,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "tests/hashline/test-edge-cases.ts",
+      "line": 970,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 45,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 743,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 748,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 754,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 765,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 788,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 798,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 802,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 805,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 807,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 808,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 818,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 823,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "tests/hashline/test-edit-ops.ts",
+      "line": 662,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 193,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 194,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 195,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 196,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 201,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 207,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 215,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 220,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 223,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 227,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 234,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 237,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 241,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 249,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 255,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 259,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 262,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 267,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 270,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "tests/hashline/test-multi-model.ts",
+      "line": 148,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "version": "3.0.0",
+  "scope": "wave2a.7",
+  "timestamp": "2026-11-21T06:50:33.927Z",
+  "projects": {
+    "eunectes": {
+      "sha256": "7c86801a11bf620f963b1a34caebf83449092ffc2f636aca8c3596c88343dfea",
+      "totalViolations": 318,
+      "errors": 22,
+      "warnings": 296,
+      "filesScanned": 4108
+    },
+    "ifrit": {
+      "sha256": "6ca24accb7c90490a1165335e70f8513392c86a2ffe4321f7b988b184c4a354e",
+      "totalViolations": 324,
+      "errors": 8,
+      "warnings": 316,
+      "filesScanned": 233
+    },
+    "flora-smk": {
+      "sha256": "9794c24b9170bfa3ad711171a73922d412fe1149134709e9abce9e807bc07f66",
+      "totalViolations": 11,
+      "errors": 1,
+      "warnings": 10,
+      "filesScanned": 110
+    },
+    "arene": {
+      "sha256": "677d46f607a513c3a2241c98ab0219ddd248169e6bc91740dfdc32ce4aabf00f",
+      "totalViolations": 148,
+      "errors": 18,
+      "warnings": 130,
+      "filesScanned": 376
+    },
+    "SIA": {
+      "sha256": "61c2a21875a899582eda5c90177911b70927d3318aa962998150f654d4a15d50",
+      "totalViolations": 60,
+      "errors": 0,
+      "warnings": 60,
+      "filesScanned": 469
+    },
+    "pustaka-sekolah-pwa": {
+      "sha256": "df169fdf5b1c8dc53722a6259b9204c3daffa081608891e7d6f28e6a6bdf603a",
+      "totalViolations": 60,
+      "errors": 22,
+      "warnings": 38,
+      "filesScanned": 78
+    },
+    "terminal-portfolio": {
+      "sha256": "29ddedcc2ec876ced282a858b6965cf499fdd06725e71a10363d444ba84e2f45",
+      "totalViolations": 0,
+      "errors": 0,
+      "warnings": 0,
+      "filesScanned": 18
+    },
+    "cadetspeak": {
+      "sha256": "a40568c94b7f38448197418385403feaefc3f7812224740919f87e98266ec1d9",
+      "totalViolations": 13,
+      "errors": 10,
+      "warnings": 3,
+      "filesScanned": 8
+    },
+    "eduNEXA": {
+      "sha256": "ef193f4ca50f9e4267cdb0b0c5f556d88ae616182e5ab5160f373149a514d8ce",
+      "totalViolations": 5,
+      "errors": 4,
+      "warnings": 1,
+      "filesScanned": 56
+    },
+    "prototype-ami": {
+      "sha256": "c5c4418691476f10866ba64668ad98a14ade5ace45fb32c72020e015dbbfb421",
+      "totalViolations": 1,
+      "errors": 0,
+      "warnings": 1,
+      "filesScanned": 37
+    },
+    "aipkani": {
+      "sha256": "9be937b67d056e09a47d4294b4856c0130451272e45071fb05ab5a29399c1d1a",
+      "totalViolations": 313,
+      "errors": 146,
+      "warnings": 167,
+      "filesScanned": 106
+    },
+    "ecommerce-hp-api": {
+      "sha256": "59bc7dad3ade5f15b5107f05efb0bd9309d3bf8b3309711322e422dd58ad4c90",
+      "totalViolations": 1,
+      "errors": 1,
+      "warnings": 0,
+      "filesScanned": 20
+    },
+    "cadetspeak_admin": {
+      "sha256": "f9b5ffdd24dcee2911f3aaad4a7941c8bd9dfb07a5f941523379b09b2458e527",
+      "totalViolations": 31,
+      "errors": 23,
+      "warnings": 8,
+      "filesScanned": 7
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "exclude": [
+    {
+      "path": "dev-dist",
+      "reason": "Exclude Vite/Workbox PWA development build artifacts from source scanning"
+    },
+    {
+      "path": ".vercel/output",
+      "reason": "Exclude Vercel deployment build output directory and bundled chunks"
+    }
+  ],
+  "imports": {
+    "alias": [],
+    "virtual": []
+  }
+}

@@ -30,9 +30,10 @@ const data: any = JSON.parse(raw);
 ```
 
 ### Step 2: Scanning for Debt (Quality)
-During a system-wide audit, the Quality Agent should use the `grep_codebase` tool to scan for these exact markers.
-```javascript
-grep_search("astesia-debt:")
+During a system-wide audit, the Quality Agent should search the codebase for these exact markers.
+```bash
+# Search for debt markers across the codebase
+git grep "astesia-debt:"
 ```
 
 ### Step 3: Resolving Debt
@@ -45,4 +46,4 @@ When the Quality Agent detects debt, it should formulate a targeted Task Wave to
 ## 4. Anti-Patterns
 - ❌ **Silent Hacks:** Writing bad code without leaving an `astesia-debt:` marker.
 - ❌ **Vague Debt:** Leaving `// astesia-debt: fix this` without an `upgrade:` clause explaining *how* to fix it.
-- ❌ **Ignoring the Scanner:** The Quality Agent failing to run `grep_search("astesia-debt:")` during a major release cycle.
+- ❌ **Ignoring the Scanner:** The Quality Agent failing to scan for `"astesia-debt:"` during a major release cycle.

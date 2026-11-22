@@ -1,0 +1,76 @@
+{
+  "gaps": [
+    {
+      "id": "VER3-001-FP-KEY-SOLO",
+      "ruleId": "ASTESIA-004",
+      "description": "Token 'key' sendirian dianggap sensitif oleh regex /^(?:api|...)?key$/i karena non-capturing group opsional, memicu false positive pada kunci biasa.",
+      "severity": "SPEC-DEVIATION",
+      "impact": "False Positive pada idiom kode umum seperti `const key = 'abcdefghijklmnopqrstuvwxyz123';`",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 5ed3666 (Task F-D). Key name tokenized by delimiters, camelCase/PascalCase, and alpha-digit transitions. Solo 'key' is treated as neutral/non-sensitive."
+    },
+    {
+      "id": "VER3-002-FP-AUTHOR-SUBSTRING",
+      "ruleId": "ASTESIA-004",
+      "description": "Token 'author', 'authorName', 'authority' memicu ASTESIA-004 karena implementasi regex substring match /(?:auth)/i bukannya token-based match.",
+      "severity": "SPEC-DEVIATION",
+      "impact": "False Positive pada nama entitas blog/author/authorization authority.",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 5ed3666 (Task F-D). Replaced loose substring /(?:auth)/i with discrete token matching. 'author', 'authorName', 'authority' do not match 'auth' token."
+    },
+    {
+      "id": "VER3-003-FN-BEARER-BASIC-NEUTRAL-KEY",
+      "ruleId": "ASTESIA-004",
+      "description": "Kredensial HTTP 'Basic <base64>' dan 'Bearer <token>' di bawah neutral key (misal 'label', 'description') gagal memicu ASTESIA-004 karena isCandidate mensyaratkan isSensitiveKey(key) || KNOWN_PREFIX.test(val).",
+      "severity": "SPEC-DEVIATION",
+      "impact": "False Negative (secret leakage) saat kredensial di-assign ke variabel dengan nama non-auth.",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 04d77cb (Task F-C). String literals on any line are scanned for Basic and Bearer auth tokens via isAuthBearerOrBasic and trigger ASTESIA-004 regardless of variable name."
+    },
+    {
+      "id": "VER3-004-FN-CONFIG-SECRET-HASH-TRUNCATION",
+      "ruleId": "ASTESIA-010",
+      "description": "Karakter ' # ' di dalam nilai string pada file config (YAML, Dockerfile, .env) memotong baris sebelum '#' sehingga rahasia masuk ke commentLines dan lolos dari scan.",
+      "severity": "SPEC-DEVIATION",
+      "impact": "False Negative (secret leakage) saat password atau token memuat karakter hashtag dengan spasi.",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 5314489 (Task F-G). Added quote-tracking preprocessor for YAML and .env files to preserve hash (#) characters inside single and double quotes."
+    },
+    {
+      "id": "VER3-005-SPEC-ALLOW-INLINE-010",
+      "ruleId": "ASTESIA-010",
+      "description": "Baris 596 astesia-gate.ts hanya melarang inline suppression untuk ASTESIA-000 dan ASTESIA-004, lupa menyertakan ASTESIA-010 sehingga inline astesia-allow diterima.",
+      "severity": "SPEC-DEVIATION",
+      "impact": "Pelanggaran kontrak F3 (inline allow wajib ditolak untuk 004 dan 010).",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit a6bef88 (Task F-H). Added ASTESIA-010 to NEVER_INLINE_SUPPRESS, strictly rejecting inline comments // astesia-allow: ASTESIA-010 with exit 1."
+    },
+    {
+      "id": "VER3-006-CI-GUARD-SELF-MISSING",
+      "ruleId": "CI-GUARD",
+      "description": "workflow-guard.ts tidak memeriksa keberadaan langkah guard itu sendiri, sehingga PR yang menghapus langkah guard tetap menghasilkan exit code 0.",
+      "severity": "HIGH-SECURITY",
+      "impact": "Bypass guard via PR jika GitHub Actions ruleset/CODEOWNERS tidak dikonfigurasi ketat.",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 73dea5d (Task F-E). Integrated --check-workflow subcommand in astesia-gate.ts validating explicit presence of guard step itself, with fail-closed shell logic in astesia-gate.workflow.yml."
+    },
+    {
+      "id": "VER3-007-REDOS-ASTESIA-004-UNANCHORED",
+      "ruleId": "ASTESIA-004",
+      "description": "Catastrophic backtracking O(N^2) pada regex assignMatch unanchored di ASTESIA-004 menyebabkan eksekusi 12-15 detik pada baris 100k karakter.",
+      "severity": "HIGH-PERFORMANCE",
+      "impact": "Denial of Service / CI timeout pada berkas minified atau berkas data bergaris panjang.",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 7efd0ff (Task F-A) and 8afd534 (Task F-B). Linearized candidate regex with lookbehind (?<![\\w$]) and hasQuote pre-check eliminating ReDoS; batched git calls to max 3 spawns for .env classification."
+    },
+    {
+      "id": "VER3-008-FN-BEARER-JWT-MISSING-DOT",
+      "ruleId": "ASTESIA-004",
+      "description": "Regex isAuthBearerOrBasic (/^(?:Basic|Bearer)\\s+[A-Za-z0-9+/=_-]{12,}$/i) tidak menyertakan karakter titik ('.'), sehingga token JWT pada Bearer header gagal dikenali dan lolos sebagai False Negative karena mengandung spasi.",
+      "severity": "SPEC-DEVIATION",
+      "impact": "False Negative pada token autentikasi standar JWT berformat Bearer (misal 'Bearer eyJhbGci...').",
+      "status": "RESOLVED_IN_WAVE_2A_2",
+      "resolution": "Fixed in commit 04d77cb (Task F-C). Extended isAuthBearerOrBasic to validate JWT structure (header.payload.signature) including dot ('.') characters and standard base64 Basic credentials."
+    }
+  ]
+}

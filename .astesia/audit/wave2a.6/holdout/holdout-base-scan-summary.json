@@ -1,0 +1,50 @@
+{
+  "eduNEXA": {
+    "exitCode": 1,
+    "filesScanned": {
+      "total": 56,
+      "by_extension": {
+        ".yml": 2,
+        ".go": 45,
+        ".py": 3,
+        ".js": 1,
+        ".ts": 3,
+        ".svelte": 2
+      }
+    },
+    "errors": 3,
+    "warnings": 1,
+    "desyncCount": 0,
+    "violationsCount": 4
+  },
+  "prototype-ami": {
+    "exitCode": 0,
+    "filesScanned": {
+      "total": 37,
+      "by_extension": {
+        ".js": 18,
+        ".ts": 8,
+        ".cjs": 1,
+        ".svelte": 10
+      }
+    },
+    "errors": 0,
+    "warnings": 1,
+    "desyncCount": 0,
+    "violationsCount": 1
+  },
+  "cadetspeak": {
+    "exitCode": 0,
+    "filesScanned": {
+      "total": 7,
+      "by_extension": {
+        ".yaml": 3,
+        ".py": 4
+      }
+    },
+    "errors": 0,
+    "warnings": 0,
+    "desyncCount": 0,
+    "violationsCount": 0
+  }
+}

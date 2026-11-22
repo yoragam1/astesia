@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-11-22T14:09:15.000Z",
+  "token_budget": {
+    "current_budget_max": 8976,
+    "last_recorded_action": "raise",
+    "last_raise_details": {
+      "timestamp": "2026-11-22T05:45:08.172Z",
+      "previous_tokens": 8809,
+      "new_tokens": 8976,
+      "reason": "Restored uncompensated normative sentences across rules/*.md per Task K4"
+    },
+    "history_length": 3,
+    "is_raise_recorded_with_allow_raise_reason": true
+  },
+  "fl005_description_lengths": {
+    "property_based_testing_length": 108,
+    "property_based_testing_limit": 320,
+    "exemption_status": "Skill description is 108 characters (well within <= 320 limit). No exemption required."
+  },
+  "inline_tool_identifiers_count": 10,
+  "inline_tool_identifiers": [
+    {
+      "file": "skills/anti-silent-failure/SKILL.md",
+      "line": 15,
+      "tool": "run_command",
+      "context": "Invoke this protocol constantly during the execution phase, specifically immediately after using `run_command` or modifying files."
+    },
+    {
+      "file": "skills/anti-silent-failure/SKILL.md",
+      "line": 28,
+      "tool": "read_file",
+      "context": "If you use a tool to write, edit, or move a file, DO NOT assume it succeeded just because the tool didn't throw a JSON exception. Verify the file exists and its contents are correct (using `read_file` or running a verification command) before proceeding to the next step."
+    },
+    {
+      "file": "skills/anti-silent-failure/SKILL.md",
+      "line": 31,
+      "tool": "run_command",
+      "context": "If you run a shell command (`run_command`) and the output is completely empty, you MUST verify the exit code or check the side-effects of the command. Do not blindly assume success."
+    },
+    {
+      "file": "skills/budget-circuit-breaker/SKILL.md",
+      "line": 36,
+      "tool": "grep_search",
+      "context": "- Use `grep_search` to extract exactly the 20 lines needed, rather than reading a 2000-line file."
+    },
+    {
+      "file": "skills/context-navigation/SKILL.md",
+      "line": 23,
+      "tool": "read_file",
+      "context": "3. `read_file` (targeted line range or function block only) -> read the minimum needed lines."
+    },
+    {
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "line": 39,
+      "tool": "run_command",
+      "context": "### Step 3: Execute via `run_command`"
+    },
+    {
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "line": 40,
+      "tool": "run_command",
+      "context": "Instead of struggling manually, execute your new dynamic plugin using the `run_command` tool:"
+    },
+    {
+      "file": "skills/visual-qa/SKILL.md",
+      "line": 69,
+      "tool": "run_command",
+      "context": "1. Perform visual inspection or execute a temporary Puppeteer/Playwright script via `run_command` to launch a headless browser against the local dev server."
+    },
+    {
+      "file": "skills/worktree-isolation/SKILL.md",
+      "line": 31,
+      "tool": "run_command",
+      "context": "- Execute commands targeting the worktree directory (e.g., using `git -C ../astesia-worktree-feature-x` or `cd ../astesia-worktree-feature-x && ...` in `run_command`)."
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "line": 53,
+      "tool": "read_file",
+      "context": "Verify file existence before editing (`read_file`). Hallucinated imports are strictly forbidden (enforced by `ASTESIA-000`)."
+    }
+  ],
+  "runtime_files_review": {
+    "denied_tool_names_json": "Contains 8 entries including visual_audit, grep_codebase, view_file, list_dir, grep_search. In Decision 1, view_file, list_dir, grep_search are unverified (not denied), while visual_audit and grep_codebase are denied.",
+    "known_tools_json": "Contains 19 agent-declared tools. In Decision 1, these should be moved to runtime/tool-map.json with unverified status and implementer-agent-schema provenance."
+  }
+}

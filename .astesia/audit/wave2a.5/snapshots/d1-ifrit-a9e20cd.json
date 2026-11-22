@@ -1,0 +1,2685 @@
+{
+  "errors": 13,
+  "warnings": 319,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "files_scanned": {
+    "total": 233,
+    "by_extension": {
+      ".yml": 3,
+      ".mjs": 7,
+      ".py": 6,
+      ".js": 38,
+      ".yaml": 5,
+      ".ts": 174
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [
+    "ceobe/src/ai/planner/qaAuditor.ts",
+    "ceobe/src/ai/taskParser.ts"
+  ],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "benchmarks/agentic/tasks.py",
+      "line": 200,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "benchmarks/agentic/tasks.py",
+      "line": 205,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "benchmarks/agentic/tasks.py",
+      "line": 443,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "benchmarks/claude-email.js",
+      "line": 7,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/claude-email.js",
+      "line": 25,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/claude-email.js",
+      "line": 26,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/claude-email.js",
+      "line": 38,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/generate-examples.mjs",
+      "line": 24,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/generate-examples.mjs",
+      "line": 44,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/generate-examples.mjs",
+      "line": 63,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "benchmarks/model-email.js",
+      "line": 7,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/model-email.js",
+      "line": 24,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/model-email.js",
+      "line": 25,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/model-email.js",
+      "line": 37,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 23,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 173,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 176,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 196,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 198,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 202,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 204,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/skills/codex-qa/scripts/lib/app-server-client.mjs",
+      "line": 117,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/skills/opencode-qa/scripts/lib/fake-openai-server.mjs",
+      "line": 31,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/executor/toolExecutor.ts",
+      "line": 33,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/executor/toolExecutor.ts",
+      "line": 34,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/executor/toolExecutor.ts",
+      "line": 92,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/executor/toolExecutor.ts",
+      "line": 94,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/dependencyGraph.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/fullTextSearch.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/indexer.ts",
+      "line": 94,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/indexer.ts",
+      "line": 125,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/indexer.ts",
+      "line": 217,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/memory/vectorStore.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 160,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 161,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 164,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 165,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 168,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/pentest/pentestDataLoader.ts",
+      "line": 169,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/planner/documentGenerators.ts",
+      "line": 42,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "ceobe/src/ai/planner/qaAuditor.ts",
+      "line": 126,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/plugins/pluginLoader.ts",
+      "line": 22,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/plugins/pluginLoader.ts",
+      "line": 28,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/plugins/pluginLoader.ts",
+      "line": 56,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/plugins/pluginLoader.ts",
+      "line": 114,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/plugins/pluginLoader.ts",
+      "line": 123,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/anthropicAdapter.ts",
+      "line": 65,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/anthropicAdapter.ts",
+      "line": 95,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/anthropicAdapter.ts",
+      "line": 101,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/anthropicAdapter.ts",
+      "line": 102,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "ceobe/src/ai/providers/embeddingAdapter.ts",
+      "line": 150,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/embeddingAdapter.ts",
+      "line": 57,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/geminiAdapter.ts",
+      "line": 66,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/geminiAdapter.ts",
+      "line": 101,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/geminiAdapter.ts",
+      "line": 122,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/providers/geminiAdapter.ts",
+      "line": 129,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "ceobe/src/ai/providers/router.ts",
+      "line": 126,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 81,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 83,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 84,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 87,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 88,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 93,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 109,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/reflectiveAnalyzer.ts",
+      "line": 115,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/supervisor.ts",
+      "line": 441,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "ceobe/src/ai/taskParser.ts",
+      "line": 162,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 49,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 61,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 85,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 101,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 131,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 143,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 154,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 184,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 195,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 204,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/fileOps.ts",
+      "line": 212,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/reverseEngineer.ts",
+      "line": 47,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/reverseEngineer.ts",
+      "line": 71,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/reverseEngineer.ts",
+      "line": 210,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/reverseEngineer.ts",
+      "line": 211,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.test.ts",
+      "line": 104,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./app)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.ts",
+      "line": 95,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.ts",
+      "line": 154,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.ts",
+      "line": 183,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.ts",
+      "line": 90,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/semanticOps.ts",
+      "line": 112,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/shellOps.ts",
+      "line": 101,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/shellOps.ts",
+      "line": 127,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/shellOps.ts",
+      "line": 158,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/shellOps.ts",
+      "line": 148,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/handlers/webOps.ts",
+      "line": 10,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/ruleChecker.test.ts",
+      "line": 55,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (../repository/userRepo)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-000",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/ruleChecker.test.ts",
+      "line": 69,
+      "message": "Hallucinated import: relative path or local alias does not exist on disk. (./nonExistentFile)",
+      "fix": "Point the import at a real file or create the module via the proper wave."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/ruleChecker.ts",
+      "line": 206,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/ruleChecker.ts",
+      "line": 212,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "ceobe/src/ai/tools/ruleChecker.ts",
+      "line": 213,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/systemTools.ts",
+      "line": 21,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/systemTools.ts",
+      "line": 228,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/tools/toolValidator.ts",
+      "line": 16,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/utils/messageFormatter.ts",
+      "line": 42,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/ai/utils/messageFormatter.ts",
+      "line": 150,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/auto.ts",
+      "line": 55,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/exportRules.ts",
+      "line": 18,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/exportRules.ts",
+      "line": 65,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/exportRules.ts",
+      "line": 72,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 62,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 66,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 90,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 91,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 92,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/plan.ts",
+      "line": 162,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 17,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 26,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 27,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/benchmarkCmd.ts",
+      "line": 52,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/costCmd.ts",
+      "line": 25,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/costCmd.ts",
+      "line": 26,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/costCmd.ts",
+      "line": 28,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/costCmd.ts",
+      "line": 29,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/costCmd.ts",
+      "line": 30,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/daemonCmd.ts",
+      "line": 18,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 16,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 21,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 40,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 42,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 44,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 46,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/debtCmd.ts",
+      "line": 51,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 50,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 52,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 53,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 54,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 73,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 77,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 79,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 99,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 101,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 102,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 103,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 105,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 107,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 122,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/keyCmd.ts",
+      "line": 124,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 34,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 35,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 36,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 43,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 45,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 48,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 49,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/logCmd.ts",
+      "line": 50,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/modeCmd.ts",
+      "line": 31,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/modeCmd.ts",
+      "line": 42,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/modeCmd.ts",
+      "line": 45,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/reconCmd.ts",
+      "line": 18,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/reconCmd.ts",
+      "line": 21,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 27,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 28,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 29,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 30,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 31,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 32,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 33,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 35,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 40,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/resetCmd.ts",
+      "line": 43,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/rollbackCmd.ts",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/skillCmd.ts",
+      "line": 34,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/skillCmd.ts",
+      "line": 36,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/skillCmd.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 49,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 51,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 54,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 55,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 58,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 62,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 64,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 74,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 83,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/statusCmd.ts",
+      "line": 86,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 22,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 26,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 28,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 29,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 31,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 39,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 48,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/templateCmd.ts",
+      "line": 50,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/trimCmd.ts",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/commands/system/trimCmd.ts",
+      "line": 52,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 34,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 40,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 47,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 49,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 60,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 64,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 70,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 71,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 77,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 78,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 123,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 124,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 125,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 133,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 144,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 146,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/cli/utils/keyWizard.ts",
+      "line": 154,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/handlers/diagHandlers.ts",
+      "line": 36,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/handlers/diagHandlers.ts",
+      "line": 48,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/hitlBridge.ts",
+      "line": 81,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/messageQueue.ts",
+      "line": 43,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramClient.ts",
+      "line": 92,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramClient.ts",
+      "line": 97,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 74,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 76,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 77,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 105,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 222,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/telegram/telegramDaemon.ts",
+      "line": 225,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 66,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 74,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 78,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 97,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 107,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 125,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 127,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 137,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 143,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 151,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 156,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 171,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 179,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 188,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 189,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 190,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 202,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 216,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 220,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 224,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 228,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 232,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 242,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 243,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 244,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 245,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 246,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 247,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 255,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 256,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 257,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 258,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 259,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 274,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 275,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 276,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 277,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 281,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 282,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 283,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 284,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 285,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 286,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 287,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 288,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 292,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 293,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 294,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 295,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 296,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 297,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 298,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 302,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 303,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 304,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 305,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 306,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 307,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 324,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 326,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 327,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 354,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 374,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 388,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 391,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 392,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 393,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 398,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/ui/banner.ts",
+      "line": 53,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/utils/browserAutomation.ts",
+      "line": 145,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/utils/browserAutomation.ts",
+      "line": 146,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "ceobe/src/utils/browserAutomation.ts",
+      "line": 147,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/utils/browserAutomation.ts",
+      "line": 189,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/utils/browserAutomation.ts",
+      "line": 202,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 21,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 34,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 35,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 36,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 37,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 38,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 41,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 51,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 52,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 55,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 65,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 69,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 71,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 75,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 86,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 88,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 93,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 96,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 100,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 103,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 107,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 109,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 111,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/doctor.ts",
+      "line": 114,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/modeManager.ts",
+      "line": 194,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/modeManager.ts",
+      "line": 199,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/modeManager.ts",
+      "line": 248,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/modeManager.ts",
+      "line": 254,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "ceobe/src/utils/modeManager.ts",
+      "line": 255,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/utils/retry.ts",
+      "line": 41,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "ceobe/src/utils/retry.ts",
+      "line": 76,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    }
+  ]
+}

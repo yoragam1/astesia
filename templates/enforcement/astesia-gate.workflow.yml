@@ -1,7 +1,8 @@
 name: astesia-gate
 
-# Trust Pyramid Layer 2/3: hard CI gate. Agents cannot merge unless this passes on the REBASED head.
-# Copy to .github/workflows/astesia-gate.yml and the gate script to .astesia/enforcement/.
+# Trust Pyramid Layer 2: Deterministic enforcement gate.
+# Uses trusted gate script and rules from base branch to evaluate incoming PR code.
+# Copy to .github/workflows/astesia-gate.yml.
 
 on:
   pull_request:
@@ -17,32 +18,69 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout trusted base branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: trusted
+          persist-credentials: false
+
+      - name: Checkout incoming pull request code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+          path: pr
+          persist-credentials: false
 
-      - name: Rebase onto base (verify the real merge result, not a stale branch)
+      - name: Setup Bun runtime
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
+        with:
+          bun-version: 1.3.9
+
+      - name: Validate PR Workflow Security Guard
         run: |
-          git config user.email "ci@astesia.local"
-          git config user.name "astesia-ci"
-          git rebase origin/${{ github.base_ref }}
+          WORKFLOW_FILE=""
+          if [ -f "pr/.github/workflows/astesia-gate.yml" ]; then
+            WORKFLOW_FILE="pr/.github/workflows/astesia-gate.yml"
+          elif [ -f "pr/templates/enforcement/astesia-gate.workflow.yml" ]; then
+            WORKFLOW_FILE="pr/templates/enforcement/astesia-gate.workflow.yml"
+          fi
+          if [ -z "$WORKFLOW_FILE" ]; then
+            echo "[SECURITY_ERROR: No PR workflow found to validate (fail-closed)]"
+            exit 1
+          fi
+          GATE_SCRIPT=""
+          if [ -f "trusted/.astesia/enforcement/astesia-gate.ts" ]; then
+            GATE_SCRIPT="trusted/.astesia/enforcement/astesia-gate.ts"
+          elif [ -f "trusted/templates/enforcement/astesia-gate.ts" ]; then
+            GATE_SCRIPT="trusted/templates/enforcement/astesia-gate.ts"
+          fi
+          if [ -z "$GATE_SCRIPT" ]; then
+            echo "[SECURITY_ERROR: Trusted gate script not found (fail-closed)]"
+            exit 1
+          fi
+          bun "$GATE_SCRIPT" --check-workflow "$WORKFLOW_FILE"
 
-      - uses: oven-sh/setup-bun@v2
+      - name: Verify anti-pattern registry compatibility (no weakenings)
+        run: |
+          bun trusted/.astesia/enforcement/astesia-gate.ts --rules-diff trusted/.astesia/anti-patterns.json pr/.astesia/anti-patterns.json
 
-      - name: Install
-        run: bun install --frozen-lockfile
-
-      - name: L1 — Types
-        run: bun run typecheck
-
-      - name: L2 — Anti-pattern registry (astesia-gate)
-        run: bun .astesia/enforcement/astesia-gate.ts --max-warn "${ASTESIA_MAX_WARN:-9999}"
-        env:
-          ASTESIA_MAX_WARN: ${{ vars.ASTESIA_MAX_WARN }}
-
-      - name: L2 — Unit tests + coverage floor
-        run: bun run test:coverage
-
-      - name: L3 — Integration / E2E (traceable to BRD ACs)
-        run: bun run test:e2e
+      - name: Execute trusted gate on incoming code
+        run: |
+          CONFIG_ARG=""
+          if [ -f "trusted/.astesia/gate-config.json" ]; then
+            CONFIG_ARG="--config trusted/.astesia/gate-config.json"
+          fi
+          
+          BASELINE_ARG=""
+          if [ -f "trusted/.astesia/gate-baseline.json" ]; then
+            BASELINE_ARG="--baseline trusted/.astesia/gate-baseline.json"
+          fi
+          
+          bun trusted/.astesia/enforcement/astesia-gate.ts \
+            --root pr \
+            --rules trusted/.astesia/anti-patterns.json \
+            $CONFIG_ARG \
+            $BASELINE_ARG \
+            --max-warn 0 \
+            --json

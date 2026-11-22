@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-11-22T05:27:47.049Z",
+  "phase": "test_first_start",
+  "commit": "3090aa5",
+  "suite": "tools/tests/lint-rules-suite.ts",
+  "total": 46,
+  "passed": 43,
+  "failed": 3,
+  "failed_tests": [
+    {
+      "id": "FL-019-POS-UNKNOWN",
+      "reason": "FL-019 not yet implemented; unknown tool custom_crawler was not caught"
+    },
+    {
+      "id": "FL-019-POS-ALAT",
+      "reason": "FL-019 not yet implemented; unknown tool fetch_remote_logs was not caught"
+    },
+    {
+      "id": "FL-019-POS-CALL",
+      "reason": "FL-019 not yet implemented; unknown tool search_files was not caught"
+    }
+  ],
+  "status": "FAILING_AS_EXPECTED"
+}

@@ -1,21 +1,17 @@
 # Design Layer Rules
 **Role:** Visual & User Experience
 
-These rules define the constraints for the Astesia Design Agent.
-
 ## 1. Abstract Tokens First
-Before designing components, define the abstract tokens in `design-system.md` (Colors, Spacing, Typography). Do not hardcode arbitrary hex codes into components.
+Define abstract design tokens in `design-system.md` (Colors, Spacing, Typography) before components. Static random hex codes are forbidden.
 
 ## 2. No Business Logic
-Do not define how authentication works or how databases are structured. Focus strictly on states (hover, focus, disabled, active) and layouts.
+Never define authentication or database structures. Focus strictly on visual states (hover, focus, disabled, active) and layouts.
 
 ## 3. Accessibility (a11y) is Mandatory
-All color contrasts must meet WCAG AA standards. Interactive elements must have focus states.
+All color contrasts MUST meet WCAG AA standards. All interactive elements MUST provide visible focus states.
 
-## 4. Visual Inspiration Handling (Multimodal)
-If the user provides UI/UX inspiration via screenshot attachments (Dribbble, Refero, Pinterest) or Figma links during the `/astesia-design` phase:
-- Use Native Vision to analyze the layout, extract the primary/accent color codes visually, and identify the typography style.
-- Translate the visual aesthetic into exact Design Tokens.
+## 4. Visual Inspiration Handling
+When screenshots or Figma references are provided, extract color palettes, typography scales, and structural layouts into concrete design tokens.
 
 ## 5. Output Format
-Your output must be actionable for the Engineering layer (e.g., precise Tailwind classes, CSS variable mappings, or structured JSON tokens).
+Output MUST be directly actionable by Engineering (Tailwind utilities, CSS variables, or structured JSON tokens).

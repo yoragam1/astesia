@@ -1,9 +1,16 @@
 {
   "name": "astesia-os",
-  "version": "3.0.0",
+  "version": "3.1.0-rc1",
   "description": "Astesia Multi-Layer Autonomous AI Framework",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "lint:framework": "bun tools/framework-lint.ts",
+    "lint:report": "bun tools/report-lint.ts",
+    "test:tools": "bun tools/tests/run.ts",
+    "check:budget": "bun tools/token-budget.ts --check",
+    "check:manifest": "bun tools/verify-manifest.ts",
+    "check:all": "bun tools/check-all.ts"
+  },
   "keywords": [
     "ai",
     "agentic",

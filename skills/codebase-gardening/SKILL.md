@@ -20,7 +20,7 @@ description: >-
 ## 3. Practical Guidance
 
 ### Gardening wave (a Task Wave of its own)
-1. **Inventory:** `bun .astesia/enforcement/astesia-gate.ts --json` + `grep_search("astesia-debt:")` + `anti-bloat-audit`.
+1. **Inventory:** `bun .astesia/enforcement/astesia-gate.ts --json` + scan for `"astesia-debt:"` markers + `anti-bloat-review`.
 2. **Prioritize by copy-risk:** patterns most likely to be imitated (hot paths, templates, examples) first.
 3. **Slice:** one pattern per PR, mechanical and small; never mix gardening with feature work.
 4. **Execute:** parallel Executors via `worktree-isolation`; `blast-radius` before touching shared modules.

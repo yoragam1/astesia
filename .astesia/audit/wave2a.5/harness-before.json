@@ -1,0 +1,369 @@
+{
+  "harness": "Astesia Unified Test Runner (all.ts)",
+  "timestamp": "2026-11-19T05:02:03.325Z",
+  "duration_ms": 71435,
+  "accounting": {
+    "total": 931,
+    "passed": 867,
+    "failed": 56,
+    "known_gaps": 8,
+    "invariant_holds": true,
+    "meets_scale_threshold": true,
+    "zero_orphans": true
+  },
+  "runners": {
+    "implementer": {
+      "name": "run.ts",
+      "total": 355,
+      "passed": 349,
+      "failed": 0,
+      "known_gaps": 6
+    },
+    "verifier_2a1": {
+      "name": "verify/run.ts",
+      "total": 90,
+      "passed": 89,
+      "failed": 0,
+      "known_gaps": 1
+    },
+    "verifier_2a2": {
+      "name": "verify2/run.ts",
+      "total": 80,
+      "passed": 80,
+      "failed": 0,
+      "known_gaps": 0
+    },
+    "verifier_2a3": {
+      "name": "verify3/run.ts",
+      "total": 80,
+      "passed": 80,
+      "failed": 0,
+      "known_gaps": 0
+    },
+    "standalone_suites": {
+      "total": 322,
+      "passed": 265,
+      "failed": 56,
+      "known_gaps": 1,
+      "breakdown": {
+        "auth_header": {
+          "total": 24,
+          "passed": 24,
+          "failed": 0,
+          "errors": []
+        },
+        "check_workflow": {
+          "total": 16,
+          "passed": 16,
+          "failed": 0,
+          "errors": []
+        },
+        "config_quote": {
+          "total": 21,
+          "passed": 21,
+          "failed": 0,
+          "errors": []
+        },
+        "env_batch": {
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "errors": []
+        },
+        "key_sensitivity": {
+          "total": 75,
+          "passed": 75,
+          "failed": 0,
+          "errors": []
+        },
+        "redos": {
+          "total": 15,
+          "passed": 15,
+          "failed": 0,
+          "results": [
+            {
+              "id": "rd_a_100k_ts",
+              "name": "Repeated 'a' 100k chars on .ts",
+              "passed": true,
+              "durationMs": 114,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_100k_js",
+              "name": "Repeated 'a=a=' 100k chars on .js",
+              "passed": true,
+              "durationMs": 161,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_100k_py",
+              "name": "Alternating quotes 100k chars on .py",
+              "passed": true,
+              "durationMs": 110,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_100k_go",
+              "name": "Minified bundle pattern 100k chars on .go",
+              "passed": true,
+              "durationMs": 122,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_a_500k_ts",
+              "name": "Repeated 'a' 500k chars on .ts",
+              "passed": true,
+              "durationMs": 128,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_500k_js",
+              "name": "Repeated 'a=a=' 500k chars on .js",
+              "passed": true,
+              "durationMs": 550,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_500k_py",
+              "name": "Alternating quotes 500k chars on .py",
+              "passed": true,
+              "durationMs": 129,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_500k_go",
+              "name": "Minified bundle pattern 500k chars on .go",
+              "passed": true,
+              "durationMs": 124,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_a_1M_ts",
+              "name": "Repeated 'a' 1M chars on .ts",
+              "passed": true,
+              "durationMs": 161,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_assign_1M_js",
+              "name": "Repeated 'a=a=' 1M chars on .js",
+              "passed": true,
+              "durationMs": 993,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_quotes_1M_py",
+              "name": "Alternating quotes 1M chars on .py",
+              "passed": true,
+              "durationMs": 152,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_minified_1M_go",
+              "name": "Minified bundle pattern 1M chars on .go",
+              "passed": true,
+              "durationMs": 143,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_yaml_500k",
+              "name": "YAML config line with 500k chars",
+              "passed": true,
+              "durationMs": 114,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_env_500k",
+              "name": "Env line with 500k chars",
+              "passed": true,
+              "durationMs": 105,
+              "detectedSecret": false
+            },
+            {
+              "id": "rd_secret_eof_200k",
+              "name": "Secret at EOF of 200k char minified line must trigger",
+              "passed": true,
+              "durationMs": 140,
+              "detectedSecret": true
+            }
+          ]
+        },
+        "profile_contract": {
+          "total": 23,
+          "passed": 23,
+          "failed": 0,
+          "errors": []
+        },
+        "config_varref": {
+          "total": 16,
+          "passed": 16,
+          "failed": 0,
+          "errors": []
+        },
+        "helm_keyname": {
+          "total": 14,
+          "passed": 14,
+          "failed": 0,
+          "errors": []
+        },
+        "rule010_path": {
+          "total": 14,
+          "passed": 14,
+          "failed": 0,
+          "errors": []
+        },
+        "regex_literal": {
+          "total": 36,
+          "passed": 20,
+          "failed": 16,
+          "known_gaps": 0,
+          "errors": [
+            "FAIL: RL-01 (const r = /`/; backtick inside regex literal) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl01.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-02 (x = /\"/g double quote inside regex literal with flag) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl02.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-03 (y = /'/ single quote inside regex literal) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl03.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-04 (z = /\\/*/ block comment opener inside regex literal) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl04.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-05 (w = /[/*]/ slash and star inside regex character class) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl05.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-07 (return /\"/.test(s) regex after return keyword) - hasDesync=true, hasExpected=false at L4, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl07.ts\",\"line\":5,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-08 (case /x`/.test(s): regex after case keyword) - hasDesync=true, hasExpected=false at L5, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl08.ts\",\"line\":6,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-09 (arr.filter(x => /'/.test(x)) regex after fat arrow =>) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl09.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-10 ({ pattern: /`/ } regex after colon in object literal) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl10.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-12 (regex with backtick inside ${ } template interpolation) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl12.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-13 (regex after ( and ,) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl13.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-16 (regex after typeof, void, delete, throw, new, await, yield) - hasDesync=true, hasExpected=false at L4, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl16.ts\",\"line\":5,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-18 (regex with character class containing [/`\"'/*]) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl18.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-19 (regex on CRLF lines) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl19.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-20 (regex inside Vue/Svelte <script> block) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl20.svelte\",\"line\":6,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]",
+            "FAIL: RL-36 (Nested template literal with escaped backticks inside ${ }) - hasDesync=true, hasExpected=false at L3, viols=[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"rl36.ts\",\"line\":4,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]"
+          ]
+        },
+        "generated_policy": {
+          "total": 23,
+          "passed": 2,
+          "failed": 21,
+          "known_gaps": 0,
+          "errors": [
+            "FAIL: GP-01 (.min.js treated as generated_skipped) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".js\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-006\",\"severity\":\"warn\",\"file\":\"app.min.js\",\"line\":1,\"message\":\"console.log in source; use the structured logger.\",\"fix\":\"Use the project logger (e.g. Pino).\"}]}",
+            "FAIL: GP-02 (.min.mjs treated as generated without desync) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".mjs\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\"bundle.min.mjs\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"bundle.min.mjs\",\"line\":2,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]}",
+            "FAIL: GP-03 (.min.cjs treated as generated without desync) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".cjs\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\"vendor.min.cjs\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"vendor.min.cjs\",\"line\":2,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]}",
+            "FAIL: GP-04 (.min.css treated as generated and strong secret caught on L2) - {\"errors\":0,\"warnings\":0,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":0,\"by_extension\":{}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[]}",
+            "FAIL: GP-05 (Line of exactly 5000 chars is generated) - {\"errors\":0,\"warnings\":0,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".js\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[]}",
+            "FAIL: GP-06 (Line of 4999 chars is NOT generated) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-005\",\"severity\":\"warn\",\"file\":\"normal.ts\",\"line\":2,\"message\":\"Explicit `any` weakens the type system (Trust Pyramid L1).\",\"fix\":\"Use a precise type, `unknown` + narrowing, or a Zod-inferred type.\"}]}",
+            "FAIL: GP-07 (Header @generated on line 1 is generated) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-005\",\"severity\":\"warn\",\"file\":\"client.ts\",\"line\":2,\"message\":\"Explicit `any` weakens the type system (Trust Pyramid L1).\",\"fix\":\"Use a precise type, `unknown` + narrowing, or a Zod-inferred type.\"}]}",
+            "FAIL: GP-08 (Header DO NOT EDIT on line 5 is generated) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-005\",\"severity\":\"warn\",\"file\":\"schema.ts\",\"line\":6,\"message\":\"Explicit `any` weakens the type system (Trust Pyramid L1).\",\"fix\":\"Use a precise type, `unknown` + narrowing, or a Zod-inferred type.\"}]}",
+            "FAIL: GP-09 (Header Code generated on line 10 is generated) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-005\",\"severity\":\"warn\",\"file\":\"proto.ts\",\"line\":11,\"message\":\"Explicit `any` weakens the type system (Trust Pyramid L1).\",\"fix\":\"Use a precise type, `unknown` + narrowing, or a Zod-inferred type.\"}]}",
+            "FAIL: GP-10 (Header @generated on line 11 is NOT generated) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-005\",\"severity\":\"warn\",\"file\":\"not_gen.ts\",\"line\":12,\"message\":\"Explicit `any` weakens the type system (Trust Pyramid L1).\",\"fix\":\"Use a precise type, `unknown` + narrowing, or a Zod-inferred type.\"}]}",
+            "FAIL: GP-11 (Strong secret in middle of 1M-char line caught on L2 in 220ms (<1500ms)) - elapsed=219.78710000000137, viols=[{\"ruleId\":\"ASTESIA-004\",\"severity\":\"error\",\"file\":\"huge_mid.min.js\",\"line\":2,\"message\":\"Probable hardcoded secret.\",\"fix\":\"Read it from the environment (process.env / config module) and document it in .env.example.\"}]",
+            "FAIL: GP-12 (Strong secret at EOF of 1M-char line caught on L3 in 656ms (<1500ms)) - elapsed=655.8416999999899, viols=[{\"ruleId\":\"ASTESIA-004\",\"severity\":\"error\",\"file\":\"huge_end.min.js\",\"line\":3,\"message\":\"Probable hardcoded secret.\",\"fix\":\"Read it from the environment (process.env / config module) and document it in .env.example.\"}]",
+            "FAIL: GP-13 (Private key header caught in generated file at L3) - []",
+            "FAIL: GP-15 (Generic password = \"abcdefgh12345\" in generated file not detected) - {\"errors\":1,\"warnings\":0,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".js\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-004\",\"severity\":\"error\",\"file\":\"gen.min.js\",\"line\":1,\"message\":\"Probable hardcoded secret.\",\"fix\":\"Read it from the environment (process.env / config module) and document it in .env.example.\"}]}",
+            "FAIL: GP-17 (Generated file never produces TOKENIZER_DESYNC) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".js\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\"desync.min.js\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"desync.min.js\",\"line\":2,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]}",
+            "FAIL: GP-18 (Increase in generated_skipped fails --baseline with exit 1) - {\"status\":\"passed\",\"new_violations\":[],\"counter_regressions\":[],\"coverage\":{\"files_scanned\":2,\"expected_min\":1,\"ratio\":2},\"tightenable\":false}",
+            "FAIL: GP-19 (Old baseline missing generated_skipped defaults to 0 and catches increase) - {\"status\":\"passed\",\"new_violations\":[],\"counter_regressions\":[],\"coverage\":{\"files_scanned\":2,\"expected_min\":1,\"ratio\":2},\"tightenable\":false}",
+            "FAIL: GP-20 (--update-baseline rejects generated_skipped increase unless --allow-raise + --reason provided) - reject=0, allow=0",
+            "FAIL: GP-21 (Excluded file counted in files_excluded, not generated_skipped) - {\"errors\":0,\"warnings\":0,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":1,\"excluded_paths\":[\"dev-dist\"],\"desync_files\":[],\"violations\":[]}",
+            "FAIL: GP-22 (CRLF generated file reports strong secret on exact line 4) - {\"errors\":1,\"warnings\":0,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[],\"violations\":[{\"ruleId\":\"ASTESIA-004\",\"severity\":\"error\",\"file\":\"crlf_gen.ts\",\"line\":4,\"message\":\"Probable hardcoded secret.\",\"fix\":\"Read it from the environment (process.env / config module) and document it in .env.example.\"}]}",
+            "FAIL: GP-23 (Text output includes generated_skipped=1) - \nastesia-gate: scanned 1 file(s) (.js: 1), 0 excluded.\nastesia-gate: 0 error(s), 0 warning(s), 11 rule(s) loaded (suppressions: 0, rejected: 0, debt markers: 0, allowlisted: 0, env skipped: 0).\n"
+          ]
+        },
+        "url_exempt": {
+          "total": 26,
+          "passed": 13,
+          "failed": 13,
+          "known_gaps": 0,
+          "errors": [
+            "FAIL: UE-01 (process.env.DATABASE_URL || 'http://localhost:3000') - expected trigger=false, got true",
+            "FAIL: UE-05 (postgres://user:${DB_PASS}@db/app (password is ${VAR} reference)) - expected trigger=false, got true",
+            "FAIL: UE-06 (postgresql://user:$DB_PASS@db/app (password is $VAR reference)) - expected trigger=false, got true",
+            "FAIL: UE-08 (mongodb://mongo.internal:27017/app) - expected trigger=false, got true",
+            "FAIL: UE-09 (mongodb+srv://cluster0.example.net/prod) - expected trigger=false, got true",
+            "FAIL: UE-10 (redis://cache.internal:6379/0) - expected trigger=false, got true",
+            "FAIL: UE-11 (rediss://tls-cache.internal:6380/0) - expected trigger=false, got true",
+            "FAIL: UE-12 (amqp://broker.internal:5672/vhost and amqps://) - expected trigger=false, got true",
+            "FAIL: UE-13 (ws://localhost:8080/events with non-sensitive query param) - expected trigger=false, got true",
+            "FAIL: UE-21 (ftp://u:p@h scheme outside allowed list follows normal rule) - expected trigger=true, got false",
+            "FAIL: UE-22 (Unparseable URL https:// triggers) - expected trigger=true, got false",
+            "FAIL: UE-23 (Unparseable URL http://[::1 triggers) - expected trigger=true, got false",
+            "FAIL: UE-26 (Standalone credentialed URL postgres://admin:hunter2@db/app without process.env triggers) - expected trigger=true, got false"
+          ]
+        },
+        "wave2a5_cli_config": {
+          "total": 10,
+          "passed": 3,
+          "failed": 6,
+          "known_gaps": 1,
+          "gapIds": [
+            "PHP-MARKUP-OUTSIDE-TAG-GAP"
+          ],
+          "errors": [
+            "FAIL: T5-01 (Nested template literal with escaped backticks inside ${ } has 0 desync) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\"manager_repro.ts\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"manager_repro.ts\",\"line\":8,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]}",
+            "FAIL: T5-02 (Single-line table row with nested template literal & escaped backticks has 0 desync) - {\"errors\":0,\"warnings\":1,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":1,\"by_extension\":{\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\"cancel_repro.ts\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\"cancel_repro.ts\",\"line\":5,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"}]}",
+            "FAIL: T6-01 (--baseline without value exits 2 with 'use --baseline <path>') - status=0, stderr=",
+            "FAIL: T6-02 (--baseline --json without path exits 2) - status=0, stderr=",
+            "FAIL: T10-01 (gate-config.template.json includes dev-dist and .vercel/output with reasons >= 15 chars) - {\"schema\":1,\"exclude\":[]}",
+            "FAIL: T10-02 (gate-config.template.json excludes dev-dist and .vercel/output and records files_excluded=2) - {\"errors\":0,\"warnings\":2,\"suppressions\":0,\"rejected_suppressions\":0,\"debt_markers\":0,\"allowlisted\":0,\"allow_stale\":[],\"env_ignored_skipped\":0,\"files_scanned\":{\"total\":3,\"by_extension\":{\".js\":2,\".ts\":1}},\"files_excluded\":0,\"excluded_paths\":[],\"desync_files\":[\".vercel/output/static/chunk.js\"],\"violations\":[{\"ruleId\":\"TOKENIZER_DESYNC\",\"severity\":\"warn\",\"file\":\".vercel/output/static/chunk.js\",\"line\":2,\"message\":\"Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.\",\"fix\":\"Ensure all strings, template literals, and comments are properly terminated.\"},{\"ruleId\":\"ASTESIA-008\",\"severity\":\"warn\",\"file\":\"dev-dist/workbox.js\",\"line\":1,\"message\":\"Untracked workaround or hack comment without an astesia-debt tracking marker.\",\"fix\":\"Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately.\"}]}"
+          ]
+        }
+      }
+    },
+    "meta_tests": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "cases": [
+        {
+          "id": "META-01-INTEGRITY",
+          "name": "Authentic originals.json matches known SHA256",
+          "passed": true
+        },
+        {
+          "id": "META-02-TAMPERING-DETECTED",
+          "name": "Tampering simulation rejected by SHA256 lock",
+          "passed": true
+        },
+        {
+          "id": "META-03-ID-DELETION-DETECTED",
+          "name": "ID deletion simulation strictly detected in parsed corpus",
+          "passed": true
+        },
+        {
+          "id": "META-04-CORPUS-COMPLETENESS",
+          "name": "Corpus completeness >= 60 cases (actual: 67)",
+          "passed": true
+        }
+      ]
+    },
+    "mutation_testing": {
+      "skipped": true,
+      "reason": "--fast flag passed"
+    }
+  },
+  "discovery": {
+    "total_discovered_suites": 22,
+    "total_executed_suites": 22,
+    "discovered_suites": [
+      "allowlist-suite.ts",
+      "auth-header-suite.ts",
+      "baseline-suite.ts",
+      "check-workflow-suite.ts",
+      "config-quote-suite.ts",
+      "config-secrets-suite.ts",
+      "config-varref-suite.ts",
+      "env-batch-suite.ts",
+      "env-git-suite.ts",
+      "generated-policy-suite.ts",
+      "helm-keyname-suite.ts",
+      "key-contract-suite.ts",
+      "key-sensitivity-suite.ts",
+      "profile-contract-suite.ts",
+      "profile-dispatch-suite.ts",
+      "redos-suite.ts",
+      "regex-literal-suite.ts",
+      "rule010-path-suite.ts",
+      "rule010-scope-suite.ts",
+      "rules-diff-suite.ts",
+      "url-exempt-suite.ts",
+      "wave2a5-cli-config-suite.ts"
+    ],
+    "orphan_suites": []
+  }
+}

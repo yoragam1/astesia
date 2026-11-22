@@ -1,0 +1,877 @@
+{
+  "timestamp": "2026-11-21T06:04:26.555Z",
+  "gateCommit": "bc3c0772a4f327505cfa973ebbe45ac52a1e04de",
+  "projects": {
+    "aipkani": {
+      "totalViolations": 313,
+      "selected": 53,
+      "mandatoryCount": 53,
+      "sampledCount": 0
+    },
+    "ecommerce-hp-api": {
+      "totalViolations": 1,
+      "selected": 1,
+      "mandatoryCount": 1,
+      "sampledCount": 0
+    },
+    "cadetspeak_admin": {
+      "totalViolations": 31,
+      "selected": 31,
+      "mandatoryCount": 3,
+      "sampledCount": 28
+    }
+  },
+  "classifiedCount": 85,
+  "classifications": [
+    {
+      "id": "ASTESIA-010|backend/.env|3",
+      "ruleId": "ASTESIA-010",
+      "project": "aipkani",
+      "file": "backend/.env",
+      "line": 3,
+      "class": "TP",
+      "quote": "SEED_PASSWORD=\"<redacted>\"",
+      "reason": "Hardcoded secret key or password in environment configuration file"
+    },
+    {
+      "id": "ASTESIA-004|backend/clearSlides.js|3",
+      "ruleId": "ASTESIA-004",
+      "project": "aipkani",
+      "file": "backend/clearSlides.js",
+      "line": 3,
+      "class": "TP",
+      "quote": "const sql = postgres('postgresql://<redacted>@aws-1-ap-southeast-1.pooler.supabase.c",
+      "reason": "Hardcoded database connection string containing plaintext credentials in production script"
+    },
+    {
+      "id": "ASTESIA-004|backend/createBucket.js|3",
+      "ruleId": "ASTESIA-004",
+      "project": "aipkani",
+      "file": "backend/createBucket.js",
+      "line": 3,
+      "class": "TP",
+      "quote": "const sql = postgres('postgresql://<redacted>@aws-1-ap-southeast-1.pooler.supabase.c",
+      "reason": "Hardcoded database connection string containing plaintext credentials in production script"
+    },
+    {
+      "id": "ASTESIA-004|backend/createSettingsTable.js|3",
+      "ruleId": "ASTESIA-004",
+      "project": "aipkani",
+      "file": "backend/createSettingsTable.js",
+      "line": 3,
+      "class": "TP",
+      "quote": "const sql = postgres('postgresql://<redacted>@aws-1-ap-southeast-1.pooler.supabase.c",
+      "reason": "Hardcoded database connection string containing plaintext credentials in production script"
+    },
+    {
+      "id": "ASTESIA-004|backend/testUpload.js|5",
+      "ruleId": "ASTESIA-004",
+      "project": "aipkani",
+      "file": "backend/testUpload.js",
+      "line": 5,
+      "class": "TP",
+      "quote": "const SUPABASE_ANON_KEY = '<redacted>",
+      "reason": "Hardcoded database connection string containing plaintext credentials in production script"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+layout.svelte|3",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+layout.svelte",
+      "line": 3,
+      "class": "FP",
+      "quote": "import Header from '$lib/components/Header.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+layout.svelte|4",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+layout.svelte",
+      "line": 4,
+      "class": "FP",
+      "quote": "import Footer from '$lib/components/Footer.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+layout.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+layout.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+page.svelte|3",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+page.svelte",
+      "line": 3,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/artikel/+page.svelte|4",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/artikel/+page.svelte",
+      "line": 4,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/artikel/+page.svelte|5",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/artikel/+page.svelte",
+      "line": 5,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/artikel/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/artikel/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/artikel/[id]/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/artikel/[id]/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/artikel/[id]/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/artikel/[id]/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berita/+page.svelte|4",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berita/+page.svelte",
+      "line": 4,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berita/+page.svelte|5",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berita/+page.svelte",
+      "line": 5,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berita/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berita/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berita/[id]/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berita/[id]/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berita/[id]/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berita/[id]/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berkas/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berkas/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/berkas/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/berkas/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/articles/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/articles/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/articles/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/articles/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/documents/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/documents/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/documents/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/documents/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/gallery/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/gallery/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/gallery/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/gallery/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/hero-slides/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/hero-slides/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/institutions/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/institutions/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/institutions/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/institutions/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/news/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/news/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/news/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/news/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/profiles/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/profiles/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/profiles/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/profiles/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/settings/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/settings/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/structures/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/structures/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/structures/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/structures/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/users/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/users/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/dashboard/users/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/dashboard/users/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/galeri/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/galeri/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/galeri/+page.svelte|3",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/galeri/+page.svelte",
+      "line": 3,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/galeri/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/galeri/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/galeri/[id]/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/galeri/[id]/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/institusi/+page.svelte|3",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/institusi/+page.svelte",
+      "line": 3,
+      "class": "FP",
+      "quote": "import SEO from '$lib/components/SEO.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/institusi/+page.svelte|4",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/institusi/+page.svelte",
+      "line": 4,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/institusi/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/institusi/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/login/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/login/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-008|frontend/src/routes/login/+page.svelte|26",
+      "ruleId": "ASTESIA-008",
+      "project": "aipkani",
+      "file": "frontend/src/routes/login/+page.svelte",
+      "line": 26,
+      "class": "TP",
+      "quote": "// Save token to localStorage for now",
+      "reason": "Workaround or temporary comment without required astesia-debt tracking marker"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/profil/+page.svelte|2",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/profil/+page.svelte",
+      "line": 2,
+      "class": "FP",
+      "quote": "import HeroSlider from '$lib/components/HeroSlider.svelte';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-000|frontend/src/routes/profil/+page.ts|1",
+      "ruleId": "ASTESIA-000",
+      "project": "aipkani",
+      "file": "frontend/src/routes/profil/+page.ts",
+      "line": 1,
+      "class": "FP",
+      "quote": "import { api } from '$lib/api';",
+      "reason": "Subproject alias $lib resolves to frontend/src/lib, but root gate assumes src/lib without config"
+    },
+    {
+      "id": "ASTESIA-010|.env|10",
+      "ruleId": "ASTESIA-010",
+      "project": "ecommerce-hp-api",
+      "file": ".env",
+      "line": 10,
+      "class": "TP",
+      "quote": "JWT_SECRET=<redacted>",
+      "reason": "Hardcoded secret key or password in environment configuration file"
+    },
+    {
+      "id": "ASTESIA-004|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|29875",
+      "ruleId": "ASTESIA-004",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 29875,
+      "class": "NOISE",
+      "quote": "n=A.b_r(\"POST\",A.dQ(\"https://api.imgbb.com/1/upload?key=<redacted>\",0,null))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-004|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|31063",
+      "ruleId": "ASTESIA-004",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 31063,
+      "class": "NOISE",
+      "quote": "n=A.b5H(\"POST\",A.dS(\"https://api.imgbb.com/1/upload?key=\"+o,0,null))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-010|.env|1",
+      "ruleId": "ASTESIA-010",
+      "project": "cadetspeak_admin",
+      "file": ".env",
+      "line": 1,
+      "class": "TP",
+      "quote": "IMGBB_API_KEY=<redacted>",
+      "reason": "Hardcoded secret key or password in environment configuration file"
+    },
+    {
+      "id": "ASTESIA-009|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|43469",
+      "ruleId": "ASTESIA-009",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 43469,
+      "class": "NOISE",
+      "quote": "acf(a,b){if(self.setTimeout!=null)this.b=self.setTimeout(A.vI(new A.aI1(this,b),0),a)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49147",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49147,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,q.firebase_firestore.where(k,j,A.Ab(i))))}return d},",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49140",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49140,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,q.firebase_firestore.limitToLast(r)))}if(s.h(0,\"filters\")!=null){r=s.h(0,\"filt",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51242",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51242,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,c.zC(q.firebase_firestore.endBefore,g,r)),p)}if(s.h(0,\"limit\")!=null){r=s.h(0,",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-009|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|42091",
+      "ruleId": "ASTESIA-009",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 42091,
+      "class": "NOISE",
+      "quote": "a9Y(a,b){if(self.setTimeout!=null)this.b=self.setTimeout(A.uS(new A.aD9(this,b),0),a)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49136",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49136,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,d.yq(q.firebase_firestore.startAfter,h,r)))}if(s.h(0,\"endAt\")!=null){r=A.kM(s.",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51239",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51239,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,c.zC(q.firebase_firestore.startAt,g,r)),p)}if(s.h(0,f)!=null){r=A.lh(s.h(0,f))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|40051",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 40051,
+      "class": "NOISE",
+      "quote": "if(r==null){v.G.window.console.debug(\"Failed to inject Platform View Id: \"+a+\". Render seems to be happening before a `f",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51246",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51246,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,t.SF.a(c.W_(r))),p)}for(s=J.bf(s.h(0,\"where\"));s.t();){r=s.gK()",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49134",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49134,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,l))}if(s.h(0,\"startAt\")!=null){r=A.kM(s.h(0,\"startAt\"))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|38766",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 38766,
+      "class": "NOISE",
+      "quote": "if(r==null){v.G.window.console.debug(\"Failed to inject Platform View Id: \"+a+\". Render seems to be happening before a `f",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|50852",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 50852,
+      "class": "NOISE",
+      "quote": "if(h.window.trustedTypes!=null){h.console.debug(\"TrustedTypes available. Creating policy: \"+A.l(q))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|86199",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 86199,
+      "class": "NOISE",
+      "quote": "agV(a){this.db.C(0,a.gbj())},",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|31042",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 31042,
+      "class": "NOISE",
+      "quote": "return}if(typeof console==\"object\"&&typeof console.log!=\"undefined\"){console.log(a)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51244",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51244,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,q.firebase_firestore.limitToLast(r)),p)}if(s.h(0,\"filters\")!=null){r=s.h(0,\"fi",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|89216",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 89216,
+      "class": "NOISE",
+      "quote": "ajx(a){this.db.B(0,a.gbs())},",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|29854",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 29854,
+      "class": "NOISE",
+      "quote": "return}if(typeof console==\"object\"&&typeof console.log!=\"undefined\"){console.log(a)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49142",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49142,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,t.SF.a(d.Ud(r))))}for(s=J.bb(s.h(0,\"where\"));s.t();){r=s.gL()",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51238",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51238,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,k),p)}if(s.h(0,\"startAt\")!=null){r=A.lh(s.h(0,\"startAt\"))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51240",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51240,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,c.zC(q.firebase_firestore.startAfter,g,r)),p)}if(s.h(0,\"endAt\")!=null){r=A.lh(",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51243",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51243,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,q.firebase_firestore.limit(r)),p)}if(s.h(0,d)!=null){r=s.h(0,d)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49138",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49138,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,d.yq(q.firebase_firestore.endBefore,h,r)))}if(s.h(0,\"limit\")!=null){r=s.h(0,\"l",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-006|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|52956",
+      "ruleId": "ASTESIA-006",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 52956,
+      "class": "NOISE",
+      "quote": "if(h.window.trustedTypes!=null){h.console.debug(\"TrustedTypes available. Creating policy: \"+A.m(q))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49137",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49137,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,d.yq(q.firebase_firestore.endAt,h,r)))}if(s.h(0,f)!=null){r=A.kM(s.h(0,f))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51251",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51251,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,q.firebase_firestore.where(j,i,A.Bj(h))),p)}return c},",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49139",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49139,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,q.firebase_firestore.limit(r)))}if(s.h(0,e)!=null){r=s.h(0,e)",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js|49135",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49135,
+      "class": "NOISE",
+      "quote": "d=new A.iA(q.firebase_firestore.query(d.a,d.yq(q.firebase_firestore.startAt,h,r)))}if(s.h(0,g)!=null){r=A.kM(s.h(0,g))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    },
+    {
+      "id": "ASTESIA-007|.dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js|51241",
+      "ruleId": "ASTESIA-007",
+      "project": "cadetspeak_admin",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51241,
+      "class": "NOISE",
+      "quote": "c=new A.ig(q.firebase_firestore.query(c.a,c.zC(q.firebase_firestore.endAt,g,r)),p)}if(s.h(0,e)!=null){r=A.lh(s.h(0,e))",
+      "reason": "Violation occurs inside build artifact or third-party package directory (.dart_tool)"
+    }
+  ]
+}

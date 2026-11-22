@@ -1,0 +1,58 @@
+{
+  "harness": "Independent Verifier Harness (Wave 2A.1)",
+  "timestamp": "2026-11-18T08:49:12.571Z",
+  "accounting": {
+    "total": 90,
+    "passed": 87,
+    "failed": 0,
+    "known_gaps": 3,
+    "invariant_holds": true
+  },
+  "categories": {
+    "v2_secrets": {
+      "total": 68,
+      "passed": 67,
+      "failed": 0,
+      "known_gaps": 1
+    },
+    "v3_config": {
+      "total": 6,
+      "passed": 5,
+      "failed": 0,
+      "known_gaps": 1
+    },
+    "v4_allowlist": {
+      "total": 6,
+      "passed": 5,
+      "failed": 0,
+      "known_gaps": 1
+    },
+    "v5_env_git": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "known_gaps": 0
+    },
+    "v9_rules_diff": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "known_gaps": 0
+    }
+  },
+  "verification_status_v1_v13": {
+    "V1_fixtures_gaps": "VERIFIED (Fixture diffs match; 2 duplicate gap pairs; 1 path typo in r007/ec2b)",
+    "V2_astesia_004": "PARTIAL (64 passed, 4 False Positives, 2 False Negatives on neutral keys)",
+    "V3_config_profile": "PARTIAL (Invariants hold, Dockerfile desync fixed, False Negative on secret containing '#')",
+    "V4_allowlist": "PARTIAL (Schema & ratchet valid, Inline allowlist accepted for ASTESIA-010)",
+    "V5_env_git": "VERIFIED (CLI integration passes, but O(N) spawn overhead and harness mutant M6 survived)",
+    "V6_baseline_adoption": "VERIFIED (11/11 subtests passed; pustaka baseline rejected without config)",
+    "V7_project_findings": "VERIFIED (terminal-portfolio clean; pustaka 9 lost findings were all False Positives)",
+    "V8_workflow_guard": "FAILED (M10 guard does not check itself, shell fail-open, script not installed in user project)",
+    "V9_rules_diff": "VERIFIED (15/15 subtests passed, exit codes conform strictly to contract)",
+    "V10_fuzzing": "VERIFIED (Seeds 8101, 8102, 8103, 6000 files: 0 desync, 100% line length invariant)",
+    "V11_perf_redos": "FAILED (Old: 652.5ms vs Head: 5568.0ms due to .env spawning; W1 ReDoS 12-15s on 100k line)",
+    "V12_self_gate": "VERIFIED (Self-gate exit 0, gate-config.json only excludes templates/enforcement/tests)",
+    "V13_mutation_tests": "PARTIAL (9/10 mutants caught, 90% score, 1 mutant survived: ENV-IGNORED-SKIPS-TRACKED)"
+  }
+}

@@ -1,0 +1,1955 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-11-21T06:48:20.065Z",
+  "gate_start_commit": "bc3c0772a4f327505cfa973ebbe45ac52a1e04de",
+  "gate_head_commit": "ac1b1b2",
+  "before": {
+    "design": {
+      "aggregate": {
+        "total_findings": 654,
+        "errors": 32,
+        "warnings": 622,
+        "files_scanned": 4451,
+        "generated_skipped": 13,
+        "wilson_ci_95_upper": 0.010131395943115788
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 20,
+          "errors": 20,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.006930589130174772
+        },
+        "ASTESIA-001": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-002": {
+          "total_findings": 7,
+          "errors": 7,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.003242936933835502
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-004": {
+          "total_findings": 4,
+          "errors": 4,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0023085793393471344
+        },
+        "ASTESIA-005": {
+          "total_findings": 74,
+          "errors": 0,
+          "warnings": 74,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-006": {
+          "total_findings": 383,
+          "errors": 0,
+          "warnings": 383,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-007": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-008": {
+          "total_findings": 11,
+          "errors": 0,
+          "warnings": 11,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-009": {
+          "total_findings": 154,
+          "errors": 0,
+          "warnings": 154,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-010": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0012716001373127425
+        }
+      },
+      "by_project": {
+        "eunectes": {
+          "total_findings": 318,
+          "errors": 22,
+          "warnings": 296,
+          "files_scanned": 4108,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.008095681048170964,
+          "findings_by_rule": {
+            "ASTESIA-000": 17,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 3,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 143,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 11,
+            "ASTESIA-009": 141,
+            "ASTESIA-010": 1
+          }
+        },
+        "ifrit": {
+          "total_findings": 324,
+          "errors": 8,
+          "warnings": 316,
+          "files_scanned": 233,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06627655130380952,
+          "findings_by_rule": {
+            "ASTESIA-000": 3,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 5,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 66,
+            "ASTESIA-006": 240,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 10,
+            "ASTESIA-010": 0
+          }
+        },
+        "flora-smk": {
+          "total_findings": 12,
+          "errors": 2,
+          "warnings": 10,
+          "files_scanned": 110,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.06388016459381214,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 7,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 3,
+            "ASTESIA-010": 0
+          }
+        }
+      }
+    },
+    "seen": {
+      "aggregate": {
+        "total_findings": 287,
+        "errors": 54,
+        "warnings": 233,
+        "files_scanned": 1042,
+        "generated_skipped": 3,
+        "wilson_ci_95_upper": 0.06700462588691361
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 8,
+          "errors": 8,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.015076393405086565
+        },
+        "ASTESIA-001": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-002": {
+          "total_findings": 24,
+          "errors": 24,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.034043153499210714
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-004": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.005415985784043943
+        },
+        "ASTESIA-005": {
+          "total_findings": 21,
+          "errors": 0,
+          "warnings": 21,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-006": {
+          "total_findings": 181,
+          "errors": 0,
+          "warnings": 181,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-007": {
+          "total_findings": 18,
+          "errors": 18,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.027140662232838154
+        },
+        "ASTESIA-008": {
+          "total_findings": 13,
+          "errors": 0,
+          "warnings": 13,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-009": {
+          "total_findings": 17,
+          "errors": 0,
+          "warnings": 17,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-010": {
+          "total_findings": 3,
+          "errors": 3,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.008430467546943748
+        }
+      },
+      "by_project": {
+        "arene": {
+          "total_findings": 148,
+          "errors": 18,
+          "warnings": 130,
+          "files_scanned": 376,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.07439659371219325,
+          "findings_by_rule": {
+            "ASTESIA-000": 7,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 9,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 121,
+            "ASTESIA-007": 2,
+            "ASTESIA-008": 3,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0
+          }
+        },
+        "SIA": {
+          "total_findings": 60,
+          "errors": 0,
+          "warnings": 60,
+          "files_scanned": 469,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.00812420050956412,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 51,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 2,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0,
+            "TOKENIZER_DESYNC": 1
+          }
+        },
+        "pustaka-sekolah-pwa": {
+          "total_findings": 60,
+          "errors": 22,
+          "warnings": 38,
+          "files_scanned": 78,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.39030928770601114,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 14,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 20,
+            "ASTESIA-006": 7,
+            "ASTESIA-007": 6,
+            "ASTESIA-008": 7,
+            "ASTESIA-009": 4,
+            "ASTESIA-010": 2
+          }
+        },
+        "terminal-portfolio": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 18,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.17587922364665765,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "cadetspeak": {
+          "total_findings": 13,
+          "errors": 10,
+          "warnings": 3,
+          "files_scanned": 8,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 2,
+            "ASTESIA-007": 10,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 1,
+            "ASTESIA-010": 0
+          }
+        },
+        "eduNEXA": {
+          "total_findings": 5,
+          "errors": 4,
+          "warnings": 1,
+          "files_scanned": 56,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.16975448060863454,
+          "findings_by_rule": {
+            "ASTESIA-000": 1,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "prototype-ami": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 37,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0940578258372025,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        }
+      }
+    },
+    "fresh": {
+      "aggregate": {
+        "total_findings": 345,
+        "errors": 170,
+        "warnings": 175,
+        "files_scanned": 133,
+        "generated_skipped": 0,
+        "wilson_ci_95_upper": 1
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 47,
+          "errors": 47,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.43769638996281407
+        },
+        "ASTESIA-001": {
+          "total_findings": 2,
+          "errors": 2,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.053169654540550164
+        },
+        "ASTESIA-002": {
+          "total_findings": 91,
+          "errors": 91,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.7570920552230418
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-004": {
+          "total_findings": 6,
+          "errors": 6,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.09492784486315411
+        },
+        "ASTESIA-005": {
+          "total_findings": 90,
+          "errors": 0,
+          "warnings": 90,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-006": {
+          "total_findings": 33,
+          "errors": 0,
+          "warnings": 33,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-007": {
+          "total_findings": 21,
+          "errors": 21,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.22934372097912517
+        },
+        "ASTESIA-008": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-009": {
+          "total_findings": 51,
+          "errors": 0,
+          "warnings": 51,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-010": {
+          "total_findings": 3,
+          "errors": 3,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06421826984472845
+        }
+      },
+      "by_project": {
+        "aipkani": {
+          "total_findings": 313,
+          "errors": 146,
+          "warnings": 167,
+          "files_scanned": 106,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 47,
+            "ASTESIA-001": 2,
+            "ASTESIA-002": 91,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 4,
+            "ASTESIA-005": 90,
+            "ASTESIA-006": 27,
+            "ASTESIA-007": 1,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 49,
+            "ASTESIA-010": 1
+          }
+        },
+        "ecommerce-hp-api": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 20,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.23613119344674208,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "cadetspeak_admin": {
+          "total_findings": 31,
+          "errors": 23,
+          "warnings": 8,
+          "files_scanned": 7,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 2,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 6,
+            "ASTESIA-007": 20,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 2,
+            "ASTESIA-010": 1
+          }
+        }
+      }
+    },
+    "all": {
+      "aggregate": {
+        "total_findings": 1286,
+        "errors": 256,
+        "warnings": 1030,
+        "files_scanned": 5626,
+        "generated_skipped": 16,
+        "wilson_ci_95_upper": 0.05126583449577332
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 75,
+          "errors": 75,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.01667721028397004
+        },
+        "ASTESIA-001": {
+          "total_findings": 2,
+          "errors": 2,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0012953440620677745
+        },
+        "ASTESIA-002": {
+          "total_findings": 122,
+          "errors": 122,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.02583007049629079
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-004": {
+          "total_findings": 11,
+          "errors": 11,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0034979536903527284
+        },
+        "ASTESIA-005": {
+          "total_findings": 185,
+          "errors": 0,
+          "warnings": 185,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-006": {
+          "total_findings": 597,
+          "errors": 0,
+          "warnings": 597,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-007": {
+          "total_findings": 39,
+          "errors": 39,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.00946181253746425
+        },
+        "ASTESIA-008": {
+          "total_findings": 25,
+          "errors": 0,
+          "warnings": 25,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-009": {
+          "total_findings": 222,
+          "errors": 0,
+          "warnings": 222,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-010": {
+          "total_findings": 7,
+          "errors": 7,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0025662479307647897
+        }
+      },
+      "by_project": {
+        "eunectes": {
+          "total_findings": 318,
+          "errors": 22,
+          "warnings": 296,
+          "files_scanned": 4108,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.008095681048170964,
+          "findings_by_rule": {
+            "ASTESIA-000": 17,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 3,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 143,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 11,
+            "ASTESIA-009": 141,
+            "ASTESIA-010": 1
+          }
+        },
+        "ifrit": {
+          "total_findings": 324,
+          "errors": 8,
+          "warnings": 316,
+          "files_scanned": 233,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06627655130380952,
+          "findings_by_rule": {
+            "ASTESIA-000": 3,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 5,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 66,
+            "ASTESIA-006": 240,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 10,
+            "ASTESIA-010": 0
+          }
+        },
+        "flora-smk": {
+          "total_findings": 12,
+          "errors": 2,
+          "warnings": 10,
+          "files_scanned": 110,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.06388016459381214,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 7,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 3,
+            "ASTESIA-010": 0
+          }
+        },
+        "arene": {
+          "total_findings": 148,
+          "errors": 18,
+          "warnings": 130,
+          "files_scanned": 376,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.07439659371219325,
+          "findings_by_rule": {
+            "ASTESIA-000": 7,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 9,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 121,
+            "ASTESIA-007": 2,
+            "ASTESIA-008": 3,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0
+          }
+        },
+        "SIA": {
+          "total_findings": 60,
+          "errors": 0,
+          "warnings": 60,
+          "files_scanned": 469,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.00812420050956412,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 51,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 2,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0,
+            "TOKENIZER_DESYNC": 1
+          }
+        },
+        "pustaka-sekolah-pwa": {
+          "total_findings": 60,
+          "errors": 22,
+          "warnings": 38,
+          "files_scanned": 78,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.39030928770601114,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 14,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 20,
+            "ASTESIA-006": 7,
+            "ASTESIA-007": 6,
+            "ASTESIA-008": 7,
+            "ASTESIA-009": 4,
+            "ASTESIA-010": 2
+          }
+        },
+        "terminal-portfolio": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 18,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.17587922364665765,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "cadetspeak": {
+          "total_findings": 13,
+          "errors": 10,
+          "warnings": 3,
+          "files_scanned": 8,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 2,
+            "ASTESIA-007": 10,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 1,
+            "ASTESIA-010": 0
+          }
+        },
+        "eduNEXA": {
+          "total_findings": 5,
+          "errors": 4,
+          "warnings": 1,
+          "files_scanned": 56,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.16975448060863454,
+          "findings_by_rule": {
+            "ASTESIA-000": 1,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "prototype-ami": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 37,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0940578258372025,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "aipkani": {
+          "total_findings": 313,
+          "errors": 146,
+          "warnings": 167,
+          "files_scanned": 106,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 47,
+            "ASTESIA-001": 2,
+            "ASTESIA-002": 91,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 4,
+            "ASTESIA-005": 90,
+            "ASTESIA-006": 27,
+            "ASTESIA-007": 1,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 49,
+            "ASTESIA-010": 1
+          }
+        },
+        "ecommerce-hp-api": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 20,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.23613119344674208,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "cadetspeak_admin": {
+          "total_findings": 31,
+          "errors": 23,
+          "warnings": 8,
+          "files_scanned": 7,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 2,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 6,
+            "ASTESIA-007": 20,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 2,
+            "ASTESIA-010": 1
+          }
+        }
+      }
+    }
+  },
+  "after": {
+    "design": {
+      "aggregate": {
+        "total_findings": 653,
+        "errors": 31,
+        "warnings": 622,
+        "files_scanned": 4451,
+        "generated_skipped": 13,
+        "wilson_ci_95_upper": 0.009868724201709552
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 20,
+          "errors": 20,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.006930589130174772
+        },
+        "ASTESIA-001": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-002": {
+          "total_findings": 7,
+          "errors": 7,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.003242936933835502
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-004": {
+          "total_findings": 3,
+          "errors": 3,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0019799115930131286
+        },
+        "ASTESIA-005": {
+          "total_findings": 74,
+          "errors": 0,
+          "warnings": 74,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-006": {
+          "total_findings": 383,
+          "errors": 0,
+          "warnings": 383,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-007": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-008": {
+          "total_findings": 11,
+          "errors": 0,
+          "warnings": 11,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-009": {
+          "total_findings": 154,
+          "errors": 0,
+          "warnings": 154,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0008623110061723845
+        },
+        "ASTESIA-010": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 4451,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0012716001373127425
+        }
+      },
+      "by_project": {
+        "eunectes": {
+          "total_findings": 318,
+          "errors": 22,
+          "warnings": 296,
+          "files_scanned": 4108,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.008095681048170964,
+          "findings_by_rule": {
+            "ASTESIA-000": 17,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 3,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 143,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 11,
+            "ASTESIA-009": 141,
+            "ASTESIA-010": 1
+          }
+        },
+        "ifrit": {
+          "total_findings": 324,
+          "errors": 8,
+          "warnings": 316,
+          "files_scanned": 233,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06627655130380952,
+          "findings_by_rule": {
+            "ASTESIA-000": 3,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 5,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 66,
+            "ASTESIA-006": 240,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 10,
+            "ASTESIA-010": 0
+          }
+        },
+        "flora-smk": {
+          "total_findings": 11,
+          "errors": 1,
+          "warnings": 10,
+          "files_scanned": 110,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0497056520793305,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 7,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 3,
+            "ASTESIA-010": 0
+          }
+        }
+      }
+    },
+    "seen": {
+      "aggregate": {
+        "total_findings": 287,
+        "errors": 54,
+        "warnings": 233,
+        "files_scanned": 1042,
+        "generated_skipped": 3,
+        "wilson_ci_95_upper": 0.06700462588691361
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 8,
+          "errors": 8,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.015076393405086565
+        },
+        "ASTESIA-001": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-002": {
+          "total_findings": 24,
+          "errors": 24,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.034043153499210714
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-004": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.005415985784043943
+        },
+        "ASTESIA-005": {
+          "total_findings": 21,
+          "errors": 0,
+          "warnings": 21,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-006": {
+          "total_findings": 181,
+          "errors": 0,
+          "warnings": 181,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-007": {
+          "total_findings": 18,
+          "errors": 18,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.027140662232838154
+        },
+        "ASTESIA-008": {
+          "total_findings": 13,
+          "errors": 0,
+          "warnings": 13,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-009": {
+          "total_findings": 17,
+          "errors": 0,
+          "warnings": 17,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0036730794981352237
+        },
+        "ASTESIA-010": {
+          "total_findings": 3,
+          "errors": 3,
+          "warnings": 0,
+          "files_scanned": 1042,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.008430467546943748
+        }
+      },
+      "by_project": {
+        "arene": {
+          "total_findings": 148,
+          "errors": 18,
+          "warnings": 130,
+          "files_scanned": 376,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.07439659371219325,
+          "findings_by_rule": {
+            "ASTESIA-000": 7,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 9,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 121,
+            "ASTESIA-007": 2,
+            "ASTESIA-008": 3,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0
+          }
+        },
+        "SIA": {
+          "total_findings": 60,
+          "errors": 0,
+          "warnings": 60,
+          "files_scanned": 469,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.00812420050956412,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 51,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 2,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0,
+            "TOKENIZER_DESYNC": 1
+          }
+        },
+        "pustaka-sekolah-pwa": {
+          "total_findings": 60,
+          "errors": 22,
+          "warnings": 38,
+          "files_scanned": 78,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.39030928770601114,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 14,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 20,
+            "ASTESIA-006": 7,
+            "ASTESIA-007": 6,
+            "ASTESIA-008": 7,
+            "ASTESIA-009": 4,
+            "ASTESIA-010": 2
+          }
+        },
+        "terminal-portfolio": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 18,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.17587922364665765,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "cadetspeak": {
+          "total_findings": 13,
+          "errors": 10,
+          "warnings": 3,
+          "files_scanned": 8,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 2,
+            "ASTESIA-007": 10,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 1,
+            "ASTESIA-010": 0
+          }
+        },
+        "eduNEXA": {
+          "total_findings": 5,
+          "errors": 4,
+          "warnings": 1,
+          "files_scanned": 56,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.16975448060863454,
+          "findings_by_rule": {
+            "ASTESIA-000": 1,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "prototype-ami": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 37,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0940578258372025,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        }
+      }
+    },
+    "fresh": {
+      "aggregate": {
+        "total_findings": 345,
+        "errors": 170,
+        "warnings": 175,
+        "files_scanned": 133,
+        "generated_skipped": 0,
+        "wilson_ci_95_upper": 1
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 47,
+          "errors": 47,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.43769638996281407
+        },
+        "ASTESIA-001": {
+          "total_findings": 2,
+          "errors": 2,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.053169654540550164
+        },
+        "ASTESIA-002": {
+          "total_findings": 91,
+          "errors": 91,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.7570920552230418
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-004": {
+          "total_findings": 6,
+          "errors": 6,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.09492784486315411
+        },
+        "ASTESIA-005": {
+          "total_findings": 90,
+          "errors": 0,
+          "warnings": 90,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-006": {
+          "total_findings": 33,
+          "errors": 0,
+          "warnings": 33,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-007": {
+          "total_findings": 21,
+          "errors": 21,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.22934372097912517
+        },
+        "ASTESIA-008": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-009": {
+          "total_findings": 51,
+          "errors": 0,
+          "warnings": 51,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.02807233168807166
+        },
+        "ASTESIA-010": {
+          "total_findings": 3,
+          "errors": 3,
+          "warnings": 0,
+          "files_scanned": 133,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06421826984472845
+        }
+      },
+      "by_project": {
+        "aipkani": {
+          "total_findings": 313,
+          "errors": 146,
+          "warnings": 167,
+          "files_scanned": 106,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 47,
+            "ASTESIA-001": 2,
+            "ASTESIA-002": 91,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 4,
+            "ASTESIA-005": 90,
+            "ASTESIA-006": 27,
+            "ASTESIA-007": 1,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 49,
+            "ASTESIA-010": 1
+          }
+        },
+        "ecommerce-hp-api": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 20,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.23613119344674208,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "cadetspeak_admin": {
+          "total_findings": 31,
+          "errors": 23,
+          "warnings": 8,
+          "files_scanned": 7,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 2,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 6,
+            "ASTESIA-007": 20,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 2,
+            "ASTESIA-010": 1
+          }
+        }
+      }
+    },
+    "all": {
+      "aggregate": {
+        "total_findings": 1285,
+        "errors": 255,
+        "warnings": 1030,
+        "files_scanned": 5626,
+        "generated_skipped": 16,
+        "wilson_ci_95_upper": 0.051078095860970466
+      },
+      "by_rule": {
+        "ASTESIA-000": {
+          "total_findings": 75,
+          "errors": 75,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.01667721028397004
+        },
+        "ASTESIA-001": {
+          "total_findings": 2,
+          "errors": 2,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0012953440620677745
+        },
+        "ASTESIA-002": {
+          "total_findings": 122,
+          "errors": 122,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.02583007049629079
+        },
+        "ASTESIA-003": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-004": {
+          "total_findings": 10,
+          "errors": 10,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0032690457199839006
+        },
+        "ASTESIA-005": {
+          "total_findings": 185,
+          "errors": 0,
+          "warnings": 185,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-006": {
+          "total_findings": 597,
+          "errors": 0,
+          "warnings": 597,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-007": {
+          "total_findings": 39,
+          "errors": 39,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.00946181253746425
+        },
+        "ASTESIA-008": {
+          "total_findings": 25,
+          "errors": 0,
+          "warnings": 25,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-009": {
+          "total_findings": 222,
+          "errors": 0,
+          "warnings": 222,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0006823387210443421
+        },
+        "ASTESIA-010": {
+          "total_findings": 7,
+          "errors": 7,
+          "warnings": 0,
+          "files_scanned": 5626,
+          "generated_skipped": 16,
+          "wilson_ci_95_upper": 0.0025662479307647897
+        }
+      },
+      "by_project": {
+        "eunectes": {
+          "total_findings": 318,
+          "errors": 22,
+          "warnings": 296,
+          "files_scanned": 4108,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.008095681048170964,
+          "findings_by_rule": {
+            "ASTESIA-000": 17,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 3,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 143,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 11,
+            "ASTESIA-009": 141,
+            "ASTESIA-010": 1
+          }
+        },
+        "ifrit": {
+          "total_findings": 324,
+          "errors": 8,
+          "warnings": 316,
+          "files_scanned": 233,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.06627655130380952,
+          "findings_by_rule": {
+            "ASTESIA-000": 3,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 5,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 66,
+            "ASTESIA-006": 240,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 10,
+            "ASTESIA-010": 0
+          }
+        },
+        "flora-smk": {
+          "total_findings": 11,
+          "errors": 1,
+          "warnings": 10,
+          "files_scanned": 110,
+          "generated_skipped": 13,
+          "wilson_ci_95_upper": 0.0497056520793305,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 7,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 3,
+            "ASTESIA-010": 0
+          }
+        },
+        "arene": {
+          "total_findings": 148,
+          "errors": 18,
+          "warnings": 130,
+          "files_scanned": 376,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.07439659371219325,
+          "findings_by_rule": {
+            "ASTESIA-000": 7,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 9,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 121,
+            "ASTESIA-007": 2,
+            "ASTESIA-008": 3,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0
+          }
+        },
+        "SIA": {
+          "total_findings": 60,
+          "errors": 0,
+          "warnings": 60,
+          "files_scanned": 469,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.00812420050956412,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 51,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 2,
+            "ASTESIA-009": 6,
+            "ASTESIA-010": 0,
+            "TOKENIZER_DESYNC": 1
+          }
+        },
+        "pustaka-sekolah-pwa": {
+          "total_findings": 60,
+          "errors": 22,
+          "warnings": 38,
+          "files_scanned": 78,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.39030928770601114,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 14,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 20,
+            "ASTESIA-006": 7,
+            "ASTESIA-007": 6,
+            "ASTESIA-008": 7,
+            "ASTESIA-009": 4,
+            "ASTESIA-010": 2
+          }
+        },
+        "terminal-portfolio": {
+          "total_findings": 0,
+          "errors": 0,
+          "warnings": 0,
+          "files_scanned": 18,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.17587922364665765,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "cadetspeak": {
+          "total_findings": 13,
+          "errors": 10,
+          "warnings": 3,
+          "files_scanned": 8,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 2,
+            "ASTESIA-007": 10,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 1,
+            "ASTESIA-010": 0
+          }
+        },
+        "eduNEXA": {
+          "total_findings": 5,
+          "errors": 4,
+          "warnings": 1,
+          "files_scanned": 56,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.16975448060863454,
+          "findings_by_rule": {
+            "ASTESIA-000": 1,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 1,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 1,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "prototype-ami": {
+          "total_findings": 1,
+          "errors": 0,
+          "warnings": 1,
+          "files_scanned": 37,
+          "generated_skipped": 3,
+          "wilson_ci_95_upper": 0.0940578258372025,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 1,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 0
+          }
+        },
+        "aipkani": {
+          "total_findings": 313,
+          "errors": 146,
+          "warnings": 167,
+          "files_scanned": 106,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 47,
+            "ASTESIA-001": 2,
+            "ASTESIA-002": 91,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 4,
+            "ASTESIA-005": 90,
+            "ASTESIA-006": 27,
+            "ASTESIA-007": 1,
+            "ASTESIA-008": 1,
+            "ASTESIA-009": 49,
+            "ASTESIA-010": 1
+          }
+        },
+        "ecommerce-hp-api": {
+          "total_findings": 1,
+          "errors": 1,
+          "warnings": 0,
+          "files_scanned": 20,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 0.23613119344674208,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 0,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 0,
+            "ASTESIA-007": 0,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 0,
+            "ASTESIA-010": 1
+          }
+        },
+        "cadetspeak_admin": {
+          "total_findings": 31,
+          "errors": 23,
+          "warnings": 8,
+          "files_scanned": 7,
+          "generated_skipped": 0,
+          "wilson_ci_95_upper": 1,
+          "findings_by_rule": {
+            "ASTESIA-000": 0,
+            "ASTESIA-001": 0,
+            "ASTESIA-002": 0,
+            "ASTESIA-003": 0,
+            "ASTESIA-004": 2,
+            "ASTESIA-005": 0,
+            "ASTESIA-006": 6,
+            "ASTESIA-007": 20,
+            "ASTESIA-008": 0,
+            "ASTESIA-009": 2,
+            "ASTESIA-010": 1
+          }
+        }
+      }
+    }
+  },
+  "delta": {
+    "total_findings": {
+      "before": 1286,
+      "after": 1285,
+      "diff": -1
+    },
+    "errors": {
+      "before": 256,
+      "after": 255,
+      "diff": -1
+    },
+    "warnings": {
+      "before": 1030,
+      "after": 1030,
+      "diff": 0
+    },
+    "files_scanned": {
+      "before": 5626,
+      "after": 5626,
+      "diff": 0
+    },
+    "generated_skipped": {
+      "before": 16,
+      "after": 16,
+      "diff": 0
+    },
+    "wilson_ci_95_upper": {
+      "before": 0.05126583449577332,
+      "after": 0.051078095860970466,
+      "diff": -0.0001877386348028559
+    }
+  },
+  "invariants_satisfied": true
+}

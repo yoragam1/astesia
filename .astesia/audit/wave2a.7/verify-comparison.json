@@ -1,0 +1,1844 @@
+{
+  "baseResults": {
+    "v1": {
+      "harness": "Independent Verifier Harness (Wave 2A.1)",
+      "timestamp": "2026-11-21T05:54:08.316Z",
+      "accounting": {
+        "total": 90,
+        "passed": 89,
+        "failed": 0,
+        "known_gaps": 1,
+        "invariant_holds": true
+      },
+      "categories": {
+        "v2_secrets": {
+          "total": 68,
+          "passed": 67,
+          "failed": 0,
+          "known_gaps": 1
+        },
+        "v3_config": {
+          "total": 6,
+          "passed": 6,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v4_allowlist": {
+          "total": 6,
+          "passed": 6,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v5_env_git": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v9_rules_diff": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0
+        }
+      },
+      "verification_status_v1_v13": {
+        "V1_fixtures_gaps": "VERIFIED (Fixture diffs match; 2 duplicate gap pairs; 1 path typo in r007/ec2b)",
+        "V2_astesia_004": "PARTIAL (64 passed, 4 False Positives, 2 False Negatives on neutral keys)",
+        "V3_config_profile": "PARTIAL (Invariants hold, Dockerfile desync fixed, False Negative on secret containing '#')",
+        "V4_allowlist": "PARTIAL (Schema & ratchet valid, Inline allowlist accepted for ASTESIA-010)",
+        "V5_env_git": "VERIFIED (CLI integration passes, but O(N) spawn overhead and harness mutant M6 survived)",
+        "V6_baseline_adoption": "VERIFIED (11/11 subtests passed; pustaka baseline rejected without config)",
+        "V7_project_findings": "VERIFIED (terminal-portfolio clean; pustaka 9 lost findings were all False Positives)",
+        "V8_workflow_guard": "FAILED (M10 guard does not check itself, shell fail-open, script not installed in user project)",
+        "V9_rules_diff": "VERIFIED (15/15 subtests passed, exit codes conform strictly to contract)",
+        "V10_fuzzing": "VERIFIED (Seeds 8101, 8102, 8103, 6000 files: 0 desync, 100% line length invariant)",
+        "V11_perf_redos": "FAILED (Old: 652.5ms vs Head: 5568.0ms due to .env spawning; W1 ReDoS 12-15s on 100k line)",
+        "V12_self_gate": "VERIFIED (Self-gate exit 0, gate-config.json only excludes templates/enforcement/tests)",
+        "V13_mutation_tests": "PARTIAL (9/10 mutants caught, 90% score, 1 mutant survived: ENV-IGNORED-SKIPS-TRACKED)"
+      }
+    },
+    "v2": {
+      "harness": "wave2a.2/verify2",
+      "timestamp": "2026-11-21T05:54:14.262Z",
+      "accounting": {
+        "total": 80,
+        "passed": 80,
+        "failed": 0,
+        "known_gaps": 0,
+        "invariant_holds": true
+      },
+      "suites": {
+        "key_auth_suite": {
+          "total": 46,
+          "passed": 46,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "V2A2-KEY-SOLO-1",
+              "status": "PASSED",
+              "desc": "key solo non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-2",
+              "status": "PASSED",
+              "desc": "storageKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-3",
+              "status": "PASSED",
+              "desc": "cacheKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-4",
+              "status": "PASSED",
+              "desc": "queryKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-5",
+              "status": "PASSED",
+              "desc": "sortKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-6",
+              "status": "PASSED",
+              "desc": "primaryKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-7",
+              "status": "PASSED",
+              "desc": "foreignKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-8",
+              "status": "PASSED",
+              "desc": "themeKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-9",
+              "status": "PASSED",
+              "desc": "i18nKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-10",
+              "status": "PASSED",
+              "desc": "monkey non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-11",
+              "status": "PASSED",
+              "desc": "hotkey non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-12",
+              "status": "PASSED",
+              "desc": "turkey non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-1",
+              "status": "PASSED",
+              "desc": "author substring non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-2",
+              "status": "PASSED",
+              "desc": "authorName non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-3",
+              "status": "PASSED",
+              "desc": "authority substring non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SOLO",
+              "status": "PASSED",
+              "desc": "auth solo non-sensitive (VER4-003 GAP)"
+            },
+            {
+              "id": "V2A2-SENS-API-KEY",
+              "status": "PASSED",
+              "desc": "apiKey strong prefix"
+            },
+            {
+              "id": "V2A2-SENS-X-API-KEY",
+              "status": "PASSED",
+              "desc": "xApiKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-AWS-KEY",
+              "status": "PASSED",
+              "desc": "AWS key sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-PRIVATE-KEY",
+              "status": "PASSED",
+              "desc": "privateKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-SECRET-KEY",
+              "status": "PASSED",
+              "desc": "secretKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-ACCESS-KEY",
+              "status": "PASSED",
+              "desc": "accessKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-AUTH-KEY",
+              "status": "PASSED",
+              "desc": "authKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-SIGNING-KEY",
+              "status": "PASSED",
+              "desc": "signingKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-ENCRYPT-KEY",
+              "status": "PASSED",
+              "desc": "encryptionKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-PASSWORD",
+              "status": "PASSED",
+              "desc": "dbPassword sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-REFRESH-TOKEN",
+              "status": "PASSED",
+              "desc": "refreshToken sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-OPENAI-KEY",
+              "status": "PASSED",
+              "desc": "OPENAI_API_KEY sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-PWD",
+              "status": "PASSED",
+              "desc": "userPwd missing token (VER4-002 GAP)"
+            },
+            {
+              "id": "V2A2-SENS-PASSPHRASE",
+              "status": "PASSED",
+              "desc": "passphrase missing token (VER4-002 GAP)"
+            },
+            {
+              "id": "V2A2-BASIC-LABEL",
+              "status": "PASSED",
+              "desc": "Basic user:password base64 under label"
+            },
+            {
+              "id": "V2A2-BASIC-TITLE",
+              "status": "PASSED",
+              "desc": "Basic admin:secret123 base64 under title"
+            },
+            {
+              "id": "V2A2-BASIC-DESC",
+              "status": "PASSED",
+              "desc": "Basic apikey:secret base64 under description"
+            },
+            {
+              "id": "V2A2-BASIC-PLACEHOLDER",
+              "status": "PASSED",
+              "desc": "Basic root:pass123 under placeholder"
+            },
+            {
+              "id": "V2A2-BEARER-JWT-LABEL",
+              "status": "PASSED",
+              "desc": "Bearer JWT under label"
+            },
+            {
+              "id": "V2A2-BEARER-JWT-DESC",
+              "status": "PASSED",
+              "desc": "Bearer JWT under description"
+            },
+            {
+              "id": "V2A2-BEARER-OPAQUE-TITLE",
+              "status": "PASSED",
+              "desc": "Bearer opaque alphanumeric >=20 under title"
+            },
+            {
+              "id": "V2A2-BEARER-OPAQUE-X",
+              "status": "PASSED",
+              "desc": "Bearer opaque alphanumeric >=20 under x"
+            },
+            {
+              "id": "V2A2-UI-BASIC-CONFIG",
+              "status": "PASSED",
+              "desc": "UI text Basic configuration"
+            },
+            {
+              "id": "V2A2-UI-BASIC-INFO",
+              "status": "PASSED",
+              "desc": "UI text Basic information"
+            },
+            {
+              "id": "V2A2-UI-BASIC-PRICING",
+              "status": "PASSED",
+              "desc": "UI text Basic Pricing Plans"
+            },
+            {
+              "id": "V2A2-UI-BASIC-SUBSCRIPTION",
+              "status": "PASSED",
+              "desc": "UI text Basic subscription"
+            },
+            {
+              "id": "V2A2-UI-BEARER-AUTH",
+              "status": "PASSED",
+              "desc": "UI text Bearer authentication"
+            },
+            {
+              "id": "V2A2-UI-BEARER-TOKEN-REQ",
+              "status": "PASSED",
+              "desc": "UI text Bearer token required"
+            },
+            {
+              "id": "V2A2-UI-BEARER-TOKENS",
+              "status": "PASSED",
+              "desc": "UI text Bearer tokens"
+            },
+            {
+              "id": "V2A2-BEARER-INTERPOLATION",
+              "status": "PASSED",
+              "desc": "Template literal Bearer interpolation"
+            }
+          ]
+        },
+        "workflow_guard_suite": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "WF-CANONICAL",
+              "status": "PASSED",
+              "desc": "Canonical workflow passes"
+            },
+            {
+              "id": "WF-M1-PR-TARGET",
+              "status": "PASSED",
+              "desc": "pull_request_target rejected"
+            },
+            {
+              "id": "WF-M2-PERM-WRITE",
+              "status": "PASSED",
+              "desc": "contents: write rejected"
+            },
+            {
+              "id": "WF-M3-PERM-MISSING",
+              "status": "PASSED",
+              "desc": "Missing permissions rejected"
+            },
+            {
+              "id": "WF-M4-UNPINNED-USES",
+              "status": "PASSED",
+              "desc": "Unpinned uses (@v4) rejected"
+            },
+            {
+              "id": "WF-M5-SHORT-SHA",
+              "status": "PASSED",
+              "desc": "39-char SHA pin rejected"
+            },
+            {
+              "id": "WF-M6-MISSING-BASE-CHECKOUT",
+              "status": "PASSED",
+              "desc": "Missing base checkout rejected"
+            },
+            {
+              "id": "WF-M7-MISSING-PR-CHECKOUT",
+              "status": "PASSED",
+              "desc": "Missing PR checkout rejected"
+            },
+            {
+              "id": "WF-M8-PERSIST-CREDENTIALS",
+              "status": "PASSED",
+              "desc": "persist-credentials: true rejected"
+            },
+            {
+              "id": "WF-M9-CONTINUE-ON-ERROR",
+              "status": "PASSED",
+              "desc": "continue-on-error rejected"
+            },
+            {
+              "id": "WF-M10-PATHS-FILTER",
+              "status": "PASSED",
+              "desc": "paths: filter rejected"
+            },
+            {
+              "id": "WF-M11-PATHS-IGNORE",
+              "status": "PASSED",
+              "desc": "paths-ignore: filter rejected"
+            },
+            {
+              "id": "WF-M12-MISSING-RULES-DIFF",
+              "status": "PASSED",
+              "desc": "Missing --rules-diff rejected"
+            },
+            {
+              "id": "WF-M13-MISSING-BASELINE",
+              "status": "PASSED",
+              "desc": "Missing --baseline rejected"
+            },
+            {
+              "id": "WF-M14-UPDATE-BASELINE-IN-CI",
+              "status": "PASSED",
+              "desc": "Forbidden --update-baseline in CI rejected"
+            },
+            {
+              "id": "WF-M15-MISSING-GUARD-STEP",
+              "status": "PASSED",
+              "desc": "Missing guard step rejected"
+            },
+            {
+              "id": "WF-MISSING-FILE",
+              "status": "PASSED",
+              "desc": "Missing workflow file exits 2"
+            }
+          ]
+        },
+        "allowlist_ratchet_suite": {
+          "total": 12,
+          "passed": 12,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "AR-INLINE-004-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-004 is rejected with exit 1"
+            },
+            {
+              "id": "AR-INLINE-010-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-010 is rejected with exit 1"
+            },
+            {
+              "id": "AR-INLINE-005-ACCEPTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-005 with valid reason is accepted"
+            },
+            {
+              "id": "AR-INLINE-SHORT-REASON-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow with short reason (<15) is rejected"
+            },
+            {
+              "id": "AR-CONFIG-ALLOW-VALID",
+              "status": "PASSED",
+              "desc": "Valid gate-config allow entry suppresses violation"
+            },
+            {
+              "id": "AR-CONFIG-MATCH-TOO-SHORT",
+              "status": "PASSED",
+              "desc": "Allow entry match < 6 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-REASON-TOO-SHORT",
+              "status": "PASSED",
+              "desc": "Allow entry reason < 15 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-DISALLOWED-RULE",
+              "status": "PASSED",
+              "desc": "Allow entry rule other than 004/010 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-WILDCARD-PATH",
+              "status": "PASSED",
+              "desc": "Allow entry wildcard path exits 2"
+            },
+            {
+              "id": "AR-BASE-REJECT-000",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-000"
+            },
+            {
+              "id": "AR-BASE-REJECT-004",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-004"
+            },
+            {
+              "id": "AR-BASE-REJECT-010",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-010"
+            }
+          ]
+        },
+        "config_comments_suite": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "CFG-HASH-IN-DOUBLE-QUOTES-YAML",
+              "status": "PASSED",
+              "desc": "Hash inside double quotes in YAML preserved in codeLines and not cut to comments"
+            },
+            {
+              "id": "CFG-HASH-IN-SINGLE-QUOTES-YAML",
+              "status": "PASSED",
+              "desc": "Hash inside single quotes in YAML preserved in codeLines and not cut to comments"
+            },
+            {
+              "id": "CFG-COMMENT-AT-END-OF-LINE-YAML",
+              "status": "PASSED",
+              "desc": "Unquoted comment at end of line in YAML is placed into commentLines and stripped from codeLines"
+            },
+            {
+              "id": "CFG-DOCKERFILE-HASH-IN-QUOTES",
+              "status": "PASSED",
+              "desc": "Hash inside quotes in Dockerfile preserved in codeLines"
+            },
+            {
+              "id": "CFG-ENV-COMMENTED-SECRET-IN-SCAN",
+              "status": "PASSED",
+              "desc": "Commented secret in .env during directory scan (VER4-001 GAP: lowerName.startsWith('.env') fails on absolute path)"
+            }
+          ]
+        }
+      }
+    },
+    "v3": {
+      "accounting": {
+        "total": 80,
+        "passed": 80,
+        "failed": 0,
+        "known_gaps": 0,
+        "invariant_holds": true
+      },
+      "details": [
+        {
+          "id": "V3-D1-01",
+          "name": "Root .env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-02",
+          "name": "Subdir .env.production",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-03",
+          "name": "Windows backslash .env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-04",
+          "name": "Root Dockerfile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-05",
+          "name": "Dockerfile suffix",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-06",
+          "name": "Dockerfile extension",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-07",
+          "name": "Subdir Dockerfile backslash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-08",
+          "name": ".envrc is code profile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-09",
+          "name": ".environment is code profile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-10",
+          "name": "YAML yml extension",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-11",
+          "name": "YAML yaml extension backslash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-12",
+          "name": "dockerfile-tools dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-13",
+          "name": "dockerfile-tools backslash not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-14",
+          "name": "my.dockerfile.d dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-15",
+          "name": "dockerfile_utils.py not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-16",
+          "name": ".env-tools dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-17",
+          "name": ".env-tools backslash not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-18",
+          "name": "Config comment preserves quote hash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-19",
+          "name": "Config hashes outside quotes stripped",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-20",
+          "name": "Config secret in subdir caught",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-01",
+          "name": "userPwd is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-02",
+          "name": "dbPwd is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-03",
+          "name": "passphrase is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-04",
+          "name": "auth alone is NOT sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-05",
+          "name": "authKey pair is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-06",
+          "name": "authorName not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-07",
+          "name": "authority not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-08",
+          "name": "apiKey pair is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-09",
+          "name": "storageKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-10",
+          "name": "cacheKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-11",
+          "name": "queryKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-12",
+          "name": "key alone not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-13",
+          "name": "Code E1 space exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-14",
+          "name": "Code E1 PascalCase exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-15",
+          "name": "Code unbroken lowercase >= 12 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-16",
+          "name": "Code passwordLabel spaced exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-17",
+          "name": "Basic configuration exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-18",
+          "name": "Bearer authentication exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-19",
+          "name": "Basic base64 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-20",
+          "name": "Bearer JWT triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-21",
+          "name": "sk_live_ triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-22",
+          "name": "ghp_ triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-23",
+          "name": "AKIA triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-24",
+          "name": "Config spaced value triggers (E1 disabled)",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-25",
+          "name": "Config short literal (< 8) exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-26",
+          "name": "Config 8 chars triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-27",
+          "name": "Config PascalCase triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-28",
+          "name": "Config ${VAR} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-29",
+          "name": "Config $VAR unbraced interpolation",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-30",
+          "name": "Config ${VAR:?error} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-31",
+          "name": "Config ${{ secrets.X }} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-32",
+          "name": "Config {{ .Values.X }} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-33",
+          "name": "Config fallback < 8 exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-34",
+          "name": "Config fallback >= 8 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-35",
+          "name": "Config absolute path exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-36",
+          "name": "Config relative path exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-37",
+          "name": "Config secret_name identifier exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-38",
+          "name": "Config secret_ref identifier exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-39",
+          "name": "Config existingSecret exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-40",
+          "name": "Dockerfile ENV password triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-01",
+          "name": "k8s env hardcoded secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-02",
+          "name": "k8s secretKeyRef exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-03",
+          "name": "Helm values password literal",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-04",
+          "name": "Helm existingSecret reference",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-05",
+          "name": "Docker compose mapping secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-06",
+          "name": "Docker compose list secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-07",
+          "name": "Docker compose interpolation exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-08",
+          "name": "GitHub Actions literal secret in env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-09",
+          "name": "GitHub Actions secrets interpolation exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-10",
+          "name": "Spring yaml password literal",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-11",
+          "name": "Spring yaml short fallback exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-12",
+          "name": "Spring yaml long fallback triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-13",
+          "name": "config/db.yml password triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-14",
+          "name": "Dockerfile ENV secret triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-15",
+          "name": "Dockerfile benign ARG exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D6-01",
+          "name": "Authentic originals.json SHA256 integrity",
+          "status": "PASS",
+          "detail": "SHA256 check: 2863b919b0b3d27c4155ecb61d3f7de71227a078a4b600d1778273caf4596a37"
+        },
+        {
+          "id": "V3-D6-02",
+          "name": "Tampering detection simulation",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-03",
+          "name": "Test ID deletion detection",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-04",
+          "name": "Corpus completeness >= 60 cases",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-05",
+          "name": "Zero orphan test suite validation",
+          "status": "PASS",
+          "detail": ""
+        }
+      ]
+    }
+  },
+  "startResults": {
+    "v1": {
+      "harness": "Independent Verifier Harness (Wave 2A.1)",
+      "timestamp": "2026-11-21T05:54:32.996Z",
+      "accounting": {
+        "total": 90,
+        "passed": 89,
+        "failed": 0,
+        "known_gaps": 1,
+        "invariant_holds": true
+      },
+      "categories": {
+        "v2_secrets": {
+          "total": 68,
+          "passed": 67,
+          "failed": 0,
+          "known_gaps": 1
+        },
+        "v3_config": {
+          "total": 6,
+          "passed": 6,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v4_allowlist": {
+          "total": 6,
+          "passed": 6,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v5_env_git": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0
+        },
+        "v9_rules_diff": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0
+        }
+      },
+      "verification_status_v1_v13": {
+        "V1_fixtures_gaps": "VERIFIED (Fixture diffs match; 2 duplicate gap pairs; 1 path typo in r007/ec2b)",
+        "V2_astesia_004": "PARTIAL (64 passed, 4 False Positives, 2 False Negatives on neutral keys)",
+        "V3_config_profile": "PARTIAL (Invariants hold, Dockerfile desync fixed, False Negative on secret containing '#')",
+        "V4_allowlist": "PARTIAL (Schema & ratchet valid, Inline allowlist accepted for ASTESIA-010)",
+        "V5_env_git": "VERIFIED (CLI integration passes, but O(N) spawn overhead and harness mutant M6 survived)",
+        "V6_baseline_adoption": "VERIFIED (11/11 subtests passed; pustaka baseline rejected without config)",
+        "V7_project_findings": "VERIFIED (terminal-portfolio clean; pustaka 9 lost findings were all False Positives)",
+        "V8_workflow_guard": "FAILED (M10 guard does not check itself, shell fail-open, script not installed in user project)",
+        "V9_rules_diff": "VERIFIED (15/15 subtests passed, exit codes conform strictly to contract)",
+        "V10_fuzzing": "VERIFIED (Seeds 8101, 8102, 8103, 6000 files: 0 desync, 100% line length invariant)",
+        "V11_perf_redos": "FAILED (Old: 652.5ms vs Head: 5568.0ms due to .env spawning; W1 ReDoS 12-15s on 100k line)",
+        "V12_self_gate": "VERIFIED (Self-gate exit 0, gate-config.json only excludes templates/enforcement/tests)",
+        "V13_mutation_tests": "PARTIAL (9/10 mutants caught, 90% score, 1 mutant survived: ENV-IGNORED-SKIPS-TRACKED)"
+      }
+    },
+    "v2": {
+      "harness": "wave2a.2/verify2",
+      "timestamp": "2026-11-21T05:54:39.989Z",
+      "accounting": {
+        "total": 80,
+        "passed": 80,
+        "failed": 0,
+        "known_gaps": 0,
+        "invariant_holds": true
+      },
+      "suites": {
+        "key_auth_suite": {
+          "total": 46,
+          "passed": 46,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "V2A2-KEY-SOLO-1",
+              "status": "PASSED",
+              "desc": "key solo non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-2",
+              "status": "PASSED",
+              "desc": "storageKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-3",
+              "status": "PASSED",
+              "desc": "cacheKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-4",
+              "status": "PASSED",
+              "desc": "queryKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-5",
+              "status": "PASSED",
+              "desc": "sortKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-6",
+              "status": "PASSED",
+              "desc": "primaryKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-7",
+              "status": "PASSED",
+              "desc": "foreignKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-8",
+              "status": "PASSED",
+              "desc": "themeKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-9",
+              "status": "PASSED",
+              "desc": "i18nKey qualified non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-10",
+              "status": "PASSED",
+              "desc": "monkey non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-11",
+              "status": "PASSED",
+              "desc": "hotkey non-sensitive"
+            },
+            {
+              "id": "V2A2-KEY-SOLO-12",
+              "status": "PASSED",
+              "desc": "turkey non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-1",
+              "status": "PASSED",
+              "desc": "author substring non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-2",
+              "status": "PASSED",
+              "desc": "authorName non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SUBSTR-3",
+              "status": "PASSED",
+              "desc": "authority substring non-sensitive"
+            },
+            {
+              "id": "V2A2-AUTH-SOLO",
+              "status": "PASSED",
+              "desc": "auth solo non-sensitive (VER4-003 GAP)"
+            },
+            {
+              "id": "V2A2-SENS-API-KEY",
+              "status": "PASSED",
+              "desc": "apiKey strong prefix"
+            },
+            {
+              "id": "V2A2-SENS-X-API-KEY",
+              "status": "PASSED",
+              "desc": "xApiKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-AWS-KEY",
+              "status": "PASSED",
+              "desc": "AWS key sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-PRIVATE-KEY",
+              "status": "PASSED",
+              "desc": "privateKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-SECRET-KEY",
+              "status": "PASSED",
+              "desc": "secretKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-ACCESS-KEY",
+              "status": "PASSED",
+              "desc": "accessKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-AUTH-KEY",
+              "status": "PASSED",
+              "desc": "authKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-SIGNING-KEY",
+              "status": "PASSED",
+              "desc": "signingKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-ENCRYPT-KEY",
+              "status": "PASSED",
+              "desc": "encryptionKey sensitive pair"
+            },
+            {
+              "id": "V2A2-SENS-PASSWORD",
+              "status": "PASSED",
+              "desc": "dbPassword sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-REFRESH-TOKEN",
+              "status": "PASSED",
+              "desc": "refreshToken sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-OPENAI-KEY",
+              "status": "PASSED",
+              "desc": "OPENAI_API_KEY sensitive token"
+            },
+            {
+              "id": "V2A2-SENS-PWD",
+              "status": "PASSED",
+              "desc": "userPwd missing token (VER4-002 GAP)"
+            },
+            {
+              "id": "V2A2-SENS-PASSPHRASE",
+              "status": "PASSED",
+              "desc": "passphrase missing token (VER4-002 GAP)"
+            },
+            {
+              "id": "V2A2-BASIC-LABEL",
+              "status": "PASSED",
+              "desc": "Basic user:password base64 under label"
+            },
+            {
+              "id": "V2A2-BASIC-TITLE",
+              "status": "PASSED",
+              "desc": "Basic admin:secret123 base64 under title"
+            },
+            {
+              "id": "V2A2-BASIC-DESC",
+              "status": "PASSED",
+              "desc": "Basic apikey:secret base64 under description"
+            },
+            {
+              "id": "V2A2-BASIC-PLACEHOLDER",
+              "status": "PASSED",
+              "desc": "Basic root:pass123 under placeholder"
+            },
+            {
+              "id": "V2A2-BEARER-JWT-LABEL",
+              "status": "PASSED",
+              "desc": "Bearer JWT under label"
+            },
+            {
+              "id": "V2A2-BEARER-JWT-DESC",
+              "status": "PASSED",
+              "desc": "Bearer JWT under description"
+            },
+            {
+              "id": "V2A2-BEARER-OPAQUE-TITLE",
+              "status": "PASSED",
+              "desc": "Bearer opaque alphanumeric >=20 under title"
+            },
+            {
+              "id": "V2A2-BEARER-OPAQUE-X",
+              "status": "PASSED",
+              "desc": "Bearer opaque alphanumeric >=20 under x"
+            },
+            {
+              "id": "V2A2-UI-BASIC-CONFIG",
+              "status": "PASSED",
+              "desc": "UI text Basic configuration"
+            },
+            {
+              "id": "V2A2-UI-BASIC-INFO",
+              "status": "PASSED",
+              "desc": "UI text Basic information"
+            },
+            {
+              "id": "V2A2-UI-BASIC-PRICING",
+              "status": "PASSED",
+              "desc": "UI text Basic Pricing Plans"
+            },
+            {
+              "id": "V2A2-UI-BASIC-SUBSCRIPTION",
+              "status": "PASSED",
+              "desc": "UI text Basic subscription"
+            },
+            {
+              "id": "V2A2-UI-BEARER-AUTH",
+              "status": "PASSED",
+              "desc": "UI text Bearer authentication"
+            },
+            {
+              "id": "V2A2-UI-BEARER-TOKEN-REQ",
+              "status": "PASSED",
+              "desc": "UI text Bearer token required"
+            },
+            {
+              "id": "V2A2-UI-BEARER-TOKENS",
+              "status": "PASSED",
+              "desc": "UI text Bearer tokens"
+            },
+            {
+              "id": "V2A2-BEARER-INTERPOLATION",
+              "status": "PASSED",
+              "desc": "Template literal Bearer interpolation"
+            }
+          ]
+        },
+        "workflow_guard_suite": {
+          "total": 17,
+          "passed": 17,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "WF-CANONICAL",
+              "status": "PASSED",
+              "desc": "Canonical workflow passes"
+            },
+            {
+              "id": "WF-M1-PR-TARGET",
+              "status": "PASSED",
+              "desc": "pull_request_target rejected"
+            },
+            {
+              "id": "WF-M2-PERM-WRITE",
+              "status": "PASSED",
+              "desc": "contents: write rejected"
+            },
+            {
+              "id": "WF-M3-PERM-MISSING",
+              "status": "PASSED",
+              "desc": "Missing permissions rejected"
+            },
+            {
+              "id": "WF-M4-UNPINNED-USES",
+              "status": "PASSED",
+              "desc": "Unpinned uses (@v4) rejected"
+            },
+            {
+              "id": "WF-M5-SHORT-SHA",
+              "status": "PASSED",
+              "desc": "39-char SHA pin rejected"
+            },
+            {
+              "id": "WF-M6-MISSING-BASE-CHECKOUT",
+              "status": "PASSED",
+              "desc": "Missing base checkout rejected"
+            },
+            {
+              "id": "WF-M7-MISSING-PR-CHECKOUT",
+              "status": "PASSED",
+              "desc": "Missing PR checkout rejected"
+            },
+            {
+              "id": "WF-M8-PERSIST-CREDENTIALS",
+              "status": "PASSED",
+              "desc": "persist-credentials: true rejected"
+            },
+            {
+              "id": "WF-M9-CONTINUE-ON-ERROR",
+              "status": "PASSED",
+              "desc": "continue-on-error rejected"
+            },
+            {
+              "id": "WF-M10-PATHS-FILTER",
+              "status": "PASSED",
+              "desc": "paths: filter rejected"
+            },
+            {
+              "id": "WF-M11-PATHS-IGNORE",
+              "status": "PASSED",
+              "desc": "paths-ignore: filter rejected"
+            },
+            {
+              "id": "WF-M12-MISSING-RULES-DIFF",
+              "status": "PASSED",
+              "desc": "Missing --rules-diff rejected"
+            },
+            {
+              "id": "WF-M13-MISSING-BASELINE",
+              "status": "PASSED",
+              "desc": "Missing --baseline rejected"
+            },
+            {
+              "id": "WF-M14-UPDATE-BASELINE-IN-CI",
+              "status": "PASSED",
+              "desc": "Forbidden --update-baseline in CI rejected"
+            },
+            {
+              "id": "WF-M15-MISSING-GUARD-STEP",
+              "status": "PASSED",
+              "desc": "Missing guard step rejected"
+            },
+            {
+              "id": "WF-MISSING-FILE",
+              "status": "PASSED",
+              "desc": "Missing workflow file exits 2"
+            }
+          ]
+        },
+        "allowlist_ratchet_suite": {
+          "total": 12,
+          "passed": 12,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "AR-INLINE-004-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-004 is rejected with exit 1"
+            },
+            {
+              "id": "AR-INLINE-010-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-010 is rejected with exit 1"
+            },
+            {
+              "id": "AR-INLINE-005-ACCEPTED",
+              "status": "PASSED",
+              "desc": "astesia-allow ASTESIA-005 with valid reason is accepted"
+            },
+            {
+              "id": "AR-INLINE-SHORT-REASON-REJECTED",
+              "status": "PASSED",
+              "desc": "astesia-allow with short reason (<15) is rejected"
+            },
+            {
+              "id": "AR-CONFIG-ALLOW-VALID",
+              "status": "PASSED",
+              "desc": "Valid gate-config allow entry suppresses violation"
+            },
+            {
+              "id": "AR-CONFIG-MATCH-TOO-SHORT",
+              "status": "PASSED",
+              "desc": "Allow entry match < 6 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-REASON-TOO-SHORT",
+              "status": "PASSED",
+              "desc": "Allow entry reason < 15 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-DISALLOWED-RULE",
+              "status": "PASSED",
+              "desc": "Allow entry rule other than 004/010 exits 2"
+            },
+            {
+              "id": "AR-CONFIG-WILDCARD-PATH",
+              "status": "PASSED",
+              "desc": "Allow entry wildcard path exits 2"
+            },
+            {
+              "id": "AR-BASE-REJECT-000",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-000"
+            },
+            {
+              "id": "AR-BASE-REJECT-004",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-004"
+            },
+            {
+              "id": "AR-BASE-REJECT-010",
+              "status": "PASSED",
+              "desc": "--update-baseline rejects ASTESIA-010"
+            }
+          ]
+        },
+        "config_comments_suite": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "known_gaps": 0,
+          "results": [
+            {
+              "id": "CFG-HASH-IN-DOUBLE-QUOTES-YAML",
+              "status": "PASSED",
+              "desc": "Hash inside double quotes in YAML preserved in codeLines and not cut to comments"
+            },
+            {
+              "id": "CFG-HASH-IN-SINGLE-QUOTES-YAML",
+              "status": "PASSED",
+              "desc": "Hash inside single quotes in YAML preserved in codeLines and not cut to comments"
+            },
+            {
+              "id": "CFG-COMMENT-AT-END-OF-LINE-YAML",
+              "status": "PASSED",
+              "desc": "Unquoted comment at end of line in YAML is placed into commentLines and stripped from codeLines"
+            },
+            {
+              "id": "CFG-DOCKERFILE-HASH-IN-QUOTES",
+              "status": "PASSED",
+              "desc": "Hash inside quotes in Dockerfile preserved in codeLines"
+            },
+            {
+              "id": "CFG-ENV-COMMENTED-SECRET-IN-SCAN",
+              "status": "PASSED",
+              "desc": "Commented secret in .env during directory scan (VER4-001 GAP: lowerName.startsWith('.env') fails on absolute path)"
+            }
+          ]
+        }
+      }
+    },
+    "v3": {
+      "accounting": {
+        "total": 80,
+        "passed": 80,
+        "failed": 0,
+        "known_gaps": 0,
+        "invariant_holds": true
+      },
+      "details": [
+        {
+          "id": "V3-D1-01",
+          "name": "Root .env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-02",
+          "name": "Subdir .env.production",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-03",
+          "name": "Windows backslash .env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-04",
+          "name": "Root Dockerfile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-05",
+          "name": "Dockerfile suffix",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-06",
+          "name": "Dockerfile extension",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-07",
+          "name": "Subdir Dockerfile backslash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-08",
+          "name": ".envrc is code profile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-09",
+          "name": ".environment is code profile",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-10",
+          "name": "YAML yml extension",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-11",
+          "name": "YAML yaml extension backslash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-12",
+          "name": "dockerfile-tools dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-13",
+          "name": "dockerfile-tools backslash not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-14",
+          "name": "my.dockerfile.d dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-15",
+          "name": "dockerfile_utils.py not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-16",
+          "name": ".env-tools dir not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-17",
+          "name": ".env-tools backslash not config",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-18",
+          "name": "Config comment preserves quote hash",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-19",
+          "name": "Config hashes outside quotes stripped",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D1-20",
+          "name": "Config secret in subdir caught",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-01",
+          "name": "userPwd is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-02",
+          "name": "dbPwd is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-03",
+          "name": "passphrase is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-04",
+          "name": "auth alone is NOT sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-05",
+          "name": "authKey pair is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-06",
+          "name": "authorName not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-07",
+          "name": "authority not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-08",
+          "name": "apiKey pair is sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-09",
+          "name": "storageKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-10",
+          "name": "cacheKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-11",
+          "name": "queryKey not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-12",
+          "name": "key alone not sensitive",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-13",
+          "name": "Code E1 space exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-14",
+          "name": "Code E1 PascalCase exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-15",
+          "name": "Code unbroken lowercase >= 12 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-16",
+          "name": "Code passwordLabel spaced exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-17",
+          "name": "Basic configuration exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-18",
+          "name": "Bearer authentication exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-19",
+          "name": "Basic base64 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-20",
+          "name": "Bearer JWT triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-21",
+          "name": "sk_live_ triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-22",
+          "name": "ghp_ triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-23",
+          "name": "AKIA triggers on neutral key",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-24",
+          "name": "Config spaced value triggers (E1 disabled)",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-25",
+          "name": "Config short literal (< 8) exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-26",
+          "name": "Config 8 chars triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-27",
+          "name": "Config PascalCase triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-28",
+          "name": "Config ${VAR} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-29",
+          "name": "Config $VAR unbraced interpolation",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-30",
+          "name": "Config ${VAR:?error} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-31",
+          "name": "Config ${{ secrets.X }} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-32",
+          "name": "Config {{ .Values.X }} exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-33",
+          "name": "Config fallback < 8 exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-34",
+          "name": "Config fallback >= 8 triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-35",
+          "name": "Config absolute path exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-36",
+          "name": "Config relative path exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-37",
+          "name": "Config secret_name identifier exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-38",
+          "name": "Config secret_ref identifier exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-39",
+          "name": "Config existingSecret exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D2-40",
+          "name": "Dockerfile ENV password triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-01",
+          "name": "k8s env hardcoded secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-02",
+          "name": "k8s secretKeyRef exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-03",
+          "name": "Helm values password literal",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-04",
+          "name": "Helm existingSecret reference",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-05",
+          "name": "Docker compose mapping secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-06",
+          "name": "Docker compose list secret",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-07",
+          "name": "Docker compose interpolation exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-08",
+          "name": "GitHub Actions literal secret in env",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-09",
+          "name": "GitHub Actions secrets interpolation exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-10",
+          "name": "Spring yaml password literal",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-11",
+          "name": "Spring yaml short fallback exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-12",
+          "name": "Spring yaml long fallback triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-13",
+          "name": "config/db.yml password triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-14",
+          "name": "Dockerfile ENV secret triggers",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D3-15",
+          "name": "Dockerfile benign ARG exempt",
+          "status": "PASS"
+        },
+        {
+          "id": "V3-D6-01",
+          "name": "Authentic originals.json SHA256 integrity",
+          "status": "PASS",
+          "detail": "SHA256 check: 2863b919b0b3d27c4155ecb61d3f7de71227a078a4b600d1778273caf4596a37"
+        },
+        {
+          "id": "V3-D6-02",
+          "name": "Tampering detection simulation",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-03",
+          "name": "Test ID deletion detection",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-04",
+          "name": "Corpus completeness >= 60 cases",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "id": "V3-D6-05",
+          "name": "Zero orphan test suite validation",
+          "status": "PASS",
+          "detail": ""
+        }
+      ]
+    }
+  }
+}

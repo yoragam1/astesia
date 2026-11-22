@@ -1,0 +1,181 @@
+{
+  "pustaka-sekolah-pwa": {
+    "generatedFilesCount": 0,
+    "totalViolationsInGenerated": 0,
+    "files": []
+  },
+  "terminal-portfolio": {
+    "generatedFilesCount": 0,
+    "totalViolationsInGenerated": 0,
+    "files": []
+  },
+  "eunectes": {
+    "generatedFilesCount": 0,
+    "totalViolationsInGenerated": 0,
+    "files": []
+  },
+  "flora-smk": {
+    "generatedFilesCount": 13,
+    "totalViolationsInGenerated": 17,
+    "files": [
+      {
+        "file": ".vercel/output/static/_app/immutable/chunks/Br6pCSIg.js",
+        "reasons": [
+          "line_ge_5000 (max=30499)"
+        ],
+        "maxLineLength": 30499,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+        "reasons": [
+          "line_ge_5000 (max=72066)"
+        ],
+        "maxLineLength": 72066,
+        "a9e20cdViolationsCount": 9,
+        "a9e20cdViolationsByRule": {
+          "TOKENIZER_DESYNC": 1,
+          "ASTESIA-002": 1,
+          "ASTESIA-006": 2,
+          "ASTESIA-007": 2,
+          "ASTESIA-009": 3
+        }
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+        "reasons": [
+          "line_ge_5000 (max=30934)"
+        ],
+        "maxLineLength": 30934,
+        "a9e20cdViolationsCount": 2,
+        "a9e20cdViolationsByRule": {
+          "TOKENIZER_DESYNC": 1,
+          "ASTESIA-009": 1
+        }
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+        "reasons": [
+          "line_ge_5000 (max=38679)"
+        ],
+        "maxLineLength": 38679,
+        "a9e20cdViolationsCount": 1,
+        "a9e20cdViolationsByRule": {
+          "ASTESIA-009": 1
+        }
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/0.D9g6nVG2.js",
+        "reasons": [
+          "line_ge_5000 (max=16633)"
+        ],
+        "maxLineLength": 16633,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/2.CcpcbZ3Z.js",
+        "reasons": [
+          "line_ge_5000 (max=14169)"
+        ],
+        "maxLineLength": 14169,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/3.JtwuhtY6.js",
+        "reasons": [
+          "line_ge_5000 (max=13512)"
+        ],
+        "maxLineLength": 13512,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/4.Z-_zpI-I.js",
+        "reasons": [
+          "line_ge_5000 (max=25496)"
+        ],
+        "maxLineLength": 25496,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/5.DJvL8WBN.js",
+        "reasons": [
+          "line_ge_5000 (max=5687)"
+        ],
+        "maxLineLength": 5687,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/6.D9daTxU1.js",
+        "reasons": [
+          "line_ge_5000 (max=22663)"
+        ],
+        "maxLineLength": 22663,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/7.DwFI_SHj.js",
+        "reasons": [
+          "line_ge_5000 (max=22835)"
+        ],
+        "maxLineLength": 22835,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/8.CgsDrbHU.js",
+        "reasons": [
+          "line_ge_5000 (max=10360)"
+        ],
+        "maxLineLength": 10360,
+        "a9e20cdViolationsCount": 0,
+        "a9e20cdViolationsByRule": {}
+      },
+      {
+        "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+        "reasons": [
+          "line_ge_5000 (max=173253)"
+        ],
+        "maxLineLength": 173253,
+        "a9e20cdViolationsCount": 5,
+        "a9e20cdViolationsByRule": {
+          "ASTESIA-006": 3,
+          "ASTESIA-009": 2
+        }
+      }
+    ]
+  },
+  "ifrit": {
+    "generatedFilesCount": 0,
+    "totalViolationsInGenerated": 0,
+    "files": []
+  },
+  "arene": {
+    "generatedFilesCount": 0,
+    "totalViolationsInGenerated": 0,
+    "files": []
+  },
+  "SIA": {
+    "generatedFilesCount": 1,
+    "totalViolationsInGenerated": 1,
+    "files": [
+      {
+        "file": "resources/views/welcome.blade.php",
+        "reasons": [
+          "line_ge_5000 (max=28398)"
+        ],
+        "maxLineLength": 28398,
+        "a9e20cdViolationsCount": 1,
+        "a9e20cdViolationsByRule": {
+          "TOKENIZER_DESYNC": 1
+        }
+      }
+    ]
+  }
+}

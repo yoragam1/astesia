@@ -1,0 +1,2767 @@
+{
+  "pustaka-sekolah-pwa": {
+    "determinism_sha256": "e99070f18e947aee694cbd918c7ed4e043893c8c80880eaadb0390390ff44175",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 72,
+        "generated_skipped": 0,
+        "desync_files": 1,
+        "errors": 30,
+        "warnings": 39,
+        "total_violations": 69
+      },
+      "a9e20cd": {
+        "files_scanned": 77,
+        "generated_skipped": 0,
+        "desync_files": 0,
+        "errors": 22,
+        "warnings": 38,
+        "total_violations": 60
+      },
+      "HEAD": {
+        "files_scanned": 77,
+        "generated_skipped": 0,
+        "generated_files": [],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 21,
+        "warnings": 38,
+        "total_violations": 59
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": -1,
+      "delta_warnings": 0,
+      "delta_total": -1,
+      "new_count": 0,
+      "lost_count": 1,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "ASTESIA-004|scripts/init-turso.mjs|6",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/init-turso.mjs",
+          "line": 6,
+          "message": "Probable hardcoded secret.",
+          "quote": "url: process.env.TURSO_DATABASE_URL || 'libsql://pustaka-pwa-yoraexe.aws-ap-northeast-1.turso.io',"
+        }
+      ],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -9,
+      "delta_warnings": -1,
+      "delta_total": -10,
+      "new_count": 0,
+      "lost_count": 10,
+      "lost_findings": [
+        {
+          "key": "ASTESIA-010|.env|10",
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 10,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+          "quote": "JWT_SECRET=rahasia-pustaka-sekolah-production-key-2026"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|Dockerfile|55",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "Dockerfile",
+          "line": 55,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|scripts/init-turso.mjs|6",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/init-turso.mjs",
+          "line": 6,
+          "message": "Probable hardcoded secret.",
+          "quote": "url: process.env.TURSO_DATABASE_URL || 'libsql://pustaka-pwa-yoraexe.aws-ap-northeast-1.turso.io',"
+        },
+        {
+          "key": "ASTESIA-004|src/client/components/reader/PDFReader.tsx|43",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 43,
+          "message": "Probable hardcoded secret.",
+          "quote": "const storageKey = `pustaka_progress_${user.id}_${book.id}`;"
+        },
+        {
+          "key": "ASTESIA-004|src/client/components/reader/PDFReader.tsx|52",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/components/reader/PDFReader.tsx",
+          "line": 52,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `/api/books/${book.id}/stream-pdf`;"
+        },
+        {
+          "key": "ASTESIA-004|src/client/services/api.ts|211",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 211,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = 'pustaka_cached_books';"
+        },
+        {
+          "key": "ASTESIA-004|src/client/services/api.ts|233",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 233,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `pustaka_book_${id}`;"
+        },
+        {
+          "key": "ASTESIA-004|src/client/services/api.ts|329",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/api.ts",
+          "line": 329,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `pustaka_my_loans_${activeOnly}`;"
+        },
+        {
+          "key": "ASTESIA-004|src/client/services/offlineStorage.ts|64",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 64,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `/api/books/${bookId}/stream-pdf`;"
+        },
+        {
+          "key": "ASTESIA-004|src/client/services/offlineStorage.ts|108",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/client/services/offlineStorage.ts",
+          "line": 108,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `/api/books/${bookId}/stream-pdf`;"
+        }
+      ],
+      "new_findings": []
+    }
+  },
+  "terminal-portfolio": {
+    "determinism_sha256": "4f5beaea586adadbbeafee630fd3a46b5d753751b7a81ea0d4b1bef42e42c91c",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 18,
+        "generated_skipped": 0,
+        "desync_files": 1,
+        "errors": 1,
+        "warnings": 1,
+        "total_violations": 2
+      },
+      "a9e20cd": {
+        "files_scanned": 18,
+        "generated_skipped": 0,
+        "desync_files": 0,
+        "errors": 0,
+        "warnings": 0,
+        "total_violations": 0
+      },
+      "HEAD": {
+        "files_scanned": 18,
+        "generated_skipped": 0,
+        "generated_files": [],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 0,
+        "warnings": 0,
+        "total_violations": 0
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": 0,
+      "delta_warnings": 0,
+      "delta_total": 0,
+      "new_count": 0,
+      "lost_count": 0,
+      "arithmetic_holds": true,
+      "lost_findings": [],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -1,
+      "delta_warnings": -1,
+      "delta_total": -2,
+      "new_count": 0,
+      "lost_count": 2,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|Dockerfile|55",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "Dockerfile",
+          "line": 55,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|src/hooks/useTheme.ts|11",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/hooks/useTheme.ts",
+          "line": 11,
+          "message": "Probable hardcoded secret.",
+          "quote": "const THEME_STORAGE_KEY = 'astesia_terminal_theme';"
+        }
+      ],
+      "new_findings": []
+    }
+  },
+  "eunectes": {
+    "determinism_sha256": "1d0b8650bf0537d4cfa0624a1cf569d6f336a35f052967352fba07406959ddac",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 4061,
+        "generated_skipped": 0,
+        "desync_files": 16,
+        "errors": 149,
+        "warnings": 270,
+        "total_violations": 419
+      },
+      "a9e20cd": {
+        "files_scanned": 4108,
+        "generated_skipped": 0,
+        "desync_files": 12,
+        "errors": 111,
+        "warnings": 320,
+        "total_violations": 431
+      },
+      "HEAD": {
+        "files_scanned": 4108,
+        "generated_skipped": 0,
+        "generated_files": [],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 110,
+        "warnings": 309,
+        "total_violations": 419
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": -1,
+      "delta_warnings": -11,
+      "delta_total": -12,
+      "new_count": 1,
+      "lost_count": 13,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-codex/plugin/components/pentest-loop/src/quality-gate-blockers.ts|49",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-codex/plugin/components/pentest-loop/src/quality-gate-blockers.ts",
+          "line": 49,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-codex/plugin/test/sync-skills-orchestration.test.mjs|217",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-codex/plugin/test/sync-skills-orchestration.test.mjs",
+          "line": 217,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/cli/sparkshell-condense.ts|208",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/cli/sparkshell-condense.ts",
+          "line": 208,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/cli/sparkshell.ts|445",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/cli/sparkshell.ts",
+          "line": 445,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/features/background-agent/manager.ts|3189",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/manager.ts",
+          "line": 3189,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/features/background-agent/task-history.ts|145",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/task-history.ts",
+          "line": 145,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/hooks/think-mode/detector.ts|60",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/hooks/think-mode/detector.ts",
+          "line": 60,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/plugin/fullscan-model-override.ts|197",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/plugin/fullscan-model-override.ts",
+          "line": 197,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/shared/binary-downloader.ts|132",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/shared/binary-downloader.ts",
+          "line": 132,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/shared/markdown-link-audit.test.ts|250",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/shared/markdown-link-audit.test.ts",
+          "line": 250,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/tools/background-task/create-background-cancel.ts|117",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/tools/background-task/create-background-cancel.ts",
+          "line": 117,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/utils/src/command-executor/embedded-commands.ts|27",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/utils/src/command-executor/embedded-commands.ts",
+          "line": 27,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|tests/hashline/headless.ts|122",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "tests/hashline/headless.ts",
+          "line": 122,
+          "message": "Probable hardcoded secret.",
+          "quote": "baseURL: process.env.HASHLINE_TEST_BASE_URL ?? \"https://quotio.mengmota.com/v1\","
+        }
+      ],
+      "new_findings": [
+        {
+          "key": "ASTESIA-009|packages/omop-opencode/src/features/background-agent/manager.ts|2332",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/manager.ts",
+          "line": 2332,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "const timer = setTimeout(() => {"
+        }
+      ]
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -39,
+      "delta_warnings": 39,
+      "delta_total": 0,
+      "new_count": 57,
+      "lost_count": 57,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|.devcontainer/Dockerfile|17",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".devcontainer/Dockerfile",
+          "line": 17,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.github/ISSUE_TEMPLATE/feature_request.yml|103",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".github/ISSUE_TEMPLATE/feature_request.yml",
+          "line": 103,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.github/workflows/package-labels.yml|222",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".github/workflows/package-labels.yml",
+          "line": 222,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|.github/workflows/publish-platform.yml|85",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": ".github/workflows/publish-platform.yml",
+          "line": 85,
+          "message": "Probable hardcoded secret.",
+          "quote": "PLATFORM_KEY=\"${PLATFORM_KEY//-/_}\""
+        },
+        {
+          "key": "ASTESIA-004|.github/workflows/sisyphus-agent.yml|351",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": ".github/workflows/sisyphus-agent.yml",
+          "line": 351,
+          "message": "Probable hardcoded secret.",
+          "quote": "AUTHOR=\"$COMMENT_AUTHOR\""
+        },
+        {
+          "key": "ASTESIA-004|packages/boulder-state/src/top-level-task.ts|24",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/boulder-state/src/top-level-task.ts",
+          "line": 24,
+          "message": "Probable hardcoded secret.",
+          "quote": "key: `${section}:${rawLabel.toLowerCase()}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/mcp-client-core/src/skill-mcp-manager/http-client.ts|66",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/mcp-client-core/src/skill-mcp-manager/http-client.ts",
+          "line": 66,
+          "message": "Probable hardcoded secret.",
+          "quote": "const sensitiveHeaderKey = \"(?:authorization|x-api-key|api-key|x-auth-token|auth-token|x-access-token|access-token)\""
+        },
+        {
+          "key": "ASTESIA-004|packages/mcp-client-core/src/skill-mcp-manager/manager.ts|20",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/mcp-client-core/src/skill-mcp-manager/manager.ts",
+          "line": 20,
+          "message": "Probable hardcoded secret.",
+          "quote": "const baseKey = `${info.sessionID}:${info.skillName}:${info.serverName}`"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-codex/lazycodex-repository/.github/workflows/pr-source-guidance.yml|36",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-codex/lazycodex-repository/.github/workflows/pr-source-guidance.yml",
+          "line": 36,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/plugin/components/bootstrap/src/provision.ts|20",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/plugin/components/bootstrap/src/provision.ts",
+          "line": 20,
+          "message": "Probable hardcoded secret.",
+          "quote": "export const SG_FORCE_PROVISION_ENV_KEY = \"OMOP_BOOTSTRAP_FORCE_PROVISION\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/plugin/components/pentest-loop/src/plan-io.ts|45",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/plugin/components/pentest-loop/src/plan-io.ts",
+          "line": 45,
+          "message": "Probable hardcoded secret.",
+          "quote": "const lockKey = `${repoRoot}\\0${ulwLoopRelativeDir(scope)}`;"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-codex/plugin/components/pentest-loop/src/quality-gate-blockers.ts|49",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-codex/plugin/components/pentest-loop/src/quality-gate-blockers.ts",
+          "line": 49,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/plugin/components/rules/src/sparkshell-awareness.ts|13",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/plugin/components/rules/src/sparkshell-awareness.ts",
+          "line": 13,
+          "message": "Probable hardcoded secret.",
+          "quote": "export const SPARKSHELL_AWARENESS_DEDUP_KEY = \"__omo_sparkshell_awareness__\";"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-codex/plugin/test/sync-skills-orchestration.test.mjs|217",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-codex/plugin/test/sync-skills-orchestration.test.mjs",
+          "line": 217,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|5224",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 5224,
+          "message": "Probable hardcoded secret.",
+          "quote": "const featureFlagReportedKey = `${key}_${response}${groupSuffix}`;"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|6286",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 6286,
+          "message": "Probable hardcoded secret.",
+          "quote": "var GIT_BASH_ENV_KEY = \"OMOP_CODEX_GIT_BASH_PATH\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|6933",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 6933,
+          "message": "Probable hardcoded secret.",
+          "quote": "const nodeModulesKey = `node_modules/${input.dependencyName}`;"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|7888",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 7888,
+          "message": "Probable hardcoded secret.",
+          "quote": "keySource: `${input.pluginName}@${input.marketplaceName}:${hookPath}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|7919",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 7919,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${input.keySource}:${eventLabel}:${groupIndex}:${handlerIndex}`;"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|7968",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 7968,
+          "message": "Probable hardcoded secret.",
+          "quote": "var SKIP_GIT_BASH_AUTO_INSTALL_ENV_KEY = \"OMOP_CODEX_SKIP_GIT_BASH_AUTO_INSTALL\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|11924",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 11924,
+          "message": "Probable hardcoded secret.",
+          "quote": "var AST_GREP_BIN_DIR_ENV_KEY = \"OMOP_AST_GREP_BIN_DIR\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/scripts/install-dist/install-local.mjs|13314",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/scripts/install-dist/install-local.mjs",
+          "line": 13314,
+          "message": "Probable hardcoded secret.",
+          "quote": "var GIT_BASH_ENV_KEY2 = \"OMOP_CODEX_GIT_BASH_PATH\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/src/install/codex-cache-local-dependencies.ts|98",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/src/install/codex-cache-local-dependencies.ts",
+          "line": 98,
+          "message": "Probable hardcoded secret.",
+          "quote": "const nodeModulesKey = `node_modules/${input.dependencyName}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/src/install/codex-git-bash-mcp-env.ts|6",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/src/install/codex-git-bash-mcp-env.ts",
+          "line": 6,
+          "message": "Probable hardcoded secret.",
+          "quote": "const GIT_BASH_ENV_KEY = \"OMOP_CODEX_GIT_BASH_PATH\""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/src/install/codex-hook-trust.ts|38",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/src/install/codex-hook-trust.ts",
+          "line": 38,
+          "message": "Probable hardcoded secret.",
+          "quote": "keySource: `${input.pluginName}@${input.marketplaceName}:${hookPath}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/src/install/codex-hook-trust.ts|67",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/src/install/codex-hook-trust.ts",
+          "line": 67,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${input.keySource}:${eventLabel}:${groupIndex}:${handlerIndex}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-codex/src/install/git-bash.ts|12",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-codex/src/install/git-bash.ts",
+          "line": 12,
+          "message": "Probable hardcoded secret.",
+          "quote": "const SKIP_GIT_BASH_AUTO_INSTALL_ENV_KEY = \"OMOP_CODEX_SKIP_GIT_BASH_AUTO_INSTALL\""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/cli/sparkshell-condense.ts|208",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/cli/sparkshell-condense.ts",
+          "line": 208,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/cli/sparkshell.ts|445",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/cli/sparkshell.ts",
+          "line": 445,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/features/background-agent/manager.ts|3189",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/manager.ts",
+          "line": 3189,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/features/background-agent/task-history.ts|145",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/task-history.ts",
+          "line": 145,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/features/background-agent/task-registry.ts|4",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/features/background-agent/task-registry.ts",
+          "line": 4,
+          "message": "Probable hardcoded secret.",
+          "quote": "const REGISTRY_KEY = \"__omoBackgroundTaskRegistry\""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/features/context-injector/collector.ts|28",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/features/context-injector/collector.ts",
+          "line": 28,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${options.source}:${options.id}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/features/team-mode/tools/lifecycle-test-fixture.ts|95",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/features/team-mode/tools/lifecycle-test-fixture.ts",
+          "line": 95,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${spec.name}:${leadSessionId}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/hooks/argus/tool-execute-before.ts|38",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/hooks/argus/tool-execute-before.ts",
+          "line": 38,
+          "message": "Probable hardcoded secret.",
+          "quote": "key: `final-wave:${label.toLowerCase()}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/hooks/argus/tool-execute-before.ts|48",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/hooks/argus/tool-execute-before.ts",
+          "line": 48,
+          "message": "Probable hardcoded secret.",
+          "quote": "key: `todo:${label}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/hooks/claude-code-hooks/tool-input-cache.ts|44",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/hooks/claude-code-hooks/tool-input-cache.ts",
+          "line": 44,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${sessionId}:${toolName}:${invocationId}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/hooks/claude-code-hooks/tool-input-cache.ts|53",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/hooks/claude-code-hooks/tool-input-cache.ts",
+          "line": 53,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${sessionId}:${toolName}:${invocationId}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/hooks/comment-checker/downloader.ts|94",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/hooks/comment-checker/downloader.ts",
+          "line": 94,
+          "message": "Probable hardcoded secret.",
+          "quote": "const platformKey = `${process.platform}-${process.arch}`"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/hooks/think-mode/detector.ts|60",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/hooks/think-mode/detector.ts",
+          "line": 60,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/plugin/chat-headers.ts|61",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/plugin/chat-headers.ts",
+          "line": 61,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `${sessionID}:${messageID}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/plugin/event-model-fallback-state.ts|94",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/plugin/event-model-fallback-state.ts",
+          "line": 94,
+          "message": "Probable hardcoded secret.",
+          "quote": "modelKey: `${agentKey}:${modelID}`,"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/plugin/event-model-fallback-state.ts|95",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/plugin/event-model-fallback-state.ts",
+          "line": 95,
+          "message": "Probable hardcoded secret.",
+          "quote": "...(providerID ? { providerModelKey: `${agentKey}:${providerID}:${modelID}` } : {}),"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/plugin/fullscan-model-override.ts|197",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/plugin/fullscan-model-override.ts",
+          "line": 197,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/plugin-handlers/provider-config-handler.ts|87",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/plugin-handlers/provider-config-handler.ts",
+          "line": 87,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${trustedModel.providerID}/${trustedModel.modelID}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/omop-opencode/src/shared/background-output-consumption.ts|3",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/omop-opencode/src/shared/background-output-consumption.ts",
+          "line": 3,
+          "message": "Probable hardcoded secret.",
+          "quote": "type MessageConsumptionKey = `${string}:${string}`"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/shared/binary-downloader.ts|132",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/shared/binary-downloader.ts",
+          "line": 132,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/shared/markdown-link-audit.test.ts|250",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/shared/markdown-link-audit.test.ts",
+          "line": 250,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/omop-opencode/src/tools/background-task/create-background-cancel.ts|117",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/tools/background-task/create-background-cancel.ts",
+          "line": 117,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/pentest-skills/src/generator/skill-generator.ts|161",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/pentest-skills/src/generator/skill-generator.ts",
+          "line": 161,
+          "message": "Probable hardcoded secret.",
+          "quote": "lines.push(`author: \"${options.author}\"`)"
+        },
+        {
+          "key": "ASTESIA-004|packages/rules-engine/src/engine/cache.ts|3",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/rules-engine/src/engine/cache.ts",
+          "line": 3,
+          "message": "Probable hardcoded secret.",
+          "quote": "const DYNAMIC_SESSION_KEY = \"__pi-rules-session__\";"
+        },
+        {
+          "key": "ASTESIA-004|packages/utils/src/ast-grep/install-script.ts|7",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/utils/src/ast-grep/install-script.ts",
+          "line": 7,
+          "message": "Probable hardcoded secret.",
+          "quote": "export const AST_GREP_BIN_DIR_ENV_KEY = \"OMOP_AST_GREP_BIN_DIR\""
+        },
+        {
+          "key": "ASTESIA-004|packages/utils/src/ast-grep/types.ts|1",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/utils/src/ast-grep/types.ts",
+          "line": 1,
+          "message": "Probable hardcoded secret.",
+          "quote": "export const SG_PATH_ENV_KEY = \"OMOP_AST_GREP_SG_PATH\""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|packages/utils/src/command-executor/embedded-commands.ts|27",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "packages/utils/src/command-executor/embedded-commands.ts",
+          "line": 27,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|packages/utils/src/omop-config/env-overrides.ts|62",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/utils/src/omop-config/env-overrides.ts",
+          "line": 62,
+          "message": "Probable hardcoded secret.",
+          "quote": "const envKey = `${prefix}_CODEGRAPH_${envSuffix}`"
+        },
+        {
+          "key": "ASTESIA-004|packages/utils/src/omop-config/loader.ts|202",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/utils/src/omop-config/loader.ts",
+          "line": 202,
+          "message": "Probable hardcoded secret.",
+          "quote": "const blockKey = `[${harness}]`"
+        },
+        {
+          "key": "ASTESIA-004|packages/utils/src/runtime/git-bash.ts|4",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "packages/utils/src/runtime/git-bash.ts",
+          "line": 4,
+          "message": "Probable hardcoded secret.",
+          "quote": "export const GIT_BASH_ENV_KEY = \"OMOP_CODEX_GIT_BASH_PATH\""
+        }
+      ],
+      "new_findings": [
+        {
+          "key": "ASTESIA-010|.github/workflows/publish.yml|180",
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".github/workflows/publish.yml",
+          "line": 180,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+          "quote": "OIDC_TOKEN=$(curl -sH \"Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}\" \\"
+        },
+        {
+          "key": "ASTESIA-009|packages/omop-opencode/src/features/background-agent/manager.ts|2332",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": "packages/omop-opencode/src/features/background-agent/manager.ts",
+          "line": 2332,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "const timer = setTimeout(() => {"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/headless.ts|19",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/headless.ts",
+          "line": 19,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(JSON.stringify({ sessionId, timestamp: new Date().toISOString(), ...event }))"
+        },
+        {
+          "key": "ASTESIA-004|tests/hashline/headless.ts|123",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "tests/hashline/headless.ts",
+          "line": 123,
+          "message": "Probable hardcoded secret.",
+          "quote": "apiKey: process.env.HASHLINE_TEST_API_KEY ?? \"quotio-local-60A613FE-DB74-40FF-923E-A14151951E5D\","
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|46",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 46,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const pass = (msg: string) => console.log(`  ${GREEN}✓${RESET} ${msg}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|47",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 47,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const fail = (msg: string) => console.log(`  ${RED}✗${RESET} ${msg}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|48",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 48,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const info = (msg: string) => console.log(`  ${DIM}${msg}${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|49",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 49,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const warn = (msg: string) => console.log(`  ${YELLOW}⚠${RESET} ${msg}`);"
+        },
+        {
+          "key": "ASTESIA-009|tests/hashline/test-edge-cases.ts|970",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 970,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "const timeout = setTimeout("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1051",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1051,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1058",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1058,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1064",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1064,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${CYAN}${BOLD}${tc.name}${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1075",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1075,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${status} — ${detail}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1098",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1098,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${RED}ERROR${RESET} — ${msg.slice(0, 200)}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1110",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1110,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1114",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1114,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${BOLD}━━━ Summary ━━━${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1117",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1117,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${icon} ${r.name} — ${r.detail}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1119",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1119,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1120",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1120,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1132",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1132,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edge-cases.ts|1137",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edge-cases.ts",
+          "line": 1137,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`\\n${BOLD}${RED}Some tests failed.${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|45",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 45,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const pass = (msg: string) => console.log(`  ${GREEN}✓${RESET} ${msg}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|46",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 46,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const fail = (msg: string) => console.log(`  ${RED}✗${RESET} ${msg}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|47",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 47,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "const info = (msg: string) => console.log(`  ${DIM}${msg}${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-009|tests/hashline/test-edit-ops.ts|662",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 662,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "const timeout = setTimeout("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|743",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 743,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`\\n${BOLD}Headless Edit Operations Test — ${TEST_CASES.length} Types${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|748",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 748,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|754",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 754,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${CYAN}${BOLD}${tc.name}${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|765",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 765,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${status} — ${detail}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|788",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 788,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${RED}ERROR${RESET} — ${msg.slice(0, 200)}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|798",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 798,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|802",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 802,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${BOLD}━━━ Summary ━━━${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|805",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 805,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${icon} ${r.name} — ${r.detail}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|807",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 807,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|808",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 808,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|818",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 818,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-edit-ops.ts|823",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-edit-ops.ts",
+          "line": 823,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`\\n${BOLD}${RED}Some tests failed.${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-009|tests/hashline/test-multi-model.ts|148",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 148,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "const timeout = setTimeout(() => {"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|193",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 193,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`\\n${BOLD}═══ Multi-Model edit_file Test Runner ═══${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|194",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 194,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${DIM}Models: ${MODELS.map((m) => m.short).join(\", \")}${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|195",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 195,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${DIM}Timeout: ${perModelTimeoutSec}s per model${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|196",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 196,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|201",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 201,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${CYAN}${BOLD}▶ Testing ${model.short} (${model.id})${RESET}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|207",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 207,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${RED}ERROR${RESET}: ${result.error} (${timeStr})`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|215",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 215,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|220",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 220,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`    ${icon} ${t.name}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|223",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 223,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|227",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 227,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${BOLD}═══ Summary ═══${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|234",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 234,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`  ${r.modelShort.padEnd(8)} ${color}${label}${RESET} (${timeStr})`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|237",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 237,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`    ${icon} ${t.name}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|241",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 241,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|249",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 249,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|255",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 255,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|259",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 259,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|262",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 262,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|267",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 267,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`${BOLD}${GREEN}🎉 ALL MODELS PASSED ALL TESTS!${RESET}\\n`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/hashline/test-multi-model.ts|270",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/hashline/test-multi-model.ts",
+          "line": 270,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log("
+        }
+      ]
+    }
+  },
+  "flora-smk": {
+    "determinism_sha256": "8e55799e6a47cb648324417b3dd0b5c3175802338063d27b294f741dd99fc06e",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 123,
+        "generated_skipped": 0,
+        "desync_files": 2,
+        "errors": 24,
+        "warnings": 24,
+        "total_violations": 48
+      },
+      "a9e20cd": {
+        "files_scanned": 122,
+        "generated_skipped": 0,
+        "desync_files": 2,
+        "errors": 5,
+        "warnings": 24,
+        "total_violations": 29
+      },
+      "HEAD": {
+        "files_scanned": 109,
+        "generated_skipped": 13,
+        "generated_files": [
+          ".vercel/output/static/_app/immutable/chunks/Br6pCSIg.js",
+          ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+          ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+          ".vercel/output/static/_app/immutable/nodes/0.D9g6nVG2.js",
+          ".vercel/output/static/_app/immutable/nodes/2.CcpcbZ3Z.js",
+          ".vercel/output/static/_app/immutable/nodes/3.JtwuhtY6.js",
+          ".vercel/output/static/_app/immutable/nodes/4.Z-_zpI-I.js",
+          ".vercel/output/static/_app/immutable/nodes/5.DJvL8WBN.js",
+          ".vercel/output/static/_app/immutable/nodes/6.D9daTxU1.js",
+          ".vercel/output/static/_app/immutable/nodes/7.DwFI_SHj.js",
+          ".vercel/output/static/_app/immutable/nodes/8.CgsDrbHU.js",
+          ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js"
+        ],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 2,
+        "warnings": 10,
+        "total_violations": 12
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": -3,
+      "delta_warnings": -14,
+      "delta_total": -17,
+      "new_count": 0,
+      "lost_count": 17,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-002|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "ASTESIA-002",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "Unbounded column fetch: SELECT * is banned in production code.",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|8",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 8,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`;return typeof a==`function`&&a(null,p),p}})),ue=e(t((e=>{var t=o(),n=oe(),r=ce(),i=le();function a(e,r,i,a,o){let s=[]"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|9",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 9,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`),()=>this.onerror(`timeout`),t=>{!t||t.status!==200?(this.awaitingBatchAck=!1,this.onerror(t&&t.status),this.closeAndR"
+        },
+        {
+          "key": "ASTESIA-007|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|22",
+          "ruleId": "ASTESIA-007",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 22,
+          "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L22)",
+          "quote": "`).eq(`status`,`approved`).order(`name_local`,{ascending:!0});if(e?.category&&e.category!==`semua`&&(t=t.eq(`category`,e"
+        },
+        {
+          "key": "ASTESIA-007|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "ASTESIA-007",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L34)",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|8",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 8,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`;return typeof a==`function`&&a(null,p),p}})),ue=e(t((e=>{var t=o(),n=oe(),r=ce(),i=le();function a(e,r,i,a,o){let s=[]"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|9",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 9,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`),()=>this.onerror(`timeout`),t=>{!t||t.status!==200?(this.awaitingBatchAck=!1,this.onerror(t&&t.status),this.closeAndR"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|14",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 14,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "});`,nn=class{get endPoint(){return this.socketAdapter.endPoint}get timeout(){return this.socketAdapter.timeout}get tran"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.vercel/output/static/_app/immutable/chunks/C7EYTeg7.js|3",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+          "line": 3,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": "\\r\\f\\xA0\\v﻿`];function xi(e,t,n){var r=e==null?``:``+e;if(t&&(r=r?r+` `+t:t),n){for(var i of Object.keys(n))if(n[i])r=r?"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/C7EYTeg7.js|1",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+          "line": 1,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "typeof window<`u`&&((window.__svelte??={}).v??=new Set).add(`5`);var e={},t=Symbol(`uninitialized`),n=`http://www.w3.org"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/CnLWsLhA.js|2",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+          "line": 2,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`:return`\\\\n`;case`\\r`:return`\\\\r`;case`\t`:return`\\\\t`;case`\\b`:return`\\\\b`;case`\\f`:return`\\\\f`;case`\\u2028`:return`\\\\u"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|1",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 1,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "import{n as e,t}from\"../chunks/WkwZ5CU-.js\";import{A as n,C as r,F as i,G as a,H as o,I as s,J as c,K as l,L as u,M as d"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|6",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 6,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`,`. `,`, `,`: `,`!`,`\"`,`#`,`$`,`%`,`&`,`'`,`(`,`)`,`*`,`+`,`,`,`-`,`.`,`/`,`:`,`;`,`<`,`=`,`>`,`?`,`[`,`]`,`{`,`}`,`CT"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|20",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 20,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`),n=zn.singletonList(Xn.INITIAL_STATE);for(let r=0;r<this.text.length;r++){let i,a=r+1<this.text.length?this.text[r+1]:"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|4",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 4,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`)}return t.toString()}}class ae extends ie{constructor(e){super(e.getWidth(),e.getHeight()),this.delegate=e}getRow(e,t)"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|20",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 20,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`),n=zn.singletonList(Xn.INITIAL_STATE);for(let r=0;r<this.text.length;r++){let i,a=r+1<this.text.length?this.text[r+1]:"
+        }
+      ],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -22,
+      "delta_warnings": -14,
+      "delta_total": -36,
+      "new_count": 0,
+      "lost_count": 36,
+      "lost_findings": [
+        {
+          "key": "ASTESIA-010|.env|3",
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 3,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+          "quote": "PUBLIC_SUPABASE_ANON_KEY=mock-anon-key-local"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-002|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "ASTESIA-002",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "Unbounded column fetch: SELECT * is banned in production code.",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|8",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 8,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`;return typeof a==`function`&&a(null,p),p}})),ue=e(t((e=>{var t=o(),n=oe(),r=ce(),i=le();function a(e,r,i,a,o){let s=[]"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|9",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 9,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`),()=>this.onerror(`timeout`),t=>{!t||t.status!==200?(this.awaitingBatchAck=!1,this.onerror(t&&t.status),this.closeAndR"
+        },
+        {
+          "key": "ASTESIA-007|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|22",
+          "ruleId": "ASTESIA-007",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 22,
+          "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L22)",
+          "quote": "`).eq(`status`,`approved`).order(`name_local`,{ascending:!0});if(e?.category&&e.category!==`semua`&&(t=t.eq(`category`,e"
+        },
+        {
+          "key": "ASTESIA-007|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|34",
+          "ruleId": "ASTESIA-007",
+          "severity": "error",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 34,
+          "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (loop started L34)",
+          "quote": "`).order(`created_at`,{ascending:!1});e&&(t=t.eq(`status`,e));let{data:n,error:r}=await t;if(!r&&n)return n.map(Qa)}catc"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|8",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 8,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`;return typeof a==`function`&&a(null,p),p}})),ue=e(t((e=>{var t=o(),n=oe(),r=ce(),i=le();function a(e,r,i,a,o){let s=[]"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|9",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 9,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`),()=>this.onerror(`timeout`),t=>{!t||t.status!==200?(this.awaitingBatchAck=!1,this.onerror(t&&t.status),this.closeAndR"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/BzC1P0DO.js|14",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/BzC1P0DO.js",
+          "line": 14,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "});`,nn=class{get endPoint(){return this.socketAdapter.endPoint}get timeout(){return this.socketAdapter.timeout}get tran"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.vercel/output/static/_app/immutable/chunks/C7EYTeg7.js|3",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+          "line": 3,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": "\\r\\f\\xA0\\v﻿`];function xi(e,t,n){var r=e==null?``:``+e;if(t&&(r=r?r+` `+t:t),n){for(var i of Object.keys(n))if(n[i])r=r?"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/C7EYTeg7.js|1",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/C7EYTeg7.js",
+          "line": 1,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "typeof window<`u`&&((window.__svelte??={}).v??=new Set).add(`5`);var e={},t=Symbol(`uninitialized`),n=`http://www.w3.org"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/CnLWsLhA.js|2",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/chunks/CnLWsLhA.js",
+          "line": 2,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`:return`\\\\n`;case`\\r`:return`\\\\r`;case`\t`:return`\\\\t`;case`\\b`:return`\\\\b`;case`\\f`:return`\\\\f`;case`\\u2028`:return`\\\\u"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|1",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 1,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "import{n as e,t}from\"../chunks/WkwZ5CU-.js\";import{A as n,C as r,F as i,G as a,H as o,I as s,J as c,K as l,L as u,M as d"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|6",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 6,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`,`. `,`, `,`: `,`!`,`\"`,`#`,`$`,`%`,`&`,`'`,`(`,`)`,`*`,`+`,`,`,`-`,`.`,`/`,`:`,`;`,`<`,`=`,`>`,`?`,`[`,`]`,`{`,`}`,`CT"
+        },
+        {
+          "key": "ASTESIA-006|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|20",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 20,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "`),n=zn.singletonList(Xn.INITIAL_STATE);for(let r=0;r<this.text.length;r++){let i,a=r+1<this.text.length?this.text[r+1]:"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|4",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 4,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`)}return t.toString()}}class ae extends ie{constructor(e){super(e.getWidth(),e.getHeight()),this.delegate=e}getRow(e,t)"
+        },
+        {
+          "key": "ASTESIA-009|.vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js|20",
+          "ruleId": "ASTESIA-009",
+          "severity": "warn",
+          "file": ".vercel/output/static/_app/immutable/nodes/9.C-gPSSxQ.js",
+          "line": 20,
+          "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+          "quote": "`),n=zn.singletonList(Xn.INITIAL_STATE);for(let r=0;r<this.text.length;r++){let i,a=r+1<this.text.length?this.text[r+1]:"
+        },
+        {
+          "key": "ASTESIA-004|src/lib/repositories/config.repository.ts|15",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/lib/repositories/config.repository.ts",
+          "line": 15,
+          "message": "Probable hardcoded secret.",
+          "quote": "const CONFIG_STORAGE_KEY = 'botanidex_app_config_v1';"
+        },
+        {
+          "key": "ASTESIA-004|src/lib/repositories/plant.repository.ts|14",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/lib/repositories/plant.repository.ts",
+          "line": 14,
+          "message": "Probable hardcoded secret.",
+          "quote": "const LOCAL_STORAGE_KEY = 'flora_smk_plants_store_v4';"
+        },
+        {
+          "key": "ASTESIA-004|src/lib/stores/auth.store.ts|18",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/lib/stores/auth.store.ts",
+          "line": 18,
+          "message": "Probable hardcoded secret.",
+          "quote": "const AUTH_STORAGE_KEY = 'flora_smk_auth_user_v1';"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/admin/tanaman/[id]/edit/+page.svelte|62",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/admin/tanaman/[id]/edit/+page.svelte",
+          "line": 62,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_divisio', label: 'Divisio', ph: 'Tracheophyta' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/admin/tanaman/[id]/edit/+page.svelte|63",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/admin/tanaman/[id]/edit/+page.svelte",
+          "line": 63,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_classis', label: 'Classis', ph: 'Liliopsida' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/admin/tanaman/[id]/edit/+page.svelte|64",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/admin/tanaman/[id]/edit/+page.svelte",
+          "line": 64,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_ordo', label: 'Ordo', ph: 'Zingiberales' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/admin/tanaman/[id]/edit/+page.svelte|65",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/admin/tanaman/[id]/edit/+page.svelte",
+          "line": 65,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_familia', label: 'Familia', ph: 'Zingiberaceae' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/admin/tanaman/[id]/edit/+page.svelte|66",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/admin/tanaman/[id]/edit/+page.svelte",
+          "line": 66,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_genus', label: 'Genus', ph: 'Zingiber' }"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/tambah/+page.svelte|43",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/tambah/+page.svelte",
+          "line": 43,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_divisio', label: 'Divisio', ph: 'Tracheophyta' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/tambah/+page.svelte|44",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/tambah/+page.svelte",
+          "line": 44,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_classis', label: 'Classis', ph: 'Liliopsida' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/tambah/+page.svelte|45",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/tambah/+page.svelte",
+          "line": 45,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_ordo', label: 'Ordo', ph: 'Zingiberales' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/tambah/+page.svelte|46",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/tambah/+page.svelte",
+          "line": 46,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_familia', label: 'Familia', ph: 'Zingiberaceae' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/tambah/+page.svelte|47",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/tambah/+page.svelte",
+          "line": 47,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_genus', label: 'Genus', ph: 'Zingiber' }"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/[id]/edit/+page.svelte|59",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/[id]/edit/+page.svelte",
+          "line": 59,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_divisio', label: 'Divisio', ph: 'Tracheophyta' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/[id]/edit/+page.svelte|60",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/[id]/edit/+page.svelte",
+          "line": 60,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_classis', label: 'Classis', ph: 'Liliopsida' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/[id]/edit/+page.svelte|61",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/[id]/edit/+page.svelte",
+          "line": 61,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_ordo', label: 'Ordo', ph: 'Zingiberales' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/[id]/edit/+page.svelte|62",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/[id]/edit/+page.svelte",
+          "line": 62,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_familia', label: 'Familia', ph: 'Zingiberaceae' },"
+        },
+        {
+          "key": "ASTESIA-004|src/routes/kontribusi/[id]/edit/+page.svelte|63",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "src/routes/kontribusi/[id]/edit/+page.svelte",
+          "line": 63,
+          "message": "Probable hardcoded secret.",
+          "quote": "{ key: 'taxonomy_genus', label: 'Genus', ph: 'Zingiber' }"
+        }
+      ],
+      "new_findings": []
+    }
+  },
+  "ifrit": {
+    "determinism_sha256": "d3419189638578690e7b7b87d89263f6ffb28c64397e073add9b39a80f760e70",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 223,
+        "generated_skipped": 0,
+        "desync_files": 2,
+        "errors": 37,
+        "warnings": 319,
+        "total_violations": 356
+      },
+      "a9e20cd": {
+        "files_scanned": 233,
+        "generated_skipped": 0,
+        "desync_files": 2,
+        "errors": 13,
+        "warnings": 319,
+        "total_violations": 332
+      },
+      "HEAD": {
+        "files_scanned": 233,
+        "generated_skipped": 0,
+        "generated_files": [],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 13,
+        "warnings": 317,
+        "total_violations": 330
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": 0,
+      "delta_warnings": -2,
+      "delta_total": -2,
+      "new_count": 0,
+      "lost_count": 2,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|ceobe/src/ai/planner/qaAuditor.ts|126",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "ceobe/src/ai/planner/qaAuditor.ts",
+          "line": 126,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|ceobe/src/ai/taskParser.ts|162",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "ceobe/src/ai/taskParser.ts",
+          "line": 162,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        }
+      ],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -24,
+      "delta_warnings": -2,
+      "delta_total": -26,
+      "new_count": 0,
+      "lost_count": 26,
+      "lost_findings": [
+        {
+          "key": "ASTESIA-004|ceobe/src/ai/memory/fullTextSearch.ts|66",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/ai/memory/fullTextSearch.ts",
+          "line": 66,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${token}:${filePath}:${i+1}`;"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/ai/memory/fullTextSearch.ts|96",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/ai/memory/fullTextSearch.ts",
+          "line": 96,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${entry.filePath}:${entry.line}`;"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/ai/memory/fullTextSearch.ts|110",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/ai/memory/fullTextSearch.ts",
+          "line": 110,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${entry.filePath}:${entry.line}`;"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|ceobe/src/ai/planner/qaAuditor.ts|126",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "ceobe/src/ai/planner/qaAuditor.ts",
+          "line": 126,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|ceobe/src/ai/taskParser.ts|162",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "ceobe/src/ai/taskParser.ts",
+          "line": 162,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|16",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 16,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'GEMINI_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|22",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 22,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'ANTHROPIC_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|34",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 34,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'KIMI_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|40",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 40,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'DEEPSEEK_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|46",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 46,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'GROQ_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|52",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 52,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'OPENAI_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|58",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 58,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'TOGETHER_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|64",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 64,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'QWEN_API_KEY',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|70",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 70,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CLOUDFLARE_ACCOUNT_ID',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|76",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 76,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CLOUDFLARE_GATEWAY_ID',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|82",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 82,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'TELEGRAM_BOT_TOKEN',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|88",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 88,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'TELEGRAM_ALLOWED_USERS',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|94",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 94,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_PLANNER_PROVIDER',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|100",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 100,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_PLANNER_MODEL',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|106",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 106,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_EXECUTOR_PROVIDER',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|112",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 112,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_EXECUTOR_MODEL',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|118",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 118,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_QA_PROVIDER',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|124",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 124,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_QA_MODEL',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|130",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 130,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_EMBEDDING_PROVIDER',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|136",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 136,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_EMBEDDING_MODEL',"
+        },
+        {
+          "key": "ASTESIA-004|ceobe/src/utils/keyDefinitions.ts|142",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "ceobe/src/utils/keyDefinitions.ts",
+          "line": 142,
+          "message": "Probable hardcoded secret.",
+          "quote": "envKey: 'CEOBE_MAX_BUDGET',"
+        }
+      ],
+      "new_findings": []
+    }
+  },
+  "arene": {
+    "determinism_sha256": "e21cf8ad59609c4ddb0ce90e672e9d61039b665710a9928131226e7c7e8f4e1c",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 256,
+        "generated_skipped": 0,
+        "desync_files": 6,
+        "errors": 17,
+        "warnings": 120,
+        "total_violations": 137
+      },
+      "a9e20cd": {
+        "files_scanned": 376,
+        "generated_skipped": 0,
+        "desync_files": 3,
+        "errors": 19,
+        "warnings": 135,
+        "total_violations": 154
+      },
+      "HEAD": {
+        "files_scanned": 376,
+        "generated_skipped": 0,
+        "generated_files": [],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 19,
+        "warnings": 132,
+        "total_violations": 151
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": 0,
+      "delta_warnings": -3,
+      "delta_total": -3,
+      "new_count": 0,
+      "lost_count": 3,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|scripts/hooks/session-end.js|329",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/hooks/session-end.js",
+          "line": 329,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|scripts/hooks/session-start.js|677",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/hooks/session-start.js",
+          "line": 677,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|scripts/lib/utils.js|630",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/lib/utils.js",
+          "line": 630,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        }
+      ],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": 2,
+      "delta_warnings": 12,
+      "delta_total": 14,
+      "new_count": 25,
+      "lost_count": 11,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|.claude/homunculus/instincts/inherited/everything-claude-code-instincts.yaml|163",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".claude/homunculus/instincts/inherited/everything-claude-code-instincts.yaml",
+          "line": 163,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.github/workflows/release.yml|109",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".github/workflows/release.yml",
+          "line": 109,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|.github/workflows/reusable-release.yml|127",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": ".github/workflows/reusable-release.yml",
+          "line": 127,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|scripts/hooks/block-no-verify.js|38",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/hooks/block-no-verify.js",
+          "line": 38,
+          "message": "Probable hardcoded secret.",
+          "quote": "const GIT_CONFIG_KEY_PREFIX = 'core.hooksPath=';"
+        },
+        {
+          "key": "ASTESIA-004|scripts/hooks/gateguard-fact-force.js|40",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/hooks/gateguard-fact-force.js",
+          "line": 40,
+          "message": "Probable hardcoded secret.",
+          "quote": "const ROUTINE_BASH_SESSION_KEY = '__bash_session__';"
+        },
+        {
+          "key": "ASTESIA-004|scripts/hooks/gateguard-fact-force.js|464",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/hooks/gateguard-fact-force.js",
+          "line": 464,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = '__destructive__' + crypto.createHash('sha256').update(command).digest('hex').slice(0, 16);"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|scripts/hooks/session-end.js|329",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/hooks/session-end.js",
+          "line": 329,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "TOKENIZER_DESYNC|scripts/hooks/session-start.js|677",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/hooks/session-start.js",
+          "line": 677,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        },
+        {
+          "key": "ASTESIA-004|scripts/lib/inspection.js|47",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/lib/inspection.js",
+          "line": 47,
+          "message": "Probable hardcoded secret.",
+          "quote": "const key = `${run.skillId}::${normalizedReason}`;"
+        },
+        {
+          "key": "ASTESIA-004|scripts/lib/resolve-formatter.js|147",
+          "ruleId": "ASTESIA-004",
+          "severity": "error",
+          "file": "scripts/lib/resolve-formatter.js",
+          "line": 147,
+          "message": "Probable hardcoded secret.",
+          "quote": "const cacheKey = `${projectRoot}:${formatter}`;"
+        },
+        {
+          "key": "TOKENIZER_DESYNC|scripts/lib/utils.js|630",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "scripts/lib/utils.js",
+          "line": 630,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        }
+      ],
+      "new_findings": [
+        {
+          "key": "ASTESIA-000|tests/hooks/hooks.test.js|5554",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/hooks/hooks.test.js",
+          "line": 5554,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:100}).then(d=>{process.stdout.write(JS"
+        },
+        {
+          "key": "ASTESIA-000|tests/hooks/hooks.test.js|5588",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/hooks/hooks.test.js",
+          "line": 5588,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:100}).then(d=>{process.stdout.write(JS"
+        },
+        {
+          "key": "ASTESIA-000|tests/lib/utils.test.js|810",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/lib/utils.test.js",
+          "line": 810,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const stdinScript = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000}).then(d=>{process.stdout.wr"
+        },
+        {
+          "key": "ASTESIA-000|tests/lib/utils.test.js|1050",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/lib/utils.test.js",
+          "line": 1050,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000,maxSize:100}).then(d=>{process.st"
+        },
+        {
+          "key": "ASTESIA-000|tests/lib/utils.test.js|1060",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/lib/utils.test.js",
+          "line": 1060,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000,maxSize:1024}).then(d=>{process.s"
+        },
+        {
+          "key": "ASTESIA-000|tests/lib/utils.test.js|1264",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/lib/utils.test.js",
+          "line": 1264,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000}).then(d=>{process.stdout.write(J"
+        },
+        {
+          "key": "ASTESIA-000|tests/lib/utils.test.js|1281",
+          "ruleId": "ASTESIA-000",
+          "severity": "error",
+          "file": "tests/lib/utils.test.js",
+          "line": 1281,
+          "message": "Hallucinated import: relative path or local alias does not exist on disk. (./scripts/lib/utils)",
+          "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000}).then(d=>{process.stdout.write(J"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|51",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 51,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log('╔' + '═'.repeat(BOX_W) + '╗');"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|52",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 52,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(boxLine('           Everything Claude Code - Test Suite'));"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|53",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 53,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log('╚' + '═'.repeat(BOX_W) + '╝');"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|54",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 54,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log();"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|57",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 57,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`✗ No test files matched ${TEST_GLOB}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|70",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 70,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`WARNING Skipping ${displayPath} (file not found)`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|74",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 74,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`\\n━━━ Running ${displayPath} ━━━`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|85",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 85,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "if (stdout) console.log(stdout);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|86",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 86,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "if (stderr) console.log(stderr);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|97",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 97,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`✗ ${displayPath} failed to start: ${result.error.message}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|103",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 103,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(`✗ ${displayPath} exited with status ${result.status}`);"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|110",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 110,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log('\\n╔' + '═'.repeat(BOX_W) + '╗');"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|111",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 111,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(boxLine('                     Final Results'));"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|112",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 112,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log('╠' + '═'.repeat(BOX_W) + '╣');"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|113",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 113,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(boxLine(`  Total Tests: ${String(totalTests).padStart(4)}`));"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|114",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 114,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(boxLine(`  Passed:      ${String(totalPassed).padStart(4)}  ✓`));"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|115",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 115,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log(boxLine(`  Failed:      ${String(totalFailed).padStart(4)}  ${totalFailed > 0 ? '✗' : ' '}`));"
+        },
+        {
+          "key": "ASTESIA-006|tests/run-all.js|116",
+          "ruleId": "ASTESIA-006",
+          "severity": "warn",
+          "file": "tests/run-all.js",
+          "line": 116,
+          "message": "console.log in source; use the structured logger.",
+          "quote": "console.log('╚' + '═'.repeat(BOX_W) + '╝');"
+        }
+      ]
+    }
+  },
+  "SIA": {
+    "determinism_sha256": "f497700d1c01893f4a3f841076073d728f92e2e89dfa2052f979abafd5df307b",
+    "determinism_verified": true,
+    "metrics": {
+      "56dd907": {
+        "files_scanned": 457,
+        "generated_skipped": 0,
+        "desync_files": 1,
+        "errors": 2,
+        "warnings": 60,
+        "total_violations": 62
+      },
+      "a9e20cd": {
+        "files_scanned": 468,
+        "generated_skipped": 0,
+        "desync_files": 1,
+        "errors": 1,
+        "warnings": 60,
+        "total_violations": 61
+      },
+      "HEAD": {
+        "files_scanned": 467,
+        "generated_skipped": 1,
+        "generated_files": [
+          "resources/views/welcome.blade.php"
+        ],
+        "desync_files": 0,
+        "desync_file_list": [],
+        "errors": 1,
+        "warnings": 59,
+        "total_violations": 60
+      }
+    },
+    "diff_vs_a9e20cd": {
+      "delta_errors": 0,
+      "delta_warnings": -1,
+      "delta_total": -1,
+      "new_count": 0,
+      "lost_count": 1,
+      "arithmetic_holds": true,
+      "lost_findings": [
+        {
+          "key": "TOKENIZER_DESYNC|resources/views/welcome.blade.php|278",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "resources/views/welcome.blade.php",
+          "line": 278,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        }
+      ],
+      "new_findings": []
+    },
+    "diff_vs_56dd907": {
+      "delta_errors": -1,
+      "delta_warnings": -1,
+      "delta_total": -2,
+      "new_count": 0,
+      "lost_count": 2,
+      "lost_findings": [
+        {
+          "key": "ASTESIA-010|.env|3",
+          "ruleId": "ASTESIA-010",
+          "severity": "error",
+          "file": ".env",
+          "line": 3,
+          "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+          "quote": "APP_KEY=base64:86TGNk8Awc6swSaH+QGK2KFNHjkLmdJwdzx0p2svFKY="
+        },
+        {
+          "key": "TOKENIZER_DESYNC|resources/views/welcome.blade.php|278",
+          "ruleId": "TOKENIZER_DESYNC",
+          "severity": "warn",
+          "file": "resources/views/welcome.blade.php",
+          "line": 278,
+          "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+          "quote": ""
+        }
+      ],
+      "new_findings": []
+    }
+  }
+}

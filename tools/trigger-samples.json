@@ -1,0 +1,402 @@
+[
+  {
+    "skill": "adr-management",
+    "prompt": "Tolong buatkan dokumen ADR untuk keputusan arsitektur migrasi database ini"
+  },
+  {
+    "skill": "adr-management",
+    "prompt": "Record an architectural decision record explaining why we chose Drizzle over Prisma"
+  },
+  {
+    "skill": "anti-bloat-review",
+    "prompt": "Review PR ini dan cari kode yang over-engineered atau tidak perlu ditulis"
+  },
+  {
+    "skill": "anti-bloat-review",
+    "prompt": "Perform a code review focused strictly on unnecessary abstractions and over-engineering"
+  },
+  {
+    "skill": "anti-silent-failure",
+    "prompt": "Periksa error handling di modul ini agar tidak ada silent failure atau empty catch block"
+  },
+  {
+    "skill": "anti-silent-failure",
+    "prompt": "Audit all catch blocks to ensure errors are logged or rethrown explicitly without swallowing"
+  },
+  {
+    "skill": "architectural-linter",
+    "prompt": "Jalankan pengecekan aturan arsitektur untuk memastikan controller tidak memanggil database langsung"
+  },
+  {
+    "skill": "architectural-linter",
+    "prompt": "Run architectural linter to enforce dependency rule from controllers to services"
+  },
+  {
+    "skill": "auto-merge-gates",
+    "prompt": "Setup auto-merge gates and automated branch protection in GitHub Actions"
+  },
+  {
+    "skill": "auto-merge-gates",
+    "prompt": "Konfigurasi status check otomatis untuk auto-merge branch setelah CI lulus"
+  },
+  {
+    "skill": "blast-radius",
+    "prompt": "Hitung blast radius dan dampak perubahan skema database ini terhadap modul lain"
+  },
+  {
+    "skill": "blast-radius",
+    "prompt": "Analyze blast radius of modifying the user authentication token format"
+  },
+  {
+    "skill": "brd-generation",
+    "prompt": "Draft business requirements document (BRD) and acceptance criteria for checkout flow"
+  },
+  {
+    "skill": "brd-generation",
+    "prompt": "Buatkan dokumen spesifikasi kebutuhan bisnis (BRD) lengkap dengan user journey"
+  },
+  {
+    "skill": "brownfield-entry",
+    "prompt": "Pelajari dan petakan struktur proyek legacy yang sudah ada ini sebelum mulai coding"
+  },
+  {
+    "skill": "brownfield-entry",
+    "prompt": "Analyze this existing brownfield repository and generate an architectural system map"
+  },
+  {
+    "skill": "budget-circuit-breaker",
+    "prompt": "Pasang circuit breaker untuk mencegah pemborosan token dan biaya LLM"
+  },
+  {
+    "skill": "budget-circuit-breaker",
+    "prompt": "Halt task execution when LLM token consumption exceeds budget limit"
+  },
+  {
+    "skill": "codebase-gardening",
+    "prompt": "Lakukan pembersihan teknikal debt dan refactoring berkala pada kode repo"
+  },
+  {
+    "skill": "codebase-gardening",
+    "prompt": "Run routine codebase gardening wave to resolve debt markers and cleanup unused files"
+  },
+  {
+    "skill": "component-tokens",
+    "prompt": "Definisikan design tokens untuk typography, spacing, dan colors di Tailwind"
+  },
+  {
+    "skill": "component-tokens",
+    "prompt": "Extract reusable component design tokens and css variables for our design system"
+  },
+  {
+    "skill": "context-navigation",
+    "prompt": "Temukan lokasi implementasi fungsi autentikasi token JWT di seluruh codebase"
+  },
+  {
+    "skill": "context-navigation",
+    "prompt": "Navigate the codebase to locate where payment webhook processing is handled"
+  },
+  {
+    "skill": "cuj-mapping",
+    "prompt": "Petakan Critical User Journey (CUJ) dari registrasi hingga pembayaran sukses"
+  },
+  {
+    "skill": "cuj-mapping",
+    "prompt": "Map end-to-end critical user journeys with edge cases and failure paths"
+  },
+  {
+    "skill": "debt-scanner",
+    "prompt": "Pindai seluruh TODO, FIXME, dan technical debt markers di repositori"
+  },
+  {
+    "skill": "debt-scanner",
+    "prompt": "Scan project source code for tech debt annotations and architectural shortcuts"
+  },
+  {
+    "skill": "docker-compose",
+    "prompt": "Buatkan docker-compose.yml untuk menjalankan backend, postgres, dan redis secara lokal"
+  },
+  {
+    "skill": "docker-compose",
+    "prompt": "Configure multi-service docker-compose setup with healthchecks and persistent volumes"
+  },
+  {
+    "skill": "docker-optimization",
+    "prompt": "Optimalkan Dockerfile dengan multi-stage build agar ukuran image minimal"
+  },
+  {
+    "skill": "docker-optimization",
+    "prompt": "Reduce Docker image size using slim base images and optimized layer caching"
+  },
+  {
+    "skill": "drizzle-orm",
+    "prompt": "Buat schema tabel pengguna dan relasinya menggunakan Drizzle ORM TypeScript"
+  },
+  {
+    "skill": "drizzle-orm",
+    "prompt": "Write type-safe SQL queries and migrations using Drizzle ORM"
+  },
+  {
+    "skill": "dynamic-plugins",
+    "prompt": "Generate script plugin tambahan dan taruh di folder karantina untuk disetujui"
+  },
+  {
+    "skill": "dynamic-plugins",
+    "prompt": "Create quarantined dynamic agent plugin script with SHA256 manifest registration"
+  },
+  {
+    "skill": "e2e-testing",
+    "prompt": "Buat automated end-to-end (E2E) browser tests menggunakan Playwright untuk flow login"
+  },
+  {
+    "skill": "e2e-testing",
+    "prompt": "Write Playwright E2E test suite covering user registration and checkout flow"
+  },
+  {
+    "skill": "elysia-rest-api",
+    "prompt": "Bangun REST API endpoint dengan ElysiaJS dan Bun dengan validasi typebox"
+  },
+  {
+    "skill": "elysia-rest-api",
+    "prompt": "Implement high-performance Elysia backend routes with strict schema validation"
+  },
+  {
+    "skill": "frontend-integration",
+    "prompt": "Integrasikan form frontend dengan backend REST API menggunakan TanStack Query"
+  },
+  {
+    "skill": "frontend-integration",
+    "prompt": "Connect client UI components to backend endpoints with state management and caching"
+  },
+  {
+    "skill": "github-actions",
+    "prompt": "Buatkan GitHub Actions CI workflow untuk linting, testing, dan build otomatis"
+  },
+  {
+    "skill": "github-actions",
+    "prompt": "Configure automated GitHub Actions pipeline with bun setup and test execution"
+  },
+  {
+    "skill": "golang-rest-api",
+    "prompt": "Buat REST API service menggunakan Go dan Gin atau Chi dengan clean architecture"
+  },
+  {
+    "skill": "golang-rest-api",
+    "prompt": "Develop scalable Go HTTP microservice with structured logging and middleware"
+  },
+  {
+    "skill": "hono-rest-api",
+    "prompt": "Implementasi REST API ringan menggunakan Hono framework untuk edge runtime"
+  },
+  {
+    "skill": "hono-rest-api",
+    "prompt": "Build modular Hono server endpoints with middleware and OpenAPI documentation"
+  },
+  {
+    "skill": "independent-verification",
+    "prompt": "Jalankan verifikasi independen atas hasil kerja agen lain dan catat bukti eksekusi"
+  },
+  {
+    "skill": "independent-verification",
+    "prompt": "Act as independent verifier to validate pull request claims with raw execution evidence"
+  },
+  {
+    "skill": "laravel-api",
+    "prompt": "Bangun backend API dengan Laravel 11 controller, resource, dan form request"
+  },
+  {
+    "skill": "laravel-api",
+    "prompt": "Create Laravel RESTful endpoints with Eloquent models and policy authorization"
+  },
+  {
+    "skill": "layered-architecture",
+    "prompt": "Terapkan arsitektur berlapis: Pisahkan controller, service, dan repository"
+  },
+  {
+    "skill": "layered-architecture",
+    "prompt": "Enforce strict layered architecture separating presentation, domain, and data access"
+  },
+  {
+    "skill": "lint-ratchet",
+    "prompt": "Catat baseline pelanggaran dan pasang ratchet agar jumlah warning hanya boleh turun"
+  },
+  {
+    "skill": "lint-ratchet",
+    "prompt": "Implement lint ratchet mechanism ensuring new violations fail the CI build"
+  },
+  {
+    "skill": "minimalist-executor",
+    "prompt": "Tulis kode yang paling minimal untuk menyelesaikan masalah tanpa over-engineering (YAGNI)"
+  },
+  {
+    "skill": "minimalist-executor",
+    "prompt": "Implement surgical code change adhering to YAGNI with zero unnecessary dependencies"
+  },
+  {
+    "skill": "adversarial-review",
+    "prompt": "Lakukan tinjauan adversarial dengan sudut pandang red team dan blue team"
+  },
+  {
+    "skill": "adversarial-review",
+    "prompt": "Perform adversarial red-team review to challenge design assumptions"
+  },
+  {
+    "skill": "n8n-automation",
+    "prompt": "Buat workflow otomasi n8n untuk integrasi webhook dan notifikasi Slack"
+  },
+  {
+    "skill": "n8n-automation",
+    "prompt": "Design n8n automation pipeline connecting database triggers to external APIs"
+  },
+  {
+    "skill": "python-fastapi",
+    "prompt": "Buat endpoint API async menggunakan Python FastAPI dan Pydantic models"
+  },
+  {
+    "skill": "python-fastapi",
+    "prompt": "Develop FastAPI backend service with dependency injection and type annotations"
+  },
+  {
+    "skill": "react-frontend",
+    "prompt": "Bangun komponen antarmuka React dengan hooks dan Tailwind CSS"
+  },
+  {
+    "skill": "react-frontend",
+    "prompt": "Create interactive React components with custom hooks and responsive layouts"
+  },
+  {
+    "skill": "react-native-mobile",
+    "prompt": "Kembangkan aplikasi mobile cross-platform menggunakan React Native dan Expo"
+  },
+  {
+    "skill": "react-native-mobile",
+    "prompt": "Build mobile UI screens with React Native navigation and offline storage"
+  },
+  {
+    "skill": "reverse-engineering",
+    "prompt": "Analisis arsitektur dan teknologi web publik kompetitor secara legal"
+  },
+  {
+    "skill": "reverse-engineering",
+    "prompt": "Perform reconnaissance on public web interfaces to extract design patterns"
+  },
+  {
+    "skill": "security-review",
+    "prompt": "Lakukan audit keamanan kode terhadap celah SQL injection, XSS, dan kebocoran rahasia"
+  },
+  {
+    "skill": "security-review",
+    "prompt": "Review authentication endpoints for OWASP vulnerabilities and hardcoded secrets"
+  },
+  {
+    "skill": "self-healing",
+    "prompt": "Analisis pesan error stack trace ini dan lakukan perbaikan otomatis pada kode"
+  },
+  {
+    "skill": "self-healing",
+    "prompt": "Diagnose build error output and apply targeted self-healing patch"
+  },
+  {
+    "skill": "sveltekit-frontend",
+    "prompt": "Bangun halaman web modern menggunakan SvelteKit dengan server load functions"
+  },
+  {
+    "skill": "sveltekit-frontend",
+    "prompt": "Develop SvelteKit reactive UI components with server-side rendering"
+  },
+  {
+    "skill": "task-waves",
+    "prompt": "Bagi rencana kerja besar menjadi gelombang tugas (waves) bertahap yang mandiri"
+  },
+  {
+    "skill": "task-waves",
+    "prompt": "Decompose complex feature development into staged task waves with clear milestones"
+  },
+  {
+    "skill": "tdd-workflow",
+    "prompt": "Terapkan Test-Driven Development (TDD): tulis unit test dulu sampai gagal baru implementasikan"
+  },
+  {
+    "skill": "tdd-workflow",
+    "prompt": "Follow red-green-refactor TDD cycle by writing failing unit test before code"
+  },
+  {
+    "skill": "trigger-dev",
+    "prompt": "Implementasikan background job dan scheduled tasks menggunakan Trigger.dev"
+  },
+  {
+    "skill": "trigger-dev",
+    "prompt": "Configure Trigger.dev background workflows with retries and concurrency limits"
+  },
+  {
+    "skill": "trust-pyramid",
+    "prompt": "Terapkan Trust Pyramid: utamakan type constraint dan linting mekanis di atas aturan prosa"
+  },
+  {
+    "skill": "trust-pyramid",
+    "prompt": "Enforce Trust Pyramid principles by converting prose directives into deterministic gates"
+  },
+  {
+    "skill": "ux-systems",
+    "prompt": "Rancang sistem navigasi dan hierarki visual untuk pengalaman pengguna (UX)"
+  },
+  {
+    "skill": "ux-systems",
+    "prompt": "Design user experience wireframes and information architecture for dashboard"
+  },
+  {
+    "skill": "visual-qa",
+    "prompt": "Lakukan pengujian visual snapshot untuk memastikan layout UI tidak regresi"
+  },
+  {
+    "skill": "visual-qa",
+    "prompt": "Run visual regression QA testing comparing screenshots against baseline"
+  },
+  {
+    "skill": "vitest-unit-testing",
+    "prompt": "Tulis unit test menggunakan Vitest untuk menguji logic service dan utility functions"
+  },
+  {
+    "skill": "vitest-unit-testing",
+    "prompt": "Create isolated Vitest unit test suite with mocks and high code coverage"
+  },
+  {
+    "skill": "vue-frontend",
+    "prompt": "Bangun komponen antarmuka menggunakan Vue 3 Composition API dan Pinia"
+  },
+  {
+    "skill": "vue-frontend",
+    "prompt": "Develop responsive Vue 3 components with script setup and reactive state"
+  },
+  {
+    "skill": "worktree-isolation",
+    "prompt": "Gunakan git worktree untuk mengerjakan fitur secara terisolasi tanpa merusak working tree"
+  },
+  {
+    "skill": "worktree-isolation",
+    "prompt": "Create isolated git worktree branch to execute experimental code refactoring safely"
+  },
+  {
+    "skill": "zero-downtime-migration",
+    "prompt": "Rancang skema migrasi database zero-downtime dengan pola expand and contract"
+  },
+  {
+    "skill": "zero-downtime-migration",
+    "prompt": "Execute zero-downtime database migration using multi-phase column transition"
+  },
+  {
+    "skill": "zod-validation",
+    "prompt": "Validasi request body dan input data menggunakan skema Zod yang type-safe"
+  },
+  {
+    "skill": "zod-validation",
+    "prompt": "Define Zod schema to parse and validate incoming API payload"
+  },
+  {
+    "skill": "property-based-testing",
+    "prompt": "Write property-based tests using fast-check to verify the JSON serializer roundtrip invariant"
+  },
+  {
+    "skill": "property-based-testing",
+    "prompt": "Tulis pengujian berbasis properti (property-based test) untuk membuktikan invarian fungsi terhadap input acak dan shrinking"
+  }
+]

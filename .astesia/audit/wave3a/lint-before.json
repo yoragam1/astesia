@@ -1,0 +1,174 @@
+{
+  "errors": [
+    {
+      "code": "FL-011",
+      "file": "skills/anti-silent-failure/SKILL.md",
+      "line": 28,
+      "message": "Forbidden tool name 'view_file' used on tool invocation line"
+    },
+    {
+      "code": "FL-011",
+      "file": "skills/blast-radius/SKILL.md",
+      "line": 27,
+      "message": "Forbidden tool name 'grep_codebase' used on tool invocation line"
+    },
+    {
+      "code": "FL-011",
+      "file": "skills/debt-scanner/SKILL.md",
+      "line": 33,
+      "message": "Forbidden tool name 'grep_codebase' used on tool invocation line"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required heading '## Guardrails'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required guardrail keyword 'karantina'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required guardrail keyword 'menyetujui'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required guardrail keyword 'manifest.json'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required guardrail keyword 'jaringan'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/dynamic-plugins/SKILL.md",
+      "message": "Risk skill 'dynamic-plugins' missing required guardrail keyword 'secret'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/reverse-engineering/SKILL.md",
+      "message": "Risk skill 'reverse-engineering' missing required heading '## Guardrails'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/reverse-engineering/SKILL.md",
+      "message": "Risk skill 'reverse-engineering' missing required guardrail keyword 'publik'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/reverse-engineering/SKILL.md",
+      "message": "Risk skill 'reverse-engineering' missing required guardrail keyword 'robots'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/reverse-engineering/SKILL.md",
+      "message": "Risk skill 'reverse-engineering' missing required guardrail keyword 'kredensial'"
+    },
+    {
+      "code": "FL-012",
+      "file": "skills/reverse-engineering/SKILL.md",
+      "message": "Risk skill 'reverse-engineering' missing required guardrail keyword 'instruksi'"
+    },
+    {
+      "code": "FL-013",
+      "file": "rules/AGENTS.md",
+      "message": "rules/AGENTS.md missing mandatory untrusted content guardrail rule ('DATA, bukan instruksi')"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 7,
+      "message": "Forbidden hardcoded number in prose: '53 skill' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 32,
+      "message": "Forbidden hardcoded number in prose: '6 aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 33,
+      "message": "Forbidden hardcoded number in prose: '5 aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 34,
+      "message": "Forbidden hardcoded number in prose: '29 direktif' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 35,
+      "message": "Forbidden hardcoded number in prose: '11 aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 36,
+      "message": "Forbidden hardcoded number in prose: '5 aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 57,
+      "message": "Forbidden hardcoded number in prose: '53 skill' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 117,
+      "message": "Forbidden hardcoded number in prose: '6 Aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 129,
+      "message": "Forbidden hardcoded number in prose: '5 Aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 141,
+      "message": "Forbidden hardcoded number in prose: '29 Direktif' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 161,
+      "message": "Forbidden hardcoded number in prose: '11 Aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 178,
+      "message": "Forbidden hardcoded number in prose: '5 Aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 308,
+      "message": "Forbidden hardcoded number in prose: '53 skill' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 326,
+      "message": "Forbidden hardcoded number in prose: '8 aturan' (use GENERATED-INVENTORY.md reference)"
+    },
+    {
+      "code": "FL-015",
+      "file": "docs/astesia-audit-dossier.md",
+      "line": 355,
+      "message": "Forbidden hardcoded number in prose: '11 Aturan' (use GENERATED-INVENTORY.md reference)"
+    }
+  ],
+  "total_violations": 30,
+  "clean": false
+}

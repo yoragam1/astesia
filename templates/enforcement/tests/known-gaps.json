@@ -1,0 +1,46 @@
+[
+  {
+    "id": "007-EC2b",
+    "rule": "ASTESIA-007",
+    "fixture": "r007/ec2b_helper.ts",
+    "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
+    "source": "wave1.1-report"
+  },
+  {
+    "id": "SEC-23-GAP",
+    "rule": "ASTESIA-004",
+    "fixture": "sec/sec23.ts",
+    "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+    "source": "wave1.1-report"
+  },
+  {
+    "id": "D2-PHP-HEREDOC",
+    "rule": "ASTESIA-002",
+    "fixture": "indep/d2_gap2.php",
+    "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer",
+    "source": "wave1.1-verification"
+  },
+  {
+    "id": "D4-21-GAP",
+    "rule": "ASTESIA-004",
+    "fixture": "indep/d4_gap.ts",
+    "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
+    "source": "wave1.1-verification"
+  },
+  {
+    "id": "HELM-KEYNAME-GAP",
+    "rule": "ASTESIA-010",
+    "fixture": "helm-keyname-suite.ts#HK-14",
+    "reason": "Pure lowercase passphrase under *PasswordKey/*TokenKey matches Helm key-name identifier pattern ^[a-z][a-z._-]{0,39}$",
+    "source": "wave2a.4-helm-keyname",
+    "runner": "helm-keyname-suite.ts"
+  },
+  {
+    "id": "PHP-MARKUP-OUTSIDE-TAG-GAP",
+    "rule": "TOKENIZER_DESYNC",
+    "fixture": "wave2a5-cli-config-suite.ts#T4-GAP",
+    "reason": "Unbalanced apostrophe in HTML markup outside <?php ?> in .php/.blade.php files (<20% and <3 files threshold in D2)",
+    "source": "wave2a.5-d2-t4",
+    "runner": "wave2a5-cli-config-suite.ts"
+  }
+]

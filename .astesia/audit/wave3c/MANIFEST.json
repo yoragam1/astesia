@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-11-22T14:53:46.657Z",
+  "wave": "wave3c",
+  "head_commit": "bb8b1083b0d8f52c9201f68238b847514e3f6deb",
+  "files": [
+    {
+      "path": ".astesia/audit/wave3c/agent-tools-raw.json",
+      "sha256": "6cce3fa68afa76d5ed878714bcb06ce28fdee6dd7d49835b8186bd4932292da7",
+      "bytes": 3894,
+      "description": "Live agent tool enumeration, unknown tool name sanitization, and whitelist/denylist validation (Task M1)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/checks-after.json",
+      "sha256": "01fa48fcd5b1c0195fb9f257af99cf27df1ac9878d72f7fd12548de940fb6ca8",
+      "bytes": 48578,
+      "description": "Full suite verification results after wave 3c implementation (Task M7)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/clean-clone-end.json",
+      "sha256": "85025f31a1ec554c56c1a24e32d511b3a84974fdc58aa7e230e0bdbf38d47de5",
+      "bytes": 12357,
+      "description": "Clean-clone gate test verification at end of Wave 3C (core.autocrlf=false)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/clean-clone-start.json",
+      "sha256": "ef57e38ab14812ba6294bd3769d941ac501f1f7b099ed473c16bc60c2a26b2f1",
+      "bytes": 12358,
+      "description": "Clean-clone gate test baseline at START commit (core.autocrlf=false)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/debt-diag.json",
+      "sha256": "6b6f617c1a294e0f6c49d53c02f0d709c7465bf6f14356ee828c4ee1365c8c05",
+      "bytes": 3874,
+      "description": "Technical debt diagnostic analysis across rules and skills (Task M5)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/frozen-blobs-start.json",
+      "sha256": "8205e646f9455821a7f2c7ac0122c2dfea349db8b3dd54dfa3393c2e23e64247",
+      "bytes": 9823,
+      "description": "62 git blob SHA-1 hashes of frozen gate files at START commit"
+    },
+    {
+      "path": ".astesia/audit/wave3c/gate-doc-diff.json",
+      "sha256": "e9e22f17546ca1d283f32d445b2b30db1beb4ac596961f87a4898250cc6285e9",
+      "bytes": 3294,
+      "description": "Diff analysis between gate flags oracle, limitations, and generated docs (Task M2)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/init-diag.json",
+      "sha256": "f6d43d1f01c30eec1c5116a1bc0d4ae85fef2d37f57de5be74b072439cd6076b",
+      "bytes": 3370,
+      "description": "Diagnostic review of astesia-init.ts and brownfield requirements (Task M3)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/installer-diag.json",
+      "sha256": "5a6692dcc51f1d9b5cf29709783adcaada6248e4b9b74b4213c967812deb10ef",
+      "bytes": 2251,
+      "description": "Diagnostic review of install.ps1/install.sh hardened behaviors (Task M4)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/paired-trigger-after.json",
+      "sha256": "c674d5d79b65c9b34c2b8d2153412c4907bb73864982d7fb2aa045cd67a4dd74",
+      "bytes": 77548,
+      "description": "Skill trigger proxy evaluation results after tool phrasing changes (Task M1)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/paired-trigger-comparison.json",
+      "sha256": "073a94c29c52d40059ec2541ef5ab4d91a0277ad6d3c42a3b304f8e77ba658f2",
+      "bytes": 7028,
+      "description": "Paired trigger comparison between baseline and updated skills (Task M1)"
+    },
+    {
+      "path": ".astesia/audit/wave3c/start-checks.json",
+      "sha256": "d78362ebdcf7a4480293136e99400462a548a73de5f8823b7b7db47fdffa2f4a",
+      "bytes": 18777,
+      "description": "Baseline check-all execution results at START commit"
+    },
+    {
+      "path": ".astesia/audit/wave3c/tool-probe\\probe.txt",
+      "sha256": "56dde4582d3ccd8e0e669804020a2e4230bcc8b6bda9cc583105ce816bb224a2",
+      "bytes": 43,
+      "description": "Audit artifact for tool-probe\\probe.txt"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "--allow-raise": {
+    "type": "Flag",
+    "argument": null,
+    "description": "Mengizinkan kenaikan batas baseline ratchet (wajib disertai --reason minimal 15 karakter)."
+  },
+  "--baseline": {
+    "type": "Opsi",
+    "argument": "<path>",
+    "description": "Menentukan lokasi berkas baseline ratchet."
+  },
+  "--check-workflow": {
+    "type": "Opsi",
+    "argument": "<path>",
+    "description": "Memverifikasi workflow GitHub Actions dari mutasi bypass."
+  },
+  "--config": {
+    "type": "Opsi",
+    "argument": "<path>",
+    "description": "Menentukan path ke berkas konfigurasi gate-config.json."
+  },
+  "--json": {
+    "type": "Flag",
+    "argument": null,
+    "description": "Mengeluarkan laporan analisis dalam format JSON terstruktur."
+  },
+  "--max-warn": {
+    "type": "Opsi",
+    "argument": "<n>",
+    "description": "Batas maksimum peringatan (warning) sebelum gate gagal (exit 1)."
+  },
+  "--reason": {
+    "type": "Opsi",
+    "argument": "\"<text>\"",
+    "description": "Memberikan alasan wajib saat menaikkan baseline ratchet (minimal 15 karakter)."
+  },
+  "--root": {
+    "type": "Opsi",
+    "argument": "<dir>",
+    "description": "Menentukan direktori akar proyek yang dipindai."
+  },
+  "--rules": {
+    "type": "Opsi",
+    "argument": "<path>",
+    "description": "Menentukan berkas aturan anti-pattern (anti-patterns.json)."
+  },
+  "--rules-diff": {
+    "type": "Opsi",
+    "argument": "<base> <head>",
+    "description": "Membandingkan perubahan dua berkas aturan anti-patterns."
+  },
+  "--update-baseline": {
+    "type": "Flag",
+    "argument": null,
+    "description": "Merekam pelanggaran saat ini sebagai baseline ratchet baru."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "errors": 0,
+  "warnings": 1,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 3,
+  "generated_files": [
+    ".vercel/output/static/_app/immutable/chunks/CXqS-5Pm.js",
+    ".vercel/output/static/_app/immutable/chunks/xlTNNGLt.js",
+    ".vercel/output/static/_app/immutable/nodes/4.NcCnysJ9.js"
+  ],
+  "files_scanned": {
+    "total": 37,
+    "by_extension": {
+      ".js": 18,
+      ".ts": 8,
+      ".cjs": 1,
+      ".svelte": 10
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/lib/mock-api.ts",
+      "line": 6,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    }
+  ]
+}

@@ -16,28 +16,28 @@ Invoke this skill (or mentally enforce this protocol) whenever you are acting as
 
 ## 3. Operational Rules
 
-### Rule 1: Enforce Layered Architecture
+### Rule 1: Enforce Layered Architecture (`ASTESIA-001`)
 Controllers/Routers are for HTTP parsing. Services are for business logic. Repositories are for DB queries.
-- **Check:** `grep_search` or visually inspect the Controller files.
+- **Check:** Search the codebase or inspect Controller files to ensure separation.
 - **Violation:** If a Controller file imports an ORM (Prisma, Drizzle, TypeORM) directly or calls `.find()` directly, **REJECT IT**.
 - **Fix:** Force the Executor to move the DB access to a Service/Repository layer.
 
-### Rule 2: Prevent N+1 Database Queries
+### Rule 2: Prevent N+1 Database Queries (`ASTESIA-007`)
 Database calls inside a loop will destroy application performance at scale.
-- **Check:** Scan for database keywords (`.findMany`, `.select`, `SELECT *`) nested inside `for`, `while`, or `.map()` loops.
+- **Check:** Scan for database queries nested inside `for`, `while`, or `.map()` loops.
 - **Violation:** If a DB query is executed inside a loop, **REJECT IT**.
 - **Fix:** Force the Executor to use `IN` clauses (batch loading), joins, or eager loading.
 
-### Rule 3: Ban "SELECT *" in Production
+### Rule 3: Ban "SELECT *" in Production (`ASTESIA-002`)
 Fetching all columns wastes memory and network bandwidth.
 - **Check:** Scan for `SELECT *` in raw SQL strings, or `.findMany()` calls without a `select: {}` projection in ORMs.
 - **Violation:** If unbounded fetching is detected, **WARN / REJECT IT**.
 - **Fix:** Force the Executor to explicitly select only the required columns.
 
-### Rule 4: Ban Hallucinated Imports
-AI often hallucinates file paths that do not exist.
+### Rule 4: Ban Hallucinated Imports (`ASTESIA-000`)
+AI models can hallucinate file paths that do not exist.
 - **Check:** Verify all local relative imports (`import x from './file'`).
-- **Violation:** If the file does not exist on disk, **REJECT IT**.
+- **Violation:** If the imported file does not exist on disk, **REJECT IT** (NEVER_BASELINE / NEVER_INLINE_SUPPRESS).
 
 ## 4. Execution Protocol
 If ANY of these rules are violated, you MUST NOT manually fix it yourself by guessing. You must trigger a `Self-Healing` cycle.

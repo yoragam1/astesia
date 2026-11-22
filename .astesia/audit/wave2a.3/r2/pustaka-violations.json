@@ -1,0 +1,420 @@
+{
+  "errors": 20,
+  "warnings": 29,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 2,
+  "allow_stale": [],
+  "env_ignored_skipped": 1,
+  "files_scanned": {
+    "total": 75,
+    "by_extension": {
+      ".yml": 2,
+      ".ts": 32,
+      "d:\\workspaces\\astesia\\.astesia\\audit\\wave2a.3\\r2\\pustaka-copy\\dockerfile": 1,
+      ".js": 2,
+      ".mjs": 1,
+      ".tsx": 37
+    }
+  },
+  "files_excluded": 2,
+  "excluded_paths": [
+    "dev-dist"
+  ],
+  "desync_files": [],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 9,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 10,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "api/index.ts",
+      "line": 36,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/client/components/circulation/BarcodeScannerModal.tsx",
+      "line": 112,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 23,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 28,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 81,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/client/components/ui/moving-border.tsx",
+      "line": 83,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": "src/client/pages/CatalogPage.tsx",
+      "line": 121,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 225,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/controllers/book.controller.ts",
+      "line": 293,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 22,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 170,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/index.ts",
+      "line": 168,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 20,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 72,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/db/seed.ts",
+      "line": 73,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 13,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 14,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": "src/server/index.ts",
+      "line": 15,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 25,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 97,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 149,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 169,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/book.repository.ts",
+      "line": 214,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 394,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 395,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 396,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 423,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 424,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 425,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 38,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 169,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 443,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 457,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 474,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 486,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 505,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 160,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 173,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/repositories/loan.repository.ts",
+      "line": 182,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L159)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 20,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 26,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "src/server/repositories/user.repository.ts",
+      "line": 36,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 322,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/auth.service.ts",
+      "line": 328,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L320)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": "src/server/services/book.service.ts",
+      "line": 56,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L54)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-005",
+      "severity": "warn",
+      "file": "src/server/services/storage.service.ts",
+      "line": 33,
+      "message": "Explicit `any` weakens the type system (Trust Pyramid L1).",
+      "fix": "Use a precise type, `unknown` + narrowing, or a Zod-inferred type."
+    }
+  ]
+}

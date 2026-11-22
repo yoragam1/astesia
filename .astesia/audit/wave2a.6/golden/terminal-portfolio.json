@@ -1,0 +1,31 @@
+{
+  "errors": 0,
+  "warnings": 0,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 18,
+    "by_extension": {
+      ".yml": 2,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-p3-1795083756754\\terminal-portfolio\\dockerfile": 1,
+      ".js": 2,
+      ".tsx": 6,
+      ".ts": 7
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "notices": {
+    "tokenizer_desyncs": [],
+    "generated_header_candidates": [],
+    "tsconfig_unresolved_extends": [],
+    "alias_unverified": []
+  },
+  "violations": []
+}

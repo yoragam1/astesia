@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "scope": "wave2a.7",
+  "holdout_discipline_verified": true,
+  "patterns": [
+    {
+      "pattern_id": "FP-DESIGN-01",
+      "rule": "ASTESIA-004",
+      "source_project": "flora-smk",
+      "source_finding_id": "ASTESIA-004|src/lib/repositories/auth.repository.ts|15",
+      "source_line_raw": "const OFFLINE_AUTH_KEY = 'flora_smk_auth_user_v1';",
+      "rationale": "Storage key identifier name used for client-side localStorage/offline caching, not an authorization secret or credential. String value is a versioned identifier with low entropy and semantic words.",
+      "tests_added": [
+        "FP-DESIGN-01-POS-01 (hex secret in OFFLINE_AUTH_KEY triggers)",
+        "FP-DESIGN-01-POS-02 (password key with versioned string triggers)",
+        "FP-DESIGN-01-NEG-01 (flora-smk OFFLINE_AUTH_KEY exempt)",
+        "FP-DESIGN-01-NEG-02 (LOCAL_AUTH_KEY with versioned session exempt)"
+      ],
+      "verified_no_tp_loss": true,
+      "tp_verification_evidence": "All 3 true positives in DESIGN project eunectes (PostHog API key in packages/telemetry-core/index.d.ts:2, constants.ts:2, and test key in tests/hashline/headless.ts:123) and 1 in publish.yml remain detected with 100% fidelity."
+    }
+  ]
+}

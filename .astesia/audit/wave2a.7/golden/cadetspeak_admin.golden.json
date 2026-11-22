@@ -1,0 +1,280 @@
+{
+  "errors": 23,
+  "warnings": 8,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 7,
+    "by_extension": {
+      ".js": 2,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\cadetspeak_admin\\.env": 1,
+      ".yml": 2,
+      ".yaml": 2
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "notices": {
+    "tokenizer_desyncs": [],
+    "generated_header_candidates": [],
+    "tsconfig_unresolved_extends": [],
+    "alias_unverified": []
+  },
+  "violations": [
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 29875,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 29854,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 38766,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 50852,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49134,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49135,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49136,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49137,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49138,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49139,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49140,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49142,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 49147,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49128)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 86199,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L86198)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/09546760bc95e7528f4df7d2cee1f9b9/main.dart.js",
+      "line": 42091,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 31063,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 31042,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 40051,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-006",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 52956,
+      "message": "console.log in source; use the structured logger.",
+      "fix": "Use the project logger (e.g. Pino)."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51238,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51239,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51240,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51241,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51242,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51243,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51244,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51246,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 51251,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L51232)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-007",
+      "severity": "error",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 89216,
+      "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L89215)",
+      "fix": "Batch fetch records with an IN clause, JOIN, or eager loading outside the loop."
+    },
+    {
+      "ruleId": "ASTESIA-009",
+      "severity": "warn",
+      "file": ".dart_tool/flutter_build/40e1ac6cff0d923f4dbeb3df0284fe06/main.dart.js",
+      "line": 43469,
+      "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay.",
+      "fix": "Use an event emitter, queue, retry with backoff, or proper promise coordination instead of arbitrary timeouts."
+    },
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": ".env",
+      "line": 1,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager."
+    }
+  ]
+}

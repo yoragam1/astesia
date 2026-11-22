@@ -1,0 +1,258 @@
+{
+  "capabilities": {
+    "baca isi berkas": [
+      {
+        "name": "read_file",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "view_file",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "daftar isi direktori": [
+      {
+        "name": "list_dir",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "cari teks": [
+      {
+        "name": "grep_search",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "grep_codebase",
+        "runtime": "fictional",
+        "status": "denied",
+        "provenance": "hallucinated-skill-name (rejected by audit)",
+        "evidence_ref": ".astesia/audit/wave3b/agent-tools.json",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "cari berkas berdasarkan nama": [
+      {
+        "name": "find_by_name",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "buat/timpa berkas": [
+      {
+        "name": "write_file",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "write_to_file",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "edit berkas": [
+      {
+        "name": "edit_file",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "replace_file_content",
+        "runtime": "legacy-cli",
+        "status": "unverified",
+        "provenance": "historical-cli-candidate",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "jalankan perintah shell": [
+      {
+        "name": "run_command",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "cari di web": [
+      {
+        "name": "search_web",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "tanya pengguna": [
+      {
+        "name": "ask_question",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "inspeksi visual": [
+      {
+        "name": "visual_audit",
+        "runtime": "fictional",
+        "status": "denied",
+        "provenance": "hallucinated-skill-name (rejected by audit)",
+        "evidence_ref": ".astesia/audit/wave3b/agent-tools.json",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "kelola akun plugin": [
+      {
+        "name": "list_plugin_accounts",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "kelola tugas latar belakang": [
+      {
+        "name": "manage_task",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "kirim pesan ke subagent": [
+      {
+        "name": "send_message",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "jadwalkan timer/cron": [
+      {
+        "name": "schedule",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "kelola subagent": [
+      {
+        "name": "invoke_subagent",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "define_subagent",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "manage_subagents",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "jalankan workflow python": [
+      {
+        "name": "run_workflow",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "cari marketplace plugin": [
+      {
+        "name": "search_marketplace",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "kelola kelompok swarm": [
+      {
+        "name": "swarm",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ],
+    "akses mcp": [
+      {
+        "name": "call_mcp_tool",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "list_resources",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      },
+      {
+        "name": "read_resource",
+        "runtime": "antigravity-ide",
+        "status": "unverified",
+        "provenance": "implementer-agent-schema (runtime mungkin berbeda dari IDE pengguna)",
+        "evidence_ref": "docs/TOOL-VERIFICATION.md",
+        "date": "2026-11-22T00:00:00Z"
+      }
+    ]
+  }
+}

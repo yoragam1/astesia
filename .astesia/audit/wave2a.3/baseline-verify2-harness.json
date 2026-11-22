@@ -1,0 +1,445 @@
+{
+  "harness": "wave2a.2/verify2",
+  "timestamp": "2026-11-18T10:45:07.789Z",
+  "accounting": {
+    "total": 80,
+    "passed": 76,
+    "failed": 0,
+    "known_gaps": 4,
+    "invariant_holds": true
+  },
+  "suites": {
+    "key_auth_suite": {
+      "total": 46,
+      "passed": 43,
+      "failed": 0,
+      "known_gaps": 3,
+      "results": [
+        {
+          "id": "V2A2-KEY-SOLO-1",
+          "status": "PASSED",
+          "desc": "key solo non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-2",
+          "status": "PASSED",
+          "desc": "storageKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-3",
+          "status": "PASSED",
+          "desc": "cacheKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-4",
+          "status": "PASSED",
+          "desc": "queryKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-5",
+          "status": "PASSED",
+          "desc": "sortKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-6",
+          "status": "PASSED",
+          "desc": "primaryKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-7",
+          "status": "PASSED",
+          "desc": "foreignKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-8",
+          "status": "PASSED",
+          "desc": "themeKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-9",
+          "status": "PASSED",
+          "desc": "i18nKey qualified non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-10",
+          "status": "PASSED",
+          "desc": "monkey non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-11",
+          "status": "PASSED",
+          "desc": "hotkey non-sensitive"
+        },
+        {
+          "id": "V2A2-KEY-SOLO-12",
+          "status": "PASSED",
+          "desc": "turkey non-sensitive"
+        },
+        {
+          "id": "V2A2-AUTH-SUBSTR-1",
+          "status": "PASSED",
+          "desc": "author substring non-sensitive"
+        },
+        {
+          "id": "V2A2-AUTH-SUBSTR-2",
+          "status": "PASSED",
+          "desc": "authorName non-sensitive"
+        },
+        {
+          "id": "V2A2-AUTH-SUBSTR-3",
+          "status": "PASSED",
+          "desc": "authority substring non-sensitive"
+        },
+        {
+          "id": "V2A2-AUTH-SOLO",
+          "status": "KNOWN_GAP",
+          "desc": "auth solo non-sensitive (VER4-003 GAP)"
+        },
+        {
+          "id": "V2A2-SENS-API-KEY",
+          "status": "PASSED",
+          "desc": "apiKey strong prefix"
+        },
+        {
+          "id": "V2A2-SENS-X-API-KEY",
+          "status": "PASSED",
+          "desc": "xApiKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-AWS-KEY",
+          "status": "PASSED",
+          "desc": "AWS key sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-PRIVATE-KEY",
+          "status": "PASSED",
+          "desc": "privateKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-SECRET-KEY",
+          "status": "PASSED",
+          "desc": "secretKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-ACCESS-KEY",
+          "status": "PASSED",
+          "desc": "accessKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-AUTH-KEY",
+          "status": "PASSED",
+          "desc": "authKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-SIGNING-KEY",
+          "status": "PASSED",
+          "desc": "signingKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-ENCRYPT-KEY",
+          "status": "PASSED",
+          "desc": "encryptionKey sensitive pair"
+        },
+        {
+          "id": "V2A2-SENS-PASSWORD",
+          "status": "PASSED",
+          "desc": "dbPassword sensitive token"
+        },
+        {
+          "id": "V2A2-SENS-REFRESH-TOKEN",
+          "status": "PASSED",
+          "desc": "refreshToken sensitive token"
+        },
+        {
+          "id": "V2A2-SENS-OPENAI-KEY",
+          "status": "PASSED",
+          "desc": "OPENAI_API_KEY sensitive token"
+        },
+        {
+          "id": "V2A2-SENS-PWD",
+          "status": "KNOWN_GAP",
+          "desc": "userPwd missing token (VER4-002 GAP)"
+        },
+        {
+          "id": "V2A2-SENS-PASSPHRASE",
+          "status": "KNOWN_GAP",
+          "desc": "passphrase missing token (VER4-002 GAP)"
+        },
+        {
+          "id": "V2A2-BASIC-LABEL",
+          "status": "PASSED",
+          "desc": "Basic user:password base64 under label"
+        },
+        {
+          "id": "V2A2-BASIC-TITLE",
+          "status": "PASSED",
+          "desc": "Basic admin:secret123 base64 under title"
+        },
+        {
+          "id": "V2A2-BASIC-DESC",
+          "status": "PASSED",
+          "desc": "Basic apikey:secret base64 under description"
+        },
+        {
+          "id": "V2A2-BASIC-PLACEHOLDER",
+          "status": "PASSED",
+          "desc": "Basic root:pass123 under placeholder"
+        },
+        {
+          "id": "V2A2-BEARER-JWT-LABEL",
+          "status": "PASSED",
+          "desc": "Bearer JWT under label"
+        },
+        {
+          "id": "V2A2-BEARER-JWT-DESC",
+          "status": "PASSED",
+          "desc": "Bearer JWT under description"
+        },
+        {
+          "id": "V2A2-BEARER-OPAQUE-TITLE",
+          "status": "PASSED",
+          "desc": "Bearer opaque alphanumeric >=20 under title"
+        },
+        {
+          "id": "V2A2-BEARER-OPAQUE-X",
+          "status": "PASSED",
+          "desc": "Bearer opaque alphanumeric >=20 under x"
+        },
+        {
+          "id": "V2A2-UI-BASIC-CONFIG",
+          "status": "PASSED",
+          "desc": "UI text Basic configuration"
+        },
+        {
+          "id": "V2A2-UI-BASIC-INFO",
+          "status": "PASSED",
+          "desc": "UI text Basic information"
+        },
+        {
+          "id": "V2A2-UI-BASIC-PRICING",
+          "status": "PASSED",
+          "desc": "UI text Basic Pricing Plans"
+        },
+        {
+          "id": "V2A2-UI-BASIC-SUBSCRIPTION",
+          "status": "PASSED",
+          "desc": "UI text Basic subscription"
+        },
+        {
+          "id": "V2A2-UI-BEARER-AUTH",
+          "status": "PASSED",
+          "desc": "UI text Bearer authentication"
+        },
+        {
+          "id": "V2A2-UI-BEARER-TOKEN-REQ",
+          "status": "PASSED",
+          "desc": "UI text Bearer token required"
+        },
+        {
+          "id": "V2A2-UI-BEARER-TOKENS",
+          "status": "PASSED",
+          "desc": "UI text Bearer tokens"
+        },
+        {
+          "id": "V2A2-BEARER-INTERPOLATION",
+          "status": "PASSED",
+          "desc": "Template literal Bearer interpolation"
+        }
+      ]
+    },
+    "workflow_guard_suite": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "known_gaps": 0,
+      "results": [
+        {
+          "id": "WF-CANONICAL",
+          "status": "PASSED",
+          "desc": "Canonical workflow passes"
+        },
+        {
+          "id": "WF-M1-PR-TARGET",
+          "status": "PASSED",
+          "desc": "pull_request_target rejected"
+        },
+        {
+          "id": "WF-M2-PERM-WRITE",
+          "status": "PASSED",
+          "desc": "contents: write rejected"
+        },
+        {
+          "id": "WF-M3-PERM-MISSING",
+          "status": "PASSED",
+          "desc": "Missing permissions rejected"
+        },
+        {
+          "id": "WF-M4-UNPINNED-USES",
+          "status": "PASSED",
+          "desc": "Unpinned uses (@v4) rejected"
+        },
+        {
+          "id": "WF-M5-SHORT-SHA",
+          "status": "PASSED",
+          "desc": "39-char SHA pin rejected"
+        },
+        {
+          "id": "WF-M6-MISSING-BASE-CHECKOUT",
+          "status": "PASSED",
+          "desc": "Missing base checkout rejected"
+        },
+        {
+          "id": "WF-M7-MISSING-PR-CHECKOUT",
+          "status": "PASSED",
+          "desc": "Missing PR checkout rejected"
+        },
+        {
+          "id": "WF-M8-PERSIST-CREDENTIALS",
+          "status": "PASSED",
+          "desc": "persist-credentials: true rejected"
+        },
+        {
+          "id": "WF-M9-CONTINUE-ON-ERROR",
+          "status": "PASSED",
+          "desc": "continue-on-error rejected"
+        },
+        {
+          "id": "WF-M10-PATHS-FILTER",
+          "status": "PASSED",
+          "desc": "paths: filter rejected"
+        },
+        {
+          "id": "WF-M11-PATHS-IGNORE",
+          "status": "PASSED",
+          "desc": "paths-ignore: filter rejected"
+        },
+        {
+          "id": "WF-M12-MISSING-RULES-DIFF",
+          "status": "PASSED",
+          "desc": "Missing --rules-diff rejected"
+        },
+        {
+          "id": "WF-M13-MISSING-BASELINE",
+          "status": "PASSED",
+          "desc": "Missing --baseline rejected"
+        },
+        {
+          "id": "WF-M14-UPDATE-BASELINE-IN-CI",
+          "status": "PASSED",
+          "desc": "Forbidden --update-baseline in CI rejected"
+        },
+        {
+          "id": "WF-M15-MISSING-GUARD-STEP",
+          "status": "PASSED",
+          "desc": "Missing guard step rejected"
+        },
+        {
+          "id": "WF-MISSING-FILE",
+          "status": "PASSED",
+          "desc": "Missing workflow file exits 2"
+        }
+      ]
+    },
+    "allowlist_ratchet_suite": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "known_gaps": 0,
+      "results": [
+        {
+          "id": "AR-INLINE-004-REJECTED",
+          "status": "PASSED",
+          "desc": "astesia-allow ASTESIA-004 is rejected with exit 1"
+        },
+        {
+          "id": "AR-INLINE-010-REJECTED",
+          "status": "PASSED",
+          "desc": "astesia-allow ASTESIA-010 is rejected with exit 1"
+        },
+        {
+          "id": "AR-INLINE-005-ACCEPTED",
+          "status": "PASSED",
+          "desc": "astesia-allow ASTESIA-005 with valid reason is accepted"
+        },
+        {
+          "id": "AR-INLINE-SHORT-REASON-REJECTED",
+          "status": "PASSED",
+          "desc": "astesia-allow with short reason (<15) is rejected"
+        },
+        {
+          "id": "AR-CONFIG-ALLOW-VALID",
+          "status": "PASSED",
+          "desc": "Valid gate-config allow entry suppresses violation"
+        },
+        {
+          "id": "AR-CONFIG-MATCH-TOO-SHORT",
+          "status": "PASSED",
+          "desc": "Allow entry match < 6 exits 2"
+        },
+        {
+          "id": "AR-CONFIG-REASON-TOO-SHORT",
+          "status": "PASSED",
+          "desc": "Allow entry reason < 15 exits 2"
+        },
+        {
+          "id": "AR-CONFIG-DISALLOWED-RULE",
+          "status": "PASSED",
+          "desc": "Allow entry rule other than 004/010 exits 2"
+        },
+        {
+          "id": "AR-CONFIG-WILDCARD-PATH",
+          "status": "PASSED",
+          "desc": "Allow entry wildcard path exits 2"
+        },
+        {
+          "id": "AR-BASE-REJECT-000",
+          "status": "PASSED",
+          "desc": "--update-baseline rejects ASTESIA-000"
+        },
+        {
+          "id": "AR-BASE-REJECT-004",
+          "status": "PASSED",
+          "desc": "--update-baseline rejects ASTESIA-004"
+        },
+        {
+          "id": "AR-BASE-REJECT-010",
+          "status": "PASSED",
+          "desc": "--update-baseline rejects ASTESIA-010"
+        }
+      ]
+    },
+    "config_comments_suite": {
+      "total": 5,
+      "passed": 4,
+      "failed": 0,
+      "known_gaps": 1,
+      "results": [
+        {
+          "id": "CFG-HASH-IN-DOUBLE-QUOTES-YAML",
+          "status": "PASSED",
+          "desc": "Hash inside double quotes in YAML preserved in codeLines and not cut to comments"
+        },
+        {
+          "id": "CFG-HASH-IN-SINGLE-QUOTES-YAML",
+          "status": "PASSED",
+          "desc": "Hash inside single quotes in YAML preserved in codeLines and not cut to comments"
+        },
+        {
+          "id": "CFG-COMMENT-AT-END-OF-LINE-YAML",
+          "status": "PASSED",
+          "desc": "Unquoted comment at end of line in YAML is placed into commentLines and stripped from codeLines"
+        },
+        {
+          "id": "CFG-DOCKERFILE-HASH-IN-QUOTES",
+          "status": "PASSED",
+          "desc": "Hash inside quotes in Dockerfile preserved in codeLines"
+        },
+        {
+          "id": "CFG-ENV-COMMENTED-SECRET-IN-SCAN",
+          "status": "KNOWN_GAP",
+          "desc": "Commented secret in .env during directory scan (VER4-001 GAP: lowerName.startsWith('.env') fails on absolute path)"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1262 @@
+{
+  "eunectes": {
+    "name": "eunectes",
+    "set": "design",
+    "base5": {
+      "sha256": "712eeec7f91f8d150aa171ec7000b584cc201ffb346644ffcd596eec75977bf9",
+      "total": 406,
+      "errors": 110,
+      "warnings": 296,
+      "files_scanned": {
+        "total": 4108,
+        "by_extension": {
+          ".mjs": 114,
+          ".py": 26,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\eunectes\\.devcontainer\\dockerfile": 1,
+          ".dockerfile": 1,
+          ".yml": 43,
+          ".js": 5,
+          ".ts": 3843,
+          ".yaml": 28,
+          ".go": 4,
+          ".tsx": 43
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "ef3ee10f8b7f4d42b9e755a179abf200f6f95c3bc8195d7c428e0f9177efb7d2",
+      "total": 318,
+      "errors": 22,
+      "warnings": 296,
+      "files_scanned": {
+        "total": 4108,
+        "by_extension": {
+          ".mjs": 114,
+          ".py": 26,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\eunectes\\.devcontainer\\dockerfile": 1,
+          ".dockerfile": 1,
+          ".yml": 43,
+          ".js": 5,
+          ".ts": 3843,
+          ".yaml": 28,
+          ".go": 4,
+          ".tsx": 43
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": -88,
+      "errors": -88,
+      "warnings": 0,
+      "hilangCount": 88,
+      "baruCount": 0
+    },
+    "hilang": [
+      {
+        "id": "ASTESIA-000|packages/omop-opencode/src/features/team-mode/team-runtime/resolve-member.test.ts|17",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/omop-opencode/src/features/team-mode/team-runtime/resolve-member.test.ts",
+        "line": 17,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (./resolve-member?resolve-member-test)"
+      },
+      {
+        "id": "ASTESIA-004|packages/openclaw-core/src/reply-listener-state.ts|10",
+        "ruleId": "ASTESIA-004",
+        "file": "packages/openclaw-core/src/reply-listener-state.ts",
+        "line": 10,
+        "message": "Probable hardcoded secret."
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/api/npm-downloads/route.ts|2",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/api/npm-downloads/route.ts",
+        "line": 2,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/stats)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/api/stats/route.ts|2",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/api/stats/route.ts",
+        "line": 2,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/stats)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/page.tsx|1",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/page.tsx",
+        "line": 1,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/landing-page)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/page.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/page.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/landing-page)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/page.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/page.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/localized-page-shell)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/page.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/page.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/config)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/docs/page.tsx|2",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/docs/page.tsx",
+        "line": 2,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/docs/docs-shell)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/docs/page.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/docs/page.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/docs-sections)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/docs/page.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/docs/page.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/docs-source)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/layout.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/layout.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/localized-page-shell)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/layout.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/layout.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|2",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 2,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/hero)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/pain-points)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/indistinguishable)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/token-cost)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/cognitive-load)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/principles)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|8",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 8,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/core-loop)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|9",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 9,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/future)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|10",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 10,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/manifesto/sections/final-cta)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|11",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/manifesto/page.tsx",
+        "line": 11,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/separator)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/page.tsx|1",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/page.tsx",
+        "line": 1,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/landing-page)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/[locale]/page.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/[locale]/page.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/app/_components/landing-page)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/architecture)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/cta)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/hero)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|8",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 8,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/reviews)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|10",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 10,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/sub-agents)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|11",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 11,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/team-mode)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/landing-page.tsx|12",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/landing-page.tsx",
+        "line": 12,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/sections/fullscan)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/localized-page-shell.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/localized-page-shell.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/footer)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/localized-page-shell.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/localized-page-shell.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/nav-header)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/app/_components/localized-page-shell.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/app/_components/localized-page-shell.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/config)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/docs/docs-shell.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/docs/docs-shell.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/docs/docs-shell.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/input)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|8",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/docs/docs-shell.tsx",
+        "line": 8,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/docs-sections)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/footer.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/footer.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/install-command.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/install-command.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/architecture.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/architecture.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/architecture.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/architecture.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/constants)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/cta.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/cta.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/cta.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/cta.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/fullscan.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/fullscan.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/fullscan.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/fullscan.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/motion-wrappers)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hephaestus.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hephaestus.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/stats)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/hero-stats)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/install-command)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/hero.tsx|8",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/hero.tsx",
+        "line": 8,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/icons/github-icon)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/prometheus-atlas.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/prometheus-atlas.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/prometheus-atlas.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/prometheus-atlas.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/reviews.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/reviews.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/reviews.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/reviews.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/constants)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/sisyphus.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/sisyphus.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/sisyphus.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/sisyphus.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/sub-agents.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/sub-agents.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/sub-agents.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/sub-agents.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/sub-agents.tsx|11",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/sub-agents.tsx",
+        "line": 11,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/landing/constants)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/team-mode.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/team-mode.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/landing/sections/team-mode.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/landing/sections/team-mode.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/cognitive-load.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/cognitive-load.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/cognitive-load.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/cognitive-load.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/cognitive-load.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/cognitive-load.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/core-loop.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/core-loop.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/card)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/core-loop.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/core-loop.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/final-cta.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/final-cta.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/final-cta.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/final-cta.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/future.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/future.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/hero.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/hero.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/indistinguishable.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/indistinguishable.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/pain-points.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/pain-points.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/pain-points.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/pain-points.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/principles.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/principles.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/manifesto/sections/token-cost.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/manifesto/sections/token-cost.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/section)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/nav-header.tsx|7",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/nav-header.tsx",
+        "line": 7,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/badge)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/nav-header.tsx|8",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/nav-header.tsx",
+        "line": 8,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/components/ui/button)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/nav-header.tsx|9",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/nav-header.tsx",
+        "line": 9,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/i18n/routing)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/badge.tsx|4",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/badge.tsx",
+        "line": 4,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/button.tsx|5",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/button.tsx",
+        "line": 5,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/card.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/card.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/input.tsx|3",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/input.tsx",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/section.tsx|2",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/section.tsx",
+        "line": 2,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      },
+      {
+        "id": "ASTESIA-000|packages/web/components/ui/separator.tsx|6",
+        "ruleId": "ASTESIA-000",
+        "file": "packages/web/components/ui/separator.tsx",
+        "line": 6,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. (@/lib/utils)"
+      }
+    ],
+    "baru": []
+  },
+  "ifrit": {
+    "name": "ifrit",
+    "set": "design",
+    "base5": {
+      "sha256": "07ab5dbbe9fd2ef2b2d9f8a2ca7f059df0f0274e8cc3d8992bb2e7270b511023",
+      "total": 329,
+      "errors": 13,
+      "warnings": 316,
+      "files_scanned": {
+        "total": 233,
+        "by_extension": {
+          ".yml": 3,
+          ".mjs": 7,
+          ".py": 6,
+          ".js": 38,
+          ".yaml": 5,
+          ".ts": 174
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "3f8f2931d9c6b06bea1fa49c91197b2ee1b85ce9a01f416132771190a9e17e6c",
+      "total": 324,
+      "errors": 8,
+      "warnings": 316,
+      "files_scanned": {
+        "total": 233,
+        "by_extension": {
+          ".yml": 3,
+          ".mjs": 7,
+          ".py": 6,
+          ".js": 38,
+          ".yaml": 5,
+          ".ts": 174
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": -5,
+      "errors": -5,
+      "warnings": 0,
+      "hilangCount": 5,
+      "baruCount": 0
+    },
+    "hilang": [
+      {
+        "id": "ASTESIA-004|benchmarks/claude-email.js|7",
+        "ruleId": "ASTESIA-004",
+        "file": "benchmarks/claude-email.js",
+        "line": 7,
+        "message": "Probable hardcoded secret."
+      },
+      {
+        "id": "ASTESIA-004|benchmarks/model-email.js|7",
+        "ruleId": "ASTESIA-004",
+        "file": "benchmarks/model-email.js",
+        "line": 7,
+        "message": "Probable hardcoded secret."
+      },
+      {
+        "id": "ASTESIA-004|benchmarks/robustness-audit.js|23",
+        "ruleId": "ASTESIA-004",
+        "file": "benchmarks/robustness-audit.js",
+        "line": 23,
+        "message": "Probable hardcoded secret."
+      },
+      {
+        "id": "ASTESIA-004|ceobe/src/ai/providers/embeddingAdapter.ts|150",
+        "ruleId": "ASTESIA-004",
+        "file": "ceobe/src/ai/providers/embeddingAdapter.ts",
+        "line": 150,
+        "message": "Probable hardcoded secret."
+      },
+      {
+        "id": "ASTESIA-004|ceobe/src/ai/providers/router.ts|126",
+        "ruleId": "ASTESIA-004",
+        "file": "ceobe/src/ai/providers/router.ts",
+        "line": 126,
+        "message": "Probable hardcoded secret."
+      }
+    ],
+    "baru": []
+  },
+  "flora-smk": {
+    "name": "flora-smk",
+    "set": "design",
+    "base5": {
+      "sha256": "9ca26769325fb9ac30b30b315390be56e33681c27effc6a79c231e6fdbe9cd4c",
+      "total": 12,
+      "errors": 2,
+      "warnings": 10,
+      "files_scanned": {
+        "total": 110,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\flora-smk\\.env": 1,
+          ".yml": 3,
+          ".js": 37,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\flora-smk\\dockerfile": 1,
+          ".ts": 39,
+          ".svelte": 29
+        }
+      },
+      "generated_skipped": 13
+    },
+    "start": {
+      "sha256": "3f140f0ac8987d7ac6acf76824586f16251eacac96924195c3e1d7f55ed12ed3",
+      "total": 12,
+      "errors": 2,
+      "warnings": 10,
+      "files_scanned": {
+        "total": 110,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\flora-smk\\.env": 1,
+          ".yml": 3,
+          ".js": 37,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\flora-smk\\dockerfile": 1,
+          ".ts": 39,
+          ".svelte": 29
+        }
+      },
+      "generated_skipped": 13
+    },
+    "delta": {
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "hilangCount": 0,
+      "baruCount": 0
+    },
+    "hilang": [],
+    "baru": []
+  },
+  "arene": {
+    "name": "arene",
+    "set": "seen",
+    "base5": {
+      "sha256": "75917bfd7a554a66d81a56045d415802db2aca5b20858b0ce431b90809a8c15a",
+      "total": 149,
+      "errors": 19,
+      "warnings": 130,
+      "files_scanned": {
+        "total": 376,
+        "by_extension": {
+          ".yaml": 35,
+          ".js": 257,
+          ".yml": 11,
+          ".ts": 17,
+          ".py": 44,
+          ".mjs": 9,
+          ".tsx": 3
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "886892c97c32fabef34b5220a7afc4ed593db78e64f755b40ec5bf4875fe30e2",
+      "total": 148,
+      "errors": 18,
+      "warnings": 130,
+      "files_scanned": {
+        "total": 376,
+        "by_extension": {
+          ".yaml": 35,
+          ".js": 257,
+          ".yml": 11,
+          ".ts": 17,
+          ".py": 44,
+          ".mjs": 9,
+          ".tsx": 3
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": -1,
+      "errors": -1,
+      "warnings": 0,
+      "hilangCount": 1,
+      "baruCount": 0
+    },
+    "hilang": [
+      {
+        "id": "ASTESIA-004|scripts/hooks/pre-bash-commit-quality.js|205",
+        "ruleId": "ASTESIA-004",
+        "file": "scripts/hooks/pre-bash-commit-quality.js",
+        "line": 205,
+        "message": "Probable hardcoded secret."
+      }
+    ],
+    "baru": []
+  },
+  "SIA": {
+    "name": "SIA",
+    "set": "seen",
+    "base5": {
+      "sha256": "e8818cce31f01dd62653c49d2d5349a10a929280b72bd751ef5ecb88ecac9172",
+      "total": 60,
+      "errors": 1,
+      "warnings": 59,
+      "files_scanned": {
+        "total": 468,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\sia\\.env": 1,
+          ".php": 461,
+          ".js": 6
+        }
+      },
+      "generated_skipped": 1
+    },
+    "start": {
+      "sha256": "a162e74b935ee5bde6d191b5bdb143db84f6a29212142d87867d5ae595c2cc31",
+      "total": 60,
+      "errors": 0,
+      "warnings": 60,
+      "files_scanned": {
+        "total": 469,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\sia\\.env": 1,
+          ".php": 462,
+          ".js": 6
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": 0,
+      "errors": -1,
+      "warnings": 1,
+      "hilangCount": 1,
+      "baruCount": 1
+    },
+    "hilang": [
+      {
+        "id": "ASTESIA-004|resources/views/tendik/create.blade.php|666",
+        "ruleId": "ASTESIA-004",
+        "file": "resources/views/tendik/create.blade.php",
+        "line": 666,
+        "message": "Probable hardcoded secret."
+      }
+    ],
+    "baru": [
+      {
+        "id": "TOKENIZER_DESYNC|resources/views/welcome.blade.php|278",
+        "ruleId": "TOKENIZER_DESYNC",
+        "file": "resources/views/welcome.blade.php",
+        "line": 278,
+        "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF."
+      }
+    ]
+  },
+  "pustaka-sekolah-pwa": {
+    "name": "pustaka-sekolah-pwa",
+    "set": "seen",
+    "base5": {
+      "sha256": "0f18c723581802e7fc14d7b1073143123f235fd1bae033117220e47115b895dc",
+      "total": 60,
+      "errors": 22,
+      "warnings": 38,
+      "files_scanned": {
+        "total": 78,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\pustaka-sekolah-pwa\\.env": 1,
+          ".yml": 2,
+          ".ts": 32,
+          ".js": 4,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\pustaka-sekolah-pwa\\dockerfile": 1,
+          ".mjs": 1,
+          ".tsx": 37
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "4907051f8f413df81e6eb1ae2bee73ed1ef28710c4b5d64db07b6bc50294db24",
+      "total": 60,
+      "errors": 22,
+      "warnings": 38,
+      "files_scanned": {
+        "total": 78,
+        "by_extension": {
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\pustaka-sekolah-pwa\\.env": 1,
+          ".yml": 2,
+          ".ts": 32,
+          ".js": 4,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\pustaka-sekolah-pwa\\dockerfile": 1,
+          ".mjs": 1,
+          ".tsx": 37
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "hilangCount": 0,
+      "baruCount": 0
+    },
+    "hilang": [],
+    "baru": []
+  },
+  "terminal-portfolio": {
+    "name": "terminal-portfolio",
+    "set": "seen",
+    "base5": {
+      "sha256": "64bdfe9759fea0018b48b4a7eaad970e14fe525fd113c5e8405dd730f42c5503",
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "files_scanned": {
+        "total": 18,
+        "by_extension": {
+          ".yml": 2,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\terminal-portfolio\\dockerfile": 1,
+          ".js": 2,
+          ".tsx": 6,
+          ".ts": 7
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "ed6fecbe525b4d8280e3d0594b831c54255f5a17b0811a5eabeb4c6b80be454c",
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "files_scanned": {
+        "total": 18,
+        "by_extension": {
+          ".yml": 2,
+          "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-2a7-copies\\terminal-portfolio\\dockerfile": 1,
+          ".js": 2,
+          ".tsx": 6,
+          ".ts": 7
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "hilangCount": 0,
+      "baruCount": 0
+    },
+    "hilang": [],
+    "baru": []
+  },
+  "cadetspeak": {
+    "name": "cadetspeak",
+    "set": "seen",
+    "base5": {
+      "sha256": "d6f019f28888f473c1cd95d3aaaa60993c8d7ee6e52fbb7539f8a8c74f1e7f50",
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "files_scanned": {
+        "total": 7,
+        "by_extension": {
+          ".yaml": 3,
+          ".py": 4
+        }
+      },
+      "generated_skipped": 1
+    },
+    "start": {
+      "sha256": "220cdf52819e6021f99a4b4ee9d62e798932163cc959a3a36217e7fa03565634",
+      "total": 13,
+      "errors": 10,
+      "warnings": 3,
+      "files_scanned": {
+        "total": 8,
+        "by_extension": {
+          ".js": 1,
+          ".yaml": 3,
+          ".py": 4
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": 13,
+      "errors": 10,
+      "warnings": 3,
+      "hilangCount": 0,
+      "baruCount": 13
+    },
+    "hilang": [],
+    "baru": [
+      {
+        "id": "ASTESIA-006|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|29138",
+        "ruleId": "ASTESIA-006",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 29138,
+        "message": "console.log in source; use the structured logger."
+      },
+      {
+        "id": "ASTESIA-006|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|51747",
+        "ruleId": "ASTESIA-006",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 51747,
+        "message": "console.log in source; use the structured logger."
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49589",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49589,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49590",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49590,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49591",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49591,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49592",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49592,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49593",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49593,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49594",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49594,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49595",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49595,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49597",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49597,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|49602",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 49602,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L49583)"
+      },
+      {
+        "id": "ASTESIA-007|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|84800",
+        "ruleId": "ASTESIA-007",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 84800,
+        "message": "N+1 Database Query: database or repository call executed inside a loop (.map, for, while). (enclosed by loop L84799)"
+      },
+      {
+        "id": "ASTESIA-009|.dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js|41202",
+        "ruleId": "ASTESIA-009",
+        "file": ".dart_tool/flutter_build/cb81bb759250a0d0aea81acf5e49205b/main.dart.js",
+        "line": 41202,
+        "message": "Uncontrolled setTimeout: potential race condition or uncoordinated delay."
+      }
+    ]
+  },
+  "eduNEXA": {
+    "name": "eduNEXA",
+    "set": "seen",
+    "base5": {
+      "sha256": "dd109192db578b2bf55ee9d9637197a70ab5175416d3c2990abd4e892f19e2ad",
+      "total": 4,
+      "errors": 3,
+      "warnings": 1,
+      "files_scanned": {
+        "total": 56,
+        "by_extension": {
+          ".yml": 2,
+          ".go": 45,
+          ".py": 3,
+          ".js": 1,
+          ".ts": 3,
+          ".svelte": 2
+        }
+      },
+      "generated_skipped": 0
+    },
+    "start": {
+      "sha256": "1a3d831033387f34e5b8891d967c0c6b4bf49a7c163787e43809515db9ad7350",
+      "total": 5,
+      "errors": 4,
+      "warnings": 1,
+      "files_scanned": {
+        "total": 56,
+        "by_extension": {
+          ".yml": 2,
+          ".go": 45,
+          ".py": 3,
+          ".js": 1,
+          ".ts": 3,
+          ".svelte": 2
+        }
+      },
+      "generated_skipped": 0
+    },
+    "delta": {
+      "total": 1,
+      "errors": 1,
+      "warnings": 0,
+      "hilangCount": 0,
+      "baruCount": 1
+    },
+    "hilang": [],
+    "baru": [
+      {
+        "id": "ASTESIA-000|web/src/routes/+layout.svelte|3",
+        "ruleId": "ASTESIA-000",
+        "file": "web/src/routes/+layout.svelte",
+        "line": 3,
+        "message": "Hallucinated import: relative path or local alias does not exist on disk. ($lib/assets/favicon.svg)"
+      }
+    ]
+  },
+  "prototype-ami": {
+    "name": "prototype-ami",
+    "set": "seen",
+    "base5": {
+      "sha256": "5ff07821c7e612f09ad7338ab8c8b95bca6bc779af3833b905c2710a5657501d",
+      "total": 1,
+      "errors": 0,
+      "warnings": 1,
+      "files_scanned": {
+        "total": 37,
+        "by_extension": {
+          ".js": 18,
+          ".ts": 8,
+          ".cjs": 1,
+          ".svelte": 10
+        }
+      },
+      "generated_skipped": 3
+    },
+    "start": {
+      "sha256": "249c983b78acc18d997d39108b9983f795fa8b483edbae029af91ff4cd87c05d",
+      "total": 1,
+      "errors": 0,
+      "warnings": 1,
+      "files_scanned": {
+        "total": 37,
+        "by_extension": {
+          ".js": 18,
+          ".ts": 8,
+          ".cjs": 1,
+          ".svelte": 10
+        }
+      },
+      "generated_skipped": 3
+    },
+    "delta": {
+      "total": 0,
+      "errors": 0,
+      "warnings": 0,
+      "hilangCount": 0,
+      "baruCount": 0
+    },
+    "hilang": [],
+    "baru": []
+  }
+}

@@ -1,0 +1,106 @@
+[
+  {
+    "name": "eunectes",
+    "set": "design",
+    "head": "0bc6173ba1b883d00aeaa9c7f42c658884fc1c2c",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\eunectes",
+    "fileCount": 5850
+  },
+  {
+    "name": "ifrit",
+    "set": "design",
+    "head": "64adbf9544581e57053a8d84a94e7e4471d40d95",
+    "status": "?? ceobe/",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\ifrit",
+    "fileCount": 1041
+  },
+  {
+    "name": "flora-smk",
+    "set": "design",
+    "head": "0dd24aaf78f4ff9f9c26d89e062c07f26fdfaa09",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\flora-smk",
+    "fileCount": 289
+  },
+  {
+    "name": "arene",
+    "set": "seen",
+    "head": "841beea45cb25ba51f29fa45b7e272938d19b80a",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\arene",
+    "fileCount": 2014
+  },
+  {
+    "name": "SIA",
+    "set": "seen",
+    "head": "3b8929d57cc6935f5bc3148772826305e0c771b5",
+    "status": "M package-lock.json",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\SIA",
+    "fileCount": 509
+  },
+  {
+    "name": "pustaka-sekolah-pwa",
+    "set": "seen",
+    "head": "75bae20c943fb219250da6c004f0d42fd50826d4",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\pustaka-sekolah-pwa",
+    "fileCount": 146
+  },
+  {
+    "name": "terminal-portfolio",
+    "set": "seen",
+    "head": "75d85e6b33486916215f0a05d229982f88fcf1c9",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\terminal-portfolio",
+    "fileCount": 38
+  },
+  {
+    "name": "cadetspeak",
+    "set": "seen",
+    "head": "no-git",
+    "status": "no-git",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\cadetspeak",
+    "fileCount": 13902
+  },
+  {
+    "name": "eduNEXA",
+    "set": "seen",
+    "head": "d606994aa0b0530b6b89d181bb1169e5bc48da18",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\eduNEXA",
+    "fileCount": 110
+  },
+  {
+    "name": "prototype-ami",
+    "set": "seen",
+    "head": "78ae8fbc3555de0833d01da78d5303d9e4cb147f",
+    "status": "clean",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\prototype-ami",
+    "fileCount": 200
+  },
+  {
+    "name": "aipkani",
+    "set": "fresh",
+    "head": "no-git",
+    "status": "no-git",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\aipkani",
+    "fileCount": 552
+  },
+  {
+    "name": "ecommerce-hp-api",
+    "set": "fresh",
+    "head": "no-git",
+    "status": "no-git",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\ecommerce-hp-api",
+    "fileCount": 29
+  },
+  {
+    "name": "cadetspeak_admin",
+    "set": "fresh",
+    "head": "no-git",
+    "status": "no-git",
+    "copyPath": "C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-2a7-copies\\cadetspeak_admin",
+    "fileCount": 155
+  }
+]

@@ -2,8 +2,7 @@
   "product": [
     "skills/brd-generation",
     "skills/cuj-mapping",
-    "skills/reverse-engineering",
-    "skills/template-caching"
+    "skills/reverse-engineering"
   ],
   "design": [
     "skills/ux-systems",
@@ -28,13 +27,11 @@
     "skills/self-healing",
     "skills/tdd-workflow",
     "skills/context-navigation",
-    "skills/cost-reducer",
     "skills/zero-downtime-migration",
     "skills/minimalist-executor",
-    "skills/multi-model-routing",
+    "skills/adversarial-review",
     "skills/worktree-isolation",
     "skills/blast-radius",
-    "skills/hybrid-search",
     "skills/task-waves",
     "skills/codebase-gardening"
   ],
@@ -46,11 +43,11 @@
     "skills/architectural-linter",
     "skills/anti-silent-failure",
     "skills/anti-bloat-review",
-    "skills/anti-bloat-audit",
     "skills/debt-scanner",
     "skills/trust-pyramid",
     "skills/lint-ratchet",
-    "skills/independent-verification"
+    "skills/independent-verification",
+    "skills/property-based-testing"
   ],
   "devops": [
     "skills/docker-optimization",

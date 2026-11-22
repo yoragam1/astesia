@@ -50,6 +50,7 @@
     7. (Optional) Deploy on main branch push
 - [ ] Ensure pipeline **includes** the test suites generated in Phase 4.
 - [ ] **Hard Gate (DevOps Rule #5):** Install `templates/enforcement/astesia-gate.workflow.yml` as `.github/workflows/astesia-gate.yml` (rebased-head verification: typecheck, `astesia-gate`, coverage, E2E). Make it a **required status check**.
+- [ ] **CI Base-Checkout Trust Model:** Ensure gate workflow checks out gate scripts, rules, and baseline from the base target branch (`github.base_ref`) to prevent PR tampering.
 - [ ] **Merge Policy:** Keep `enforcement.auto_merge = false` / `merge_mode = "manual"`. Document the path to `shadow` -> `auto-merge` (`skills/auto-merge-gates/SKILL.md`) in `.astesia/deployment.md`; only the user may enable it.
 - [ ] Add branch protection rules recommendation.
 

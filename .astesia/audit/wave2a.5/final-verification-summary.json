@@ -1,0 +1,55 @@
+{
+  "gate_line_count": 2763,
+  "protected_files_verified": true,
+  "self_gate": {
+    "exit_code": 0,
+    "output": {
+      "errors": 0,
+      "warnings": 0,
+      "suppressions": 0,
+      "rejected_suppressions": 0,
+      "debt_markers": 0,
+      "allowlisted": 0,
+      "allow_stale": [],
+      "env_ignored_skipped": 0,
+      "generated_skipped": 0,
+      "generated_files": [],
+      "files_scanned": {
+        "total": 2,
+        "by_extension": {
+          ".ts": 1,
+          ".yml": 1
+        }
+      },
+      "files_excluded": 41,
+      "excluded_paths": [
+        "templates/enforcement/tests"
+      ],
+      "desync_files": [],
+      "violations": []
+    }
+  },
+  "rules_diff": {
+    "exit_code": 0,
+    "stdout": "rules-diff: compatible (rules identical)."
+  },
+  "clean_clone": {
+    "clone_dir": "C:/Users/alta1r/AppData/Local/Temp/astesia-clean-final-1795067598514",
+    "empty_home": "C:/Users/alta1r/AppData/Local/Temp/astesia-empty-home-final",
+    "exit_code": 0,
+    "accounting": {
+      "total": 939,
+      "passed": 932,
+      "failed": 0,
+      "known_gaps": 7,
+      "invariant_holds": true,
+      "meets_scale_threshold": true,
+      "zero_orphans": true
+    },
+    "mutation_testing": {
+      "total": 48,
+      "killed": 48,
+      "survived": 0
+    }
+  }
+}

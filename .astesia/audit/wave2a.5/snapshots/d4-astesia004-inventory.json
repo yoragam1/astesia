@@ -1,0 +1,103 @@
+{
+  "totalAstesia004": 14,
+  "findings": [
+    {
+      "project": "pustaka-sekolah-pwa",
+      "file": "scripts/init-turso.mjs",
+      "line": 6,
+      "valueShape": "url_without_credentials",
+      "quote": "url: process.env.TURSO_DATABASE_URL || 'libsql://pustaka-pwa-yoraexe.aws-ap-northeast-1.turso.io',"
+    },
+    {
+      "project": "eunectes",
+      "file": "packages/openclaw-core/src/reply-listener-state.ts",
+      "line": 10,
+      "valueShape": "other",
+      "quote": "export const REPLY_LISTENER_STARTUP_TOKEN_ENV = \"OMOP_OPENCLAW_REPLY_LISTENER_STARTUP_TOKEN\""
+    },
+    {
+      "project": "eunectes",
+      "file": "packages/telemetry-core/index.d.ts",
+      "line": 2,
+      "valueShape": "other",
+      "quote": "export declare const DEFAULT_POSTHOG_API_KEY: \"phc_CFJhj5HyvA62QPhvyaUCtaq23aUfznnijg5VaaGkNk74\";"
+    },
+    {
+      "project": "eunectes",
+      "file": "packages/telemetry-core/src/constants.ts",
+      "line": 2,
+      "valueShape": "other",
+      "quote": "export const DEFAULT_POSTHOG_API_KEY = \"phc_CFJhj5HyvA62QPhvyaUCtaq23aUfznnijg5VaaGkNk74\""
+    },
+    {
+      "project": "eunectes",
+      "file": "tests/hashline/headless.ts",
+      "line": 122,
+      "valueShape": "url_without_credentials",
+      "quote": "baseURL: process.env.HASHLINE_TEST_BASE_URL ?? \"https://quotio.mengmota.com/v1\","
+    },
+    {
+      "project": "eunectes",
+      "file": "tests/hashline/headless.ts",
+      "line": 123,
+      "valueShape": "other",
+      "quote": "apiKey: process.env.HASHLINE_TEST_API_KEY ?? \"quotio-local-60A613FE-DB74-40FF-923E-A14151951E5D\","
+    },
+    {
+      "project": "flora-smk",
+      "file": "src/lib/repositories/auth.repository.ts",
+      "line": 15,
+      "valueShape": "other",
+      "quote": "const OFFLINE_AUTH_KEY = 'flora_smk_auth_user_v1';"
+    },
+    {
+      "project": "ifrit",
+      "file": "benchmarks/claude-email.js",
+      "line": 7,
+      "valueShape": "other",
+      "quote": "const MODELS = (process.env.CE_MODELS || 'claude-haiku-4-5-20251001,claude-sonnet-4-6,claude-opus-4-8').split(',');"
+    },
+    {
+      "project": "ifrit",
+      "file": "benchmarks/model-email.js",
+      "line": 7,
+      "valueShape": "other",
+      "quote": "const MODELS = (process.env.ME_MODELS || 'gpt-4.1-mini,gpt-5.4-mini').split(',');"
+    },
+    {
+      "project": "ifrit",
+      "file": "benchmarks/robustness-audit.js",
+      "line": 23,
+      "valueShape": "other",
+      "quote": "const MODEL = process.env.AUDIT_MODEL || 'gpt-5.4-mini';"
+    },
+    {
+      "project": "ifrit",
+      "file": "ceobe/src/ai/providers/embeddingAdapter.ts",
+      "line": 150,
+      "valueShape": "other",
+      "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;"
+    },
+    {
+      "project": "ifrit",
+      "file": "ceobe/src/ai/providers/router.ts",
+      "line": 126,
+      "valueShape": "other",
+      "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;"
+    },
+    {
+      "project": "arene",
+      "file": "scripts/hooks/pre-bash-commit-quality.js",
+      "line": 205,
+      "valueShape": "other",
+      "quote": "const pathExt = process.env.PATHEXT || '.COM;.EXE;.BAT;.CMD';"
+    },
+    {
+      "project": "SIA",
+      "file": "resources/views/tendik/create.blade.php",
+      "line": 666,
+      "valueShape": "other",
+      "quote": "const password = `${day}${month}${year}`;"
+    }
+  ]
+}

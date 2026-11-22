@@ -52,7 +52,6 @@ Implementation Wave Order Guidelines:
 
 Per-file requirements:
 - [ ] Every file has a **Header Doc** (Directive #19).
-- [ ] Every edit is preceded by a **Pre-Edit Trace Note** (Directive #22).
 - [ ] Input validation uses Zod schemas (Directive #17, `skills/zod-validation/SKILL.md`).
 - [ ] No hardcoded secrets (Directive #17).
 - [ ] Database queries follow DBA-Grade standards (Directive #21).
@@ -93,7 +92,7 @@ Maximum **2 internal correction cycles** before escalating to user.
 
 ## Fail Conditions (HALT Pipeline)
 
-- ❌ BRD or Design System not found / incomplete → **HALT**, return to the missing layer.
+- ❌ BRD or Design System not found / incomplete → **HALT**, return to the missing layer (bypassed when `mode === "surgical"` or `mode === "gardening"`).
 - ❌ Unit test coverage < 80% → **DO NOT hand off** to Quality. Fix first.
 - ❌ Hardcoded secrets detected → **Fix immediately** (Directive #17).
 - ❌ Business logic in controllers → **Refactor** before handoff.

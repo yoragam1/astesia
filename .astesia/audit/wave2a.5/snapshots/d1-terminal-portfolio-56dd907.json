@@ -1,0 +1,38 @@
+{
+  "errors": 1,
+  "warnings": 1,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "files_scanned": {
+    "total": 18,
+    "by_extension": {
+      ".yml": 2,
+      "c:\\users\\alta1r\\appdata\\local\\temp\\astesia-real\\terminal-portfolio\\dockerfile": 1,
+      ".js": 2,
+      ".tsx": 6,
+      ".ts": 7
+    }
+  },
+  "desync_files": [
+    "Dockerfile"
+  ],
+  "violations": [
+    {
+      "ruleId": "TOKENIZER_DESYNC",
+      "severity": "warn",
+      "file": "Dockerfile",
+      "line": 55,
+      "message": "Tokenizer state desynchronization: unclosed string, template literal, or comment at EOF.",
+      "fix": "Ensure all strings, template literals, and comments are properly terminated."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "src/hooks/useTheme.ts",
+      "line": 11,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    }
+  ]
+}

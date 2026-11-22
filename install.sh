@@ -1,60 +1,192 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -eo pipefail
 
-echo "========================================="
-echo "   Linking Astesia (Live Mode) for POSIX "
-echo "========================================="
+TARGET=""
+DRY_RUN=false
+UNINSTALL=false
+FORCE=false
 
-SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AG_CONFIG_DIR="$HOME/.gemini/config"
-DEST_DIR="$AG_CONFIG_DIR/plugins/astesia"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --target)
+      TARGET="$2"
+      shift 2
+      ;;
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    --uninstall)
+      UNINSTALL=true
+      shift
+      ;;
+    --force)
+      FORCE=true
+      shift
+      ;;
+    *)
+      echo "Error: Unknown argument: $1" >&2
+      exit 2
+      ;;
+  esac
+done
 
-echo "Source Directory: $SOURCE_DIR"
-echo "Target Plugin Directory: $DEST_DIR"
+SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-# Create the plugin directory
-mkdir -p "$DEST_DIR"
-
-# 1. Copy plugin manifest
-cp "$SOURCE_DIR/plugin.json" "$DEST_DIR/plugin.json"
-
-# 2. Append AGENTS.md rules to the Global Customization Root (~/.gemini/config/AGENTS.md)
-GLOBAL_AGENTS_MD="$AG_CONFIG_DIR/AGENTS.md"
-
-echo "Injecting Astesia rules into Global AGENTS.md..."
-
-if [ -f "$GLOBAL_AGENTS_MD" ]; then
-    sed -i.bak '/<RULE\[astesia_global\]>/,/<\/SLASH_COMMANDS>/d' "$GLOBAL_AGENTS_MD"
-    rm -f "${GLOBAL_AGENTS_MD}.bak"
+if [[ -z "$TARGET" ]]; then
+  DEST_DIR="$HOME/.gemini/antigravity/plugins/astesia"
+else
+  # Resolve absolute path
+  DEST_DIR="$(python3 -c "import os,sys; print(os.path.realpath(sys.argv[1]))" "$TARGET" 2>/dev/null || node -e "console.log(require('path').resolve(process.argv[1]))" "$TARGET" 2>/dev/null || readlink -f "$TARGET" 2>/dev/null || echo "$TARGET")"
 fi
 
-cat << EOF >> "$GLOBAL_AGENTS_MD"
+# Prevent installing into repo itself
+if [[ "$DEST_DIR" == "$SOURCE_DIR" || "$DEST_DIR" == "$SOURCE_DIR"/* ]]; then
+  echo "Error: Cannot install into the Astesia source repository ($DEST_DIR)" >&2
+  exit 2
+fi
 
-<RULE[astesia_global]>
-Kamu adalah entitas AI Multi-Layer "Astesia" (Autonomous Orchestrator v3.0).
+# UNINSTALL MODE
+if [[ "$UNINSTALL" == true ]]; then
+  if [[ ! -d "$DEST_DIR" ]]; then
+    echo "Target directory does not exist: $DEST_DIR (nothing to uninstall)"
+    exit 0
+  fi
 
-Setiap kali aku memintamu membuat proyek baru, menulis arsitektur, atau memodifikasi fitur, kamu WAJIB:
-1. Mengakses dan membaca kepribadian serta panduan operasimu di \`$SOURCE_DIR/docs/agent-operating-guide.md\` dan \`$SOURCE_DIR/docs/astesia-persona.md\`. Jangan pernah menjadi AI yang asal coding tanpa melewati pipeline.
-2. Tentukan di Layer dan Mode mana kamu sedang beroperasi (Full Lifecycle, Headless, Surgical Hotfix, atau Gardening), lalu gunakan aturan ketat dari folder \`$SOURCE_DIR/rules/\`. Untuk perancangan hierarki kode, taati mutlak \`engineering-rules.md\`.
-3. Terapkan prinsip Trust Pyramid & Machine Verification: jalankan \`astesia-gate.ts\`, terapkan \`lint-ratchet\` untuk kesalahan berulang, dan wajibkan bukti verifikasi independen sebelum menandai tugas selesai.
-4. Jika aku meminta proyek baru, jalankan prosedur dari \`$SOURCE_DIR/runtime/boot-sequence.md\` atau gunakan Global Slash Command (\`/astesia-init\`).
-5. Selalu cari referensi skill di \`$SOURCE_DIR/skills/skills-index.md\` sebelum bereksperimen dengan teknologi spesifik.
+  MARKER="$DEST_DIR/.astesia-install.json"
+  if [[ ! -f "$MARKER" ]]; then
+    echo "Error: Target is not owned by Astesia (missing marker): $DEST_DIR" >&2
+    exit 3
+  fi
 
-Utamakan struktur pipeline yang bersih secara manajerial, hindari jalan pintas technical debt, dan selalu kritisi keputusanku secara profesional sebagai Direktur Agensi Software.
-</RULE[astesia_global]>
+  # Extract repo_path from JSON
+  MARKER_REPO="$(grep '"repo_path"' "$MARKER" | head -n 1 | sed -E 's/.*"repo_path":\s*"([^"]+)".*/\1/' || echo "")"
+  if [[ -z "$MARKER_REPO" ]]; then
+    echo "Error: Invalid marker format in $MARKER" >&2
+    exit 3
+  fi
 
-<SLASH_COMMANDS>
-- \`/astesia-init\`: Trigger the Phase 1 (Product) boot sequence for a new Greenfield project.
-- \`/astesia-engineering\`: Trigger the Brownfield entry protocol for an existing codebase.
-</SLASH_COMMANDS>
+  # Normalize paths for comparison
+  NORM_MARKER="$(cd "$MARKER_REPO" 2>/dev/null && pwd -P || echo "$MARKER_REPO")"
+  NORM_SOURCE="$(cd "$SOURCE_DIR" 2>/dev/null && pwd -P || echo "$SOURCE_DIR")"
+
+  if [[ "$NORM_MARKER" != "$NORM_SOURCE" && "$MARKER_REPO" != "$SOURCE_DIR" ]]; then
+    echo "Error: Target is owned by another repository ($MARKER_REPO != $SOURCE_DIR)" >&2
+    exit 3
+  fi
+
+  if [[ "$DRY_RUN" == true ]]; then
+    echo "[DRY-RUN] Would remove Astesia plugin directory: $DEST_DIR"
+    exit 0
+  fi
+
+  echo "Removing Astesia plugin from: $DEST_DIR"
+  rm -rf "$DEST_DIR"
+  echo "Astesia plugin uninstalled cleanly."
+  exit 0
+fi
+
+# INSTALL / UPDATE MODE
+if [[ -d "$DEST_DIR" ]]; then
+  MARKER="$DEST_DIR/.astesia-install.json"
+  IS_OWNED=false
+  if [[ -f "$MARKER" ]]; then
+    MARKER_REPO="$(grep '"repo_path"' "$MARKER" | head -n 1 | sed -E 's/.*"repo_path":\s*"([^"]+)".*/\1/' || echo "")"
+    NORM_MARKER="$(cd "$MARKER_REPO" 2>/dev/null && pwd -P || echo "$MARKER_REPO")"
+    NORM_SOURCE="$(cd "$SOURCE_DIR" 2>/dev/null && pwd -P || echo "$SOURCE_DIR")"
+    if [[ "$NORM_MARKER" == "$NORM_SOURCE" || "$MARKER_REPO" == "$SOURCE_DIR" ]]; then
+      IS_OWNED=true
+    fi
+  fi
+
+  if [[ "$IS_OWNED" == true && "$FORCE" != true ]]; then
+    # Idempotent check
+    if [[ -f "$DEST_DIR/plugin.json" && -d "$DEST_DIR/skills" && -d "$DEST_DIR/rules" ]]; then
+      echo "Astesia plugin is already installed and up to date at: $DEST_DIR"
+      exit 0
+    fi
+  elif [[ "$IS_OWNED" != true ]]; then
+    if [[ "$FORCE" != true ]]; then
+      echo "Error: Target directory exists and is not owned by this Astesia repo: $DEST_DIR. Use --force to backup and overwrite." >&2
+      exit 4
+    fi
+
+    TIMESTAMP="$(date +%Y%m%d%H%M%S)"
+    BACKUP_DIR="${DEST_DIR}.bak-${TIMESTAMP}"
+    if [[ "$DRY_RUN" == true ]]; then
+      echo "[DRY-RUN] Would backup conflicting folder $DEST_DIR -> $BACKUP_DIR"
+    else
+      echo "Backing up conflicting folder to: $BACKUP_DIR"
+      mv "$DEST_DIR" "$BACKUP_DIR"
+    fi
+  fi
+fi
+
+if [[ "$DRY_RUN" == true ]]; then
+  echo "[DRY-RUN] Would create directory: $DEST_DIR"
+  echo "[DRY-RUN] Would copy plugin.json"
+  echo "[DRY-RUN] Would symlink skills -> $SOURCE_DIR/skills"
+  echo "[DRY-RUN] Would symlink rules -> $SOURCE_DIR/rules"
+  echo "[DRY-RUN] Would write ownership marker .astesia-install.json"
+  echo "[DRY-RUN] Would verify installation integrity"
+  exit 0
+fi
+
+rollback_created_items() {
+  rm -rf "$DEST_DIR/plugin.json" "$DEST_DIR/skills" "$DEST_DIR/rules" "$DEST_DIR/.astesia-install.json"
+}
+
+mkdir -p "$DEST_DIR"
+cp "$SOURCE_DIR/plugin.json" "$DEST_DIR/plugin.json"
+
+rm -rf "$DEST_DIR/skills" "$DEST_DIR/rules"
+if ! ln -s "$SOURCE_DIR/skills" "$DEST_DIR/skills" 2>/dev/null || ! ln -s "$SOURCE_DIR/rules" "$DEST_DIR/rules" 2>/dev/null; then
+  echo "Error: Failed to link skills and rules directories" >&2
+  rollback_created_items
+  exit 6
+fi
+
+NOW="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+cat << EOF > "$DEST_DIR/.astesia-install.json"
+{
+  "version": "3.1.0-rc1",
+  "repo_path": "$SOURCE_DIR",
+  "link_type": "symlink",
+  "created_paths": [
+    "plugin.json",
+    "skills",
+    "rules",
+    ".astesia-install.json"
+  ],
+  "installed_at": "$NOW"
+}
 EOF
 
-# 3. Symlink skills and rules
-rm -rf "$DEST_DIR/skills" "$DEST_DIR/rules"
-ln -s "$SOURCE_DIR/skills" "$DEST_DIR/skills"
-ln -s "$SOURCE_DIR/rules" "$DEST_DIR/rules"
+# Post-installation verification
+if [[ ! -f "$DEST_DIR/plugin.json" ]]; then
+  echo "Error: Verification failed: target plugin.json not found" >&2
+  rollback_created_items
+  exit 5
+fi
 
-echo "✅ Astesia Linked Successfully in Live Mode!"
-echo "All 53 Astesia skills and rule engines are now linked natively."
-echo "Any changes you make in $SOURCE_DIR will directly affect your AI Agent."
-echo "Please restart your Antigravity editor for the plugin to take effect."
+VERSION="$(grep '"version"' "$DEST_DIR/plugin.json" | head -n 1 | sed -E 's/.*"version":\s*"([^"]+)".*/\1/')"
+if [[ "$VERSION" != "3.1.0-rc1" ]]; then
+  echo "Error: Verification failed: plugin.json version mismatch ($VERSION != 3.1.0-rc1)" >&2
+  rollback_created_items
+  exit 5
+fi
+
+if [[ ! -f "$DEST_DIR/skills/minimalist-executor/SKILL.md" ]]; then
+  echo "Error: Verification failed: skills directory link invalid" >&2
+  rollback_created_items
+  exit 5
+fi
+
+if [[ ! -f "$DEST_DIR/rules/AGENTS.md" ]]; then
+  echo "Error: Verification failed: rules directory link invalid" >&2
+  rollback_created_items
+  exit 5
+fi
+
+echo "Astesia plugin installed successfully in Live Mode (symlink) at: $DEST_DIR"
+exit 0

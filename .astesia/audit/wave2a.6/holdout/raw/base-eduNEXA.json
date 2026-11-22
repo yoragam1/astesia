@@ -1,0 +1,60 @@
+{
+  "errors": 3,
+  "warnings": 1,
+  "suppressions": 0,
+  "rejected_suppressions": 0,
+  "debt_markers": 0,
+  "allowlisted": 0,
+  "allow_stale": [],
+  "env_ignored_skipped": 0,
+  "generated_skipped": 0,
+  "generated_files": [],
+  "files_scanned": {
+    "total": 56,
+    "by_extension": {
+      ".yml": 2,
+      ".go": 45,
+      ".py": 3,
+      ".js": 1,
+      ".ts": 3,
+      ".svelte": 2
+    }
+  },
+  "files_excluded": 0,
+  "excluded_paths": [],
+  "desync_files": [],
+  "violations": [
+    {
+      "ruleId": "ASTESIA-010",
+      "severity": "error",
+      "file": "docker-compose.yml",
+      "line": 9,
+      "message": "Hardcoded secret in configuration, Dockerfile, or CI compose file.",
+      "fix": "Reference secrets via environment variables (${SECRET_NAME}) or use a secret manager."
+    },
+    {
+      "ruleId": "ASTESIA-008",
+      "severity": "warn",
+      "file": "internal/domain/mutu/ami/dto.go",
+      "line": 212,
+      "message": "Untracked workaround or hack comment without an astesia-debt tracking marker.",
+      "fix": "Use an astesia-debt marker: '// astesia-debt: <reason>, upgrade: <action>' or resolve the workaround immediately."
+    },
+    {
+      "ruleId": "ASTESIA-004",
+      "severity": "error",
+      "file": "internal/platform/config/config.go",
+      "line": 23,
+      "message": "Probable hardcoded secret.",
+      "fix": "Read it from the environment (process.env / config module) and document it in .env.example."
+    },
+    {
+      "ruleId": "ASTESIA-002",
+      "severity": "error",
+      "file": "scripts/update_structure.py",
+      "line": 36,
+      "message": "Unbounded column fetch: SELECT * is banned in production code.",
+      "fix": "Select only the required columns explicitly."
+    }
+  ]
+}

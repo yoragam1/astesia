@@ -1,0 +1,3209 @@
+{
+  "timestamp": "2026-11-22T14:18:09.499Z",
+  "total_samples": 100,
+  "passed_samples": 73,
+  "failed_samples": 27,
+  "pass_rate": 0.73,
+  "results": [
+    {
+      "sample_index": 1,
+      "expected_skill": "adr-management",
+      "prompt": "Tolong buatkan dokumen ADR untuk keputusan arsitektur migrasi database ini",
+      "passed": true,
+      "top_skill": "adr-management",
+      "top_score": 0.1671,
+      "expected_score": 0.1671,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "adr-management",
+          "score": 0.1671
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.1164
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 2,
+      "expected_skill": "adr-management",
+      "prompt": "Record an architectural decision record explaining why we chose Drizzle over Prisma",
+      "passed": true,
+      "top_skill": "adr-management",
+      "top_score": 0.2876,
+      "expected_score": 0.2876,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "adr-management",
+          "score": 0.2876
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.2715
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.2621
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.1311
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.1234
+        }
+      ]
+    },
+    {
+      "sample_index": 3,
+      "expected_skill": "anti-bloat-review",
+      "prompt": "Review PR ini dan cari kode yang over-engineered atau tidak perlu ditulis",
+      "passed": true,
+      "top_skill": "anti-bloat-review",
+      "top_score": 0.2127,
+      "expected_score": 0.2127,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.2127
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1314
+        },
+        {
+          "skill": "auto-merge-gates",
+          "score": 0.0931
+        },
+        {
+          "skill": "trust-pyramid",
+          "score": 0.0798
+        },
+        {
+          "skill": "security-review",
+          "score": 0.077
+        }
+      ]
+    },
+    {
+      "sample_index": 4,
+      "expected_skill": "anti-bloat-review",
+      "prompt": "Perform a code review focused strictly on unnecessary abstractions and over-engineering",
+      "passed": true,
+      "top_skill": "anti-bloat-review",
+      "top_score": 0.5127,
+      "expected_score": 0.5127,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.5127
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.3411
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1799
+        },
+        {
+          "skill": "minimalist-executor",
+          "score": 0.1795
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.1465
+        }
+      ]
+    },
+    {
+      "sample_index": 5,
+      "expected_skill": "anti-silent-failure",
+      "prompt": "Periksa error handling di modul ini agar tidak ada silent failure atau empty catch block",
+      "passed": true,
+      "top_skill": "anti-silent-failure",
+      "top_score": 0.575,
+      "expected_score": 0.575,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "anti-silent-failure",
+          "score": 0.575
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.2393
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1367
+        },
+        {
+          "skill": "security-review",
+          "score": 0.099
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 6,
+      "expected_skill": "anti-silent-failure",
+      "prompt": "Audit all catch blocks to ensure errors are logged or rethrown explicitly without swallowing",
+      "passed": false,
+      "top_skill": "anti-bloat-review",
+      "top_score": 0.3302,
+      "expected_score": 0.1917,
+      "expected_rank": 4,
+      "ranking": [
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.3302
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.271
+        },
+        {
+          "skill": "brd-generation",
+          "score": 0.2103
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0.1917
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1661
+        }
+      ]
+    },
+    {
+      "sample_index": 7,
+      "expected_skill": "architectural-linter",
+      "prompt": "Jalankan pengecekan aturan arsitektur untuk memastikan controller tidak memanggil database langsung",
+      "passed": false,
+      "top_skill": "zero-downtime-migration",
+      "top_score": 0.1164,
+      "expected_score": 0,
+      "expected_rank": 6,
+      "ranking": [
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.1164
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 8,
+      "expected_skill": "architectural-linter",
+      "prompt": "Run architectural linter to enforce dependency rule from controllers to services",
+      "passed": true,
+      "top_skill": "architectural-linter",
+      "top_score": 0.6453,
+      "expected_score": 0.6453,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "architectural-linter",
+          "score": 0.6453
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.4276
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.3322
+        },
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.2255
+        },
+        {
+          "skill": "task-waves",
+          "score": 0.2255
+        }
+      ]
+    },
+    {
+      "sample_index": 9,
+      "expected_skill": "auto-merge-gates",
+      "prompt": "Setup auto-merge gates and automated branch protection in GitHub Actions",
+      "passed": false,
+      "top_skill": "github-actions",
+      "top_score": 0.8145,
+      "expected_score": 0.1701,
+      "expected_rank": 4,
+      "ranking": [
+        {
+          "skill": "github-actions",
+          "score": 0.8145
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1963
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1944
+        },
+        {
+          "skill": "auto-merge-gates",
+          "score": 0.1701
+        },
+        {
+          "skill": "component-tokens",
+          "score": 0.1377
+        }
+      ]
+    },
+    {
+      "sample_index": 10,
+      "expected_skill": "auto-merge-gates",
+      "prompt": "Konfigurasi status check otomatis untuk auto-merge branch setelah CI lulus",
+      "passed": false,
+      "top_skill": "github-actions",
+      "top_score": 0.1795,
+      "expected_score": 0,
+      "expected_rank": 8,
+      "ranking": [
+        {
+          "skill": "github-actions",
+          "score": 0.1795
+        },
+        {
+          "skill": "trust-pyramid",
+          "score": 0.1026
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 11,
+      "expected_skill": "blast-radius",
+      "prompt": "Hitung blast radius dan dampak perubahan skema database ini terhadap modul lain",
+      "passed": true,
+      "top_skill": "blast-radius",
+      "top_score": 0.8688,
+      "expected_score": 0.8688,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "blast-radius",
+          "score": 0.8688
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.1164
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 12,
+      "expected_skill": "blast-radius",
+      "prompt": "Analyze blast radius of modifying the user authentication token format",
+      "passed": true,
+      "top_skill": "blast-radius",
+      "top_score": 1.1672,
+      "expected_score": 1.1672,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "blast-radius",
+          "score": 1.1672
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.388
+        },
+        {
+          "skill": "security-review",
+          "score": 0.195
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.1808
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1446
+        }
+      ]
+    },
+    {
+      "sample_index": 13,
+      "expected_skill": "brd-generation",
+      "prompt": "Draft business requirements document (BRD) and acceptance criteria for checkout flow",
+      "passed": true,
+      "top_skill": "brd-generation",
+      "top_score": 0.5572,
+      "expected_score": 0.5572,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "brd-generation",
+          "score": 0.5572
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.2259
+        },
+        {
+          "skill": "n8n-automation",
+          "score": 0.2104
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.1774
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.1558
+        }
+      ]
+    },
+    {
+      "sample_index": 14,
+      "expected_skill": "brd-generation",
+      "prompt": "Buatkan dokumen spesifikasi kebutuhan bisnis (BRD) lengkap dengan user journey",
+      "passed": true,
+      "top_skill": "brd-generation",
+      "top_score": 0.2833,
+      "expected_score": 0.2833,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "brd-generation",
+          "score": 0.2833
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.1199
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.1043
+        },
+        {
+          "skill": "security-review",
+          "score": 0.0827
+        },
+        {
+          "skill": "visual-qa",
+          "score": 0.0774
+        }
+      ]
+    },
+    {
+      "sample_index": 15,
+      "expected_skill": "brownfield-entry",
+      "prompt": "Pelajari dan petakan struktur proyek legacy yang sudah ada ini sebelum mulai coding",
+      "passed": false,
+      "top_skill": "adr-management",
+      "top_score": 0,
+      "expected_score": 0,
+      "expected_rank": 9,
+      "ranking": [
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 16,
+      "expected_skill": "brownfield-entry",
+      "prompt": "Analyze this existing brownfield repository and generate an architectural system map",
+      "passed": true,
+      "top_skill": "brownfield-entry",
+      "top_score": 0.478,
+      "expected_score": 0.478,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "brownfield-entry",
+          "score": 0.478
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.3137
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.2045
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.1914
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.1719
+        }
+      ]
+    },
+    {
+      "sample_index": 17,
+      "expected_skill": "budget-circuit-breaker",
+      "prompt": "Pasang circuit breaker untuk mencegah pemborosan token dan biaya LLM",
+      "passed": true,
+      "top_skill": "budget-circuit-breaker",
+      "top_score": 0.4851,
+      "expected_score": 0.4851,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.4851
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.2607
+        },
+        {
+          "skill": "context-navigation",
+          "score": 0.137
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 18,
+      "expected_skill": "budget-circuit-breaker",
+      "prompt": "Halt task execution when LLM token consumption exceeds budget limit",
+      "passed": true,
+      "top_skill": "budget-circuit-breaker",
+      "top_score": 0.8686,
+      "expected_score": 0.8686,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.8686
+        },
+        {
+          "skill": "task-waves",
+          "score": 0.5431
+        },
+        {
+          "skill": "worktree-isolation",
+          "score": 0.3125
+        },
+        {
+          "skill": "trigger-dev",
+          "score": 0.1659
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.1499
+        }
+      ]
+    },
+    {
+      "sample_index": 19,
+      "expected_skill": "codebase-gardening",
+      "prompt": "Lakukan pembersihan teknikal debt dan refactoring berkala pada kode repo",
+      "passed": false,
+      "top_skill": "debt-scanner",
+      "top_score": 0.4102,
+      "expected_score": 0.099,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.4102
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.099
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 20,
+      "expected_skill": "codebase-gardening",
+      "prompt": "Run routine codebase gardening wave to resolve debt markers and cleanup unused files",
+      "passed": false,
+      "top_skill": "debt-scanner",
+      "top_score": 0.8732,
+      "expected_score": 0.5339,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.8732
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.5339
+        },
+        {
+          "skill": "independent-verification",
+          "score": 0.2942
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.2095
+        },
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.1717
+        }
+      ]
+    },
+    {
+      "sample_index": 21,
+      "expected_skill": "component-tokens",
+      "prompt": "Definisikan design tokens untuk typography, spacing, dan colors di Tailwind",
+      "passed": false,
+      "top_skill": "ux-systems",
+      "top_score": 0.8599,
+      "expected_score": 0.2412,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "ux-systems",
+          "score": 0.8599
+        },
+        {
+          "skill": "component-tokens",
+          "score": 0.2412
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.2083
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1043
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.0943
+        }
+      ]
+    },
+    {
+      "sample_index": 22,
+      "expected_skill": "component-tokens",
+      "prompt": "Extract reusable component design tokens and css variables for our design system",
+      "passed": true,
+      "top_skill": "component-tokens",
+      "top_score": 0.6912,
+      "expected_score": 0.6912,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "component-tokens",
+          "score": 0.6912
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.554
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.4234
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.3359
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.2816
+        }
+      ]
+    },
+    {
+      "sample_index": 23,
+      "expected_skill": "context-navigation",
+      "prompt": "Temukan lokasi implementasi fungsi autentikasi token JWT di seluruh codebase",
+      "passed": false,
+      "top_skill": "debt-scanner",
+      "top_score": 0.1713,
+      "expected_score": 0.137,
+      "expected_rank": 3,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.1713
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1446
+        },
+        {
+          "skill": "context-navigation",
+          "score": 0.137
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1239
+        },
+        {
+          "skill": "brownfield-entry",
+          "score": 0.0922
+        }
+      ]
+    },
+    {
+      "sample_index": 24,
+      "expected_skill": "context-navigation",
+      "prompt": "Navigate the codebase to locate where payment webhook processing is handled",
+      "passed": false,
+      "top_skill": "debt-scanner",
+      "top_score": 0.2583,
+      "expected_score": 0.1715,
+      "expected_rank": 8,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.2583
+        },
+        {
+          "skill": "adr-management",
+          "score": 0.2469
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.2275
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.1864
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.1851
+        }
+      ]
+    },
+    {
+      "sample_index": 25,
+      "expected_skill": "cuj-mapping",
+      "prompt": "Petakan Critical User Journey (CUJ) dari registrasi hingga pembayaran sukses",
+      "passed": true,
+      "top_skill": "cuj-mapping",
+      "top_score": 0.2459,
+      "expected_score": 0.2459,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "cuj-mapping",
+          "score": 0.2459
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.1199
+        },
+        {
+          "skill": "security-review",
+          "score": 0.0827
+        },
+        {
+          "skill": "visual-qa",
+          "score": 0.0774
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 26,
+      "expected_skill": "cuj-mapping",
+      "prompt": "Map end-to-end critical user journeys with edge cases and failure paths",
+      "passed": false,
+      "top_skill": "e2e-testing",
+      "top_score": 0.2913,
+      "expected_score": 0.2174,
+      "expected_rank": 3,
+      "ranking": [
+        {
+          "skill": "e2e-testing",
+          "score": 0.2913
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0.2402
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.2174
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.208
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.1914
+        }
+      ]
+    },
+    {
+      "sample_index": 27,
+      "expected_skill": "debt-scanner",
+      "prompt": "Pindai seluruh TODO, FIXME, dan technical debt markers di repositori",
+      "passed": true,
+      "top_skill": "debt-scanner",
+      "top_score": 0.643,
+      "expected_score": 0.643,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.643
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.2114
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 28,
+      "expected_skill": "debt-scanner",
+      "prompt": "Scan project source code for tech debt annotations and architectural shortcuts",
+      "passed": true,
+      "top_skill": "debt-scanner",
+      "top_score": 0.4692,
+      "expected_score": 0.4692,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "debt-scanner",
+          "score": 0.4692
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.3137
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.2381
+        },
+        {
+          "skill": "react-native-mobile",
+          "score": 0.2381
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.2168
+        }
+      ]
+    },
+    {
+      "sample_index": 29,
+      "expected_skill": "docker-compose",
+      "prompt": "Buatkan docker-compose.yml untuk menjalankan backend, postgres, dan redis secara lokal",
+      "passed": true,
+      "top_skill": "docker-compose",
+      "top_score": 0.1629,
+      "expected_score": 0.1629,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "docker-compose",
+          "score": 0.1629
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 30,
+      "expected_skill": "docker-compose",
+      "prompt": "Configure multi-service docker-compose setup with healthchecks and persistent volumes",
+      "passed": true,
+      "top_skill": "docker-compose",
+      "top_score": 0.3671,
+      "expected_score": 0.3671,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "docker-compose",
+          "score": 0.3671
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1963
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1513
+        }
+      ]
+    },
+    {
+      "sample_index": 31,
+      "expected_skill": "docker-optimization",
+      "prompt": "Optimalkan Dockerfile dengan multi-stage build agar ukuran image minimal",
+      "passed": true,
+      "top_skill": "docker-optimization",
+      "top_score": 0.3405,
+      "expected_score": 0.3405,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "docker-optimization",
+          "score": 0.3405
+        },
+        {
+          "skill": "minimalist-executor",
+          "score": 0.1795
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 32,
+      "expected_skill": "docker-optimization",
+      "prompt": "Reduce Docker image size using slim base images and optimized layer caching",
+      "passed": true,
+      "top_skill": "docker-optimization",
+      "top_score": 0.3649,
+      "expected_score": 0.3649,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "docker-optimization",
+          "score": 0.3649
+        },
+        {
+          "skill": "docker-compose",
+          "score": 0.3284
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.2276
+        },
+        {
+          "skill": "layered-architecture",
+          "score": 0.1535
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.1451
+        }
+      ]
+    },
+    {
+      "sample_index": 33,
+      "expected_skill": "drizzle-orm",
+      "prompt": "Buat schema tabel pengguna dan relasinya menggunakan Drizzle ORM TypeScript",
+      "passed": true,
+      "top_skill": "drizzle-orm",
+      "top_score": 0.6627,
+      "expected_score": 0.6627,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "drizzle-orm",
+          "score": 0.6627
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.1026
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 34,
+      "expected_skill": "drizzle-orm",
+      "prompt": "Write type-safe SQL queries and migrations using Drizzle ORM",
+      "passed": true,
+      "top_skill": "drizzle-orm",
+      "top_score": 0.816,
+      "expected_score": 0.816,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "drizzle-orm",
+          "score": 0.816
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.2552
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.1451
+        },
+        {
+          "skill": "react-native-mobile",
+          "score": 0.1451
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1317
+        }
+      ]
+    },
+    {
+      "sample_index": 35,
+      "expected_skill": "dynamic-plugins",
+      "prompt": "Generate script plugin tambahan dan taruh di folder karantina untuk disetujui",
+      "passed": false,
+      "top_skill": "layered-architecture",
+      "top_score": 0.1551,
+      "expected_score": 0,
+      "expected_rank": 20,
+      "ranking": [
+        {
+          "skill": "layered-architecture",
+          "score": 0.1551
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 36,
+      "expected_skill": "dynamic-plugins",
+      "prompt": "Create quarantined dynamic agent plugin script with SHA256 manifest registration",
+      "passed": true,
+      "top_skill": "dynamic-plugins",
+      "top_score": 0.2327,
+      "expected_score": 0.2327,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.2327
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.1715
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1101
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1101
+        },
+        {
+          "skill": "component-tokens",
+          "score": 0.0943
+        }
+      ]
+    },
+    {
+      "sample_index": 37,
+      "expected_skill": "e2e-testing",
+      "prompt": "Buat automated end-to-end (E2E) browser tests menggunakan Playwright untuk flow login",
+      "passed": true,
+      "top_skill": "e2e-testing",
+      "top_score": 0.4559,
+      "expected_score": 0.4559,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "e2e-testing",
+          "score": 0.4559
+        },
+        {
+          "skill": "visual-qa",
+          "score": 0.2102
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1446
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.1132
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1041
+        }
+      ]
+    },
+    {
+      "sample_index": 38,
+      "expected_skill": "e2e-testing",
+      "prompt": "Write Playwright E2E test suite covering user registration and checkout flow",
+      "passed": true,
+      "top_skill": "e2e-testing",
+      "top_score": 0.487,
+      "expected_score": 0.487,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "e2e-testing",
+          "score": 0.487
+        },
+        {
+          "skill": "security-review",
+          "score": 0.1111
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.1043
+        },
+        {
+          "skill": "visual-qa",
+          "score": 0.104
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.075
+        }
+      ]
+    },
+    {
+      "sample_index": 39,
+      "expected_skill": "elysia-rest-api",
+      "prompt": "Bangun REST API endpoint dengan ElysiaJS dan Bun dengan validasi typebox",
+      "passed": true,
+      "top_skill": "elysia-rest-api",
+      "top_score": 0.4986,
+      "expected_score": 0.4986,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.4986
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.3071
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.2687
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.2634
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.1314
+        }
+      ]
+    },
+    {
+      "sample_index": 40,
+      "expected_skill": "elysia-rest-api",
+      "prompt": "Implement high-performance Elysia backend routes with strict schema validation",
+      "passed": false,
+      "top_skill": "zod-validation",
+      "top_score": 0.6046,
+      "expected_score": 0.4373,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "zod-validation",
+          "score": 0.6046
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.4373
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.2022
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.1551
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1411
+        }
+      ]
+    },
+    {
+      "sample_index": 41,
+      "expected_skill": "frontend-integration",
+      "prompt": "Integrasikan form frontend dengan backend REST API menggunakan TanStack Query",
+      "passed": false,
+      "top_skill": "golang-rest-api",
+      "top_score": 0.3071,
+      "expected_score": 0.109,
+      "expected_rank": 9,
+      "ranking": [
+        {
+          "skill": "golang-rest-api",
+          "score": 0.3071
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.2687
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.2634
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.248
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.199
+        }
+      ]
+    },
+    {
+      "sample_index": 42,
+      "expected_skill": "frontend-integration",
+      "prompt": "Connect client UI components to backend endpoints with state management and caching",
+      "passed": true,
+      "top_skill": "frontend-integration",
+      "top_score": 0.3886,
+      "expected_score": 0.3886,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "frontend-integration",
+          "score": 0.3886
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.3116
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.3005
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.2741
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.2095
+        }
+      ]
+    },
+    {
+      "sample_index": 43,
+      "expected_skill": "github-actions",
+      "prompt": "Buatkan GitHub Actions CI workflow untuk linting, testing, dan build otomatis",
+      "passed": true,
+      "top_skill": "github-actions",
+      "top_score": 0.994,
+      "expected_score": 0.994,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "github-actions",
+          "score": 0.994
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.2603
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1446
+        },
+        {
+          "skill": "n8n-automation",
+          "score": 0.1064
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1041
+        }
+      ]
+    },
+    {
+      "sample_index": 44,
+      "expected_skill": "github-actions",
+      "prompt": "Configure automated GitHub Actions pipeline with bun setup and test execution",
+      "passed": true,
+      "top_skill": "github-actions",
+      "top_score": 1.0182,
+      "expected_score": 1.0182,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "github-actions",
+          "score": 1.0182
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.2891
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.2332
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.2014
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1963
+        }
+      ]
+    },
+    {
+      "sample_index": 45,
+      "expected_skill": "golang-rest-api",
+      "prompt": "Buat REST API service menggunakan Go dan Gin atau Chi dengan clean architecture",
+      "passed": true,
+      "top_skill": "golang-rest-api",
+      "top_score": 0.4622,
+      "expected_score": 0.4622,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "golang-rest-api",
+          "score": 0.4622
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.2687
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.2634
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.248
+        },
+        {
+          "skill": "layered-architecture",
+          "score": 0.2127
+        }
+      ]
+    },
+    {
+      "sample_index": 46,
+      "expected_skill": "golang-rest-api",
+      "prompt": "Develop scalable Go HTTP microservice with structured logging and middleware",
+      "passed": false,
+      "top_skill": "hono-rest-api",
+      "top_score": 0.3723,
+      "expected_score": 0.1944,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "hono-rest-api",
+          "score": 0.3723
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.1944
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1513
+        }
+      ]
+    },
+    {
+      "sample_index": 47,
+      "expected_skill": "hono-rest-api",
+      "prompt": "Implementasi REST API ringan menggunakan Hono framework untuk edge runtime",
+      "passed": true,
+      "top_skill": "hono-rest-api",
+      "top_score": 0.6486,
+      "expected_score": 0.6486,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "hono-rest-api",
+          "score": 0.6486
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.4261
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.3585
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.3071
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.2845
+        }
+      ]
+    },
+    {
+      "sample_index": 48,
+      "expected_skill": "hono-rest-api",
+      "prompt": "Build modular Hono server endpoints with middleware and OpenAPI documentation",
+      "passed": true,
+      "top_skill": "hono-rest-api",
+      "top_score": 0.5242,
+      "expected_score": 0.5242,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "hono-rest-api",
+          "score": 0.5242
+        },
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.3192
+        },
+        {
+          "skill": "security-review",
+          "score": 0.2091
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        }
+      ]
+    },
+    {
+      "sample_index": 49,
+      "expected_skill": "independent-verification",
+      "prompt": "Jalankan verifikasi independen atas hasil kerja agen lain dan catat bukti eksekusi",
+      "passed": false,
+      "top_skill": "adr-management",
+      "top_score": 0,
+      "expected_score": 0,
+      "expected_rank": 26,
+      "ranking": [
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 50,
+      "expected_skill": "independent-verification",
+      "prompt": "Act as independent verifier to validate pull request claims with raw execution evidence",
+      "passed": false,
+      "top_skill": "task-waves",
+      "top_score": 0.4891,
+      "expected_score": 0.3781,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "task-waves",
+          "score": 0.4891
+        },
+        {
+          "skill": "independent-verification",
+          "score": 0.3781
+        },
+        {
+          "skill": "worktree-isolation",
+          "score": 0.2485
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.2433
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.2103
+        }
+      ]
+    },
+    {
+      "sample_index": 51,
+      "expected_skill": "laravel-api",
+      "prompt": "Bangun backend API dengan Laravel 11 controller, resource, dan form request",
+      "passed": true,
+      "top_skill": "laravel-api",
+      "top_score": 0.5311,
+      "expected_score": 0.5311,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "laravel-api",
+          "score": 0.5311
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1101
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.0943
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.09
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.0825
+        }
+      ]
+    },
+    {
+      "sample_index": 52,
+      "expected_skill": "laravel-api",
+      "prompt": "Create Laravel RESTful endpoints with Eloquent models and policy authorization",
+      "passed": true,
+      "top_skill": "laravel-api",
+      "top_score": 0.4073,
+      "expected_score": 0.4073,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "laravel-api",
+          "score": 0.4073
+        },
+        {
+          "skill": "security-review",
+          "score": 0.2091
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1513
+        }
+      ]
+    },
+    {
+      "sample_index": 53,
+      "expected_skill": "layered-architecture",
+      "prompt": "Terapkan arsitektur berlapis: Pisahkan controller, service, dan repository",
+      "passed": false,
+      "top_skill": "drizzle-orm",
+      "top_score": 0.1358,
+      "expected_score": 0,
+      "expected_rank": 29,
+      "ranking": [
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1358
+        },
+        {
+          "skill": "n8n-automation",
+          "score": 0.1207
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 54,
+      "expected_skill": "layered-architecture",
+      "prompt": "Enforce strict layered architecture separating presentation, domain, and data access",
+      "passed": true,
+      "top_skill": "layered-architecture",
+      "top_score": 0.5213,
+      "expected_score": 0.5213,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "layered-architecture",
+          "score": 0.5213
+        },
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.3504
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.231
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1896
+        },
+        {
+          "skill": "trust-pyramid",
+          "score": 0.1823
+        }
+      ]
+    },
+    {
+      "sample_index": 55,
+      "expected_skill": "lint-ratchet",
+      "prompt": "Catat baseline pelanggaran dan pasang ratchet agar jumlah warning hanya boleh turun",
+      "passed": true,
+      "top_skill": "lint-ratchet",
+      "top_score": 0.1417,
+      "expected_score": 0.1417,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "lint-ratchet",
+          "score": 0.1417
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 56,
+      "expected_skill": "lint-ratchet",
+      "prompt": "Implement lint ratchet mechanism ensuring new violations fail the CI build",
+      "passed": true,
+      "top_skill": "lint-ratchet",
+      "top_score": 0.3195,
+      "expected_score": 0.3195,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "lint-ratchet",
+          "score": 0.3195
+        },
+        {
+          "skill": "trust-pyramid",
+          "score": 0.2486
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.2247
+        },
+        {
+          "skill": "github-actions",
+          "score": 0.1795
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.1589
+        }
+      ]
+    },
+    {
+      "sample_index": 57,
+      "expected_skill": "minimalist-executor",
+      "prompt": "Tulis kode yang paling minimal untuk menyelesaikan masalah tanpa over-engineering (YAGNI)",
+      "passed": true,
+      "top_skill": "minimalist-executor",
+      "top_score": 0.359,
+      "expected_score": 0.359,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "minimalist-executor",
+          "score": 0.359
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1595
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.1367
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 58,
+      "expected_skill": "minimalist-executor",
+      "prompt": "Implement surgical code change adhering to YAGNI with zero unnecessary dependencies",
+      "passed": false,
+      "top_skill": "anti-bloat-review",
+      "top_score": 0.3358,
+      "expected_score": 0,
+      "expected_rank": 38,
+      "ranking": [
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.3358
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.2967
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.192
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1661
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.1164
+        }
+      ]
+    },
+    {
+      "sample_index": 59,
+      "expected_skill": "adversarial-review",
+      "prompt": "Lakukan tinjauan adversarial dengan sudut pandang red team dan blue team",
+      "passed": true,
+      "top_skill": "adversarial-review",
+      "top_score": 0.3833,
+      "expected_score": 0.3833,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "adversarial-review",
+          "score": 0.3833
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.1086
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 60,
+      "expected_skill": "adversarial-review",
+      "prompt": "Perform adversarial red-team review to challenge design assumptions",
+      "passed": true,
+      "top_skill": "adversarial-review",
+      "top_score": 0.5147,
+      "expected_score": 0.5147,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "adversarial-review",
+          "score": 0.5147
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.4419
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.2879
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.2085
+        },
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.1127
+        }
+      ]
+    },
+    {
+      "sample_index": 61,
+      "expected_skill": "n8n-automation",
+      "prompt": "Buat workflow otomasi n8n untuk integrasi webhook dan notifikasi Slack",
+      "passed": true,
+      "top_skill": "n8n-automation",
+      "top_score": 0.4684,
+      "expected_score": 0.4684,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "n8n-automation",
+          "score": 0.4684
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.0957
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 62,
+      "expected_skill": "n8n-automation",
+      "prompt": "Design n8n automation pipeline connecting database triggers to external APIs",
+      "passed": true,
+      "top_skill": "n8n-automation",
+      "top_score": 0.5604,
+      "expected_score": 0.5604,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "n8n-automation",
+          "score": 0.5604
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.3808
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.2381
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.2085
+        },
+        {
+          "skill": "github-actions",
+          "score": 0.2036
+        }
+      ]
+    },
+    {
+      "sample_index": 63,
+      "expected_skill": "python-fastapi",
+      "prompt": "Buat endpoint API async menggunakan Python FastAPI dan Pydantic models",
+      "passed": true,
+      "top_skill": "python-fastapi",
+      "top_score": 0.7666,
+      "expected_score": 0.7666,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "python-fastapi",
+          "score": 0.7666
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.1238
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1101
+        },
+        {
+          "skill": "trigger-dev",
+          "score": 0.0987
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.0943
+        }
+      ]
+    },
+    {
+      "sample_index": 64,
+      "expected_skill": "python-fastapi",
+      "prompt": "Develop FastAPI backend service with dependency injection and type annotations",
+      "passed": true,
+      "top_skill": "python-fastapi",
+      "top_score": 0.4318,
+      "expected_score": 0.4318,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "python-fastapi",
+          "score": 0.4318
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.3312
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.2332
+        },
+        {
+          "skill": "layered-architecture",
+          "score": 0.176
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        }
+      ]
+    },
+    {
+      "sample_index": 65,
+      "expected_skill": "react-frontend",
+      "prompt": "Bangun komponen antarmuka React dengan hooks dan Tailwind CSS",
+      "passed": false,
+      "top_skill": "react-native-mobile",
+      "top_score": 0.3378,
+      "expected_score": 0.2611,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "react-native-mobile",
+          "score": 0.3378
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.2611
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 66,
+      "expected_skill": "react-frontend",
+      "prompt": "Create interactive React components with custom hooks and responsive layouts",
+      "passed": false,
+      "top_skill": "react-native-mobile",
+      "top_score": 0.3864,
+      "expected_score": 0.2986,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "react-native-mobile",
+          "score": 0.3864
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.2986
+        },
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.2641
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.2581
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        }
+      ]
+    },
+    {
+      "sample_index": 67,
+      "expected_skill": "react-native-mobile",
+      "prompt": "Kembangkan aplikasi mobile cross-platform menggunakan React Native dan Expo",
+      "passed": true,
+      "top_skill": "react-native-mobile",
+      "top_score": 1.4878,
+      "expected_score": 1.4878,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "react-native-mobile",
+          "score": 1.4878
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.2611
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 68,
+      "expected_skill": "react-native-mobile",
+      "prompt": "Build mobile UI screens with React Native navigation and offline storage",
+      "passed": true,
+      "top_skill": "react-native-mobile",
+      "top_score": 1.153,
+      "expected_score": 1.153,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "react-native-mobile",
+          "score": 1.153
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.2986
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.2581
+        },
+        {
+          "skill": "context-navigation",
+          "score": 0.1946
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        }
+      ]
+    },
+    {
+      "sample_index": 69,
+      "expected_skill": "reverse-engineering",
+      "prompt": "Analisis arsitektur dan teknologi web publik kompetitor secara legal",
+      "passed": true,
+      "top_skill": "reverse-engineering",
+      "top_score": 0.1715,
+      "expected_score": 0.1715,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1715
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 70,
+      "expected_skill": "reverse-engineering",
+      "prompt": "Perform reconnaissance on public web interfaces to extract design patterns",
+      "passed": true,
+      "top_skill": "reverse-engineering",
+      "top_score": 1.0825,
+      "expected_score": 1.0825,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "reverse-engineering",
+          "score": 1.0825
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.2085
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.1729
+        },
+        {
+          "skill": "react-frontend",
+          "score": 0.1676
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.1557
+        }
+      ]
+    },
+    {
+      "sample_index": 71,
+      "expected_skill": "security-review",
+      "prompt": "Lakukan audit keamanan kode terhadap celah SQL injection, XSS, dan kebocoran rahasia",
+      "passed": false,
+      "top_skill": "anti-bloat-review",
+      "top_score": 0.1551,
+      "expected_score": 0,
+      "expected_rank": 37,
+      "ranking": [
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.1551
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.1551
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-silent-failure",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 72,
+      "expected_skill": "security-review",
+      "prompt": "Review authentication endpoints for OWASP vulnerabilities and hardcoded secrets",
+      "passed": true,
+      "top_skill": "security-review",
+      "top_score": 0.4425,
+      "expected_score": 0.4425,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "security-review",
+          "score": 0.4425
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.3056
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1799
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.1774
+        },
+        {
+          "skill": "auto-merge-gates",
+          "score": 0.1274
+        }
+      ]
+    },
+    {
+      "sample_index": 73,
+      "expected_skill": "self-healing",
+      "prompt": "Analisis pesan error stack trace ini dan lakukan perbaikan otomatis pada kode",
+      "passed": false,
+      "top_skill": "blast-radius",
+      "top_score": 0.2172,
+      "expected_score": 0.1367,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "blast-radius",
+          "score": 0.2172
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1367
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.1197
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 74,
+      "expected_skill": "self-healing",
+      "prompt": "Diagnose build error output and apply targeted self-healing patch",
+      "passed": true,
+      "top_skill": "self-healing",
+      "top_score": 0.3312,
+      "expected_score": 0.3312,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "self-healing",
+          "score": 0.3312
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.154
+        },
+        {
+          "skill": "trust-pyramid",
+          "score": 0.1164
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.075
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.0688
+        }
+      ]
+    },
+    {
+      "sample_index": 75,
+      "expected_skill": "sveltekit-frontend",
+      "prompt": "Bangun halaman web modern menggunakan SvelteKit dengan server load functions",
+      "passed": true,
+      "top_skill": "sveltekit-frontend",
+      "top_score": 0.5666,
+      "expected_score": 0.5666,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.5666
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1715
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 76,
+      "expected_skill": "sveltekit-frontend",
+      "prompt": "Develop SvelteKit reactive UI components with server-side rendering",
+      "passed": false,
+      "top_skill": "frontend-integration",
+      "top_score": 0.3511,
+      "expected_score": 0.2833,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "frontend-integration",
+          "score": 0.3511
+        },
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.2833
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.1511
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1101
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1101
+        }
+      ]
+    },
+    {
+      "sample_index": 77,
+      "expected_skill": "task-waves",
+      "prompt": "Bagi rencana kerja besar menjadi gelombang tugas (waves) bertahap yang mandiri",
+      "passed": true,
+      "top_skill": "task-waves",
+      "top_score": 0.4102,
+      "expected_score": 0.4102,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "task-waves",
+          "score": 0.4102
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.099
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 78,
+      "expected_skill": "task-waves",
+      "prompt": "Decompose complex feature development into staged task waves with clear milestones",
+      "passed": true,
+      "top_skill": "task-waves",
+      "top_score": 1.1861,
+      "expected_score": 1.1861,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "task-waves",
+          "score": 1.1861
+        },
+        {
+          "skill": "codebase-gardening",
+          "score": 0.2114
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.1914
+        },
+        {
+          "skill": "worktree-isolation",
+          "score": 0.1627
+        },
+        {
+          "skill": "docker-compose",
+          "score": 0.1436
+        }
+      ]
+    },
+    {
+      "sample_index": 79,
+      "expected_skill": "tdd-workflow",
+      "prompt": "Terapkan Test-Driven Development (TDD): tulis unit test dulu sampai gagal baru implementasikan",
+      "passed": true,
+      "top_skill": "tdd-workflow",
+      "top_score": 0.3958,
+      "expected_score": 0.3958,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "tdd-workflow",
+          "score": 0.3958
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.3755
+        },
+        {
+          "skill": "docker-compose",
+          "score": 0.1436
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 80,
+      "expected_skill": "tdd-workflow",
+      "prompt": "Follow red-green-refactor TDD cycle by writing failing unit test before code",
+      "passed": false,
+      "top_skill": "vitest-unit-testing",
+      "top_score": 0.5058,
+      "expected_score": 0.3323,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.5058
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.3323
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.1599
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.1262
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.1239
+        }
+      ]
+    },
+    {
+      "sample_index": 81,
+      "expected_skill": "trigger-dev",
+      "prompt": "Implementasikan background job dan scheduled tasks menggunakan Trigger.dev",
+      "passed": true,
+      "top_skill": "trigger-dev",
+      "top_score": 0.4702,
+      "expected_score": 0.4702,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "trigger-dev",
+          "score": 0.4702
+        },
+        {
+          "skill": "minimalist-executor",
+          "score": 0.1795
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 82,
+      "expected_skill": "trigger-dev",
+      "prompt": "Configure Trigger.dev background workflows with retries and concurrency limits",
+      "passed": true,
+      "top_skill": "trigger-dev",
+      "top_score": 0.4952,
+      "expected_score": 0.4952,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "trigger-dev",
+          "score": 0.4952
+        },
+        {
+          "skill": "minimalist-executor",
+          "score": 0.1795
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1513
+        }
+      ]
+    },
+    {
+      "sample_index": 83,
+      "expected_skill": "trust-pyramid",
+      "prompt": "Terapkan Trust Pyramid: utamakan type constraint dan linting mekanis di atas aturan prosa",
+      "passed": true,
+      "top_skill": "trust-pyramid",
+      "top_score": 0.2327,
+      "expected_score": 0.2327,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "trust-pyramid",
+          "score": 0.2327
+        },
+        {
+          "skill": "elysia-rest-api",
+          "score": 0.1253
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 84,
+      "expected_skill": "trust-pyramid",
+      "prompt": "Enforce Trust Pyramid principles by converting prose directives into deterministic gates",
+      "passed": true,
+      "top_skill": "trust-pyramid",
+      "top_score": 0.5265,
+      "expected_score": 0.5265,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "trust-pyramid",
+          "score": 0.5265
+        },
+        {
+          "skill": "auto-merge-gates",
+          "score": 0.2715
+        },
+        {
+          "skill": "architectural-linter",
+          "score": 0.1795
+        },
+        {
+          "skill": "task-waves",
+          "score": 0.1713
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.1358
+        }
+      ]
+    },
+    {
+      "sample_index": 85,
+      "expected_skill": "ux-systems",
+      "prompt": "Rancang sistem navigasi dan hierarki visual untuk pengalaman pengguna (UX)",
+      "passed": false,
+      "top_skill": "visual-qa",
+      "top_score": 0.3153,
+      "expected_score": 0.1511,
+      "expected_rank": 3,
+      "ranking": [
+        {
+          "skill": "visual-qa",
+          "score": 0.3153
+        },
+        {
+          "skill": "component-tokens",
+          "score": 0.1511
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.1511
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 86,
+      "expected_skill": "ux-systems",
+      "prompt": "Design user experience wireframes and information architecture for dashboard",
+      "passed": false,
+      "top_skill": "layered-architecture",
+      "top_score": 0.3056,
+      "expected_score": 0.2085,
+      "expected_rank": 5,
+      "ranking": [
+        {
+          "skill": "layered-architecture",
+          "score": 0.3056
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.2789
+        },
+        {
+          "skill": "visual-qa",
+          "score": 0.2405
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.2174
+        },
+        {
+          "skill": "ux-systems",
+          "score": 0.2085
+        }
+      ]
+    },
+    {
+      "sample_index": 87,
+      "expected_skill": "visual-qa",
+      "prompt": "Lakukan pengujian visual snapshot untuk memastikan layout UI tidak regresi",
+      "passed": true,
+      "top_skill": "visual-qa",
+      "top_score": 0.4079,
+      "expected_score": 0.4079,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "visual-qa",
+          "score": 0.4079
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.1551
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.1305
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 88,
+      "expected_skill": "visual-qa",
+      "prompt": "Run visual regression QA testing comparing screenshots against baseline",
+      "passed": true,
+      "top_skill": "visual-qa",
+      "top_score": 0.513,
+      "expected_score": 0.513,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "visual-qa",
+          "score": 0.513
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.2603
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0.1689
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1446
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1041
+        }
+      ]
+    },
+    {
+      "sample_index": 89,
+      "expected_skill": "vitest-unit-testing",
+      "prompt": "Tulis unit test menggunakan Vitest untuk menguji logic service dan utility functions",
+      "passed": true,
+      "top_skill": "vitest-unit-testing",
+      "top_score": 0.5213,
+      "expected_score": 0.5213,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.5213
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1239
+        },
+        {
+          "skill": "n8n-automation",
+          "score": 0.1207
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.1183
+        },
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.1132
+        }
+      ]
+    },
+    {
+      "sample_index": 90,
+      "expected_skill": "vitest-unit-testing",
+      "prompt": "Create isolated Vitest unit test suite with mocks and high code coverage",
+      "passed": true,
+      "top_skill": "vitest-unit-testing",
+      "top_score": 0.7176,
+      "expected_score": 0.7176,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.7176
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.1632
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1559
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.1513
+        }
+      ]
+    },
+    {
+      "sample_index": 91,
+      "expected_skill": "vue-frontend",
+      "prompt": "Bangun komponen antarmuka menggunakan Vue 3 Composition API dan Pinia",
+      "passed": true,
+      "top_skill": "vue-frontend",
+      "top_score": 0.8305,
+      "expected_score": 0.8305,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "vue-frontend",
+          "score": 0.8305
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.1238
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1101
+        },
+        {
+          "skill": "golang-rest-api",
+          "score": 0.0943
+        },
+        {
+          "skill": "hono-rest-api",
+          "score": 0.0825
+        }
+      ]
+    },
+    {
+      "sample_index": 92,
+      "expected_skill": "vue-frontend",
+      "prompt": "Develop responsive Vue 3 components with script setup and reactive state",
+      "passed": true,
+      "top_skill": "vue-frontend",
+      "top_score": 0.6376,
+      "expected_score": 0.6376,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "vue-frontend",
+          "score": 0.6376
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.3005
+        },
+        {
+          "skill": "frontend-integration",
+          "score": 0.2581
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.1963
+        },
+        {
+          "skill": "docker-optimization",
+          "score": 0.1559
+        }
+      ]
+    },
+    {
+      "sample_index": 93,
+      "expected_skill": "worktree-isolation",
+      "prompt": "Gunakan git worktree untuk mengerjakan fitur secara terisolasi tanpa merusak working tree",
+      "passed": true,
+      "top_skill": "worktree-isolation",
+      "top_score": 0.5867,
+      "expected_score": 0.5867,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "worktree-isolation",
+          "score": 0.5867
+        },
+        {
+          "skill": "self-healing",
+          "score": 0.1367
+        },
+        {
+          "skill": "security-review",
+          "score": 0.1123
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    },
+    {
+      "sample_index": 94,
+      "expected_skill": "worktree-isolation",
+      "prompt": "Create isolated git worktree branch to execute experimental code refactoring safely",
+      "passed": true,
+      "top_skill": "worktree-isolation",
+      "top_score": 0.889,
+      "expected_score": 0.889,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "worktree-isolation",
+          "score": 0.889
+        },
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.3454
+        },
+        {
+          "skill": "anti-bloat-review",
+          "score": 0.1991
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.192
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.1661
+        }
+      ]
+    },
+    {
+      "sample_index": 95,
+      "expected_skill": "zero-downtime-migration",
+      "prompt": "Rancang skema migrasi database zero-downtime dengan pola expand and contract",
+      "passed": true,
+      "top_skill": "zero-downtime-migration",
+      "top_score": 0.3785,
+      "expected_score": 0.3785,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.3785
+        },
+        {
+          "skill": "vue-frontend",
+          "score": 0.075
+        },
+        {
+          "skill": "drizzle-orm",
+          "score": 0.0688
+        },
+        {
+          "skill": "vitest-unit-testing",
+          "score": 0.066
+        },
+        {
+          "skill": "debt-scanner",
+          "score": 0.0589
+        }
+      ]
+    },
+    {
+      "sample_index": 96,
+      "expected_skill": "zero-downtime-migration",
+      "prompt": "Execute zero-downtime database migration using multi-phase column transition",
+      "passed": true,
+      "top_skill": "dynamic-plugins",
+      "top_score": 0.2327,
+      "expected_score": 0.2327,
+      "expected_rank": 2,
+      "ranking": [
+        {
+          "skill": "dynamic-plugins",
+          "score": 0.2327
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.2327
+        },
+        {
+          "skill": "github-actions",
+          "score": 0.1026
+        },
+        {
+          "skill": "laravel-api",
+          "score": 0.1026
+        },
+        {
+          "skill": "python-fastapi",
+          "score": 0.0966
+        }
+      ]
+    },
+    {
+      "sample_index": 97,
+      "expected_skill": "zod-validation",
+      "prompt": "Validasi request body dan input data menggunakan skema Zod yang type-safe",
+      "passed": true,
+      "top_skill": "zod-validation",
+      "top_score": 0.4941,
+      "expected_score": 0.4941,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "zod-validation",
+          "score": 0.4941
+        },
+        {
+          "skill": "sveltekit-frontend",
+          "score": 0.1132
+        },
+        {
+          "skill": "security-review",
+          "score": 0.099
+        },
+        {
+          "skill": "zero-downtime-migration",
+          "score": 0.093
+        },
+        {
+          "skill": "trigger-dev",
+          "score": 0.0789
+        }
+      ]
+    },
+    {
+      "sample_index": 98,
+      "expected_skill": "zod-validation",
+      "prompt": "Define Zod schema to parse and validate incoming API payload",
+      "passed": true,
+      "top_skill": "zod-validation",
+      "top_score": 0.343,
+      "expected_score": 0.343,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "zod-validation",
+          "score": 0.343
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.3234
+        },
+        {
+          "skill": "reverse-engineering",
+          "score": 0.2095
+        },
+        {
+          "skill": "budget-circuit-breaker",
+          "score": 0.1977
+        },
+        {
+          "skill": "property-based-testing",
+          "score": 0.1904
+        }
+      ]
+    },
+    {
+      "sample_index": 99,
+      "expected_skill": "property-based-testing",
+      "prompt": "Write property-based tests using fast-check to verify the JSON serializer roundtrip invariant",
+      "passed": true,
+      "top_skill": "property-based-testing",
+      "top_score": 0.3256,
+      "expected_score": 0.3256,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "property-based-testing",
+          "score": 0.3256
+        },
+        {
+          "skill": "cuj-mapping",
+          "score": 0.2275
+        },
+        {
+          "skill": "e2e-testing",
+          "score": 0.2219
+        },
+        {
+          "skill": "tdd-workflow",
+          "score": 0.192
+        },
+        {
+          "skill": "blast-radius",
+          "score": 0.1864
+        }
+      ]
+    },
+    {
+      "sample_index": 100,
+      "expected_skill": "property-based-testing",
+      "prompt": "Tulis pengujian berbasis properti (property-based test) untuk membuktikan invarian fungsi terhadap input acak dan shrinking",
+      "passed": true,
+      "top_skill": "property-based-testing",
+      "top_score": 0.181,
+      "expected_score": 0.181,
+      "expected_rank": 1,
+      "ranking": [
+        {
+          "skill": "property-based-testing",
+          "score": 0.181
+        },
+        {
+          "skill": "zod-validation",
+          "score": 0.1511
+        },
+        {
+          "skill": "security-review",
+          "score": 0.099
+        },
+        {
+          "skill": "adr-management",
+          "score": 0
+        },
+        {
+          "skill": "adversarial-review",
+          "score": 0
+        }
+      ]
+    }
+  ]
+}

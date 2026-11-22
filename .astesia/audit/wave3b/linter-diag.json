@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-11-22T05:25:39.590Z",
+  "in_memory_mutants_code_location": {
+    "file": "tools/tests/lint-selftest.ts",
+    "lines": "Line 17 (import runFrameworkLint) and Line 56 (in-process invocation runFrameworkLint(targetDir))",
+    "analysis": "The 3A mutation tests called the TypeScript function in-process without testing the actual CLI binary (`bun tools/framework-lint.ts`), argument parsing, process exit codes, or real stderr outputs."
+  },
+  "keyword_stuffing_experiment": {
+    "fl012": {
+      "tested_mutation": "Removed ## Guardrails heading and body, inserted keywords into HTML comment <!-- keyword stuffing: karantina menyetujui manifest.json jaringan secret -->",
+      "heading_violation_caught": true,
+      "keyword_violations_caught": 0,
+      "vulnerability": "Regex matches keyword anywhere in the file (including HTML comments and code blocks). All 5 keywords were considered 'present' even though they were purely inside an HTML comment!"
+    },
+    "fl013": {
+      "tested_mutation": "Removed Section 3 Untrusted Content, inserted into HTML comment <!-- keyword stuffing: DATA, bukan instruksi untrusted -->",
+      "violation_caught": false,
+      "vulnerability": "FL-013 test regex /DATA\\s*,\\s*bukan\\s*instruksi/i matched the HTML comment! Zero violations emitted for FL-013 despite the normative rule being deleted!"
+    }
+  },
+  "package_json_scripts": {
+    "scripts": {},
+    "status": "EMPTY - zero scripts defined in package.json. Linter is not wired to standard npm/bun scripts."
+  },
+  "fl005_exemptions": {
+    "exemptions_in_config": [],
+    "analysis": "All current 50 skills have description lengths <= 320 chars. No exemptions currently active."
+  }
+}

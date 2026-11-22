@@ -1,0 +1,78 @@
+{
+  "method": "ceil(bytes_utf8 / 3.5)",
+  "boot_set_definition": "AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md",
+  "boot_tokens_est": 8976,
+  "total_bytes": 31405,
+  "per_file": [
+    {
+      "path": "rules/AGENTS.md",
+      "bytes": 2004,
+      "tokens_est": 573
+    },
+    {
+      "path": "rules/coding-standards.md",
+      "bytes": 1440,
+      "tokens_est": 412
+    },
+    {
+      "path": "rules/design-rules.md",
+      "bytes": 846,
+      "tokens_est": 242
+    },
+    {
+      "path": "rules/devops-rules.md",
+      "bytes": 1112,
+      "tokens_est": 318
+    },
+    {
+      "path": "rules/engineering-rules.md",
+      "bytes": 6404,
+      "tokens_est": 1830
+    },
+    {
+      "path": "rules/product-rules.md",
+      "bytes": 1060,
+      "tokens_est": 303
+    },
+    {
+      "path": "rules/quality-rules.md",
+      "bytes": 2754,
+      "tokens_est": 787
+    },
+    {
+      "path": "skills/skills-index.md",
+      "bytes": 5259,
+      "tokens_est": 1503
+    },
+    {
+      "path": "runtime/context-map.json",
+      "bytes": 1624,
+      "tokens_est": 464
+    }
+  ],
+  "skills_metadata": {
+    "count": 50,
+    "bytes": 8902,
+    "tokens_est": 2544
+  },
+  "history": [
+    {
+      "timestamp": "2026-11-21T15:41:51.895Z",
+      "action": "init",
+      "new_tokens": 11973
+    },
+    {
+      "timestamp": "2026-11-21T16:08:33.829Z",
+      "action": "tighten",
+      "previous_tokens": 11973,
+      "new_tokens": 8809
+    },
+    {
+      "timestamp": "2026-11-22T05:45:08.172Z",
+      "action": "raise",
+      "previous_tokens": 8809,
+      "new_tokens": 8976,
+      "reason": "Restored uncompensated normative sentences across rules/*.md per Task K4"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "claimed_in_wave2a4_report": [
+    "SEC-05",
+    "SEC-06",
+    "SEC-12",
+    "SEC-14",
+    "SEC-18",
+    "SEC-23-GAP",
+    "V1-09"
+  ],
+  "registries": {
+    "templates/enforcement/tests/known-gaps.json": [
+      {
+        "id": "007-EC2b",
+        "rule": "ASTESIA-007",
+        "fixture": "r007/ec2b_helper.ts",
+        "reason": "Cross-function helper call fetchUserOrdersHelper inside loop cannot be statically resolved to database query without call-graph analysis",
+        "source": "wave1.1-report"
+      },
+      {
+        "id": "ADV-BACKTICK-IN-REGEX-GAP",
+        "rule": "ASTESIA-005",
+        "fixture": "adv/backtick-in-regex.ts",
+        "reason": "Backtick inside regex literal (/`/) can open false template literal in tokenizer",
+        "source": "wave1.1-report"
+      },
+      {
+        "id": "SEC-23-GAP",
+        "rule": "ASTESIA-004",
+        "fixture": "sec/sec23.ts",
+        "reason": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+        "source": "wave1.1-report"
+      },
+      {
+        "id": "D2-REG-BACKTICK-GAP",
+        "rule": "ASTESIA-005",
+        "fixture": "indep/d2_gap1.ts",
+        "reason": "Adversarial known-gap: backtick inside regex literal",
+        "source": "wave1.1-verification",
+        "duplicate_of": "ADV-BACKTICK-IN-REGEX-GAP"
+      },
+      {
+        "id": "D2-PHP-HEREDOC",
+        "rule": "ASTESIA-002",
+        "fixture": "indep/d2_gap2.php",
+        "reason": "VER2-002: PHP heredoc syntax not stripped as string literal in zero-dependency tokenizer",
+        "source": "wave1.1-verification"
+      },
+      {
+        "id": "D4-21-GAP",
+        "rule": "ASTESIA-004",
+        "fixture": "indep/d4_gap.ts",
+        "reason": "Template literal interpolation pass_${userId} is not recognized by line-regex heuristic without runtime evaluation",
+        "source": "wave1.1-verification"
+      }
+    ],
+    "templates/enforcement/tests/verify/known-gaps.verify.json": [
+      {
+        "id": "VER3-001-FP-KEY-SOLO",
+        "ruleId": "ASTESIA-004",
+        "description": "Token 'key' sendirian dianggap sensitif oleh regex /^(?:api|...)?key$/i karena non-capturing group opsional, memicu false positive pada kunci biasa.",
+        "severity": "SPEC-DEVIATION",
+        "impact": "False Positive pada idiom kode umum seperti `const key = 'abcdefghijklmnopqrstuvwxyz123';`",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 5ed3666 (Task F-D). Key name tokenized by delimiters, camelCase/PascalCase, and alpha-digit transitions. Solo 'key' is treated as neutral/non-sensitive."
+      },
+      {
+        "id": "VER3-002-FP-AUTHOR-SUBSTRING",
+        "ruleId": "ASTESIA-004",
+        "description": "Token 'author', 'authorName', 'authority' memicu ASTESIA-004 karena implementasi regex substring match /(?:auth)/i bukannya token-based match.",
+        "severity": "SPEC-DEVIATION",
+        "impact": "False Positive pada nama entitas blog/author/authorization authority.",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 5ed3666 (Task F-D). Replaced loose substring /(?:auth)/i with discrete token matching. 'author', 'authorName', 'authority' do not match 'auth' token."
+      },
+      {
+        "id": "VER3-003-FN-BEARER-BASIC-NEUTRAL-KEY",
+        "ruleId": "ASTESIA-004",
+        "description": "Kredensial HTTP 'Basic <base64>' dan 'Bearer <token>' di bawah neutral key (misal 'label', 'description') gagal memicu ASTESIA-004 karena isCandidate mensyaratkan isSensitiveKey(key) || KNOWN_PREFIX.test(val).",
+        "severity": "SPEC-DEVIATION",
+        "impact": "False Negative (secret leakage) saat kredensial di-assign ke variabel dengan nama non-auth.",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 04d77cb (Task F-C). String literals on any line are scanned for Basic and Bearer auth tokens via isAuthBearerOrBasic and trigger ASTESIA-004 regardless of variable name."
+      },
+      {
+        "id": "VER3-004-FN-CONFIG-SECRET-HASH-TRUNCATION",
+        "ruleId": "ASTESIA-010",
+        "description": "Karakter ' # ' di dalam nilai string pada file config (YAML, Dockerfile, .env) memotong baris sebelum '#' sehingga rahasia masuk ke commentLines dan lolos dari scan.",
+        "severity": "SPEC-DEVIATION",
+        "impact": "False Negative (secret leakage) saat password atau token memuat karakter hashtag dengan spasi.",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 5314489 (Task F-G). Added quote-tracking preprocessor for YAML and .env files to preserve hash (#) characters inside single and double quotes."
+      },
+      {
+        "id": "VER3-005-SPEC-ALLOW-INLINE-010",
+        "ruleId": "ASTESIA-010",
+        "description": "Baris 596 astesia-gate.ts hanya melarang inline suppression untuk ASTESIA-000 dan ASTESIA-004, lupa menyertakan ASTESIA-010 sehingga inline astesia-allow diterima.",
+        "severity": "SPEC-DEVIATION",
+        "impact": "Pelanggaran kontrak F3 (inline allow wajib ditolak untuk 004 dan 010).",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit a6bef88 (Task F-H). Added ASTESIA-010 to NEVER_INLINE_SUPPRESS, strictly rejecting inline comments // astesia-allow: ASTESIA-010 with exit 1."
+      },
+      {
+        "id": "VER3-006-CI-GUARD-SELF-MISSING",
+        "ruleId": "CI-GUARD",
+        "description": "workflow-guard.ts tidak memeriksa keberadaan langkah guard itu sendiri, sehingga PR yang menghapus langkah guard tetap menghasilkan exit code 0.",
+        "severity": "HIGH-SECURITY",
+        "impact": "Bypass guard via PR jika GitHub Actions ruleset/CODEOWNERS tidak dikonfigurasi ketat.",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 73dea5d (Task F-E). Integrated --check-workflow subcommand in astesia-gate.ts validating explicit presence of guard step itself, with fail-closed shell logic in astesia-gate.workflow.yml."
+      },
+      {
+        "id": "VER3-007-REDOS-ASTESIA-004-UNANCHORED",
+        "ruleId": "ASTESIA-004",
+        "description": "Catastrophic backtracking O(N^2) pada regex assignMatch unanchored di ASTESIA-004 menyebabkan eksekusi 12-15 detik pada baris 100k karakter.",
+        "severity": "HIGH-PERFORMANCE",
+        "impact": "Denial of Service / CI timeout pada berkas minified atau berkas data bergaris panjang.",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 7efd0ff (Task F-A) and 8afd534 (Task F-B). Linearized candidate regex with lookbehind (?<![\\w$]) and hasQuote pre-check eliminating ReDoS; batched git calls to max 3 spawns for .env classification."
+      },
+      {
+        "id": "VER3-008-FN-BEARER-JWT-MISSING-DOT",
+        "ruleId": "ASTESIA-004",
+        "description": "Regex isAuthBearerOrBasic (/^(?:Basic|Bearer)\\s+[A-Za-z0-9+/=_-]{12,}$/i) tidak menyertakan karakter titik ('.'), sehingga token JWT pada Bearer header gagal dikenali dan lolos sebagai False Negative karena mengandung spasi.",
+        "severity": "SPEC-DEVIATION",
+        "impact": "False Negative pada token autentikasi standar JWT berformat Bearer (misal 'Bearer eyJhbGci...').",
+        "status": "RESOLVED_IN_WAVE_2A_2",
+        "resolution": "Fixed in commit 04d77cb (Task F-C). Extended isAuthBearerOrBasic to validate JWT structure (header.payload.signature) including dot ('.') characters and standard base64 Basic credentials."
+      }
+    ],
+    "templates/enforcement/tests/verify2/known-gaps.verify2.json": [
+      {
+        "id": "VER4-001-CONFIG-ENV-PATH-BYPASS",
+        "ruleId": "ASTESIA-010",
+        "description": "astesia-gate.ts baris 203 mengecek lowerName.startsWith('.env'). Saat directory walking melewatkan path absolut (mis. C:\\...\\.env), kondisi ini false dan extname('.env') adalah empty string '', sehingga berkas .env lolos dari profil config dan jatuh ke tokenizer TS biasa.",
+        "severity": "HIGH",
+        "impact": "Komentar # di .env tidak dipotong (memicu FP pada commented secret) dan kutip tak tertutup memicu warning TOKENIZER_DESYNC.",
+        "status": "RESOLVED_IN_WAVE_2A_3",
+        "resolution": "Fixed in commit 8720438 (Task T1 / VER4-001). Implemented profileFor(filePath) using norm.split('/').pop() to ensure basename matching regardless of absolute/relative path or OS separator."
+      },
+      {
+        "id": "VER4-002-FN-MISSING-PWD-PASSPHRASE",
+        "ruleId": "ASTESIA-004",
+        "description": "Token 'pwd' dan 'passphrase' terlewat dari tokenSet check di isSensitiveKey (baris 695), menyebabkan variabel bernama userPwd atau passphrase tidak dikenali sebagai kunci sensitif.",
+        "severity": "MEDIUM",
+        "impact": "False Negative pada rahasia di bawah variabel bernama *pwd atau *passphrase.",
+        "status": "RESOLVED_IN_WAVE_2A_3",
+        "resolution": "Fixed in commit 5fabcd3 (Task T2 / VER4-002). Added 'pwd', 'pwds', 'passphrase', 'passphrases' to hasPassword in isSensitiveKey and to isDirectSecretKey in decision table."
+      },
+      {
+        "id": "VER4-003-FP-AUTH-SOLO",
+        "ruleId": "ASTESIA-004",
+        "description": "Token 'auth' sendirian dianggap sensitif di isSensitiveKey, bertentangan dengan kontrak F1 yang menyatakan 'auth sendirian TIDAK sensitif'.",
+        "severity": "LOW",
+        "impact": "False Positive pada variabel bernama 'auth' biasa.",
+        "status": "RESOLVED_IN_WAVE_2A_3",
+        "resolution": "Fixed in commit 5fabcd3 (Task T2 / VER4-003). Explicitly exempted solo 'auth' (tokens.length === 1 && tokens[0] === 'auth' returns false)."
+      }
+    ],
+    "templates/enforcement/tests/verify3/known-gaps.verify3.json": [
+      {
+        "id": "SEC-23-GAP",
+        "ruleId": "ASTESIA-004",
+        "description": "Secret in snake_case lowercase under key ending with label/field/text/name passes heuristic",
+        "status": "DEFERRED_TO_WAVE_3"
+      }
+    ]
+  },
+  "unregistered_gaps_in_test_code": [
+    {
+      "id": "HELM-KEYNAME-GAP",
+      "caseId": "HK-14",
+      "file": "templates/enforcement/tests/helm-keyname-suite.ts",
+      "line": 33,
+      "reason": "Accepted consequence: lowercase passphrase under *PasswordKey is treated as key name, and counted in passed instead of known_gaps"
+    },
+    {
+      "id": "SEC-23-GAP",
+      "caseId": "SEC-23-GAP",
+      "file": "templates/enforcement/tests/verify/v2-secrets.ts",
+      "line": 89,
+      "reason": "Counted as 1 known_gap in verify/run.ts, present in known-gaps.json and known-gaps.verify3.json, but missing from verify/known-gaps.verify.json"
+    }
+  ],
+  "discrepancies": {
+    "hallucinated_in_wave2a4_report": [
+      "SEC-05",
+      "SEC-06",
+      "SEC-12",
+      "SEC-14",
+      "SEC-18",
+      "V1-09"
+    ],
+    "present_in_registry_but_omitted_from_wave2a4_report": [
+      "007-EC2b",
+      "ADV-BACKTICK-IN-REGEX-GAP",
+      "D2-REG-BACKTICK-GAP",
+      "D2-PHP-HEREDOC",
+      "D4-21-GAP"
+    ]
+  }
+}

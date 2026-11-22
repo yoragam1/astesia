@@ -1,0 +1,314 @@
+[
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|770",
+    "quote": "// TODO(philipwalton): TypeScript errors without this typecast for",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1145",
+    "quote": "// TODO: Remove this log message in v4.",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-009|dev-dist/workbox-61be8b72.js|1558",
+    "quote": "return new Promise(resolve => setTimeout(resolve, ms));",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1853",
+    "quote": "// TODO(philipwalton): the `__WB_REVISION__` param is a precaching",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1943",
+    "quote": "// TODO(philipwalton): not sure why `any` is needed. It seems like",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|1965",
+    "quote": "// TODO(philipwalton): not sure why `any` is needed. It seems like",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-009|dev-dist/workbox-61be8b72.js|2567",
+    "quote": "timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|2749",
+    "quote": "// TODO: `state` should never be undefined...",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-008",
+    "project": "pustaka-sekolah-pwa",
+    "id": "ASTESIA-008|dev-dist/workbox-61be8b72.js|2761",
+    "quote": "// TODO: `state` should never be undefined...",
+    "reason": "Bundled third-party Workbox PWA artifact in dev-dist/; excluded by gate-config.template.json"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/omop-codex/plugin/components/rules/scripts/bench-codex-rules.mjs|6",
+    "quote": "import { runPostToolUseHook } from \"../dist/codex-hook.js\";",
+    "reason": "Import targets unbuilt ../dist/codex-hook.js output artifact in an uncompiled checkout"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/omop-opencode/src/tools/grep/result-formatter.test.ts|92",
+    "quote": "'  5: import { hello } from \"./foo\"\\n',",
+    "reason": "String literal inside a test fixture depicting formatted grep output, not a module import"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/skills-loader-core/src/features/builtin-skills/skills/dev-browser.ts|206",
+    "quote": "import { connect } from \"@/client.js\";",
+    "reason": "Example import statement embedded inside a multi-line template literal prompt string"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/app/[locale]/layout.tsx|7",
+    "quote": "import { routing } from \"@/i18n/routing\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/app/[locale]/manifesto/page.tsx|7",
+    "quote": "import { PrinciplesSection } from \"@/components/manifesto/sections/principles\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/components/docs/docs-shell.tsx|5",
+    "quote": "import { Link } from \"@/i18n/routing\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/components/landing/sections/architecture.tsx|4",
+    "quote": "import { PRINCIPLE_KEYS, PRINCIPLE_ICONS } from \"@/components/landing/constants\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/components/landing/sections/sisyphus.tsx|5",
+    "quote": "import { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/components/landing/sections/sub-agents.tsx|3",
+    "quote": "import { Badge } from \"@/components/ui/badge\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "eunectes",
+    "id": "ASTESIA-000|packages/web/components/manifesto/sections/cognitive-load.tsx|5",
+    "quote": "import { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\"",
+    "reason": "Monorepo subpackage @/ alias resolves relative to packages/web/ tsconfig root rather than repo root"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "eunectes",
+    "id": "ASTESIA-004|packages/openclaw-core/src/reply-listener-state.ts|10",
+    "quote": "export const REPLY_LISTENER_STARTUP_TOKEN_ENV = \"OMOP_OPENCLAW_REPLY_LISTENER_STARTUP_TOKEN\"",
+    "reason": "Constant holding an environment variable name string rather than an actual secret token value"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-008",
+    "project": "eunectes",
+    "id": "ASTESIA-008|packages/omop-opencode/src/agents/cerberus/gpt-5-4.ts|20",
+    "quote": "*   7. <tasks>             - Task/todo management",
+    "reason": "Docblock comment describing agent task/todo management capability, not a code TODO marker"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-008",
+    "project": "eunectes",
+    "id": "ASTESIA-008|packages/omop-opencode/src/hooks/tasks-todowrite-disabler/constants.ts|3",
+    "quote": "// the live todo panel UI in sync during execution. Blocking it froze the",
+    "reason": "Comment discussing the todo panel UI feature by name rather than leaving an untracked TODO"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "eunectes",
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|12092",
+    "quote": "return ms > 0 ? new Promise((resolve9) => setTimeout(resolve9, ms)) : Promise.resolve();",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "eunectes",
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|3926",
+    "quote": "this.poller = setTimeout(() => this.loadFeatureFlags(true), this.getPollingInterval());",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "eunectes",
+    "id": "ASTESIA-009|packages/omop-codex/scripts/install-dist/install-local.mjs|7489",
+    "quote": "return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));",
+    "reason": "setTimeout call inside pre-bundled distribution script install-dist/install-local.mjs"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-009",
+    "project": "eunectes",
+    "id": "ASTESIA-009|packages/omop-opencode/src/hooks/runtime-fallback/first-prompt-watchdog.ts|17",
+    "quote": "declare function setTimeout(callback: () => void | Promise<void>, delay?: number): RuntimeFallbackTimeout",
+    "reason": "TypeScript ambient function declaration for setTimeout signature rather than a runtime timer call"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-010",
+    "project": "eunectes",
+    "id": "ASTESIA-010|.github/workflows/publish.yml|180",
+    "quote": "OIDC_TOKEN=$(curl -sH \"Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}\" \\",
+    "reason": "Shell command assignment capturing dynamic curl output into OIDC_TOKEN variable in workflow"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "flora-smk",
+    "id": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/CeFOi1VF.js|1",
+    "quote": "import{payload as e}from\"../entry/payload.DSmR2FwN.js\";import{Q as t,R as n,Z as r}from\"./C7EYTeg7.js\";var i=`font-weigh",
+    "reason": "Minified build chunk inside .vercel/output deployment artifact directory; excluded by template config"
+  },
+  {
+    "class": "NOISE",
+    "rule": "ASTESIA-009",
+    "project": "flora-smk",
+    "id": "ASTESIA-009|.vercel/output/static/_app/immutable/chunks/DOmy8bqa.js|1",
+    "quote": "import{o as e}from\"./C7EYTeg7.js\";function t(){let{subscribe:t,update:n}=e([]);function r(e){n(t=>t.filter(t=>t.id!==e))",
+    "reason": "Minified build chunk inside .vercel/output deployment artifact directory; excluded by template config"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "flora-smk",
+    "id": "ASTESIA-004|src/lib/repositories/auth.repository.ts|15",
+    "quote": "const OFFLINE_AUTH_KEY = 'flora_smk_auth_user_v1';",
+    "reason": "LocalStorage key constant named OFFLINE_AUTH_KEY storing a static key identifier, not a secret"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "ifrit",
+    "id": "ASTESIA-004|benchmarks/claude-email.js|7",
+    "quote": "const MODELS = (process.env.CE_MODELS || 'claude-haiku-4-5-20251001,claude-sonnet-4-6,claude-opus-4-8').split(',');",
+    "reason": "Benchmark script fallback string listing Claude model identifiers on process.env.CE_MODELS"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "ifrit",
+    "id": "ASTESIA-004|benchmarks/model-email.js|7",
+    "quote": "const MODELS = (process.env.ME_MODELS || 'gpt-4.1-mini,gpt-5.4-mini').split(',');",
+    "reason": "Benchmark script fallback string listing model identifiers on process.env.ME_MODELS"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "ifrit",
+    "id": "ASTESIA-004|benchmarks/robustness-audit.js|23",
+    "quote": "const MODEL = process.env.AUDIT_MODEL || 'gpt-5.4-mini';",
+    "reason": "Benchmark script fallback string specifying default model name on process.env.AUDIT_MODEL"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "ifrit",
+    "id": "ASTESIA-004|ceobe/src/ai/providers/embeddingAdapter.ts|150",
+    "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;",
+    "reason": "Template literal constructing an environment variable name suffix _API_KEY, not a hardcoded key"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "ifrit",
+    "id": "ASTESIA-004|ceobe/src/ai/providers/router.ts|126",
+    "quote": "const apiKeyEnvVar = `${provider.toUpperCase()}_API_KEY`;",
+    "reason": "Template literal constructing an environment variable name suffix _API_KEY, not a hardcoded key"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-008",
+    "project": "ifrit",
+    "id": "ASTESIA-008|benchmarks/agentic/tasks.py|443",
+    "quote": "# todo-null -- in-memory Todo REST API. The trust-boundary trap is a POST body of literal",
+    "reason": "Comment describing a benchmark task named 'todo-null' (a Todo REST API), not a code TODO marker"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-000",
+    "project": "arene",
+    "id": "ASTESIA-000|tests/lib/utils.test.js|1281",
+    "quote": "const script = 'const u=require(\"./scripts/lib/utils\");u.readStdinJson({timeoutMs:2000}).then(d=>{process.stdout.write(J",
+    "reason": "Inline JavaScript snippet string passed to node -e with root-relative require path, not a file import"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "arene",
+    "id": "ASTESIA-004|scripts/hooks/pre-bash-commit-quality.js|205",
+    "quote": "const pathExt = process.env.PATHEXT || '.COM;.EXE;.BAT;.CMD';",
+    "reason": "Windows PATHEXT environment variable fallback listing executable file extensions, not a secret"
+  },
+  {
+    "class": "FP",
+    "rule": "ASTESIA-004",
+    "project": "SIA",
+    "id": "ASTESIA-004|resources/views/tendik/create.blade.php|666",
+    "quote": "const password = `${day}${month}${year}`;",
+    "reason": "Client-side script computing initial default password string from birth date variables via template"
+  }
+]

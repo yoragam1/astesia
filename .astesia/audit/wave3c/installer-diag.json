@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-11-22T14:09:05.000Z",
+  "scripts": ["install.ps1", "install.sh"],
+  "exit_codes_matrix": [
+    {
+      "scenario": "Success or already installed (idempotent)",
+      "decision_6_code": 0,
+      "ps1_start_code": 0,
+      "sh_start_code": 0,
+      "status": "MATCH"
+    },
+    {
+      "scenario": "Invalid arguments or target inside Astesia source repo",
+      "decision_6_code": 2,
+      "ps1_start_code": 2,
+      "sh_start_code": 2,
+      "status": "MATCH"
+    },
+    {
+      "scenario": "Target not owned by installer (uninstall or force on foreign target)",
+      "decision_6_code": 3,
+      "ps1_start_code": 3,
+      "sh_start_code": 3,
+      "discrepancy": "When -Force was provided on foreign target, START scripts backed up and overwrote instead of refusing with exit 3."
+    },
+    {
+      "scenario": "Conflict: target exists and not owned by installer, without -Force",
+      "decision_6_code": 4,
+      "ps1_start_code": 4,
+      "sh_start_code": 4,
+      "status": "MATCH"
+    },
+    {
+      "scenario": "Post-install verification failed (plugin.json unreadable / version mismatch)",
+      "decision_6_code": 5,
+      "ps1_start_code": 5,
+      "sh_start_code": 5,
+      "status": "MATCH"
+    },
+    {
+      "scenario": "I/O or link creation failure (junction and symlink both fail)",
+      "decision_6_code": 6,
+      "ps1_start_code": 5,
+      "sh_start_code": "unhandled (set -e abort)",
+      "status": "MISMATCH: START ps1 used exit 5; sh did not trap error; Decision 6 requires exit 6"
+    }
+  ],
+  "copy_fallback_policy": {
+    "decision_6": "STRICTLY FORBIDDEN. Junction first, symlink fallback; if both fail -> exit 6 with clear error.",
+    "ps1_start": "No copy fallback (already junction -> symlink -> exit 5). Needs update to exit 6.",
+    "sh_start": "Symlink only (ln -s). Needs update to trap errors and exit 6."
+  },
+  "rollback_behavior": {
+    "decision_6": "Rollback ONLY paths created by installer; do not destroy foreign directory trees.",
+    "ps1_start": "Executed 'Remove-Item -LiteralPath $DestDir -Recurse -Force', which wiped the whole destination directory on verification failure.",
+    "sh_start": "Executed 'rm -rf $DEST_DIR', wiping whole directory on verification failure."
+  }
+}

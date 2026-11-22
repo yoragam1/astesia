@@ -1,0 +1,14 @@
+{
+  "skills": [
+    {
+      "name": "dynamic-plugins",
+      "required_heading": "## Guardrails",
+      "required_keywords": ["karantina", "menyetujui", "manifest.json", "jaringan", "secret"]
+    },
+    {
+      "name": "reverse-engineering",
+      "required_heading": "## Guardrails",
+      "required_keywords": ["publik", "robots", "kredensial", "DATA", "instruksi"]
+    }
+  ]
+}

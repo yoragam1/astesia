@@ -1,0 +1,743 @@
+{
+  "timestamp": "2026-11-21T16:20:26.843Z",
+  "repo_root": "D:\\Workspaces\\Astesia",
+  "skills": [
+    {
+      "folder": "skills/adr-management",
+      "name": "adr-management",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Capture architectural decisions made during Astesia sessions as structured ADRs. Auto-detects decision moments, records context, alternatives considered, and rationale. Maintains an ADR log so future developers understand why the codebase is shaped the way it is.",
+      "description_length": 263,
+      "file_bytes": 3339,
+      "tokens_est": 954
+    },
+    {
+      "folder": "skills/adversarial-review",
+      "name": "adversarial-review",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Simulate adversarial governance by enforcing strict antagonistic personas between Planner/Executor and QA subagents.",
+      "description_length": 116,
+      "file_bytes": 2548,
+      "tokens_est": 728
+    },
+    {
+      "folder": "skills/anti-bloat-review",
+      "name": "anti-bloat-review",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Review diffs or audit codebases for over-engineering, dead code, and bloated dependencies to provide actionable deletion roadmaps.",
+      "description_length": 130,
+      "file_bytes": 3618,
+      "tokens_est": 1034
+    },
+    {
+      "folder": "skills/anti-silent-failure",
+      "name": "anti-silent-failure",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Prevents hallucination cascades by validating tool outputs and explicitly marking silent tool failures.",
+      "description_length": 103,
+      "file_bytes": 2386,
+      "tokens_est": 682
+    },
+    {
+      "folder": "skills/architectural-linter",
+      "name": "architectural-linter",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Programmatically enforce architectural patterns and prevent structural bad practices (like N+1 queries) during execution.",
+      "description_length": 121,
+      "file_bytes": 2656,
+      "tokens_est": 759
+    },
+    {
+      "folder": "skills/auto-merge-gates",
+      "name": "auto-merge-gates",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Define the deterministic conditions under which agent PRs may merge without pre-merge human review, plus post-merge sampling and instant rollback.",
+      "description_length": 146,
+      "file_bytes": 2280,
+      "tokens_est": 652
+    },
+    {
+      "folder": "skills/blast-radius",
+      "name": "blast-radius",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Trace file dependencies to map the blast radius before modifying core services.",
+      "description_length": 79,
+      "file_bytes": 2394,
+      "tokens_est": 684
+    },
+    {
+      "folder": "skills/brd-generation",
+      "name": "brd-generation",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Guides the PM/BA agent in drafting comprehensive Business Requirement Documents (BRD) to prevent scope creep and ensure testable requirements.",
+      "description_length": 142,
+      "file_bytes": 2585,
+      "tokens_est": 739
+    },
+    {
+      "folder": "skills/brownfield-entry",
+      "name": "brownfield-entry",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Protocol for entering and mapping an existing codebase that was NOT initialized by Astesia. Generates a `.astesia/system-map.md` navigation map using trace-by-function methodology.",
+      "description_length": 180,
+      "file_bytes": 7471,
+      "tokens_est": 2135
+    },
+    {
+      "folder": "skills/budget-circuit-breaker",
+      "name": "budget-circuit-breaker",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Halt autonomous loops if token consumption exceeds safe thresholds to prevent runaway API billing.",
+      "description_length": 98,
+      "file_bytes": 2717,
+      "tokens_est": 777
+    },
+    {
+      "folder": "skills/codebase-gardening",
+      "name": "codebase-gardening",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Run dedicated refactor waves that delete deprecated patterns, pay down debt markers, and clear new lint-rule violations so future agents copy good habits instead of slop.",
+      "description_length": 170,
+      "file_bytes": 2014,
+      "tokens_est": 576
+    },
+    {
+      "folder": "skills/component-tokens",
+      "name": "component-tokens",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Guides the Design agent in mapping abstract UX systems into actionable component specifications and interaction states.",
+      "description_length": 119,
+      "file_bytes": 2084,
+      "tokens_est": 596
+    },
+    {
+      "folder": "skills/context-navigation",
+      "name": "context-navigation",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Navigate large codebases efficiently using conceptual tags, lexical search, and Reciprocal Rank Fusion without token bloat.",
+      "description_length": 123,
+      "file_bytes": 2664,
+      "tokens_est": 762
+    },
+    {
+      "folder": "skills/cuj-mapping",
+      "name": "cuj-mapping",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Guides the PM/BA agent on how to define end-to-end user pathways that validate the core value of the product.",
+      "description_length": 109,
+      "file_bytes": 2062,
+      "tokens_est": 590
+    },
+    {
+      "folder": "skills/debt-scanner",
+      "name": "debt-scanner",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Automatically identify, track, and resolve marked technical debt across the codebase.",
+      "description_length": 85,
+      "file_bytes": 2155,
+      "tokens_est": 616
+    },
+    {
+      "folder": "skills/docker-compose",
+      "name": "docker-compose",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Multi-service Docker Compose orchestration patterns for development and production. Enforces DevOps Rules (Immutable Infrastructure, Security First, Observability).",
+      "description_length": 164,
+      "file_bytes": 5231,
+      "tokens_est": 1495
+    },
+    {
+      "folder": "skills/docker-optimization",
+      "name": "docker-optimization",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides standards for building secure, minimal, production-ready Docker containers with multi-stage builds and non-root execution.",
+      "description_length": 131,
+      "file_bytes": 2201,
+      "tokens_est": 629
+    },
+    {
+      "folder": "skills/drizzle-orm",
+      "name": "drizzle-orm",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Schema definition, migrations, and query patterns using Drizzle ORM with PostgreSQL. Enforces Engineering Directive #8 (Repository Pattern) and Directive #21 (DBA-Grade Standards).",
+      "description_length": 180,
+      "file_bytes": 5139,
+      "tokens_est": 1469
+    },
+    {
+      "folder": "skills/dynamic-plugins",
+      "name": "dynamic-plugins",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Author and dynamically execute custom runtime scripts to extend Astesia's capabilities.",
+      "description_length": 87,
+      "file_bytes": 3317,
+      "tokens_est": 948
+    },
+    {
+      "folder": "skills/e2e-testing",
+      "name": "e2e-testing",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Defines the strategy and standards for End-to-End testing using tools like Playwright to simulate actual user behavior.",
+      "description_length": 119,
+      "file_bytes": 2666,
+      "tokens_est": 762
+    },
+    {
+      "folder": "skills/elysia-rest-api",
+      "name": "elysia-rest-api",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Patterns for building ultra-fast REST APIs with Elysia.js on the Bun runtime. Covers Eden (end-to-end type safety), plugins, and TypeBox validation.",
+      "description_length": 148,
+      "file_bytes": 3324,
+      "tokens_est": 950
+    },
+    {
+      "folder": "skills/frontend-integration",
+      "name": "frontend-integration",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Guides the Engineering agent in correctly connecting UI components with business logic and design tokens without tightly coupling them.",
+      "description_length": 135,
+      "file_bytes": 2892,
+      "tokens_est": 827
+    },
+    {
+      "folder": "skills/github-actions",
+      "name": "github-actions",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides a standardized, secure CI/CD pipeline template for Astesia projects using GitHub Actions.",
+      "description_length": 98,
+      "file_bytes": 2865,
+      "tokens_est": 819
+    },
+    {
+      "folder": "skills/golang-rest-api",
+      "name": "golang-rest-api",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Patterns for building high-performance, concurrent REST APIs in Go. Enforces standard layout, dependency injection, and interface-driven design.",
+      "description_length": 144,
+      "file_bytes": 4518,
+      "tokens_est": 1291
+    },
+    {
+      "folder": "skills/hono-rest-api",
+      "name": "hono-rest-api",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Patterns for building REST APIs with the Hono framework. Covers route design, middleware, error handling, and structured responses. Enforces Directives #1, #3, #4, #7.",
+      "description_length": 167,
+      "file_bytes": 6218,
+      "tokens_est": 1777
+    },
+    {
+      "folder": "skills/independent-verification",
+      "name": "independent-verification",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Never accept an agent's self-reported success; require a separate verifier to run the artifact, exercise real behavior, and produce evidence before a wave or layer is marked done.",
+      "description_length": 179,
+      "file_bytes": 2329,
+      "tokens_est": 666
+    },
+    {
+      "folder": "skills/laravel-api",
+      "name": "laravel-api",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides architectural patterns for building robust REST APIs using the PHP Laravel framework.",
+      "description_length": 94,
+      "file_bytes": 3350,
+      "tokens_est": 958
+    },
+    {
+      "folder": "skills/layered-architecture",
+      "name": "layered-architecture",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Strict software architecture enforcement for applications managed by Astesia. Defines layer responsibilities, dependency direction, and folder structure patterns.",
+      "description_length": 162,
+      "file_bytes": 6175,
+      "tokens_est": 1765
+    },
+    {
+      "folder": "skills/lint-ratchet",
+      "name": "lint-ratchet",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Convert every repeated or reviewer-caught agent mistake into a permanent, machine-enforced rule in the anti-pattern registry so it can never recur.",
+      "description_length": 147,
+      "file_bytes": 2570,
+      "tokens_est": 735
+    },
+    {
+      "folder": "skills/minimalist-executor",
+      "name": "minimalist-executor",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Forces the laziest, most minimal solution possible. Channels a senior dev who hates over-engineering.",
+      "description_length": 101,
+      "file_bytes": 3068,
+      "tokens_est": 877
+    },
+    {
+      "folder": "skills/n8n-automation",
+      "name": "n8n-automation",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Patterns for integrating n8n (self-hosted workflow automation) into a software architecture. Used for business process automation, webhook orchestration, and third-party service integration without custom code.",
+      "description_length": 210,
+      "file_bytes": 4565,
+      "tokens_est": 1305
+    },
+    {
+      "folder": "skills/property-based-testing",
+      "name": "property-based-testing",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Define invariant property tests for parsers, validators, math, and state machines with randomized shrinking.",
+      "description_length": 108,
+      "file_bytes": 2692,
+      "tokens_est": 770
+    },
+    {
+      "folder": "skills/python-fastapi",
+      "name": "python-fastapi",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides architectural patterns and best practices for building REST APIs using Python's FastAPI framework.",
+      "description_length": 107,
+      "file_bytes": 3166,
+      "tokens_est": 905
+    },
+    {
+      "folder": "skills/react-frontend",
+      "name": "react-frontend",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides architectural patterns for building React frontends, specifically focusing on Next.js App Router, state management, and component isolation.",
+      "description_length": 149,
+      "file_bytes": 2945,
+      "tokens_est": 842
+    },
+    {
+      "folder": "skills/react-native-mobile",
+      "name": "react-native-mobile",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Provides architectural patterns for building cross-platform mobile applications using React Native and Expo.",
+      "description_length": 108,
+      "file_bytes": 2932,
+      "tokens_est": 838
+    },
+    {
+      "folder": "skills/reverse-engineering",
+      "name": "reverse-engineering",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Perform web reconnaissance on URLs to extract APIs, tech stacks, and design systems to bootstrap BRDs.",
+      "description_length": 102,
+      "file_bytes": 3738,
+      "tokens_est": 1068
+    },
+    {
+      "folder": "skills/security-review",
+      "name": "security-review",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
+      "description_length": 209,
+      "file_bytes": 3423,
+      "tokens_est": 978
+    },
+    {
+      "folder": "skills/self-healing",
+      "name": "self-healing",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Application-level autonomic debugging (retry logic, circuit breakers) AND Agent-level error resolution (Token Bleed Protection, Hash Convergence, Git Auto-Rollbacks).",
+      "description_length": 166,
+      "file_bytes": 5685,
+      "tokens_est": 1625
+    },
+    {
+      "folder": "skills/sveltekit-frontend",
+      "name": "sveltekit-frontend",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Architecture patterns for SvelteKit applications. Enforces strict separation between Server (`+page.server.ts`), Client (`+page.svelte`), and data fetching logic.",
+      "description_length": 162,
+      "file_bytes": 4344,
+      "tokens_est": 1242
+    },
+    {
+      "folder": "skills/task-waves",
+      "name": "task-waves",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Decompose implementation plans into independent, parallel task waves to accelerate execution.",
+      "description_length": 93,
+      "file_bytes": 3208,
+      "tokens_est": 917
+    },
+    {
+      "folder": "skills/tdd-workflow",
+      "name": "tdd-workflow",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Enforces strict test-driven development. This skill supersedes standard development practices by requiring tests to be written and proven to fail (RED) before any implementation code is written.",
+      "description_length": 194,
+      "file_bytes": 2766,
+      "tokens_est": 791
+    },
+    {
+      "folder": "skills/trigger-dev",
+      "name": "trigger-dev",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Patterns for building reliable background jobs and async task queues using Trigger.dev v3. Used when operations are too slow for synchronous HTTP responses (emails, reports, data sync, AI pipelines).",
+      "description_length": 199,
+      "file_bytes": 4830,
+      "tokens_est": 1380
+    },
+    {
+      "folder": "skills/trust-pyramid",
+      "name": "trust-pyramid",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Enforce constraints at the hardest possible layer (types/architecture > lint & CI > prose > human review) so agent output is verified by machines, not trusted or hand-reviewed.",
+      "description_length": 176,
+      "file_bytes": 2653,
+      "tokens_est": 758
+    },
+    {
+      "folder": "skills/ux-systems",
+      "name": "ux-systems",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Guides the Design agent in establishing abstract design tokens (Colors, Typography, Spacing) before building actual components.",
+      "description_length": 127,
+      "file_bytes": 1969,
+      "tokens_est": 563
+    },
+    {
+      "folder": "skills/visual-qa",
+      "name": "visual-qa",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Protocol for auditing UI implementations against design specs, catching visual regressions, and verifying user flows in the browser. Incorporates Headless Browser Automation (Visual Auditing) for autonomous DOM inspection.",
+      "description_length": 222,
+      "file_bytes": 4502,
+      "tokens_est": 1287
+    },
+    {
+      "folder": "skills/vitest-unit-testing",
+      "name": "vitest-unit-testing",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Setup and patterns for writing unit tests using Vitest. Enforces Engineering Directive #16 (Shift-Left TDD) and supports Quality Layer's coverage requirements.",
+      "description_length": 159,
+      "file_bytes": 5127,
+      "tokens_est": 1465
+    },
+    {
+      "folder": "skills/vue-frontend",
+      "name": "vue-frontend",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Architecture patterns for Vue 3 and Nuxt 3 applications. Covers Composition API, Pinia for state management, Vue Router, and SSR patterns.",
+      "description_length": 138,
+      "file_bytes": 4637,
+      "tokens_est": 1325
+    },
+    {
+      "folder": "skills/worktree-isolation",
+      "name": "worktree-isolation",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Isolate experimental task execution in a dedicated Git Worktree to protect the primary workspace.",
+      "description_length": 97,
+      "file_bytes": 2599,
+      "tokens_est": 743
+    },
+    {
+      "folder": "skills/zero-downtime-migration",
+      "name": "zero-downtime-migration",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "The Expand and Contract pattern for safely evolving database schemas in production without causing downtime or data loss. Mandatory for all brownfield schema changes.",
+      "description_length": 166,
+      "file_bytes": 4558,
+      "tokens_est": 1303
+    },
+    {
+      "folder": "skills/zod-validation",
+      "name": "zod-validation",
+      "valid_frontmatter": true,
+      "has_tabs_in_frontmatter": false,
+      "description": "Input validation strategy using Zod for schema-first boundary validation. Enforces Engineering Directive #17 (Security-First Boundary Validation).",
+      "description_length": 146,
+      "file_bytes": 3626,
+      "tokens_est": 1036
+    }
+  ],
+  "description_jaccard_pairs": [],
+  "boot_set": {
+    "definition": "AGENTS.md + rules/*.md + skills/skills-index.md + runtime/context-map.json + name & description of all SKILL.md",
+    "rationale": "Matches the exact set of documentation, rule files, and index metadata loaded during agent initialization and progressive disclosure.",
+    "files": [
+      {
+        "path": "rules/AGENTS.md",
+        "bytes": 1909,
+        "tokens_est": 546
+      },
+      {
+        "path": "rules/coding-standards.md",
+        "bytes": 1336,
+        "tokens_est": 382
+      },
+      {
+        "path": "rules/design-rules.md",
+        "bytes": 842,
+        "tokens_est": 241
+      },
+      {
+        "path": "rules/devops-rules.md",
+        "bytes": 1095,
+        "tokens_est": 313
+      },
+      {
+        "path": "rules/engineering-rules.md",
+        "bytes": 5991,
+        "tokens_est": 1712
+      },
+      {
+        "path": "rules/product-rules.md",
+        "bytes": 1019,
+        "tokens_est": 292
+      },
+      {
+        "path": "rules/quality-rules.md",
+        "bytes": 2839,
+        "tokens_est": 812
+      },
+      {
+        "path": "skills/skills-index.md",
+        "bytes": 5259,
+        "tokens_est": 1503
+      },
+      {
+        "path": "runtime/context-map.json",
+        "bytes": 1624,
+        "tokens_est": 464
+      }
+    ],
+    "skills_metadata": {
+      "count": 50,
+      "bytes": 8902,
+      "tokens_est": 2544
+    },
+    "total_bytes": 30816,
+    "total_tokens_est": 8809
+  },
+  "consistency": {
+    "total_skill_folders": 50,
+    "skills_in_index": 50,
+    "skills_in_context_map": 50,
+    "ghost_skills_index": [],
+    "ghost_skills_context_map": [],
+    "unmapped_skills_index": [],
+    "unmapped_skills_context_map": []
+  },
+  "reference_graph": {
+    "dangling_file_references": [],
+    "directive_references": [],
+    "stage_references": []
+  },
+  "tool_candidates": {
+    "denylist_matches": [],
+    "known_tool_matches": [
+      {
+        "tool": "invoke_subagent",
+        "count": 3
+      },
+      {
+        "tool": "run_command",
+        "count": 2
+      },
+      {
+        "tool": "read_file",
+        "count": 1
+      }
+    ],
+    "unclassified_candidates": [
+      {
+        "candidate": "UserService",
+        "count": 1
+      },
+      {
+        "candidate": "build",
+        "count": 1
+      },
+      {
+        "candidate": "production",
+        "count": 1
+      },
+      {
+        "candidate": "anti-silent-failure",
+        "count": 1
+      },
+      {
+        "candidate": "grep_search",
+        "count": 1
+      },
+      {
+        "candidate": "visual_audit",
+        "count": 1
+      },
+      {
+        "candidate": "design-system.md",
+        "count": 1
+      }
+    ]
+  },
+  "gate_sync": {
+    "cli_flags": [
+      {
+        "flag": "--baseline",
+        "documented": true,
+        "occurrences": 6
+      },
+      {
+        "flag": "--update-baseline",
+        "documented": true,
+        "occurrences": 5
+      },
+      {
+        "flag": "--max-warn",
+        "documented": true,
+        "occurrences": 8
+      },
+      {
+        "flag": "--json",
+        "documented": true,
+        "occurrences": 9
+      },
+      {
+        "flag": "--root",
+        "documented": true,
+        "occurrences": 3
+      },
+      {
+        "flag": "--rules",
+        "documented": true,
+        "occurrences": 9
+      },
+      {
+        "flag": "--rules-diff",
+        "documented": true,
+        "occurrences": 6
+      },
+      {
+        "flag": "--check-workflow",
+        "documented": true,
+        "occurrences": 6
+      },
+      {
+        "flag": "--stdin",
+        "documented": true,
+        "occurrences": 2
+      },
+      {
+        "flag": "--allow-raise",
+        "documented": true,
+        "occurrences": 4
+      },
+      {
+        "flag": "--reason",
+        "documented": true,
+        "occurrences": 4
+      }
+    ],
+    "rule_ids": [
+      {
+        "rule": "ASTESIA-000",
+        "documented": true,
+        "occurrences": 15
+      },
+      {
+        "rule": "ASTESIA-001",
+        "documented": true,
+        "occurrences": 12
+      },
+      {
+        "rule": "ASTESIA-002",
+        "documented": true,
+        "occurrences": 8
+      },
+      {
+        "rule": "ASTESIA-003",
+        "documented": true,
+        "occurrences": 3
+      },
+      {
+        "rule": "ASTESIA-004",
+        "documented": true,
+        "occurrences": 21
+      },
+      {
+        "rule": "ASTESIA-005",
+        "documented": true,
+        "occurrences": 4
+      },
+      {
+        "rule": "ASTESIA-006",
+        "documented": true,
+        "occurrences": 4
+      },
+      {
+        "rule": "ASTESIA-007",
+        "documented": true,
+        "occurrences": 9
+      },
+      {
+        "rule": "ASTESIA-008",
+        "documented": true,
+        "occurrences": 5
+      },
+      {
+        "rule": "ASTESIA-009",
+        "documented": true,
+        "occurrences": 4
+      },
+      {
+        "rule": "ASTESIA-010",
+        "documented": true,
+        "occurrences": 13
+      }
+    ]
+  },
+  "hardcoded_numbers": []
+}

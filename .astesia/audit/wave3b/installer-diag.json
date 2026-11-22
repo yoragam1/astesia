@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-11-22T05:24:36.655Z",
+  "decision_6_compliance_table": [
+    {
+      "requirement": "Idempotent (no changes on repeat install, exit 0)",
+      "current_ps1": "FAIL - Deletes and recreates destination directory on every run, re-modifies AGENTS.md",
+      "current_sh": "FAIL - Blindly runs rm -rf destination and re-appends to AGENTS.md"
+    },
+    {
+      "requirement": "-DryRun / --dry-run support",
+      "current_ps1": "FAIL - Flag not supported; always writes directly",
+      "current_sh": "FAIL - Flag not supported; always writes directly"
+    },
+    {
+      "requirement": "-Uninstall / --uninstall support",
+      "current_ps1": "FAIL - Flag not supported; no uninstall routine",
+      "current_sh": "FAIL - Flag not supported; no uninstall routine"
+    },
+    {
+      "requirement": "Ownership marker (<target>/.astesia-install.json)",
+      "current_ps1": "FAIL - No manifest or ownership marker created",
+      "current_sh": "FAIL - No manifest or ownership marker created"
+    },
+    {
+      "requirement": "Never delete foreign files / non-owned targets",
+      "current_ps1": "FAIL - Unconditionally executes Remove-Item -Recurse -Force on $DestDir",
+      "current_sh": "FAIL - Unconditionally executes rm -rf $DEST_DIR"
+    },
+    {
+      "requirement": "Conflict handling with -Force backup (<target>.bak-<timestamp>)",
+      "current_ps1": "FAIL - Deletes existing target without backup or prompt",
+      "current_sh": "FAIL - Deletes existing target without backup or prompt"
+    },
+    {
+      "requirement": "-Target / --target parameter override",
+      "current_ps1": "FAIL - Hardcoded to $env:USERPROFILE\\.gemini\\config",
+      "current_sh": "FAIL - Hardcoded to $HOME/.gemini/config"
+    },
+    {
+      "requirement": "Zero network and zero package installation",
+      "current_ps1": "PASS - Uses local filesystem operations only",
+      "current_sh": "PASS - Uses local filesystem operations only"
+    },
+    {
+      "requirement": "Windows junction first without admin, symlink fallback",
+      "current_ps1": "PASS - Uses New-Item -ItemType Junction",
+      "current_sh": "N/A - POSIX script uses ln -s symlink"
+    },
+    {
+      "requirement": "PowerShell 5.1 compatibility (no ?., ??, ternary; Set-StrictMode)",
+      "current_ps1": "PARTIAL - Compatible syntax but missing Set-StrictMode and ErrorActionPreference",
+      "current_sh": "N/A"
+    },
+    {
+      "requirement": "Path with spaces support",
+      "current_ps1": "PARTIAL - Some string variables lack strict quoting",
+      "current_sh": "PARTIAL - Some string variables lack strict quoting"
+    },
+    {
+      "requirement": "Post-install verification (plugin.json readable and version matches)",
+      "current_ps1": "FAIL - No post-install validation performed",
+      "current_sh": "FAIL - No post-install validation performed"
+    },
+    {
+      "requirement": "Exit codes (0 success/already installed, 2 bad args, 3 not owned, 4 conflict, 5 verify failed)",
+      "current_ps1": "FAIL - Exits 0 by default, does not handle distinct failure codes",
+      "current_sh": "FAIL - Exits 0 by default, does not handle distinct failure codes"
+    }
+  ],
+  "dual_run_experiment": {
+    "run_1": {
+      "exit_code": 0,
+      "state": {
+        "plugins_dir_exists": true,
+        "manifest_exists": false,
+        "skills_junction_exists": false,
+        "rules_junction_exists": false,
+        "agents_md_exists": true,
+        "agents_md_size": 1547,
+        "ownership_marker_exists": false
+      },
+      "stdout_snippet": "=========================================\n Linking Astesia (Live Mode) for Windows \n=========================================\nSource Directory: C:\\Users\\alta1r\\AppData\\Local\\Temp\\astesia-diag-install-1795325075935\nTarget Plugin Directory: C:\\\\Users\\\\alta1r\\\\AppData\\\\Local\\\\Temp\\\\astesia-diag-install-1795325075935\\\\mock_gemini_config\\plugins\\astesia"
+    },
+    "run_2": {
+      "exit_code": 0,
+      "state": {
+        "plugins_dir_exists": true,
+        "agents_md_size": 1551,
+        "ownership_marker_exists": false
+      },
+      "difference": "AGENTS.md was modified again; target was deleted and recreated; not idempotent"
+    }
+  }
+}

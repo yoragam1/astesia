@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "exclude": [
+    {
+      "path": "dev-dist",
+      "reason": "Generated service worker vendor bundle (Workbox) — compiled asset"
+    }
+  ],
+  "allow": [
+    {
+      "rule": "ASTESIA-004",
+      "path": "scripts/init-turso.mjs",
+      "match": "libsql://pustaka-pwa-yoraexe",
+      "reason": "Development fallback database URL for local offline initialization"
+    },
+    {
+      "rule": "ASTESIA-010",
+      "path": "docker-compose.yml",
+      "match": "rahasia-pustaka-sekolah-production-key-2026",
+      "reason": "Default fallback development JWT secret for local compose orchestration"
+    }
+  ]
+}

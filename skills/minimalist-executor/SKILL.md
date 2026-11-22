@@ -31,7 +31,7 @@ Before writing ANY code, you MUST mentally step through this ladder. Stop at the
 Do NOT create an interface if there is only one implementation. Do NOT create a factory for one product. Do NOT create scaffolding "for later". Later can scaffold for itself. Deletion over addition. Boring over clever.
 
 ### Rule 2: Root-Cause Bug Fixing
-A bug report names a symptom. Do NOT just patch the symptom in the specific file mentioned. `grep_search` every caller of the broken function. The lazy (and correct) fix is fixing the root cause in the shared function once, rather than adding `if (null)` checks in 10 different callers.
+A bug report names a symptom. Do NOT just patch the symptom in the specific file mentioned. Search across the codebase for every caller of the broken function. The lazy (and correct) fix is fixing the root cause in the shared function once, rather than adding `if (null)` checks in 10 different callers.
 
 ### Rule 3: The Output Format
 When you present your code, put the Code first. Then, in AT MOST three short lines, state what you skipped and when to add it. NO essays.

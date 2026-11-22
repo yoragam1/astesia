@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ASTESIA-010|docker-compose.yml|9",
+    "project": "eduNEXA",
+    "rule": "ASTESIA-010",
+    "class": "TP",
+    "quote": "POSTGRES_PASSWORD: <redacted>",
+    "reason": "Hardcoded database credential POSTGRES_PASSWORD in docker-compose.yml configuration"
+  },
+  {
+    "id": "ASTESIA-008|internal/domain/mutu/ami/dto.go|212",
+    "project": "eduNEXA",
+    "rule": "ASTESIA-008",
+    "class": "TP",
+    "quote": "// For standardizing and mocking short relationships for now",
+    "reason": "Technical debt marker 'for now' in Go domain DTO comment"
+  },
+  {
+    "id": "ASTESIA-004|internal/platform/config/config.go|23",
+    "project": "eduNEXA",
+    "rule": "ASTESIA-004",
+    "class": "TP",
+    "quote": "dbURL = \"postgres://nexa_user:<redacted>@localhost:5432/edunexa?sslmode=disable\"",
+    "reason": "Hardcoded database connection string containing plaintext password in fallback configuration"
+  },
+  {
+    "id": "ASTESIA-002|scripts/update_structure.py|36",
+    "project": "eduNEXA",
+    "rule": "ASTESIA-002",
+    "class": "FP",
+    "quote": "Tidak boleh query SELECT * FROM table tanpa batas",
+    "reason": "Documentation guidelines text string inside Python documentation updater script, not active SQL query"
+  },
+  {
+    "id": "ASTESIA-005|src/lib/mock-api.ts|6",
+    "project": "prototype-ami",
+    "rule": "ASTESIA-005",
+    "class": "TP",
+    "quote": "rawData: any;",
+    "reason": "Explicit TypeScript any type annotation in ApiPayload mock interface"
+  }
+]

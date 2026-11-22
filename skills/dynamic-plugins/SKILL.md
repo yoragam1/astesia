@@ -36,8 +36,8 @@ const functions = abi.filter(item => item.type === 'function').map(f => f.name);
 console.log(JSON.stringify({ functions }));
 ```
 
-### Step 3: Execute via `run_command`
-Instead of struggling manually, execute your new dynamic plugin using the `run_command` tool:
+### Step 3: Execute via Shell Command
+Instead of struggling manually, execute your new dynamic plugin using a shell command:
 ```bash
 node .astesia/plugins/parse-abi.js ./contracts/MyToken.json
 ```
@@ -49,3 +49,10 @@ If the plugin is highly successful and reusable, create a permanent skill direct
 - ❌ **Over-engineering:** Do not write a massive 500-line framework. Plugins should be tiny, disposable scripts.
 - ❌ **Silent Failures:** The plugin must `console.error` and `process.exit(1)` on failure, otherwise Astesia will think the task succeeded.
 - ❌ **Security Blindspots:** Never write plugins that blindly execute unsanitized string inputs as shell commands.
+
+## Guardrails
+- **Karantina Ketat:** Seluruh skrip plugin yang dihasilkan agen wajib ditulis ke direktori karantina `.astesia/plugins/quarantine/` dan DILARANG dieksekusi sebelum manusia menyetujui secara eksplisit dalam sesi yang sama.
+- **Isolasi Lingkungan:** Skrip dilarang mengakses jaringan luar, dilarang memasang paket baru tanpa izin, dan dilarang membaca berkas `.env` atau nilai secret apa pun.
+- **Integritas Manifest:** Setiap skrip plugin wajib didaftarkan beserta hash SHA-256 miliknya di `.astesia/plugins/manifest.json`.
+- **Deklarasi Kapabilitas:** Kapabilitas eksekusi yang diizinkan harus ditulis secara eksplisit dan diaudit sebelum dijalankan.
+
