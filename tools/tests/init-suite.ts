@@ -79,7 +79,7 @@ export function runInitSuite(): SuiteResult {
 
     // 2. Manifest integrity
     const manifest = JSON.parse(fs.readFileSync(path.join(proj1, ".astesia", "install-manifest.json"), "utf8"));
-    assert("Manifest version is 3.0.0", manifest.version === "3.0.0");
+    assert("Manifest version is 3.1.0-rc1", manifest.version === "3.1.0-rc1");
     assert("Manifest has valid ISO installed_at", typeof manifest.installed_at === "string" && manifest.installed_at.includes("T"));
     assert("Manifest registers 6 file entries", Array.isArray(manifest.files) && manifest.files.length === 6);
     const gateEntry = manifest.files.find((f: any) => f.path.includes("astesia-gate.ts"));

@@ -79,7 +79,7 @@ export function runInstallerPs1Suite(): SuiteResult {
     } catch (e: any) {
       console.error("Failed to parse marker:", e.message);
     }
-    assert("Marker contains version 3.0.0", markerObj?.version === "3.0.0");
+    assert("Marker contains version 3.1.0-rc1", markerObj?.version === "3.1.0-rc1");
     assert("Marker contains repo_path matching REPO_ROOT", path.resolve(markerObj?.repo_path || "").toLowerCase() === REPO_ROOT.toLowerCase());
     assert("Marker contains valid link_type", markerObj?.link_type === "junction" || markerObj?.link_type === "symlink");
     assert("Marker contains created_paths array", Array.isArray(markerObj?.created_paths) && markerObj.created_paths.length >= 4);
@@ -182,7 +182,7 @@ export function runInstallerPs1Suite(): SuiteResult {
 
     // 18. Verification check: target plugin.json version matches
     const pJson = JSON.parse(fs.readFileSync(path.join(targetSpaces, "plugin.json"), "utf8"));
-    assert("Target plugin.json has version 3.0.0", pJson.version === "3.0.0");
+    assert("Target plugin.json has version 3.1.0-rc1", pJson.version === "3.1.0-rc1");
 
     // 19. Clean up target with spaces via uninstall
     const r17 = runPsScript([`-Target "${targetSpaces}"`, "-Uninstall"]);
@@ -346,7 +346,7 @@ export function runInstallerPs1Suite(): SuiteResult {
     {
       id: "MUT-INST-07",
       description: "Omit verification check (fails to catch broken plugin.json)",
-      mutate: (code) => code.replace(/if\s*\(\$targetPluginObj\.version\s*-ne\s*"3\.0\.0"\)/, "if ($false)"),
+      mutate: (code) => code.replace(/if\s*\(\$targetPluginObj\.version\s*-ne\s*"3\.1\.0-rc1"\)/, "if ($false)"),
       test: (s) => {
         // If check is replaced by $false, the mutant survived. It is caught if the condition is modified.
         return true;

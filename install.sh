@@ -149,7 +149,7 @@ fi
 NOW="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 cat << EOF > "$DEST_DIR/.astesia-install.json"
 {
-  "version": "3.0.0",
+  "version": "3.1.0-rc1",
   "repo_path": "$SOURCE_DIR",
   "link_type": "symlink",
   "created_paths": [
@@ -170,8 +170,8 @@ if [[ ! -f "$DEST_DIR/plugin.json" ]]; then
 fi
 
 VERSION="$(grep '"version"' "$DEST_DIR/plugin.json" | head -n 1 | sed -E 's/.*"version":\s*"([^"]+)".*/\1/')"
-if [[ "$VERSION" != "3.0.0" ]]; then
-  echo "Error: Verification failed: plugin.json version mismatch ($VERSION != 3.0.0)" >&2
+if [[ "$VERSION" != "3.1.0-rc1" ]]; then
+  echo "Error: Verification failed: plugin.json version mismatch ($VERSION != 3.1.0-rc1)" >&2
   rollback_created_items
   exit 5
 fi

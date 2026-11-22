@@ -336,7 +336,7 @@ export function runLintSelftest(): {
       expected_code: "FL-018",
       mutate: (dir) => {
         const p = join(dir, "plugin.json");
-        mutateFileExact(p, '"version": "3.0.0"', '"version": "9.9.9"');
+        mutateFileExact(p, '"version": "3.1.0-rc1"', '"version": "9.9.9"');
       },
     },
     // Negative Control 1: CRLF in SKILL.md

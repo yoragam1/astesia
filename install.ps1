@@ -201,7 +201,7 @@ try {
 
 # 3. Create Ownership Marker
 $markerObj = [ordered]@{
-    version = "3.0.0"
+    version = "3.1.0-rc1"
     repo_path = $SourceDir
     link_type = $linkType
     created_paths = @("plugin.json", "skills", "rules", ".astesia-install.json")
@@ -220,7 +220,7 @@ if (-not (Test-Path -LiteralPath $targetPlugin)) {
 
 try {
     $targetPluginObj = ConvertFrom-Json (Get-Content -LiteralPath $targetPlugin -Raw -ErrorAction Stop)
-    if ($targetPluginObj.version -ne "3.0.0") {
+    if ($targetPluginObj.version -ne "3.1.0-rc1") {
         [Console]::Error.WriteLine("Error: Verification failed: plugin.json version mismatch")
         Rollback-CreatedItems -targetDir $DestDir
         exit 5

@@ -388,7 +388,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
 
   // Write install manifest
   const newManifest: InstallManifest = {
-    version: "3.0.0",
+    version: "3.1.0-rc1",
     installed_at: new Date().toISOString(),
     files: manifestEntries,
   };
