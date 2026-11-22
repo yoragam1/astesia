@@ -168,11 +168,162 @@ export function evaluateTriggerProxy(
   };
 }
 
+export interface PairedComparisonResult {
+  paired_count: number;
+  fileA: string;
+  fileB: string;
+  before_passed: number;
+  after_passed: number;
+  before_pass_rate: number;
+  after_pass_rate: number;
+  degradations: Array<{
+    skill: string;
+    prompt: string;
+    before_score: number;
+    after_score: number;
+    exempted: boolean;
+    reason?: string;
+  }>;
+  skill_breakdown: Array<{
+    skill: string;
+    total: number;
+    before_passed: number;
+    after_passed: number;
+    delta: number;
+  }>;
+}
+
+export function comparePairedTriggerResults(
+  fileAPath: string,
+  fileBPath: string,
+  exceptionsPath = join(REPO_ROOT, "runtime", "trigger-exceptions.json")
+): PairedComparisonResult {
+  const dataA: ProxySummary = JSON.parse(readFileSync(fileAPath, "utf8"));
+  const dataB: ProxySummary = JSON.parse(readFileSync(fileBPath, "utf8"));
+
+  let exceptions: Array<{ skill: string; reason: string }> = [];
+  if (existsSync(exceptionsPath)) {
+    try {
+      const parsed = JSON.parse(readFileSync(exceptionsPath, "utf8"));
+      exceptions = parsed.exceptions || [];
+    } catch {}
+  }
+  const exceptionMap = new Map(exceptions.map((e) => [e.skill, e.reason]));
+
+  const mapA = new Map<string, TriggerResult>();
+  for (const r of dataA.results) {
+    mapA.set(r.prompt.trim(), r);
+  }
+
+  const degradations: PairedComparisonResult["degradations"] = [];
+  const skillStats = new Map<string, { total: number; before: number; after: number }>();
+
+  let pairedCount = 0;
+  let beforePassed = 0;
+  let afterPassed = 0;
+
+  for (const rB of dataB.results) {
+    const key = rB.prompt.trim();
+    if (!mapA.has(key)) continue;
+
+    const rA = mapA.get(key)!;
+    pairedCount++;
+    if (rA.passed) beforePassed++;
+    if (rB.passed) afterPassed++;
+
+    const skill = rB.expected_skill;
+    if (!skillStats.has(skill)) {
+      skillStats.set(skill, { total: 0, before: 0, after: 0 });
+    }
+    const stat = skillStats.get(skill)!;
+    stat.total++;
+    if (rA.passed) stat.before++;
+    if (rB.passed) stat.after++;
+
+    if (rA.passed && !rB.passed) {
+      const reason = exceptionMap.get(skill);
+      degradations.push({
+        skill,
+        prompt: rB.prompt,
+        before_score: rA.expected_score,
+        after_score: rB.expected_score,
+        exempted: Boolean(reason && reason.length >= 15),
+        reason,
+      });
+    }
+  }
+
+  const breakdown: PairedComparisonResult["skill_breakdown"] = [];
+  for (const [skill, stat] of skillStats.entries()) {
+    breakdown.push({
+      skill,
+      total: stat.total,
+      before_passed: stat.before,
+      after_passed: stat.after,
+      delta: stat.after - stat.before,
+    });
+  }
+  breakdown.sort((a, b) => a.skill.localeCompare(b.skill));
+
+  return {
+    paired_count: pairedCount,
+    fileA: fileAPath,
+    fileB: fileBPath,
+    before_passed: beforePassed,
+    after_passed: afterPassed,
+    before_pass_rate: pairedCount ? +(beforePassed / pairedCount).toFixed(4) : 0,
+    after_pass_rate: pairedCount ? +(afterPassed / pairedCount).toFixed(4) : 0,
+    degradations,
+    skill_breakdown: breakdown,
+  };
+}
+
 // CLI entry point
 if (import.meta.main || require.main === module) {
   try {
     const args = process.argv.slice(2);
     const isJson = args.includes("--json");
+    const pairedIdx = args.indexOf("--paired");
+
+    if (pairedIdx !== -1) {
+      const fileA = args[pairedIdx + 1];
+      const fileB = args[pairedIdx + 2];
+      if (!fileA || !fileB) {
+        console.error("Usage: bun tools/trigger-proxy.ts --paired <fileA> <fileB>");
+        process.exit(2);
+      }
+
+      const comp = comparePairedTriggerResults(resolve(fileA), resolve(fileB));
+      if (isJson) {
+        console.log(JSON.stringify(comp, null, 2));
+      } else {
+        console.log(`\n=== PAIRED TRIGGER COMPARISON ===`);
+        console.log(`File A (Before): ${comp.fileA}`);
+        console.log(`File B (After):  ${comp.fileB}`);
+        console.log(`Paired Prompts:  ${comp.paired_count}`);
+        console.log(`Before Passed:   ${comp.before_passed}/${comp.paired_count} (${(comp.before_pass_rate * 100).toFixed(2)}%)`);
+        console.log(`After Passed:    ${comp.after_passed}/${comp.paired_count} (${(comp.after_pass_rate * 100).toFixed(2)}%)`);
+        console.log(`Degradations:    ${comp.degradations.length}`);
+
+        if (comp.degradations.length > 0) {
+          console.log("\nDegradation details:");
+          for (const d of comp.degradations) {
+            console.log(`  [${d.skill}] (score: ${d.before_score} -> ${d.after_score}) Exempted: ${d.exempted ? "YES (" + d.reason + ")" : "NO"}`);
+            console.log(`    Prompt: "${d.prompt}"`);
+          }
+        }
+      }
+
+      const unexempted = comp.degradations.filter((d) => !d.exempted);
+      if (unexempted.length > 0) {
+        console.error(`\nFAIL: Found ${unexempted.length} unexempted trigger degradation(s).`);
+        process.exit(1);
+      } else {
+        console.log("\nPASS: No unexempted trigger degradations found.");
+        process.exit(0);
+      }
+    }
+
     const outIdx = args.indexOf("--output");
     const outPath = outIdx !== -1 && args[outIdx + 1] ? resolve(args[outIdx + 1]) : null;
     const sIdx = args.indexOf("--samples");
