@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint:framework": "bun tools/framework-lint.ts",
+    "lint:report": "bun tools/report-lint.ts",
     "test:tools": "bun tools/tests/run.ts",
     "check:budget": "bun tools/token-budget.ts --check",
     "check:manifest": "bun tools/verify-manifest.ts",

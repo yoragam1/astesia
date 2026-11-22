@@ -12,6 +12,7 @@ import { runRetentionSuite } from "./retention-suite";
 import { runInstallerPs1Suite } from "./installer-ps1.test";
 import { runInitSuite } from "./init-suite";
 import { runGateContractSuite } from "./gate-contract-suite";
+import { runReportLintSuite } from "./report-lint-suite";
 
 async function main() {
   console.log("=================================================");
@@ -38,10 +39,13 @@ async function main() {
   // Suite 6: Gate Reference Contract & Mutation Suite (tools/gen-gate-reference.ts)
   const gateContractSuite = runGateContractSuite();
 
-  const total = rulesSuite.total + mutationSuite.total + retentionSuite.total + installerSuite.total + initSuite.total + gateContractSuite.total;
-  const passed = rulesSuite.passed + mutationSuite.passed + retentionSuite.passed + installerSuite.passed + initSuite.passed + gateContractSuite.passed;
-  const failed = rulesSuite.failed + mutationSuite.failed + retentionSuite.failed + installerSuite.failed + initSuite.failed + gateContractSuite.failed;
-  const known_gaps = rulesSuite.known_gaps + mutationSuite.known_gaps + retentionSuite.known_gaps + installerSuite.known_gaps + initSuite.known_gaps + gateContractSuite.known_gaps;
+  // Suite 7: Mechanical Report Linter Suite (tools/report-lint.ts)
+  const reportLintSuite = runReportLintSuite();
+
+  const total = rulesSuite.total + mutationSuite.total + retentionSuite.total + installerSuite.total + initSuite.total + gateContractSuite.total + reportLintSuite.total;
+  const passed = rulesSuite.passed + mutationSuite.passed + retentionSuite.passed + installerSuite.passed + initSuite.passed + gateContractSuite.passed + reportLintSuite.passed;
+  const failed = rulesSuite.failed + mutationSuite.failed + retentionSuite.failed + installerSuite.failed + initSuite.failed + gateContractSuite.failed + reportLintSuite.failed;
+  const known_gaps = rulesSuite.known_gaps + mutationSuite.known_gaps + retentionSuite.known_gaps + installerSuite.known_gaps + initSuite.known_gaps + gateContractSuite.known_gaps + reportLintSuite.known_gaps;
 
   const durationSec = ((Date.now() - startTime) / 1000).toFixed(2);
 
@@ -54,6 +58,7 @@ async function main() {
   console.log(`Suite 4 (Installer Suite):     ${installerSuite.passed}/${installerSuite.total} passed (${installerSuite.failed} failed, ${installerSuite.known_gaps} gaps)`);
   console.log(`Suite 5 (Init Suite):          ${initSuite.passed}/${initSuite.total} passed (${initSuite.failed} failed, ${initSuite.known_gaps} gaps)`);
   console.log(`Suite 6 (Gate Contract Suite): ${gateContractSuite.passed}/${gateContractSuite.total} passed (${gateContractSuite.failed} failed, ${gateContractSuite.known_gaps} gaps)`);
+  console.log(`Suite 7 (Report Lint Suite):   ${reportLintSuite.passed}/${reportLintSuite.total} passed (${reportLintSuite.failed} failed, ${reportLintSuite.known_gaps} gaps)`);
   console.log("-------------------------------------------------");
   console.log(`TOTAL TESTS:               ${total}`);
   console.log(`PASSED:                    ${passed}`);
