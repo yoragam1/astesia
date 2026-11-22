@@ -51,6 +51,7 @@ The deterministic enforcement engine is governed by `astesia-gate.ts` and `.aste
 
 - Full CLI documentation, rule catalog, and known limitations: [docs/GATE-REFERENCE.md](file:///D:/Workspaces/Astesia/docs/GATE-REFERENCE.md)
 - Complete skill and rule inventory: [docs/GENERATED-INVENTORY.md](file:///D:/Workspaces/Astesia/docs/GENERATED-INVENTORY.md)
+- Tool capability mapping and runtime verification: [docs/TOOL-VERIFICATION.md](file:///D:/Workspaces/Astesia/docs/TOOL-VERIFICATION.md)
 
 ---
 
