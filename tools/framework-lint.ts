@@ -587,6 +587,25 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
       file: "docs/GATE-REFERENCE.md",
       message: "docs/GATE-REFERENCE.md missing; must be generated from gate source",
     });
+  } else {
+    const gateRefContent = readFileSync(gateRefPath, "utf8");
+    // Check for 'undefined' rule descriptions in table
+    if (/\|\s*`ASTESIA-\d+`\s*\|\s*`[^`]+`\s*\|\s*undefined\s*\|/.test(gateRefContent)) {
+      violations.push({
+        code: "FL-014",
+        file: "docs/GATE-REFERENCE.md",
+        message: "docs/GATE-REFERENCE.md contains unextracted 'undefined' rule description(s)",
+      });
+    }
+  }
+
+  // Check for unsupported directive 'astesia-disable' across all documentation and rules
+  if (/astesia-disable/i.test(allDocsText)) {
+    violations.push({
+      code: "FL-014",
+      file: "docs/GATE-REFERENCE.md",
+      message: "Found reference to unsupported directive 'astesia-disable'; gate only supports 'astesia-allow' and 'astesia-debt'",
+    });
   }
 
   let extractedFlags: string[] = [];
@@ -596,6 +615,48 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
     const flagsMatches = [...rawScript.matchAll(/flags\.has\(["']([^"']+)["']\)/g)].map((m) => "--" + m[1]);
     const directArgMatches = [...rawScript.matchAll(/args\.indexOf\(["']--([^"']+)["']\)/g)].map((m) => "--" + m[1]);
     extractedFlags = [...new Set([...optsMatches, ...flagsMatches, ...directArgMatches])].sort();
+
+    // Check NEVER_BASELINE and NEVER_INLINE_SUPPRESS synchronization with docs/GATE-REFERENCE.md
+    if (existsSync(gateRefPath)) {
+      const gateRefContent = readFileSync(gateRefPath, "utf8");
+      
+      const nbMatch = rawScript.match(/NEVER_BASELINE\s*=\s*new Set\(\[([\s\S]*?)\]\)/);
+      if (nbMatch) {
+        const nbRules = [...nbMatch[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1]);
+        for (const r of nbRules) {
+          if (!gateRefContent.includes(`"${r}"`)) {
+            violations.push({
+              code: "FL-014",
+              file: "docs/GATE-REFERENCE.md",
+              message: `NEVER_BASELINE rule '${r}' from gate source is missing in docs/GATE-REFERENCE.md`,
+            });
+          }
+        }
+      }
+
+      const nisMatch = rawScript.match(/NEVER_INLINE_SUPPRESS\s*=\s*new Set\(\[([\s\S]*?)\]\)/);
+      if (nisMatch) {
+        const nisRules = [...nisMatch[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1]);
+        for (const r of nisRules) {
+          if (!gateRefContent.includes(`"${r}"`)) {
+            violations.push({
+              code: "FL-014",
+              file: "docs/GATE-REFERENCE.md",
+              message: `NEVER_INLINE_SUPPRESS rule '${r}' from gate source is missing in docs/GATE-REFERENCE.md`,
+            });
+          }
+        }
+      }
+
+      // Check for 'undefined' rule descriptions in table
+      if (/\|\s*`ASTESIA-\d+`\s*\|\s*`[^`]+`\s*\|\s*undefined\s*\|/.test(gateRefContent)) {
+        violations.push({
+          code: "FL-014",
+          file: "docs/GATE-REFERENCE.md",
+          message: "docs/GATE-REFERENCE.md contains unextracted 'undefined' rule description(s)",
+        });
+      }
+    }
   } else {
     extractedFlags = [
       "--baseline",
@@ -630,29 +691,61 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
     }
   }
 
-  // FL-020: Known Limitations in docs/GATE-REFERENCE.md
+  // FL-020: Known Limitations in docs/GATE-REFERENCE.md & Rejection of False Claims
   if (existsSync(gateRefPath)) {
     const gateRefContent = readFileSync(gateRefPath, "utf8");
+
+    // 1. Rejection of false claims and forbidden terms
+    if (/parser\s+AST/i.test(gateRefContent) || /berbasis\s+AST/i.test(gateRefContent)) {
+      violations.push({
+        code: "FL-020",
+        file: "docs/GATE-REFERENCE.md",
+        message: "False claim: Gate does not use an AST parser; false phrase 'parser AST' found",
+      });
+    }
+    if (/syntax\s+invalid/i.test(gateRefContent)) {
+      violations.push({
+        code: "FL-020",
+        file: "docs/GATE-REFERENCE.md",
+        message: "False term: 'syntax invalid' is not an Astesia gate limitation",
+      });
+    }
+    if (/parse\s+error/i.test(gateRefContent)) {
+      violations.push({
+        code: "FL-020",
+        file: "docs/GATE-REFERENCE.md",
+        message: "False term: 'parse error' is not an Astesia gate limitation",
+      });
+    }
+    if (/\|\s*`ASTESIA-\d+`\s*\|\s*`[^`]+`\s*\|\s*undefined\s*\|/.test(gateRefContent)) {
+      violations.push({
+        code: "FL-020",
+        file: "docs/GATE-REFERENCE.md",
+        message: "Gate reference contains unextracted 'undefined' descriptions in rules table",
+      });
+    }
+
+    // 2. Check 5 required limitation points per Decision 4
     const requiredLimitationPoints: Array<{ id: string; keywords: string[] }> = [
       {
-        id: "P1_FALSE_POSITIVE",
-        keywords: ["false positive", "ASTESIA-000", "ASTESIA-004", "tinggi", "proyek nyata"],
+        id: "P1_NO_AST",
+        keywords: ["AST", "token", "regex"],
       },
       {
-        id: "P2_PLATFORM_VALIDATION",
-        keywords: ["validasi", "Windows", "Linux", "diverifikasi", "gate"],
+        id: "P2_STATIC_EVALUATION",
+        keywords: ["runtime", "statis"],
       },
       {
-        id: "P3_WORKFLOW_LINT",
-        keywords: ["--check-workflow", "lint", "workflow", "CODEOWNERS", "status check"],
+        id: "P3_INLINE_SUPPRESS",
+        keywords: ["astesia-allow", "astesia-debt"],
       },
       {
-        id: "P4_GENERATED_BYPASS",
-        keywords: ["generated", "tokenizer", "bypass", "ratchet", "baseline"],
+        id: "P4_GENERATED_CODE",
+        keywords: ["generated", "fail-closed"],
       },
       {
-        id: "P5_REGEX_HEURISTIC",
-        keywords: ["heuristik", "regex", "N+1", "lintas fungsi", "tidak terdeteksi"],
+        id: "P5_CONFIG_INTEGRITY",
+        keywords: ["konfigurasi", "fail-closed", "aturan"],
       },
     ];
 

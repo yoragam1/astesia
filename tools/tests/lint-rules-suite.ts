@@ -7,8 +7,8 @@
  * and at least 1 negative test (passes cleanly without violation).
  */
 
-import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import {
   checkSkills,
@@ -836,6 +836,45 @@ export const LINT_RULE_TESTS: TestCase[] = [
     },
   },
   {
+    id: "FL-014-POS-UNSUPPORTED-DIRECTIVE",
+    code: "FL-014",
+    type: "positive",
+    name: "Unsupported directive astesia-disable in docs triggers FL-014",
+    run: () => {
+      const root = createMockRepo("fl014-pos-disable");
+      try {
+        writeFileSync(
+          join(root, "docs", "rules.md"),
+          "# Rules\nTo disable rules use `astesia-disable` comments.\n",
+          "utf8"
+        );
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-014" && x.message.includes("astesia-disable"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-014-POS-BAD-FIXTURE-3B",
+    code: "FL-014",
+    type: "positive",
+    name: "Legacy bad 3B fixture with undefined descriptions triggers FL-014",
+    run: () => {
+      const root = createMockRepo("fl014-pos-3b-bad");
+      try {
+        const fixturePath = resolve("tools/tests/fixtures/gate-reference-3b-bad.md");
+        const badContent = readFileSync(fixturePath, "utf8");
+        mkdirSync(join(root, "docs"), { recursive: true });
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), badContent, "utf8");
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-014" && x.message.includes("undefined"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
     id: "FL-014-NEG",
     code: "FL-014",
     type: "negative",
@@ -868,9 +907,66 @@ export const LINT_RULE_TESTS: TestCase[] = [
       try {
         writeFileSync(
           join(root, "docs", "GATE-REFERENCE.md"),
-          "# Gate Reference\n## Keterbatasan yang Diketahui\n1. False positive pada ASTESIA-000 dan ASTESIA-004 tinggi pada proyek nyata.\n",
+          "# Gate Reference\n## Keterbatasan yang Diketahui\n1. Model Pemindaian Tanpa AST.\n",
           "utf8"
         );
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-020");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-020-POS-FALSE-AST",
+    code: "FL-020",
+    type: "positive",
+    name: "False claim of parser AST triggers FL-020",
+    run: () => {
+      const root = createMockRepo("fl020-pos-ast");
+      try {
+        const fixturePath = resolve("docs/GATE-REFERENCE.md");
+        let content = readFileSync(fixturePath, "utf8");
+        content += "\nDeteksi menggunakan parser AST lokal.\n";
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), content, "utf8");
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-020" && x.message.includes("parser AST"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-020-POS-FALSE-TERMS",
+    code: "FL-020",
+    type: "positive",
+    name: "False terms syntax invalid or parse error trigger FL-020",
+    run: () => {
+      const root = createMockRepo("fl020-pos-terms");
+      try {
+        const fixturePath = resolve("docs/GATE-REFERENCE.md");
+        let content = readFileSync(fixturePath, "utf8");
+        content += "\nGate menghentikan proses jika terjadi syntax invalid atau parse error.\n";
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), content, "utf8");
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-020" && (x.message.includes("syntax invalid") || x.message.includes("parse error")));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-020-POS-BAD-FIXTURE-3B",
+    code: "FL-020",
+    type: "positive",
+    name: "Legacy bad 3B fixture triggers FL-020 on false claim parser AST",
+    run: () => {
+      const root = createMockRepo("fl020-pos-3b-bad");
+      try {
+        const fixturePath = resolve("tools/tests/fixtures/gate-reference-3b-bad.md");
+        const badContent = readFileSync(fixturePath, "utf8");
+        mkdirSync(join(root, "docs"), { recursive: true });
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), badContent, "utf8");
         const v = checkRulesAndDocs(root, defaultConfig);
         return v.some((x) => x.code === "FL-020");
       } finally {
@@ -882,19 +978,13 @@ export const LINT_RULE_TESTS: TestCase[] = [
     id: "FL-020-NEG-FULL",
     code: "FL-020",
     type: "negative",
-    name: "Complete 5 limitation points with all 5 keywords pass FL-020",
+    name: "Complete 5 limitation points with valid phrasing pass FL-020",
     run: () => {
       const root = createMockRepo("fl020-neg");
       try {
-        const fullContent = `# Gate Reference
-## Keterbatasan yang Diketahui
-1. False positive tinggi pada ASTESIA-000 dan ASTESIA-004 pada sebagian proyek nyata.
-2. Validasi gate baru dilakukan di Windows (Linux belum diverifikasi).
-3. --check-workflow hanya lint, PR dapat menghapus workflow tanpa CODEOWNERS dan required status check.
-4. Berkas generated dilewati tokenizer, bypass terbatas dikendalikan ratchet baseline.
-5. Heuristik regex; query N+1 lintas fungsi tidak terdeteksi.
-`;
-        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), fullContent, "utf8");
+        const limitPath = resolve("docs/gate-limitations.md");
+        const content = readFileSync(limitPath, "utf8");
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), content, "utf8");
         const v = checkRulesAndDocs(root, defaultConfig);
         return !v.some((x) => x.code === "FL-020");
       } finally {
