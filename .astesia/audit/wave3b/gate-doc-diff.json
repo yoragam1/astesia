@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-11-22T05:22:51.049Z",
+  "actual_gate": {
+    "never_baseline": [
+      "ASTESIA-000",
+      "ASTESIA-004",
+      "ASTESIA-010"
+    ],
+    "never_inline_suppress": [
+      "ASTESIA-000",
+      "ASTESIA-004",
+      "ASTESIA-010",
+      "TOKENIZER_DESYNC",
+      "LONG_LINE_SKIPPED"
+    ],
+    "cli_flags": [
+      "--allow-raise",
+      "--baseline",
+      "--check-workflow",
+      "--config",
+      "--json",
+      "--max-warn",
+      "--reason",
+      "--root",
+      "--rules",
+      "--rules-diff",
+      "--update-baseline"
+    ],
+    "rules": [
+      {
+        "id": "ASTESIA-000",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-001",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-002",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-003",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-004",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-005",
+        "severity": "warn"
+      },
+      {
+        "id": "ASTESIA-006",
+        "severity": "warn"
+      },
+      {
+        "id": "ASTESIA-007",
+        "severity": "error"
+      },
+      {
+        "id": "ASTESIA-008",
+        "severity": "warn"
+      },
+      {
+        "id": "ASTESIA-009",
+        "severity": "warn"
+      },
+      {
+        "id": "ASTESIA-010",
+        "severity": "error"
+      }
+    ]
+  },
+  "total_differences_found": 3,
+  "differences": [
+    {
+      "category": "CLI_FLAG",
+      "item": "--config missing from CLI flag enumeration",
+      "expected_in_gate": "opts.get('config') accepts path to gate-config.json",
+      "found_in_prose": "- CLI flags: `--baseline`, `--update-baseline`, `--max-warn`, `--json`, `--root`, `--rules`, `--rules-diff`, `--check-workflow`, `--allow-raise`, `--reason` (see `docs/GENERATED-INVENTORY.md`).",
+      "location": "rules/quality-rules.md:30",
+      "analysis": "Prose flag summary lists CLI flags but omits --config <path>"
+    },
+    {
+      "category": "NEVER_INLINE_SUPPRESS",
+      "item": "TOKENIZER_DESYNC and LONG_LINE_SKIPPED missing",
+      "expected_in_gate": "Set { ASTESIA-000, ASTESIA-004, ASTESIA-010, TOKENIZER_DESYNC, LONG_LINE_SKIPPED }",
+      "found_in_prose": "- Policy: `NEVER_BASELINE = [ASTESIA-000, ASTESIA-004, ASTESIA-010]`, `NEVER_INLINE_SUPPRESS = [ASTESIA-000, ASTESIA-004]`. Generated files protected.",
+      "location": "rules/quality-rules.md:31",
+      "analysis": "Prose omits TOKENIZER_DESYNC and LONG_LINE_SKIPPED from inline suppression restrictions"
+    },
+    {
+      "category": "NEVER_BASELINE",
+      "item": "ASTESIA-004 and ASTESIA-010 missing",
+      "expected_in_gate": "Set { ASTESIA-000, ASTESIA-004, ASTESIA-010 }",
+      "found_in_prose": "| `ASTESIA-000` | `error` | `relative-import-exists` | `code` | Import relatif ESM/CJS, re-export, dan alias `@/` wajib menunjuk ke berkas fisik yang eksis. *(NEVER_BASELINE)* |",
+      "location": "docs/astesia-audit-dossier.md:354",
+      "analysis": "Prose claims only ASTESIA-000 is NEVER_BASELINE, but gate enforces ASTESIA-000, 004, and 010"
+    }
+  ]
+}

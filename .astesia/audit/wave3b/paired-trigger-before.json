@@ -1,0 +1,454 @@
+{
+  "timestamp": "2026-11-22T05:23:19.259Z",
+  "note": "Fair comparison across identical prompt set (intersection). The 73/106 (68.87%) -> 73/100 (73.00%) comparison in 3A was flawed due to changing denominator.",
+  "common_samples_count": 98,
+  "total_paired_before_passed": 68,
+  "total_paired_before_rate_pct": 69.39,
+  "total_paired_after_passed": 71,
+  "total_paired_after_rate_pct": 72.45,
+  "degraded_skills_count": 0,
+  "degraded_skills": [],
+  "skill_comparison": [
+    {
+      "skill": "adr-management",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "adversarial-review",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 2,
+      "before_rate_pct": 0,
+      "after_rate_pct": 100,
+      "delta_pct": 100
+    },
+    {
+      "skill": "anti-bloat-review",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "anti-silent-failure",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "architectural-linter",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "auto-merge-gates",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "blast-radius",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "brd-generation",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "brownfield-entry",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "budget-circuit-breaker",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "codebase-gardening",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "component-tokens",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "context-navigation",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "cuj-mapping",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "debt-scanner",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "docker-compose",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "docker-optimization",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "drizzle-orm",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "dynamic-plugins",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "e2e-testing",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "elysia-rest-api",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "frontend-integration",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 1,
+      "before_rate_pct": 0,
+      "after_rate_pct": 50,
+      "delta_pct": 50
+    },
+    {
+      "skill": "github-actions",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "golang-rest-api",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "hono-rest-api",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "independent-verification",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "laravel-api",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "layered-architecture",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "lint-ratchet",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "minimalist-executor",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "n8n-automation",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "python-fastapi",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "react-frontend",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "react-native-mobile",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "reverse-engineering",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "security-review",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "self-healing",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "sveltekit-frontend",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "task-waves",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "tdd-workflow",
+      "total_samples": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "before_rate_pct": 50,
+      "after_rate_pct": 50,
+      "delta_pct": 0
+    },
+    {
+      "skill": "trigger-dev",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "trust-pyramid",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "ux-systems",
+      "total_samples": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "before_rate_pct": 0,
+      "after_rate_pct": 0,
+      "delta_pct": 0
+    },
+    {
+      "skill": "visual-qa",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "vitest-unit-testing",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "vue-frontend",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "worktree-isolation",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "zero-downtime-migration",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    },
+    {
+      "skill": "zod-validation",
+      "total_samples": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "before_rate_pct": 100,
+      "after_rate_pct": 100,
+      "delta_pct": 0
+    }
+  ]
+}
