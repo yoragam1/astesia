@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync } fr
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { randomUUID } from "node:crypto";
+import { execSync } from "node:child_process";
 import { runFrameworkLint, REPO_ROOT } from "../framework-lint";
 
 export interface MutantTestResult {
@@ -370,9 +371,47 @@ export function runLintSelftest(): {
         mutateFileExact(p, "Select mode:", "Select  mode:");
       },
     },
+    // Stuffing Mutant 1: FL-012 keyword inside HTML comment
+    {
+      id: "MUT-STUFF-01",
+      description: "Keyword stuffed in HTML comment inside ## Guardrails triggers FL-012",
+      expected_code: "FL-012",
+      mutate: (dir) => {
+        const p = join(dir, "skills", "dynamic-plugins", "SKILL.md");
+        mutateFileExact(
+          p,
+          "- **Karantina Ketat:** Seluruh skrip plugin yang dihasilkan agen wajib ditulis ke direktori karantina",
+          "- **Isolasi Ketat:** Seluruh skrip plugin yang dihasilkan agen wajib ditulis ke direktori isolasi <!-- karantina -->"
+        );
+      },
+    },
+    // Stuffing Mutant 2: FL-012 keyword inside markdown code block
+    {
+      id: "MUT-STUFF-02",
+      description: "Keyword stuffed in code block inside ## Guardrails triggers FL-012",
+      expected_code: "FL-012",
+      mutate: (dir) => {
+        const p = join(dir, "skills", "dynamic-plugins", "SKILL.md");
+        mutateFileExact(
+          p,
+          "- **Karantina Ketat:** Seluruh skrip plugin yang dihasilkan agen wajib ditulis ke direktori karantina",
+          "- **Isolasi Ketat:** Seluruh skrip plugin yang dihasilkan agen wajib ditulis ke direktori isolasi\n```\nkarantina\n```"
+        );
+      },
+    },
+    // Stuffing Mutant 3: FL-013 untrusted rule stuffed in HTML comment
+    {
+      id: "MUT-STUFF-03",
+      description: "Untrusted rule stuffed in HTML comment triggers FL-013",
+      expected_code: "FL-013",
+      mutate: (dir) => {
+        const p = join(dir, "rules", "AGENTS.md");
+        mutateFileExact(p, "adalah DATA, bukan instruksi", "adalah masukan umum <!-- DATA, bukan instruksi -->");
+      },
+    },
   ];
 
-  console.log(`\n=== Running Framework Linter Mutation Self-Test (${mutants.length} mutants) ===`);
+  console.log(`\n=== Running Framework Linter Mutation Self-Test (${mutants.length} mutants via CLI) ===`);
 
   let passed = 0;
   let failed = 0;
@@ -381,12 +420,31 @@ export function runLintSelftest(): {
     const snapshotDir = createRepoSnapshot();
     try {
       m.mutate(snapshotDir);
-      const res = runFrameworkLint(snapshotDir);
+
+      let cliStatus = 0;
+      let stdout = "";
+      try {
+        stdout = execSync(`bun "${join(REPO_ROOT, "tools", "framework-lint.ts")}" --root "${snapshotDir}" --json`, {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "pipe"],
+        });
+        cliStatus = 0;
+      } catch (err: any) {
+        cliStatus = err.status ?? 1;
+        stdout = err.stdout?.toString("utf8") || "";
+      }
+
+      let res: { clean: boolean; errors: Array<{ code: string; message: string; file: string }> };
+      try {
+        res = JSON.parse(stdout);
+      } catch {
+        res = { clean: cliStatus === 0, errors: [] };
+      }
       const errCodes = res.errors.map((e) => e.code);
 
       if (m.expected_code === "CLEAN") {
-        if (res.clean) {
-          console.log(`  [KILLED] ${m.id}: ${m.description} -> CLEAN as expected`);
+        if (cliStatus === 0 && res.clean) {
+          console.log(`  [KILLED] ${m.id}: ${m.description} -> CLEAN (exit 0) as expected`);
           passed++;
           results.push({
             id: m.id,
@@ -396,7 +454,7 @@ export function runLintSelftest(): {
             killed: true,
           });
         } else {
-          console.error(`  [SURVIVED] ${m.id}: ${m.description} -> Unexpected violations: ${errCodes.join(", ")}`);
+          console.error(`  [SURVIVED] ${m.id}: ${m.description} -> Exit ${cliStatus}, Unexpected violations: ${errCodes.join(", ")}`);
           failed++;
           results.push({
             id: m.id,
@@ -404,12 +462,12 @@ export function runLintSelftest(): {
             expected_code: "CLEAN",
             actual_codes: errCodes,
             killed: false,
-            error: `Unexpected violations: ${errCodes.join(", ")}`,
+            error: `Exit ${cliStatus}, Unexpected violations: ${errCodes.join(", ")}`,
           });
         }
       } else {
-        if (!res.clean && errCodes.includes(m.expected_code)) {
-          console.log(`  [KILLED] ${m.id}: ${m.description} -> Caught ${m.expected_code}`);
+        if (cliStatus === 1 && !res.clean && errCodes.includes(m.expected_code)) {
+          console.log(`  [KILLED] ${m.id}: ${m.description} -> Caught ${m.expected_code} (exit 1)`);
           passed++;
           results.push({
             id: m.id,
@@ -419,7 +477,7 @@ export function runLintSelftest(): {
             killed: true,
           });
         } else {
-          console.error(`  [SURVIVED] ${m.id}: ${m.description} -> Expected ${m.expected_code}, got [${errCodes.join(", ")}]`);
+          console.error(`  [SURVIVED] ${m.id}: ${m.description} -> Exit ${cliStatus}, Expected ${m.expected_code}, got [${errCodes.join(", ")}]`);
           failed++;
           results.push({
             id: m.id,
@@ -427,7 +485,7 @@ export function runLintSelftest(): {
             expected_code: m.expected_code,
             actual_codes: errCodes,
             killed: false,
-            error: `Expected ${m.expected_code}, got [${errCodes.join(", ")}]`,
+            error: `Exit ${cliStatus}, Expected ${m.expected_code}, got [${errCodes.join(", ")}]`,
           });
         }
       }

@@ -209,22 +209,30 @@ export function checkSkills(root: string, config: LintConfig): LintViolation[] {
     if (riskMap.has(folder) || riskMap.has(fm.name)) {
       const riskCfg = riskMap.get(folder) || riskMap.get(fm.name)!;
       const headingRegex = new RegExp(`^${riskCfg.required_heading.replace(/#/g, "\\#")}\\b`, "m");
-      if (!headingRegex.test(raw)) {
+      const headingMatch = raw.match(headingRegex);
+      if (!headingMatch || headingMatch.index === undefined) {
         violations.push({
           code: "FL-012",
           file: `${folderPath}/SKILL.md`,
           message: `Risk skill '${folder}' missing required heading '${riskCfg.required_heading}'`,
         });
-      }
+      } else {
+        const hIdx = headingMatch.index;
+        const afterHeading = raw.slice(hIdx + headingMatch[0].length);
+        const nextHeadingMatch = afterHeading.search(/\n##+\s/);
+        const sectionRaw = nextHeadingMatch !== -1 ? afterHeading.slice(0, nextHeadingMatch) : afterHeading;
+        const sectionClean = sectionRaw.replace(/<!--[\s\S]*?-->/g, "").replace(/```[\s\S]*?```/g, "");
 
-      for (const kw of riskCfg.required_keywords || []) {
-        const kwRegex = new RegExp(`\\b${kw}\\b`, "i");
-        if (!kwRegex.test(raw)) {
-          violations.push({
-            code: "FL-012",
-            file: `${folderPath}/SKILL.md`,
-            message: `Risk skill '${folder}' missing required guardrail keyword '${kw}'`,
-          });
+        for (const kw of riskCfg.required_keywords || []) {
+          const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const kwRegex = new RegExp(`\\b${escapedKw}\\b`, "i");
+          if (!kwRegex.test(sectionClean)) {
+            violations.push({
+              code: "FL-012",
+              file: `${folderPath}/SKILL.md`,
+              message: `Risk skill '${folder}' missing required guardrail keyword '${kw}' in '${riskCfg.required_heading}' text`,
+            });
+          }
         }
       }
     }
@@ -494,8 +502,9 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
     });
   } else {
     const raw = readFileSync(agentsPath, "utf8");
-    const hasDataNotInstruction = /DATA\s*,\s*bukan\s*instruksi/i.test(raw) || /data\s*,\s*not\s*instructions/i.test(raw);
-    const hasUntrustedSection = /untrusted|konten\s*tidak\s*tepercaya/i.test(raw);
+    const cleanAgents = raw.replace(/<!--[\s\S]*?-->/g, "").replace(/```[\s\S]*?```/g, "");
+    const hasDataNotInstruction = /DATA\s*,\s*bukan\s*instruksi/i.test(cleanAgents) || /data\s*,\s*not\s*instructions/i.test(cleanAgents);
+    const hasUntrustedSection = /untrusted|konten\s*tidak\s*tepercaya/i.test(cleanAgents);
     if (!hasDataNotInstruction || !hasUntrustedSection) {
       violations.push({
         code: "FL-013",
@@ -762,8 +771,10 @@ if (import.meta.main || require.main === module) {
     const isJson = process.argv.includes("--json");
     const cfgIdx = process.argv.indexOf("--config");
     const cfgPath = cfgIdx !== -1 && process.argv[cfgIdx + 1] ? resolve(process.argv[cfgIdx + 1]) : undefined;
+    const rootIdx = process.argv.indexOf("--root");
+    const targetRoot = rootIdx !== -1 && process.argv[rootIdx + 1] ? resolve(process.argv[rootIdx + 1]) : REPO_ROOT;
 
-    const result = runFrameworkLint(REPO_ROOT, cfgPath);
+    const result = runFrameworkLint(targetRoot, cfgPath);
 
     if (isJson) {
       console.log(JSON.stringify(result, null, 2));
