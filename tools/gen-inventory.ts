@@ -445,7 +445,8 @@ export function generateInventory(root = REPO_ROOT): InventoryReport {
   const deniedPath = join(runtimeDir, "denied-tool-names.json");
   if (existsSync(deniedPath)) {
     try {
-      deniedTools = JSON.parse(readFileSync(deniedPath, "utf8"));
+      const parsed = JSON.parse(readFileSync(deniedPath, "utf8"));
+      deniedTools = Array.isArray(parsed) ? parsed : (parsed.denied_tools || parsed.tools || []);
     } catch {}
   }
   const deniedSet = new Set(deniedTools);
@@ -454,7 +455,8 @@ export function generateInventory(root = REPO_ROOT): InventoryReport {
   const knownPath = join(runtimeDir, "known-tools.json");
   if (existsSync(knownPath)) {
     try {
-      knownTools = JSON.parse(readFileSync(knownPath, "utf8"));
+      const parsed = JSON.parse(readFileSync(knownPath, "utf8"));
+      knownTools = Array.isArray(parsed) ? parsed : (parsed.tools || []);
     } catch {}
   }
   const knownSet = new Set(knownTools);

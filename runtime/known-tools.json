@@ -1,21 +1,25 @@
-[
-  "read_file",
-  "write_file",
-  "edit_file",
-  "run_command",
-  "search_web",
-  "invoke_subagent",
-  "define_subagent",
-  "manage_subagents",
-  "schedule",
-  "manage_task",
-  "send_message",
-  "run_workflow",
-  "search_marketplace",
-  "list_plugin_accounts",
-  "ask_question",
-  "call_mcp_tool",
-  "list_resources",
-  "read_resource",
-  "swarm"
-]
+{
+  "provenance": "Enumerated from live Antigravity agent session declarations in Wave 3B",
+  "reference": ".astesia/audit/wave3b/agent-tools.json",
+  "tools": [
+    "ask_question",
+    "call_mcp_tool",
+    "define_subagent",
+    "edit_file",
+    "invoke_subagent",
+    "list_plugin_accounts",
+    "list_resources",
+    "manage_subagents",
+    "manage_task",
+    "read_file",
+    "read_resource",
+    "run_command",
+    "run_workflow",
+    "schedule",
+    "search_marketplace",
+    "search_web",
+    "send_message",
+    "swarm",
+    "write_file"
+  ]
+}

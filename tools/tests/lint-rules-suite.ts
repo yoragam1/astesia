@@ -430,14 +430,14 @@ export const LINT_RULE_TESTS: TestCase[] = [
     },
   },
 
-  // FL-011: Prohibited tool names
+  // FL-011: Prohibited tool names (3 positive, 3 negative)
   {
-    id: "FL-011-POS",
+    id: "FL-011-POS-GREP",
     code: "FL-011",
     type: "positive",
     name: "Denylisted tool grep_codebase triggers FL-011",
     run: () => {
-      const root = createMockRepo("fl011-pos");
+      const root = createMockRepo("fl011-pos-grep");
       try {
         writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["grep_codebase"]), "utf8");
         const sDir = join(root, "skills", "search-skill");
@@ -455,12 +455,58 @@ export const LINT_RULE_TESTS: TestCase[] = [
     },
   },
   {
-    id: "FL-011-NEG",
+    id: "FL-011-POS-VIEW",
+    code: "FL-011",
+    type: "positive",
+    name: "Denylisted tool view_file triggers FL-011",
+    run: () => {
+      const root = createMockRepo("fl011-pos-view");
+      try {
+        writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["view_file"]), "utf8");
+        const sDir = join(root, "skills", "view-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: view-skill\ndescription: Views\n---\nGunakan tool `view_file` untuk melihat isi berkas.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return v.some((x) => x.code === "FL-011" && x.message.includes("view_file"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-011-POS-LIST",
+    code: "FL-011",
+    type: "positive",
+    name: "Denylisted tool list_dir triggers FL-011",
+    run: () => {
+      const root = createMockRepo("fl011-pos-list");
+      try {
+        writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["list_dir"]), "utf8");
+        const sDir = join(root, "skills", "list-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: list-skill\ndescription: Lists\n---\nCall tool `list_dir` to inspect directories.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return v.some((x) => x.code === "FL-011" && x.message.includes("list_dir"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-011-NEG-READ",
     code: "FL-011",
     type: "negative",
     name: "Approved tool read_file does not trigger FL-011",
     run: () => {
-      const root = createMockRepo("fl011-neg");
+      const root = createMockRepo("fl011-neg-read");
       try {
         writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["grep_codebase"]), "utf8");
         const sDir = join(root, "skills", "read-skill");
@@ -472,6 +518,201 @@ export const LINT_RULE_TESTS: TestCase[] = [
         );
         const v = checkSkills(root, defaultConfig);
         return !v.some((x) => x.code === "FL-011");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-011-NEG-RUN",
+    code: "FL-011",
+    type: "negative",
+    name: "Approved tool run_command does not trigger FL-011",
+    run: () => {
+      const root = createMockRepo("fl011-neg-run");
+      try {
+        writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["grep_codebase"]), "utf8");
+        const sDir = join(root, "skills", "cmd-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: cmd-skill\ndescription: Runs commands\n---\nUse tool `run_command` to execute tests.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return !v.some((x) => x.code === "FL-011");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-011-NEG-GENERIC",
+    code: "FL-011",
+    type: "negative",
+    name: "Generic capability phrasing does not trigger FL-011",
+    run: () => {
+      const root = createMockRepo("fl011-neg-gen");
+      try {
+        writeFileSync(join(root, "runtime", "denied-tool-names.json"), JSON.stringify(["grep_codebase"]), "utf8");
+        const sDir = join(root, "skills", "generic-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: generic-skill\ndescription: Generic search\n---\nCari teks di repositori menggunakan pencarian regex.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return !v.some((x) => x.code === "FL-011");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+
+  // FL-019: Unknown snake_case tool identifiers on invocation lines (3 positive, 3 negative)
+  {
+    id: "FL-019-POS-UNKNOWN",
+    code: "FL-019",
+    type: "positive",
+    name: "Unknown tool custom_crawler on tool line triggers FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-pos-crawler");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["read_file"] }), "utf8");
+        const sDir = join(root, "skills", "crawler-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: crawler-skill\ndescription: Crawls\n---\nUse tool `custom_crawler` to index URLs.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return v.some((x) => x.code === "FL-019" && x.message.includes("custom_crawler"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-019-POS-ALAT",
+    code: "FL-019",
+    type: "positive",
+    name: "Unknown tool fetch_remote_logs with Indonesian keyword alat triggers FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-pos-alat");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["read_file"] }), "utf8");
+        const sDir = join(root, "skills", "log-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: log-skill\ndescription: Logs\n---\nGunakan alat `fetch_remote_logs` untuk mengambil log.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return v.some((x) => x.code === "FL-019" && x.message.includes("fetch_remote_logs"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-019-POS-CALL",
+    code: "FL-019",
+    type: "positive",
+    name: "Unknown tool search_files with call keyword triggers FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-pos-call");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["read_file"] }), "utf8");
+        const sDir = join(root, "skills", "find-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: find-skill\ndescription: Finds\n---\nPlease call `search_files` to locate modules.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return v.some((x) => x.code === "FL-019" && x.message.includes("search_files"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-019-NEG-KNOWN",
+    code: "FL-019",
+    type: "negative",
+    name: "Known tool run_command on tool line passes FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-neg-known");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["run_command"] }), "utf8");
+        const sDir = join(root, "skills", "exec-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: exec-skill\ndescription: Executes\n---\nUse tool `run_command` to execute command lines.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return !v.some((x) => x.code === "FL-019");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-019-NEG-EXEMPT",
+    code: "FL-019",
+    type: "negative",
+    name: "Exempted tool in lint-config passes FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-neg-exempt");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["read_file"] }), "utf8");
+        const sDir = join(root, "skills", "exempt-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: exempt-skill\ndescription: Exempted\n---\nUse tool `special_custom_tool` in legacy flow.\n",
+          "utf8"
+        );
+        const cfgWithExempt: LintConfig = {
+          ...defaultConfig,
+          unknown_tools_exempt: [
+            {
+              tool: "special_custom_tool",
+              reason: "Legacy workflow exemption tested",
+            },
+          ],
+        };
+        const v = checkSkills(root, cfgWithExempt);
+        return !v.some((x) => x.code === "FL-019");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-019-NEG-NONTOOL",
+    code: "FL-019",
+    type: "negative",
+    name: "Backtick identifier on non-tool line or generic phrasing passes FL-019",
+    run: () => {
+      const root = createMockRepo("fl019-neg-nontool");
+      try {
+        writeFileSync(join(root, "runtime", "known-tools.json"), JSON.stringify({ tools: ["read_file"] }), "utf8");
+        const sDir = join(root, "skills", "code-skill");
+        mkdirSync(sDir, { recursive: true });
+        writeFileSync(
+          join(sDir, "SKILL.md"),
+          "---\nname: code-skill\ndescription: Code logic\n---\nSet variable `user_name` to default value.\nGunakan alat pencari teks di repositori.\n",
+          "utf8"
+        );
+        const v = checkSkills(root, defaultConfig);
+        return !v.some((x) => x.code === "FL-019");
       } finally {
         rmSync(root, { recursive: true, force: true });
       }

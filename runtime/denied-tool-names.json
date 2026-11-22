@@ -1,8 +1,14 @@
-[
-  "grep_codebase",
-  "view_file",
-  "list_dir",
-  "codebase_search",
-  "find_files",
-  "search_files"
-]
+{
+  "provenance": "Verified non-existent / hallucinated tool names rejected across Astesia audits",
+  "reference": ".astesia/audit/wave3b/agent-tools.json",
+  "denied_tools": [
+    "view_file",
+    "grep_codebase",
+    "list_dir",
+    "codebase_search",
+    "find_files",
+    "search_files",
+    "grep_search",
+    "visual_audit"
+  ]
+}

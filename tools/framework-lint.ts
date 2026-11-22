@@ -29,6 +29,7 @@ export interface LintConfig {
   description_length_exemptions?: Array<{ skill: string; max_length: number; reason: string }>;
   gate_internal_flags_exempt?: Array<{ flag: string; reason: string }>;
   unmapped_skills_exempt?: Array<{ skill: string; reason: string }>;
+  unknown_tools_exempt?: Array<{ tool: string; reason: string }>;
   token_budget_max?: number;
 }
 
@@ -75,10 +76,23 @@ export function checkSkills(root: string, config: LintConfig): LintViolation[] {
   const deniedPath = join(root, "runtime", "denied-tool-names.json");
   if (existsSync(deniedPath)) {
     try {
-      deniedTools = JSON.parse(readFileSync(deniedPath, "utf8"));
+      const parsed = JSON.parse(readFileSync(deniedPath, "utf8"));
+      deniedTools = Array.isArray(parsed) ? parsed : (parsed.denied_tools || parsed.tools || []);
     } catch {}
   }
   const deniedSet = new Set(deniedTools);
+
+  // Known tools (for FL-019)
+  let knownTools: string[] = [];
+  const knownPath = join(root, "runtime", "known-tools.json");
+  if (existsSync(knownPath)) {
+    try {
+      const parsed = JSON.parse(readFileSync(knownPath, "utf8"));
+      knownTools = Array.isArray(parsed) ? parsed : (parsed.tools || []);
+    } catch {}
+  }
+  const knownToolsSet = new Set(knownTools);
+  const exemptToolsSet = new Set((config.unknown_tools_exempt || []).map((x) => x.tool));
 
   // Risk skills config
   let riskSkills: Array<{ name: string; required_heading: string; required_keywords: string[] }> = [];
@@ -167,6 +181,24 @@ export function checkSkills(root: string, config: LintConfig): LintViolation[] {
               file: `${folderPath}/SKILL.md`,
               line: idx + 1,
               message: `Forbidden tool name '${tName}' used on tool invocation line`,
+            });
+          }
+        }
+      }
+    });
+
+    // FL-019: unknown snake_case tool identifiers on tool lines
+    lines.forEach((l, idx) => {
+      if (/\b(tool|tools|alat|panggil|call|calling)\b/i.test(l)) {
+        const matches = [...l.matchAll(/`([a-z0-9]+_[a-z0-9_]+)`/g)];
+        for (const m of matches) {
+          const tName = m[1];
+          if (!knownToolsSet.has(tName) && !exemptToolsSet.has(tName)) {
+            violations.push({
+              code: "FL-019",
+              file: `${folderPath}/SKILL.md`,
+              line: idx + 1,
+              message: `Unknown tool identifier '${tName}' on tool line (must be in known-tools.json or exempted in lint-config.json)`,
             });
           }
         }
