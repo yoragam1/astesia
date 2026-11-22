@@ -28,7 +28,7 @@ git worktree add ../astesia-worktree-feature-x -b astesia/feature-x
 
 ### Step 2: Relocate the Execution Context
 Once the worktree is created, any subagents or commands you run MUST target that new directory (`../astesia-worktree-feature-x`).
-- Execute commands targeting the worktree directory (e.g., using `git -C ../astesia-worktree-feature-x` or `cd ../astesia-worktree-feature-x && ...` in `run_command`).
+- Execute commands targeting the worktree directory (e.g., using `git -C ../astesia-worktree-feature-x` or `cd ../astesia-worktree-feature-x && ...` in a shell command).
 - Pass the absolute path to the worktree when assigning files to subagents.
 
 ### Step 3: Execute and Verify

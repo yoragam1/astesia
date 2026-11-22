@@ -66,7 +66,7 @@ Step 7: Document findings as a defect list
 
 ### Automated Visual Auditing (Headless Browser)
 To operate as an overpowered autonomous agent, do NOT rely purely on human verification.
-1. Perform visual inspection or execute a temporary Puppeteer/Playwright script via `run_command` to launch a headless browser against the local dev server.
+1. Perform visual inspection or execute a temporary Puppeteer/Playwright script via a shell command to launch a headless browser against the local dev server.
 2. The script must capture:
    - DOM Snapshots (to verify CSS classes and layout structure).
    - Console Error Logs (intercept `page.on('console')`).

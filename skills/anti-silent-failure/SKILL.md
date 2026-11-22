@@ -12,7 +12,7 @@ description: >-
 - **Description:** A tool-integrity safeguard. AI models often hallucinate that a command succeeded if the tool output is empty or lacks an explicit error, leading to cascading failures (e.g., trying to run a built binary when the build silently failed). This protocol forces verification.
 
 ## 2. When to Use
-Invoke this protocol constantly during the execution phase, specifically immediately after using `run_command` or modifying files.
+Invoke this protocol constantly during the execution phase, specifically immediately after executing shell commands or modifying files.
 
 ## 3. The Core Threat Model
 - AI runs `npm run build`.
@@ -25,10 +25,10 @@ Invoke this protocol constantly during the execution phase, specifically immedia
 ## 4. Operational Rules
 
 ### Rule 1: Always Verify Mutating Tools
-If you use a tool to write, edit, or move a file, DO NOT assume it succeeded just because the tool didn't throw a JSON exception. Verify the file exists and its contents are correct (using `read_file` or running a verification command) before proceeding to the next step.
+If you use a tool to write, edit, or move a file, DO NOT assume it succeeded just because the tool didn't throw a JSON exception. Verify the file exists and its contents are correct (reading file contents or running a verification command) before proceeding to the next step.
 
 ### Rule 2: Intercept Empty Outputs
-If you run a shell command (`run_command`) and the output is completely empty, you MUST verify the exit code or check the side-effects of the command. Do not blindly assume success.
+If you run a shell command and the output is completely empty, you MUST verify the exit code or check the side-effects of the command. Do not blindly assume success.
 - Example: If you run a build command, verify the `dist/` folder was created.
 
 ### Rule 3: Explicit Failure Injection

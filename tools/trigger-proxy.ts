@@ -283,6 +283,8 @@ if (import.meta.main || require.main === module) {
   try {
     const args = process.argv.slice(2);
     const isJson = args.includes("--json");
+    const outIdx = args.indexOf("--output");
+    const outPath = outIdx !== -1 && args[outIdx + 1] ? resolve(args[outIdx + 1]) : null;
     const pairedIdx = args.indexOf("--paired");
 
     if (pairedIdx !== -1) {
@@ -294,6 +296,10 @@ if (import.meta.main || require.main === module) {
       }
 
       const comp = comparePairedTriggerResults(resolve(fileA), resolve(fileB));
+      if (outPath) {
+        writeFileSync(outPath, JSON.stringify(comp, null, 2), "utf8");
+        console.log(`Paired comparison saved to ${outPath}`);
+      }
       if (isJson) {
         console.log(JSON.stringify(comp, null, 2));
       } else {
@@ -324,8 +330,6 @@ if (import.meta.main || require.main === module) {
       }
     }
 
-    const outIdx = args.indexOf("--output");
-    const outPath = outIdx !== -1 && args[outIdx + 1] ? resolve(args[outIdx + 1]) : null;
     const sIdx = args.indexOf("--samples");
     const samplesPath = sIdx !== -1 && args[sIdx + 1] ? resolve(args[sIdx + 1]) : SAMPLES_FILE;
 

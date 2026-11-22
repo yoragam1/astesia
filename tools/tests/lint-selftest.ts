@@ -232,11 +232,11 @@ export function runLintSelftest(): {
         mutateFileExact(p, "Single responsibility per module", "Single responsibility per module Stage 99");
       },
     },
-    // FL-011
+    // FL-019 (Merged FL-011 + FL-019 per Decision 2)
     {
       id: "MUT-15",
-      description: "Denylisted tool grep_codebase triggers FL-011",
-      expected_code: "FL-011",
+      description: "Denylisted tool grep_codebase triggers FL-019",
+      expected_code: "FL-019",
       mutate: (dir) => {
         const p = join(dir, "skills", "adr-management", "SKILL.md");
         mutateFileExact(p, "## 2. When to Activate", "## 2. When to Activate\nUse tool `grep_codebase` to search ADRs.");

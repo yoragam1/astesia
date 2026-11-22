@@ -36,8 +36,8 @@ const functions = abi.filter(item => item.type === 'function').map(f => f.name);
 console.log(JSON.stringify({ functions }));
 ```
 
-### Step 3: Execute via `run_command`
-Instead of struggling manually, execute your new dynamic plugin using the `run_command` tool:
+### Step 3: Execute via Shell Command
+Instead of struggling manually, execute your new dynamic plugin using a shell command:
 ```bash
 node .astesia/plugins/parse-abi.js ./contracts/MyToken.json
 ```

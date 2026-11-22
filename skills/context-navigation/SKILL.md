@@ -20,7 +20,7 @@ Whenever Astesia is asked to modify, debug, or understand a feature within an ex
 Before modifying code, follow this targeted search order:
 1. `system-map.md` conceptual tags -> locate relevant modules by concept.
 2. Exact keyword / ripgrep search -> locate specific symbols, routes, or error strings.
-3. `read_file` (targeted line range or function block only) -> read the minimum needed lines.
+3. Targeted line reading (targeted line range or function block only) -> read the minimum needed lines.
 4. **NEVER:** blind recursive directory scans or reading entire repos as primary navigation.
 
 ### Rule 2: Dual Queries & Reciprocal Rank Fusion (RRF)

@@ -440,25 +440,26 @@ export function generateInventory(root = REPO_ROOT): InventoryReport {
   scanMarkdownFiles(workflowsDir);
   scanMarkdownFiles(docsDir);
 
-  // 5. Tool name candidates on tool lines in SKILL.md
+  // 5. Tool name candidates on tool lines in SKILL.md from runtime/tool-map.json
   let deniedTools: string[] = [];
-  const deniedPath = join(runtimeDir, "denied-tool-names.json");
-  if (existsSync(deniedPath)) {
+  let knownTools: string[] = [];
+  const toolMapPath = join(runtimeDir, "tool-map.json");
+  if (existsSync(toolMapPath)) {
     try {
-      const parsed = JSON.parse(readFileSync(deniedPath, "utf8"));
-      deniedTools = Array.isArray(parsed) ? parsed : (parsed.denied_tools || parsed.tools || []);
+      const parsed = JSON.parse(readFileSync(toolMapPath, "utf8"));
+      if (parsed && parsed.capabilities) {
+        for (const entries of Object.values(parsed.capabilities) as any[]) {
+          if (Array.isArray(entries)) {
+            for (const ent of entries) {
+              if (ent.status === "denied") deniedTools.push(ent.name);
+              else knownTools.push(ent.name);
+            }
+          }
+        }
+      }
     } catch {}
   }
   const deniedSet = new Set(deniedTools);
-
-  let knownTools: string[] = [];
-  const knownPath = join(runtimeDir, "known-tools.json");
-  if (existsSync(knownPath)) {
-    try {
-      const parsed = JSON.parse(readFileSync(knownPath, "utf8"));
-      knownTools = Array.isArray(parsed) ? parsed : (parsed.tools || []);
-    } catch {}
-  }
   const knownSet = new Set(knownTools);
 
   const toolFreq: Record<string, { count: number; locations: string[] }> = {};

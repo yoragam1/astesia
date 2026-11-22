@@ -1,0 +1,362 @@
+{
+  "paired_count": 100,
+  "fileA": "D:\\Workspaces\\Astesia\\.astesia\\audit\\wave3b\\paired-trigger-after.json",
+  "fileB": "D:\\Workspaces\\Astesia\\.astesia\\audit\\wave3c\\paired-trigger-after.json",
+  "before_passed": 73,
+  "after_passed": 73,
+  "before_pass_rate": 0.73,
+  "after_pass_rate": 0.73,
+  "degradations": [],
+  "skill_breakdown": [
+    {
+      "skill": "adr-management",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "adversarial-review",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "anti-bloat-review",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "anti-silent-failure",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "architectural-linter",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "auto-merge-gates",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "blast-radius",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "brd-generation",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "brownfield-entry",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "budget-circuit-breaker",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "codebase-gardening",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "component-tokens",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "context-navigation",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "cuj-mapping",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "debt-scanner",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "docker-compose",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "docker-optimization",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "drizzle-orm",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "dynamic-plugins",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "e2e-testing",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "elysia-rest-api",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "frontend-integration",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "github-actions",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "golang-rest-api",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "hono-rest-api",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "independent-verification",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "laravel-api",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "layered-architecture",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "lint-ratchet",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "minimalist-executor",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "n8n-automation",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "property-based-testing",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "python-fastapi",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "react-frontend",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "react-native-mobile",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "reverse-engineering",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "security-review",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "self-healing",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "sveltekit-frontend",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "task-waves",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "tdd-workflow",
+      "total": 2,
+      "before_passed": 1,
+      "after_passed": 1,
+      "delta": 0
+    },
+    {
+      "skill": "trigger-dev",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "trust-pyramid",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "ux-systems",
+      "total": 2,
+      "before_passed": 0,
+      "after_passed": 0,
+      "delta": 0
+    },
+    {
+      "skill": "visual-qa",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "vitest-unit-testing",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "vue-frontend",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "worktree-isolation",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "zero-downtime-migration",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    },
+    {
+      "skill": "zod-validation",
+      "total": 2,
+      "before_passed": 2,
+      "after_passed": 2,
+      "delta": 0
+    }
+  ]
+}

@@ -51,8 +51,85 @@ export function loadLintConfig(configPath?: string): LintConfig {
   }
 }
 
+export interface ToolMapEntry {
+  name: string;
+  runtime: string;
+  status: "confirmed" | "unverified" | "denied";
+  provenance: string;
+  evidence_ref?: string;
+  confirmed_by?: string;
+  date?: string;
+}
+
+export interface ToolMap {
+  capabilities: Record<string, ToolMapEntry[]>;
+}
+
+export function loadToolMap(root: string): {
+  toolMap: ToolMap;
+  deniedTools: Set<string>;
+  unverifiedTools: Set<string>;
+  confirmedTools: Set<string>;
+  schemaErrors: LintViolation[];
+} {
+  const toolMapPath = join(root, "runtime", "tool-map.json");
+  if (!existsSync(toolMapPath)) {
+    console.error(`[TOOL_FAILED: runtime/tool-map.json missing at ${toolMapPath}]`);
+    process.exit(2);
+  }
+  let toolMap: any;
+  try {
+    toolMap = JSON.parse(readFileSync(toolMapPath, "utf8"));
+  } catch (err: any) {
+    console.error(`[TOOL_FAILED: invalid JSON in runtime/tool-map.json: ${err.message}]`);
+    process.exit(2);
+  }
+  if (!toolMap || typeof toolMap !== "object" || !toolMap.capabilities || typeof toolMap.capabilities !== "object") {
+    console.error(`[TOOL_FAILED: invalid tool-map.json schema (missing capabilities object)]`);
+    process.exit(2);
+  }
+
+  const deniedTools = new Set<string>();
+  const unverifiedTools = new Set<string>();
+  const confirmedTools = new Set<string>();
+  const schemaErrors: LintViolation[] = [];
+
+  for (const [capName, entries] of Object.entries(toolMap.capabilities)) {
+    if (!Array.isArray(entries)) {
+      console.error(`[TOOL_FAILED: capability '${capName}' in tool-map.json must be an array]`);
+      process.exit(2);
+    }
+    for (const entry of entries as any[]) {
+      if (!entry || typeof entry !== "object" || !entry.name || !entry.status) {
+        console.error(`[TOOL_FAILED: invalid entry in tool-map.json for capability '${capName}']`);
+        process.exit(2);
+      }
+      if (entry.status === "confirmed") {
+        if (entry.confirmed_by !== "human" || !entry.evidence_ref || entry.evidence_ref.trim() === "") {
+          schemaErrors.push({
+            code: "FL-019",
+            file: "runtime/tool-map.json",
+            message: `Tool '${entry.name}' has status 'confirmed' but missing valid confirmed_by: 'human' or evidence_ref (agents cannot self-confirm tools per Decision 1)`,
+          });
+        } else {
+          confirmedTools.add(entry.name);
+        }
+      } else if (entry.status === "denied") {
+        deniedTools.add(entry.name);
+      } else if (entry.status === "unverified") {
+        unverifiedTools.add(entry.name);
+      } else {
+        console.error(`[TOOL_FAILED: unknown status '${entry.status}' for tool '${entry.name}' in tool-map.json]`);
+        process.exit(2);
+      }
+    }
+  }
+
+  return { toolMap, deniedTools, unverifiedTools, confirmedTools, schemaErrors };
+}
+
 /**
- * Check FL-001, FL-002, FL-003, FL-004, FL-005, FL-011, FL-012
+ * Check FL-001, FL-002, FL-003, FL-004, FL-005, FL-012, FL-019
  */
 export function checkSkills(root: string, config: LintConfig): LintViolation[] {
   const violations: LintViolation[] = [];
@@ -71,28 +148,9 @@ export function checkSkills(root: string, config: LintConfig): LintViolation[] {
     }
   }
 
-  // Denied tools
-  let deniedTools: string[] = [];
-  const deniedPath = join(root, "runtime", "denied-tool-names.json");
-  if (existsSync(deniedPath)) {
-    try {
-      const parsed = JSON.parse(readFileSync(deniedPath, "utf8"));
-      deniedTools = Array.isArray(parsed) ? parsed : (parsed.denied_tools || parsed.tools || []);
-    } catch {}
-  }
-  const deniedSet = new Set(deniedTools);
-
-  // Known tools (for FL-019)
-  let knownTools: string[] = [];
-  const knownPath = join(root, "runtime", "known-tools.json");
-  if (existsSync(knownPath)) {
-    try {
-      const parsed = JSON.parse(readFileSync(knownPath, "utf8"));
-      knownTools = Array.isArray(parsed) ? parsed : (parsed.tools || []);
-    } catch {}
-  }
-  const knownToolsSet = new Set(knownTools);
-  const exemptToolsSet = new Set((config.unknown_tools_exempt || []).map((x) => x.tool));
+  // Load Tool Map (FL-019)
+  const { deniedTools, unverifiedTools, confirmedTools, schemaErrors } = loadToolMap(root);
+  violations.push(...schemaErrors);
 
   // Risk skills config
   let riskSkills: Array<{ name: string; required_heading: string; required_keywords: string[] }> = [];
@@ -168,37 +226,25 @@ export function checkSkills(root: string, config: LintConfig): LintViolation[] {
       });
     }
 
-    // FL-011: nama tool terlarang
+    // FL-019: Tool name governance (merged FL-011 + FL-019 per Decision 2)
+    // Error only if backticked identifier on tool-context line matches denied tool name.
+    // Unknown or unverified tool names generate notice, not error.
     const lines = raw.split(/\r?\n/);
     lines.forEach((l, idx) => {
-      if (/tool|alat|panggil|call|gunakan/i.test(l)) {
-        const matches = l.match(/`([a-zA-Z0-9_.-]+)`/g) || [];
-        for (const m of matches) {
-          const tName = m.slice(1, -1);
-          if (deniedSet.has(tName)) {
-            violations.push({
-              code: "FL-011",
-              file: `${folderPath}/SKILL.md`,
-              line: idx + 1,
-              message: `Forbidden tool name '${tName}' used on tool invocation line`,
-            });
-          }
-        }
-      }
-    });
-
-    // FL-019: unknown snake_case tool identifiers on tool lines
-    lines.forEach((l, idx) => {
-      if (/\b(tool|tools|alat|panggil|call|calling)\b/i.test(l)) {
-        const matches = [...l.matchAll(/`([a-z0-9]+_[a-z0-9_]+)`/g)];
+      if (/\b(tool|tools|alat|kakas|panggil|call|calling)\b/i.test(l)) {
+        const matches = [...l.matchAll(/`([a-zA-Z0-9_-]+)`/g)];
         for (const m of matches) {
           const tName = m[1];
-          if (!knownToolsSet.has(tName) && !exemptToolsSet.has(tName)) {
+          if (tName.startsWith("mcp_")) {
+            // MCP tools are permitted
+            continue;
+          }
+          if (deniedTools.has(tName)) {
             violations.push({
               code: "FL-019",
               file: `${folderPath}/SKILL.md`,
               line: idx + 1,
-              message: `Unknown tool identifier '${tName}' on tool line (must be in known-tools.json or exempted in lint-config.json)`,
+              message: `Forbidden tool name '${tName}' with denied status in runtime/tool-map.json used on tool line`,
             });
           }
         }

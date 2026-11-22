@@ -50,7 +50,7 @@ Engineers MUST decompose large tasks sequentially: Database → Service → API 
 Prefer adding new focused modules over modifying large existing files. Add, don't break.
 
 # 13. AI Agent Strict Constraints
-Verify file existence before editing (`read_file`). Hallucinated imports are strictly forbidden (enforced by `ASTESIA-000`).
+Verify file existence before editing. Hallucinated imports are strictly forbidden (enforced by `ASTESIA-000`).
 
 # 14. Document Isolation Strategy (The `.astesia` pattern)
 Generated specs, architecture documents, and state trackers MUST be stored in `.astesia/`.
