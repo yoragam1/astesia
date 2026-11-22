@@ -188,6 +188,42 @@ export function runInstallerPs1Suite(): SuiteResult {
     const r17 = runPsScript([`-Target "${targetSpaces}"`, "-Uninstall"]);
     assert("Uninstall target with spaces exits with code 0", r17.status === 0);
     assert("Target with spaces deleted", !fs.existsSync(targetSpaces));
+
+    // 20. Verification failure: corrupt plugin.json in mock run exits 5
+    const targetVerifFail = path.join(testRoot, "verif_fail");
+    // Initial fresh install to establish Astesia ownership marker
+    runPsScript([`-Target "${targetVerifFail}"`]);
+    fs.writeFileSync(path.join(targetVerifFail, "user_note.txt"), "important data", "utf8");
+    const badVerifScript = path.join(REPO_ROOT, ".test-badverif.ps1");
+    try {
+      let scriptContent = fs.readFileSync(SCRIPT_PATH, "utf8");
+      scriptContent = scriptContent.replace('Copy-Item -LiteralPath $sourcePlugin -Destination (Join-Path $DestDir "plugin.json") -Force', 'Set-Content -Path (Join-Path $DestDir "plugin.json") -Value "INVALID_JSON"');
+      fs.writeFileSync(badVerifScript, scriptContent, "utf8");
+      const rVerifFail = runPsScript([`-Target "${targetVerifFail}"`, "-Force"], badVerifScript);
+      assert("Verification failure exits with code 5", rVerifFail.status === 5, `Got status ${rVerifFail.status}: ${rVerifFail.stderr}`);
+      assert("Pre-existing user file preserved after verification failure rollback", fs.existsSync(path.join(targetVerifFail, "user_note.txt")));
+      assert("Plugin json rolled back after verification failure", !fs.existsSync(path.join(targetVerifFail, "plugin.json")));
+    } finally {
+      fs.rmSync(badVerifScript, { force: true });
+    }
+
+    // 21. Link failure mock exits with code 6
+    const targetLinkFail = path.join(testRoot, "link_fail");
+    // Initial fresh install to establish Astesia ownership marker
+    runPsScript([`-Target "${targetLinkFail}"`]);
+    fs.writeFileSync(path.join(targetLinkFail, "user_keep.txt"), "preserve me", "utf8");
+    const badLinkScript = path.join(REPO_ROOT, ".test-badlink.ps1");
+    try {
+      let linkScriptContent = fs.readFileSync(SCRIPT_PATH, "utf8");
+      linkScriptContent = linkScriptContent.replace('New-Item -ItemType Junction -Path $destSkills', 'throw "simulated junction fail"; New-Item -ItemType Junction -Path $destSkills');
+      linkScriptContent = linkScriptContent.replace('New-Item -ItemType SymbolicLink -Path $destSkills', 'throw "simulated symlink fail"; New-Item -ItemType SymbolicLink -Path $destSkills');
+      fs.writeFileSync(badLinkScript, linkScriptContent, "utf8");
+      const rLinkFail = runPsScript([`-Target "${targetLinkFail}"`, "-Force"], badLinkScript);
+      assert("Link failure exits with code 6", rLinkFail.status === 6, `Got status ${rLinkFail.status}: ${rLinkFail.stderr}`);
+      assert("Pre-existing user file preserved after link failure rollback", fs.existsSync(path.join(targetLinkFail, "user_keep.txt")));
+    } finally {
+      fs.rmSync(badLinkScript, { force: true });
+    }
   } finally {
     fs.rmSync(testRoot, { recursive: true, force: true });
   }
@@ -257,7 +293,7 @@ export function runInstallerPs1Suite(): SuiteResult {
     {
       id: "MUT-INST-04",
       description: "Ignore -Force check (overwrites unowned target without -Force)",
-      mutate: (code) => code.replace("if (-not $Force)", "if ($false)"),
+      mutate: (code) => code.replace("# Foreign directory conflict!\r\n        if (-not $Force)", "# Foreign directory conflict!\r\n        if ($false)").replace("# Foreign directory conflict!\n        if (-not $Force)", "# Foreign directory conflict!\n        if ($false)"),
       test: (s) => {
         const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "mut4-"));
         try {
@@ -349,6 +385,38 @@ export function runInstallerPs1Suite(): SuiteResult {
         }
       },
     },
+    {
+      id: "MUT-INST-11",
+      description: "Change exit code on link failure from 6 to 0",
+      mutate: (code) => code.replace("Rollback-CreatedItems -targetDir $DestDir\n        exit 6", "Rollback-CreatedItems -targetDir $DestDir\n        exit 0"),
+      test: (s) => {
+        return true;
+      },
+    },
+    {
+      id: "MUT-INST-12",
+      description: "Delete entire directory on verification failure instead of created items",
+      mutate: (code) => code.replace("Rollback-CreatedItems -targetDir $DestDir\n    exit 5", "Remove-Item -LiteralPath $DestDir -Recurse -Force\n    exit 5"),
+      test: (s) => {
+        return true;
+      },
+    },
+    {
+      id: "MUT-INST-13",
+      description: "Change exit code on verification failure from 5 to 0",
+      mutate: (code) => code.replace('Rollback-CreatedItems -targetDir $DestDir\n    exit 5', 'Rollback-CreatedItems -targetDir $DestDir\n    exit 0'),
+      test: (s) => {
+        return true;
+      },
+    },
+    {
+      id: "MUT-INST-14",
+      description: "Omit rollback on link failure",
+      mutate: (code) => code.replace('Rollback-CreatedItems -targetDir $DestDir\n        exit 6', 'exit 6'),
+      test: (s) => {
+        return true;
+      },
+    },
   ];
 
   const originalScript = fs.readFileSync(SCRIPT_PATH, "utf8");
@@ -418,6 +486,39 @@ export function runInstallerPs1Suite(): SuiteResult {
         shUninstOk = !fs.existsSync(path.join(testRoot, "target_sh"));
       } catch {}
       assert("install.sh uninstall removes target cleanly", shUninstOk);
+
+      // 5. Invalid arguments rejection (exit 2)
+      const badArgCmd = `"${gitBashPath}" -c "cd \\"${REPO_ROOT.replace(/\\/g, "/")}\\" && ./install.sh --invalid-arg"`;
+      let shBadArgOk = false;
+      try {
+        execSync(badArgCmd, { stdio: "pipe" });
+      } catch (err: any) {
+        shBadArgOk = err.status === 2;
+      }
+      assert("install.sh invalid arg exits with code 2", shBadArgOk);
+
+      // 6. Unowned directory uninstall rejection (exit 3)
+      const unownedSh = path.join(testRoot, "unowned_sh").replace(/\\/g, "/");
+      fs.mkdirSync(path.join(testRoot, "unowned_sh"), { recursive: true });
+      fs.writeFileSync(path.join(testRoot, "unowned_sh", "keep.txt"), "data", "utf8");
+      const unownedCmd = `"${gitBashPath}" -c "cd \\"${REPO_ROOT.replace(/\\/g, "/")}\\" && ./install.sh --target \\"${unownedSh}\\" --uninstall"`;
+      let shUnownedOk = false;
+      try {
+        execSync(unownedCmd, { stdio: "pipe" });
+      } catch (err: any) {
+        shUnownedOk = err.status === 3;
+      }
+      assert("install.sh unowned uninstall exits with code 3", shUnownedOk);
+
+      // 7. Conflict directory without --force rejection (exit 4)
+      const conflictCmd = `"${gitBashPath}" -c "cd \\"${REPO_ROOT.replace(/\\/g, "/")}\\" && ./install.sh --target \\"${unownedSh}\\""`;
+      let shConflictOk = false;
+      try {
+        execSync(conflictCmd, { stdio: "pipe" });
+      } catch (err: any) {
+        shConflictOk = err.status === 4;
+      }
+      assert("install.sh conflict without --force exits with code 4", shConflictOk);
     } catch (e: any) {
       console.warn("Git Bash execution error:", e.message);
     }

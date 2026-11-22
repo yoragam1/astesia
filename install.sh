@@ -99,13 +99,13 @@ if [[ -d "$DEST_DIR" ]]; then
     fi
   fi
 
-  if [[ "$IS_OWNED" == true ]]; then
+  if [[ "$IS_OWNED" == true && "$FORCE" != true ]]; then
     # Idempotent check
     if [[ -f "$DEST_DIR/plugin.json" && -d "$DEST_DIR/skills" && -d "$DEST_DIR/rules" ]]; then
       echo "Astesia plugin is already installed and up to date at: $DEST_DIR"
       exit 0
     fi
-  else
+  elif [[ "$IS_OWNED" != true ]]; then
     if [[ "$FORCE" != true ]]; then
       echo "Error: Target directory exists and is not owned by this Astesia repo: $DEST_DIR. Use --force to backup and overwrite." >&2
       exit 4
@@ -132,12 +132,19 @@ if [[ "$DRY_RUN" == true ]]; then
   exit 0
 fi
 
+rollback_created_items() {
+  rm -rf "$DEST_DIR/plugin.json" "$DEST_DIR/skills" "$DEST_DIR/rules" "$DEST_DIR/.astesia-install.json"
+}
+
 mkdir -p "$DEST_DIR"
 cp "$SOURCE_DIR/plugin.json" "$DEST_DIR/plugin.json"
 
 rm -rf "$DEST_DIR/skills" "$DEST_DIR/rules"
-ln -s "$SOURCE_DIR/skills" "$DEST_DIR/skills"
-ln -s "$SOURCE_DIR/rules" "$DEST_DIR/rules"
+if ! ln -s "$SOURCE_DIR/skills" "$DEST_DIR/skills" 2>/dev/null || ! ln -s "$SOURCE_DIR/rules" "$DEST_DIR/rules" 2>/dev/null; then
+  echo "Error: Failed to link skills and rules directories" >&2
+  rollback_created_items
+  exit 6
+fi
 
 NOW="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 cat << EOF > "$DEST_DIR/.astesia-install.json"
@@ -158,26 +165,26 @@ EOF
 # Post-installation verification
 if [[ ! -f "$DEST_DIR/plugin.json" ]]; then
   echo "Error: Verification failed: target plugin.json not found" >&2
-  rm -rf "$DEST_DIR"
+  rollback_created_items
   exit 5
 fi
 
 VERSION="$(grep '"version"' "$DEST_DIR/plugin.json" | head -n 1 | sed -E 's/.*"version":\s*"([^"]+)".*/\1/')"
 if [[ "$VERSION" != "3.0.0" ]]; then
   echo "Error: Verification failed: plugin.json version mismatch ($VERSION != 3.0.0)" >&2
-  rm -rf "$DEST_DIR"
+  rollback_created_items
   exit 5
 fi
 
 if [[ ! -f "$DEST_DIR/skills/minimalist-executor/SKILL.md" ]]; then
   echo "Error: Verification failed: skills directory link invalid" >&2
-  rm -rf "$DEST_DIR"
+  rollback_created_items
   exit 5
 fi
 
 if [[ ! -f "$DEST_DIR/rules/AGENTS.md" ]]; then
   echo "Error: Verification failed: rules directory link invalid" >&2
-  rm -rf "$DEST_DIR"
+  rollback_created_items
   exit 5
 fi
 

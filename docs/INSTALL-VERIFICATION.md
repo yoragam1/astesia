@@ -46,7 +46,8 @@ Astesia v3.0.0 provides two distinct installation mechanisms designed under the 
 | `2` | `BAD_ARGUMENTS` | Unknown flags or attempting to install into Astesia repo itself. |
 | `3` | `NOT_OWNED` | Uninstall requested on directory without marker or owned by another repo. |
 | `4` | `CONFLICT` | Target directory exists and is unowned (requires `-Force`). |
-| `5` | `VERIFY_FAILED` | Post-installation integrity check failed (automatic rollback). |
+| `5` | `VERIFY_FAILED` | Post-installation integrity check failed (automatic rollback of created items). |
+| `6` | `LINK_ERROR` | Failed to create directory junction or symlink (no fallback copy allowed). |
 
 ---
 
@@ -105,6 +106,10 @@ All installers are covered by automated test suites executed via `bun tools/test
   10. `MUT-INIT-10`: Corrupt manifest schema by omitting `source_sha256` (Killed)
   11. `MUT-INIT-11`: Omit empty directory cleanup on uninstall (Killed)
   12. `MUT-INIT-12`: Invalid CLI argument exit code 2 -> 0 (Killed)
+
+### C. Environmental Limitations & Untested Platforms
+- **Windows Environment**: Pengujian menyeluruh `install.ps1` dan `install.sh` (via Git Bash) diverifikasi pada lingkungan Windows host.
+- **Native Linux / macOS**: Pengujian langsung pada kernel Linux native dan macOS Darwin adalah `UNVERIFIABLE` di mesin host Windows lokal ini karena ketiadaan runner lingkungan target native. Pengujian POSIX dijalankan melalui emulasi Git Bash.
 
 ---
 

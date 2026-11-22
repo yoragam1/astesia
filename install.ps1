@@ -22,6 +22,17 @@ $SourceDir = if ($PSScriptRoot) {
     [System.IO.Path]::GetFullPath($PWD.Path)
 }
 
+function Rollback-CreatedItems {
+    param([string]$targetDir)
+    $items = @("plugin.json", "skills", "rules", ".astesia-install.json")
+    foreach ($item in $items) {
+        $p = Join-Path $targetDir $item
+        if (Test-Path -LiteralPath $p) {
+            Remove-Item -LiteralPath $p -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+}
+
 # Determine target directory
 $DestDir = if ([string]::IsNullOrWhiteSpace($Target)) {
     Join-Path $env:USERPROFILE ".gemini\antigravity\plugins\astesia"
@@ -107,13 +118,15 @@ if (Test-Path -LiteralPath $DestDir) {
     }
 
     if ($isOwned) {
-        # Check idempotency: if valid installation already exists
-        $testPlugin = Join-Path $DestDir "plugin.json"
-        $testSkills = Join-Path $DestDir "skills"
-        $testRules = Join-Path $DestDir "rules"
-        if ((Test-Path -LiteralPath $testPlugin) -and (Test-Path -LiteralPath $testSkills) -and (Test-Path -LiteralPath $testRules)) {
-            Write-Host "Astesia plugin is already installed and up to date at: $DestDir"
-            exit 0
+        # Check idempotency: if valid installation already exists and not forcing reinstall
+        if (-not $Force) {
+            $testPlugin = Join-Path $DestDir "plugin.json"
+            $testSkills = Join-Path $DestDir "skills"
+            $testRules = Join-Path $DestDir "rules"
+            if ((Test-Path -LiteralPath $testPlugin) -and (Test-Path -LiteralPath $testSkills) -and (Test-Path -LiteralPath $testRules)) {
+                Write-Host "Astesia plugin is already installed and up to date at: $DestDir"
+                exit 0
+            }
         }
     } else {
         # Foreign directory conflict!
@@ -181,8 +194,8 @@ try {
         $linkType = "symlink"
     } catch {
         [Console]::Error.WriteLine("Error: Failed to link skills and rules directories: $_")
-        Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
-        exit 5
+        Rollback-CreatedItems -targetDir $DestDir
+        exit 6
     }
 }
 
@@ -201,7 +214,7 @@ $markerJson = ConvertTo-Json -InputObject $markerObj
 $targetPlugin = Join-Path $DestDir "plugin.json"
 if (-not (Test-Path -LiteralPath $targetPlugin)) {
     [Console]::Error.WriteLine("Error: Verification failed: target plugin.json not found")
-    Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
+    Rollback-CreatedItems -targetDir $DestDir
     exit 5
 }
 
@@ -209,24 +222,24 @@ try {
     $targetPluginObj = ConvertFrom-Json (Get-Content -LiteralPath $targetPlugin -Raw -ErrorAction Stop)
     if ($targetPluginObj.version -ne "3.0.0") {
         [Console]::Error.WriteLine("Error: Verification failed: plugin.json version mismatch")
-        Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
+        Rollback-CreatedItems -targetDir $DestDir
         exit 5
     }
 } catch {
     [Console]::Error.WriteLine("Error: Verification failed: unable to parse plugin.json: $_")
-    Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
+    Rollback-CreatedItems -targetDir $DestDir
     exit 5
 }
 
 if (-not (Test-Path -LiteralPath (Join-Path $destSkills "minimalist-executor\SKILL.md"))) {
     [Console]::Error.WriteLine("Error: Verification failed: linked skills directory is not readable")
-    Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
+    Rollback-CreatedItems -targetDir $DestDir
     exit 5
 }
 
 if (-not (Test-Path -LiteralPath (Join-Path $destRules "AGENTS.md"))) {
     [Console]::Error.WriteLine("Error: Verification failed: linked rules directory is not readable")
-    Remove-Item -LiteralPath $DestDir -Recurse -Force -ErrorAction SilentlyContinue
+    Rollback-CreatedItems -targetDir $DestDir
     exit 5
 }
 
