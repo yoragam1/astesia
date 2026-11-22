@@ -201,6 +201,82 @@ export function runInitSuite(): SuiteResult {
     const rSmokeUninst = runInitCli([`--target "${projSmoke}"`, "--uninstall"]);
     assert("Synthetic project clean uninstall exits with code 0", rSmokeUninst.status === 0);
     assert("Gate files removed from synthetic project", !fs.existsSync(path.join(projSmoke, ".astesia", "enforcement", "astesia-gate.ts")));
+
+    // 18. Pre-existing workflow preservation without --force
+    const projWf = path.join(testRoot, "projWf");
+    fs.mkdirSync(path.join(projWf, ".github", "workflows"), { recursive: true });
+    const customWfPath = path.join(projWf, ".github", "workflows", "astesia-gate.yml");
+    fs.writeFileSync(customWfPath, "# custom-workflow\nname: Custom\n", "utf8");
+    const rWfInit = runInitCli([`--target "${projWf}"`]);
+    assert("Init with pre-existing workflow exits with code 0", rWfInit.status === 0);
+    const customWfContent = fs.readFileSync(customWfPath, "utf8");
+    assert("Pre-existing custom workflow was preserved without --force", customWfContent === "# custom-workflow\nname: Custom\n");
+
+    // 19. Pre-existing workflow backup and overwrite with --force
+    const rWfForce = runInitCli([`--target "${projWf}"`, "--force"]);
+    assert("Force init with pre-existing workflow exits with code 0", rWfForce.status === 0);
+    const wfFiles = fs.readdirSync(path.join(projWf, ".github", "workflows"));
+    const bakFiles = wfFiles.filter((f) => f.startsWith("astesia-gate.yml.bak-"));
+    assert("Workflow backup file created on force overwrite", bakFiles.length > 0);
+    const wfAfterForce = fs.readFileSync(customWfPath, "utf8");
+    assert("Workflow overwritten with template on --force", wfAfterForce.includes("name: astesia-gate"));
+
+    // 20. Upgrade preserves user-modified gate file
+    const projUp = path.join(testRoot, "projUp");
+    fs.mkdirSync(projUp, { recursive: true });
+    runInitCli([`--target "${projUp}"`]);
+    const gateModPath = path.join(projUp, ".astesia", "enforcement", "astesia-gate.ts");
+    fs.appendFileSync(gateModPath, "\n// user-modified-gate-custom\n", "utf8");
+    const rUp = runInitCli([`--target "${projUp}"`, "--upgrade"]);
+    assert("Upgrade on user-modified gate file exits with code 0", rUp.status === 0);
+    const gateAfterUp = fs.readFileSync(gateModPath, "utf8");
+    assert("User-modified gate file preserved during upgrade without --force", gateAfterUp.includes("// user-modified-gate-custom"));
+
+    // 21. Custom directory exclusion verification in gate-config.json
+    const projExcl = path.join(testRoot, "projExcl");
+    fs.mkdirSync(projExcl, { recursive: true });
+    execSync("git init", { cwd: projExcl, stdio: "pipe" });
+    execSync('git config user.name "Test"', { cwd: projExcl, stdio: "pipe" });
+    execSync('git config user.email "test@example.com"', { cwd: projExcl, stdio: "pipe" });
+    fs.mkdirSync(path.join(projExcl, "src"), { recursive: true });
+    fs.writeFileSync(path.join(projExcl, "src", "index.ts"), 'console.log("ok");\n', "utf8");
+    fs.mkdirSync(path.join(projExcl, "custom_modules"), { recursive: true });
+    fs.writeFileSync(path.join(projExcl, "custom_modules", "bad.ts"), 'const q = "SELECT * FROM users";\n', "utf8");
+    execSync("git add . && git commit -m initial", { cwd: projExcl, stdio: "pipe" });
+
+    runInitCli([`--target "${projExcl}"`]);
+    // Configure gate-config.json with valid schema (array of objects with path and reason >= 15 chars)
+    const exclCfgPath = path.join(projExcl, ".astesia", "gate-config.json");
+    fs.writeFileSync(exclCfgPath, JSON.stringify({
+      schema: 1,
+      exclude: [
+        {
+          path: "custom_modules",
+          reason: "Legacy custom modules excluded from scans"
+        }
+      ]
+    }, null, 2), "utf8");
+
+    let gateExclStdout = "";
+    let gateExclExit = 1;
+    try {
+      const gateScript = path.join(projExcl, ".astesia", "enforcement", "astesia-gate.ts");
+      const rulesArg = path.join(projExcl, ".astesia", "enforcement", "anti-patterns.json");
+      gateExclStdout = execSync(`bun "${gateScript}" --rules "${rulesArg}" --config "${exclCfgPath}" --json`, {
+        cwd: projExcl,
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "pipe"],
+      });
+      gateExclExit = 0;
+    } catch (err: any) {
+      gateExclExit = err.status ?? 1;
+      gateExclStdout = err.stdout?.toString("utf8") || "";
+    }
+    assert("Gate runs clean with custom_modules exclusion", gateExclExit === 0, `Exit ${gateExclExit}: ${gateExclStdout}`);
+    let exclJson: any = {};
+    try { exclJson = JSON.parse(gateExclStdout); } catch {}
+    assert("Gate excluded file count is greater than 0", (exclJson?.files_excluded ?? exclJson?.counters?.files_excluded) > 0, `files_excluded: ${exclJson?.files_excluded}`);
+    assert("ASTESIA-002 violation is excluded", !exclJson?.violations?.some((v: any) => v.rule_id === "ASTESIA-002"));
   } finally {
     fs.rmSync(testRoot, { recursive: true, force: true });
   }
@@ -379,6 +455,41 @@ export function runInitSuite(): SuiteResult {
       test: (s) => {
         const res = runInitCli(["--bad-unknown-arg"], s);
         return res.status !== 2;
+      },
+    },
+    {
+      id: "MUT-INIT-13",
+      description: "Overwrite pre-existing workflow without --force",
+      mutate: (code) => code.replace("if (!force) {\n          console.warn", "if (false) {\n          console.warn"),
+      test: (s) => {
+        const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "mut_init13-"));
+        try {
+          fs.mkdirSync(path.join(tmp, ".github", "workflows"), { recursive: true });
+          const wf = path.join(tmp, ".github", "workflows", "astesia-gate.yml");
+          fs.writeFileSync(wf, "custom", "utf8");
+          runInitCli([`--target "${tmp}"`], s);
+          return fs.readFileSync(wf, "utf8") !== "custom"; // Mutant caught if overwritten
+        } finally {
+          fs.rmSync(tmp, { recursive: true, force: true });
+        }
+      },
+    },
+    {
+      id: "MUT-INIT-14",
+      description: "Omit workflow backup when force overwriting",
+      mutate: (code) => code.replace("fs.copyFileSync(fullTarget, bakPath);", "// omitted backup"),
+      test: (s) => {
+        const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "mut_init14-"));
+        try {
+          fs.mkdirSync(path.join(tmp, ".github", "workflows"), { recursive: true });
+          const wf = path.join(tmp, ".github", "workflows", "astesia-gate.yml");
+          fs.writeFileSync(wf, "custom", "utf8");
+          runInitCli([`--target "${tmp}"`, "--force"], s);
+          const files = fs.readdirSync(path.join(tmp, ".github", "workflows"));
+          return !files.some((f) => f.includes(".bak-")); // Mutant caught if backup missing
+        } finally {
+          fs.rmSync(tmp, { recursive: true, force: true });
+        }
       },
     },
   ];

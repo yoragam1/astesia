@@ -304,12 +304,11 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
 
     const sourceContent = fs.readFileSync(fullSource);
     const sourceSha = computeSha256(sourceContent);
-
     const targetExists = fs.existsSync(fullTarget);
+    const currentTargetSha = targetExists ? getFileSha256(fullTarget) : "";
 
+    // 1. Preserve existing gate-config.json unless --force
     if (targetExists && mapping.preserveIfModified && !force) {
-      // Preserve existing config!
-      const currentTargetSha = getFileSha256(fullTarget);
       manifestEntries.push({
         path: mapping.targetRelPath,
         sha256: currentTargetSha,
@@ -318,8 +317,47 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
       continue;
     }
 
+    // 2. Pre-existing workflow conflict handling
+    if (targetExists && mapping.targetRelPath === ".github/workflows/astesia-gate.yml") {
+      if (currentTargetSha !== sourceSha) {
+        if (!force) {
+          console.warn(`[WARNING] Workflow file ${mapping.targetRelPath} already exists and differs from template. Skipped to prevent overwriting user modifications. Use --force to overwrite.`);
+          manifestEntries.push({
+            path: mapping.targetRelPath,
+            sha256: currentTargetSha,
+            source_sha256: sourceSha,
+          });
+          continue;
+        } else {
+          // Backup existing workflow before overwriting
+          const timestamp = Date.now();
+          const bakPath = `${fullTarget}.bak-${timestamp}`;
+          if (dryRun) {
+            console.log(`[DRY-RUN] Would backup existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`);
+          } else {
+            fs.copyFileSync(fullTarget, bakPath);
+            console.log(`Backed up existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`);
+          }
+        }
+      }
+    }
+
+    // 3. Upgrade mode: preserve files modified by user compared to their original install source
+    if (targetExists && upgrade && !force && existingManifest) {
+      const manifestEntry = existingManifest.files.find((f) => f.path === mapping.targetRelPath);
+      if (manifestEntry && currentTargetSha !== manifestEntry.source_sha256 && currentTargetSha !== sourceSha) {
+        console.warn(`[WARNING] Preserved user-modified file during upgrade: ${mapping.targetRelPath}`);
+        manifestEntries.push({
+          path: mapping.targetRelPath,
+          sha256: currentTargetSha,
+          source_sha256: sourceSha,
+        });
+        continue;
+      }
+    }
+
+    // 4. Clean re-init idempotency: if already matching source, skip rewrite
     if (targetExists && !upgrade && !force && !mapping.preserveIfModified) {
-      const currentTargetSha = getFileSha256(fullTarget);
       if (currentTargetSha === sourceSha) {
         manifestEntries.push({
           path: mapping.targetRelPath,
