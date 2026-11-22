@@ -18,9 +18,10 @@ All generated code must adhere strictly to these formatting and structural stand
 - **Order:** (1) Built-in modules → (2) External packages → (3) Absolute internal (`@/...`) → (4) Relative (`./...`).
 - **Exports:** Prefer named exports (`export const ...`); avoid `export default` unless required by framework.
 
-## 4. Housekeeping & Hygiene
+## 4. Housekeeping
 - **No Debug Artifacts:** Leftover `console.log()` and `debugger;` are forbidden (enforced by `ASTESIA-006`).
+- **TODOs:** TODO/FIXME comments MUST be resolved before merge to main.
 - **Comments:** Explain WHY, not obvious WHAT. Avoid dead code comments.
 
 ## 5. Error Handling Consistency
-- Avoid generic `throw new Error()`; throw typed error classes and handle them at controller boundaries.
+- Avoid generic `throw new Error()`; NEVER throw bare strings; developers MUST throw typed error classes and handle them at controller boundaries.

@@ -11,10 +11,10 @@ Every feature must have clear, testable Acceptance Criteria mapped to Engineerin
 Always define what is NOT being built to prevent downstream hallucination cascades.
 
 ## 4. Edge Cases are Required
-Define negative flows, timeouts, and error scenarios. Happy-path-only specs are rejected.
+Define negative flows, timeouts, and error scenarios. Happy-path-only specs MUST be rejected.
 
 ## 5. Minimum BRD Acceptance Threshold
-A BRD is incomplete without: Executive Summary, Target Users with permission levels, Core Features with Acceptance Criteria and edge cases, at least 1 CUJ, Non-Functional Requirements, and Explicit Out-of-Scope.
+Every BRD MUST meet completeness thresholds: Executive Summary, Target Users with permission levels, Core Features with Acceptance Criteria and edge cases, at least 1 CUJ, Non-Functional Requirements, and Explicit Out-of-Scope.
 
 ## 6. Product Audit Trigger Protocol
-Modifications to BRD trigger `/astesia-product-audit` checking scope creep, contradictory requirements, and broken CUJ flows before advancing to Design or Engineering.
+Modifications to BRD MUST trigger product audit (`/astesia-product-audit`) checking scope creep, contradictory requirements, and broken CUJ flows before advancing to Design or Engineering.

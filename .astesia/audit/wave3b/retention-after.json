@@ -1,0 +1,667 @@
+{
+  "timestamp": "2026-11-22T05:44:32.857Z",
+  "base": "d9a6e7d",
+  "head": "HEAD",
+  "total_sections": 73,
+  "uncompensated_losses": 0,
+  "fractional_headings": [],
+  "details": [
+    {
+      "file": "rules/AGENTS.md",
+      "heading": "Astesia Framework Core Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/AGENTS.md",
+      "heading": "1. Core Operating Directive",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/AGENTS.md",
+      "heading": "2. Trust Pyramid & Machine Enforcement",
+      "beforeNormative": 5,
+      "afterNormative": 5,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "Astesia Coding Standards",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "1. Formatting and Syntax",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "2. Type Safety (TypeScript)",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "3. Imports and File Structure",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "4. Housekeeping",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/coding-standards.md",
+      "heading": "5. Error Handling Consistency",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "Design Layer Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "1. Abstract Tokens First",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "2. No Business Logic",
+      "beforeNormative": 0,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "3. Accessibility (a11y) is Mandatory",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "4. Visual Inspiration Handling (Multimodal)",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/design-rules.md",
+      "heading": "5. Output Format",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "DevOps Layer Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "1. Immutable Infrastructure",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "2. Security First (Least Privilege)",
+      "beforeNormative": 2,
+      "afterNormative": 1,
+      "lossPct": 50,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "3. Pre-Requisite Checks",
+      "beforeNormative": 0,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "4. Observability is Mandatory",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/devops-rules.md",
+      "heading": "5. Merge Authority is Earned, Not Assumed *(NEW - Verification-First)*",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "Engineering Layer Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "A. Cognitive Boundaries",
+      "beforeNormative": 1,
+      "afterNormative": 2,
+      "lossPct": -100,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "B. The 29 Core Structural Directives",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "1. Architecture Layering & Adaptive Legacy Fallback",
+      "beforeNormative": 3,
+      "afterNormative": 1,
+      "lossPct": 66.7,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "1.5. Frontend Architecture",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "2. Separation of Concerns",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "3. Thin Controllers",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "4. Explicit Error Handling",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "5. Consistent Naming Conventions",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "6. Modular Design",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "7. Framework Isolation",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "8. Database Access Rules",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "9. Simplicity Over Cleverness",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "10. Document Important Decisions",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "11. Task Decomposition",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "12. Safe Modification Strategy",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "13. AI Agent Strict Constraints",
+      "beforeNormative": 1,
+      "afterNormative": 0,
+      "lossPct": 100,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "14. Document Isolation Strategy (The `.astesia` pattern)",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "15. The Immutability Principle",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "16. Shift-Left TDD (Test-Driven Development) Mandatory",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "17. Security-First Boundary Validation",
+      "beforeNormative": 2,
+      "afterNormative": 1,
+      "lossPct": 50,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "18. Structured Git Workflow",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "19. File Header Documentation",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "20. RAG Memory & Navigation Protocol",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "21. Database Performance Standards (DBA-Grade)",
+      "beforeNormative": 2,
+      "afterNormative": 0,
+      "lossPct": 100,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "22. (dihapus pada v3.0.1: bertentangan dengan Operating Guide Step 7.2)",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "23. Zero-Downtime Database Migrations",
+      "beforeNormative": 3,
+      "afterNormative": 3,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "24. Astesia Self-Correction Protocol (Pre-Handoff Internal Audit) *(NEW)*",
+      "beforeNormative": 4,
+      "afterNormative": 3,
+      "lossPct": 25,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "25. Polyglot Architecture Check (Auto-Verification)",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "26. Concurrent File-Lock Safety (Multi-Agent I/O)",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "27. Safe Execution: Auto-Snapshots & Convergence Guard",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "28. Minimalist Execution (YAGNI & Anti-Bloat) *(NEW - Phase 5)*",
+      "beforeNormative": 3,
+      "afterNormative": 3,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/engineering-rules.md",
+      "heading": "29. Trust Pyramid: Constrain by Code, Not Prose *(NEW - Verification-First)*",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "Product Layer Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "1. No Implementation Details",
+      "beforeNormative": 0,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "2. Mandatory Acceptance Criteria",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "3. Explicit Out-of-Scope",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "4. Edge Cases are Required",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "5. Minimum BRD Acceptance Threshold",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/product-rules.md",
+      "heading": "6. Product Audit Trigger Protocol",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "Quality Layer Rules",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "1. Independent Verification",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "2. Strict Traceability",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "3. Strict Security-First Hook Validation (Ruthless Auditing)",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "4. Minimum Coverage Hard-Stop",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "5. Documentation Sync Audit",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "6. Database Performance Audit",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "7. Automated Architectural Linter (Phase 6)",
+      "beforeNormative": 1,
+      "afterNormative": 0,
+      "lossPct": 100,
+      "hasGateRef": true,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "8. Anti-Bloat Code Deletion (Minimalist Protocol)",
+      "beforeNormative": 0,
+      "afterNormative": 0,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "9. Deterministic Gate Ownership *(NEW - Verification-First)*",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "10. Mistake-to-Rule Ratchet *(NEW - Verification-First)*",
+      "beforeNormative": 1,
+      "afterNormative": 1,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    },
+    {
+      "file": "rules/quality-rules.md",
+      "heading": "11. Independent Verification & Evidence *(NEW - Verification-First)*",
+      "beforeNormative": 2,
+      "afterNormative": 2,
+      "lossPct": 0,
+      "hasGateRef": false,
+      "uncompensatedLoss": false
+    }
+  ]
+}

@@ -19,7 +19,7 @@ Verify `.astesia/system-map.md` and `architecture.md` match actual code. Missing
 ## 6. Database Performance Audit
 Verify queries follow DBA-grade standards. Enforce batching and indexed access; reject performance anti-patterns (enforced by `ASTESIA-007` and `ASTESIA-002`).
 
-## 7. Automated Architectural Linter
+## 7. Automated Architectural Linter (Phase 6)
 Enforce architectural boundaries: reject controller ORM imports (`ASTESIA-001`), loops with DB queries (`ASTESIA-007`), and hallucinated imports (`ASTESIA-000`).
 
 ## 8. Anti-Bloat Code Deletion (Minimalist Protocol)
@@ -32,10 +32,10 @@ Prioritize code deletion over additions (`skills/anti-bloat-review/SKILL.md`). R
 - Quality owns `.astesia/anti-patterns.json`; Executors may not modify it.
 
 ## 10. Mistake-to-Rule Ratchet *(NEW - Verification-First)*
-Every pattern-shaped FAIL triggers `lint-ratchet`: add proven rule to `.astesia/anti-patterns.json` and log in `enforcement.rules_added[]`. Rules are append-only.
+Every pattern-shaped FAIL MUST trigger `lint-ratchet`: add proven rule to `.astesia/anti-patterns.json` and log in `enforcement.rules_added[]`. Rules are append-only.
 
 ## 11. Independent Verification & Evidence *(NEW - Verification-First)*
-Never accept self-reported success. Verification requires a separate agent, `.astesia/verification/<id>.md` evidence, and real behavioral execution.
+Verification MUST be performed by a separate agent; authors MUST NEVER self-certify. Evidence MUST be recorded in `.astesia/verification/<id>.md` and include real behavioral execution.
 
 ## 12. Property-Based Testing Requirement *(NEW - Verification-First)*
 Parsers, validators, math, and state machines MUST include ≥ 1 property-based test with invariants in title (TS: `fast-check`, Python: `hypothesis`, Go: `go test -fuzz`).

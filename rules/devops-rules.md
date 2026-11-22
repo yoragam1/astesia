@@ -13,8 +13,8 @@ Never deploy unless Quality has marked `layer_statuses.quality === "done"` in `a
 ## 4. Mandatory Observability
 Insert structured logging and telemetry configs (e.g. Pino, Prometheus) so runtime metrics are observable.
 
-## 5. Earned Merge Authority *(NEW - Verification-First)*
+## 5. Merge Authority is Earned, Not Assumed *(NEW - Verification-First)*
 - `enforcement.auto_merge` defaults to `false`; only the user may enable it (`skills/auto-merge-gates/SKILL.md`).
-- CI must run `astesia-gate` on the rebased head using base-checkout trust model.
-- Agents may never modify CI config, gate, or rule registry on auto-merge paths.
+- CI MUST run `astesia-gate` on the rebased head using base-checkout trust model.
+- Agents MUST NEVER modify CI config, gate, or rule registry on auto-merge paths.
 - If `post_merge.revert_rate` > 2% over last 50 merges: auto-disable auto-merge, halt pipeline, notify user.
