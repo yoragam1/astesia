@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-11-22T14:08:45.000Z",
+  "gate_source": "templates/enforcement/astesia-gate.ts",
+  "document": "docs/GATE-REFERENCE.md",
+  "flags_in_source": [
+    { "flag": "--allow-raise", "lines": [2980, 2984] },
+    { "flag": "--baseline", "lines": [2968, 2969, 2975, 2998, 2999] },
+    { "flag": "--check-workflow", "lines": [2272, 2274, 2744, 2748] },
+    { "flag": "--config", "lines": [2845] },
+    { "flag": "--json", "lines": [2755, 3016] },
+    { "flag": "--max-warn", "lines": [2777, 2778, 2780] },
+    { "flag": "--reason", "lines": [2981, 2983, 2984] },
+    { "flag": "--root", "lines": [2756, 2758] },
+    { "flag": "--rules", "lines": [2774] },
+    { "flag": "--rules-diff", "lines": [2732] },
+    { "flag": "--stdin", "lines": [2464], "note": "Internal git check-ignore flag, NOT gate CLI option" },
+    { "flag": "--update-baseline", "lines": [2974, 2977, 2978] }
+  ],
+  "actual_cli_flags": [
+    "--allow-raise",
+    "--baseline",
+    "--check-workflow",
+    "--config",
+    "--json",
+    "--max-warn",
+    "--reason",
+    "--root",
+    "--rules",
+    "--rules-diff",
+    "--update-baseline"
+  ],
+  "documented_flags_start": [
+    "--allow-raise",
+    "--baseline <path>",
+    "--check-workflow <path>",
+    "--config <path>",
+    "--json",
+    "--max-warn <n>",
+    "--reason \"<text>\"",
+    "--root <dir>",
+    "--rules <path>",
+    "--rules-diff <base> <head>",
+    "--update-baseline"
+  ],
+  "flags_missing_from_source": [],
+  "flags_missing_from_document": [],
+  "erroneous_source_flag_hallucinations": [
+    {
+      "flag": "--stdin",
+      "reason": "Spawned argument passed to git check-ignore inside classifyEnvFiles; not handled by gate CLI parseArgs()"
+    }
+  ],
+  "never_baseline": {
+    "source": ["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"],
+    "document": ["ASTESIA-000", "ASTESIA-004", "ASTESIA-010"],
+    "match": true
+  },
+  "never_inline_suppress": {
+    "source": ["ASTESIA-000", "ASTESIA-004", "ASTESIA-010", "TOKENIZER_DESYNC", "LONG_LINE_SKIPPED"],
+    "document": ["ASTESIA-000", "ASTESIA-004", "ASTESIA-010", "TOKENIZER_DESYNC", "LONG_LINE_SKIPPED"],
+    "match": true
+  },
+  "directives": {
+    "source": ["astesia-allow", "astesia-debt"],
+    "document": ["astesia-allow"],
+    "match": false,
+    "discrepancy": "astesia-debt directive not documented in section 2"
+  },
+  "erroneous_phrases_in_doc_start": [
+    {
+      "phrase": "parser AST lokal",
+      "line": 73,
+      "reality": "Gate does NOT use AST; it uses a custom character-level tokenizer and regex scanners."
+    },
+    {
+      "phrase": "undefined",
+      "lines": [55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65],
+      "reality": "All 11 rule descriptions rendered as literal 'undefined' due to generator bug."
+    }
+  ],
+  "why_fl014_fl020_passed_in_3b": {
+    "fl014_flaw": "FL-014 gathered text from all markdown files in the repository and checked if each extracted flag appeared anywhere in allDocsText. It did not verify bidirectional exact match, did not compare NEVER_* sets, and did not check if the document contained flags absent from source.",
+    "fl020_flaw": "FL-020 only tested for the presence of 5 generic keyword sets in docs/GATE-REFERENCE.md without checking for forbidden false terms ('AST', 'syntax invalid', 'parse error', 'astesia-disable')."
+  }
+}

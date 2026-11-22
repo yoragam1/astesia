@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-11-22T14:08:50.000Z",
+  "tool": "tools/astesia-init.ts",
+  "decision_5_comparison": [
+    {
+      "artifact": "Gate Script",
+      "decision_5_target": "<project>/.astesia/enforcement/astesia-gate.ts",
+      "code_start_target": ".astesia/enforcement/astesia-gate.ts",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "Anti-Patterns Catalog",
+      "decision_5_target": "<project>/.astesia/enforcement/anti-patterns.json",
+      "code_start_target": ".astesia/enforcement/anti-patterns.json",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "Gate Configuration",
+      "decision_5_target": "<project>/.astesia/gate-config.json",
+      "code_start_target": ".astesia/gate-config.json",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "GitHub Actions Workflow",
+      "decision_5_target": "<project>/.github/workflows/astesia-gate.yml",
+      "code_start_target": ".github/workflows/astesia-gate.yml",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "Codeowners Template",
+      "decision_5_target": "<project>/.astesia/docs/CODEOWNERS.template",
+      "code_start_target": ".astesia/docs/CODEOWNERS.template",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "Branch Protection Guide",
+      "decision_5_target": "<project>/.astesia/docs/BRANCH-PROTECTION.md",
+      "code_start_target": ".astesia/docs/BRANCH-PROTECTION.md",
+      "status": "MATCH"
+    },
+    {
+      "artifact": "Install Manifest",
+      "decision_5_target": "<project>/.astesia/install-manifest.json",
+      "code_start_target": ".astesia/install-manifest.json",
+      "status": "MATCH"
+    }
+  ],
+  "prohibited_targets_verification": {
+    "writes_to_project_docs": false,
+    "writes_to_github_codeowners": false,
+    "conclusion": "Init correctly places documentation in .astesia/docs/ and does NOT pollute project docs/ or overwrite .github/CODEOWNERS."
+  },
+  "config_and_exclude_behavior": {
+    "vendor_in_skip_dirs": true,
+    "vendor_skip_dirs_source_line": 84,
+    "vendor_behavior": "Directory 'vendor' is hardcoded in gate's SKIP_DIRS. Files in vendor/ are skipped unconditionally during walk() and never reach exclude checking, so files_excluded is NOT incremented.",
+    "custom_directory_behavior": "When violations are in a non-SKIP_DIRS directory (e.g. custom_modules/x.ts), adding the directory to .astesia/gate-config.json's exclude array causes files_excluded to increment (files_excluded: 1) and violations drop from 2 to 0.",
+    "alternate_config_path_behavior": "If config is placed at .astesia/enforcement/gate-config.json, gate default loadConfig() does NOT find it because default is <root>/.astesia/gate-config.json."
+  },
+  "pre_existing_files_behavior_start": {
+    "existing_codeowners": "Untouched (preserved)",
+    "existing_workflow": "OVERWRITTEN without backup or skip (VIOLATION of Decision 5). Decision 5 requires: skip and report if hash differs, or backup to .bak-<timestamp> when --force is provided."
+  },
+  "template_workflow_inconsistency": {
+    "finding": "templates/enforcement/astesia-gate.workflow.yml lines 66 and 82 reference 'trusted/.astesia/anti-patterns.json', whereas astesia-init installs anti-patterns to '.astesia/enforcement/anti-patterns.json'.",
+    "rule_compliance": "Reported as template finding; templates are FROZEN and not modified in this branch per user instructions."
+  }
+}

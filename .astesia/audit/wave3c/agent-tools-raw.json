@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-11-22T14:01:25.000Z",
+  "declared_tools_count": 19,
+  "declared_tools": [
+    "read_file",
+    "edit_file",
+    "write_file",
+    "run_command",
+    "list_plugin_accounts",
+    "manage_task",
+    "send_message",
+    "schedule",
+    "invoke_subagent",
+    "define_subagent",
+    "manage_subagents",
+    "search_web",
+    "run_workflow",
+    "search_marketplace",
+    "swarm",
+    "ask_question",
+    "call_mcp_tool",
+    "list_resources",
+    "read_resource"
+  ],
+  "candidate_probes": [
+    {
+      "candidate": "view_file",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "list_dir",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "grep_search",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "find_by_name",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "read_file",
+      "declared": true,
+      "status": "DECLARED_TESTED",
+      "result_raw": "# Astesia Framework v3.0.0\n\nAstesia is a multi-layered autonomous orchestrator...",
+      "conclusion": "unverified in tool-map (requires human confirmation per Decision 1)"
+    },
+    {
+      "candidate": "write_file",
+      "declared": true,
+      "status": "DECLARED_TESTED",
+      "result_raw": "Created file at .astesia/audit/wave3c/tool-probe/probe.txt",
+      "conclusion": "unverified in tool-map (requires human confirmation per Decision 1)"
+    },
+    {
+      "candidate": "write_to_file",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "edit_file",
+      "declared": true,
+      "status": "DECLARED_TESTED",
+      "result_raw": "Made 1 replacement in probe.txt starting at line 2 (+1/-1 lines)",
+      "conclusion": "unverified in tool-map (requires human confirmation per Decision 1)"
+    },
+    {
+      "candidate": "replace_file_content",
+      "declared": false,
+      "status": "NOT_DECLARED",
+      "result_raw": "Not declared in system prompt tool definitions",
+      "conclusion": "unverified (tool not present in current runtime declaration)"
+    },
+    {
+      "candidate": "run_command",
+      "declared": true,
+      "status": "DECLARED_TESTED",
+      "result_raw": "probe\nCommand exited with code 0.",
+      "conclusion": "unverified in tool-map (requires human confirmation per Decision 1)"
+    },
+    {
+      "candidate": "search_web",
+      "declared": true,
+      "status": "UNTESTED",
+      "result_raw": "UNTESTED: Rule #5 forbids probe from accessing external network",
+      "conclusion": "unverified in tool-map"
+    },
+    {
+      "candidate": "ask_question",
+      "declared": true,
+      "status": "UNTESTED",
+      "result_raw": "UNTESTED: Rule #5 forbids probe from prompting user input during autonomous run",
+      "conclusion": "unverified in tool-map"
+    },
+    {
+      "candidate": "search_marketplace",
+      "declared": true,
+      "status": "UNTESTED",
+      "result_raw": "UNTESTED: Rule #5 forbids probe from accessing external network",
+      "conclusion": "unverified in tool-map"
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "templates/enforcement/BRANCH-PROTECTION.md": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "7cdbe794943913a29f130b3ea6989ae62a938a07"
+  },
+  "templates/enforcement/CODEOWNERS.template": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "94ba6df77eb8a6bfe97ddc7d81f8ce1879a9d69b"
+  },
+  "templates/enforcement/anti-patterns.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "f01663d58e2fc02f4b034033cb2325579923ecc0"
+  },
+  "templates/enforcement/astesia-gate.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "2548fec65e16a62c6cf7744a750f53f5120ba394"
+  },
+  "templates/enforcement/astesia-gate.workflow.yml": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "5c20f94fa4295bd3ec75ab3062e8178793116709"
+  },
+  "templates/enforcement/gate-config.template.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "36c772ff25e1e90f731191cbe7087ff59283b289"
+  },
+  "templates/enforcement/tests/all.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "34db5d15d8661727fa65615c6db02b423310fe11"
+  },
+  "templates/enforcement/tests/allowlist-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "9d55abc929da627ea7990d9507abd4b80b07bf91"
+  },
+  "templates/enforcement/tests/auth-header-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "bac194a088df041de9f7955c5b8eb490c770c2d5"
+  },
+  "templates/enforcement/tests/baseline-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "ff54c56f570b00c401d7b2099dee6ba79acda8ae"
+  },
+  "templates/enforcement/tests/check-workflow-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "ea204a2be496fd92924c7a4d65976b2712f26f2e"
+  },
+  "templates/enforcement/tests/config-imports-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "9ca52ef11034f08d14f7f16b2bb0b8f2a358e122"
+  },
+  "templates/enforcement/tests/config-quote-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e139c405018a303acc0f966d670e4c491e53514a"
+  },
+  "templates/enforcement/tests/config-secrets-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "7bcbdf7d1021159d905c057a99458214d4f867d1"
+  },
+  "templates/enforcement/tests/config-varref-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "2a56fe86bb7f3c7e2cb453c0d6523900f57ab9c7"
+  },
+  "templates/enforcement/tests/env-batch-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "ed54f69e656ceafa7f533f9789d6e1533b365348"
+  },
+  "templates/enforcement/tests/env-git-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e55b323281314a303dd5647d036d274ffee80b0a"
+  },
+  "templates/enforcement/tests/fp-fixes-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "c0ea101ba13c1a7a9a9bb94b92adf2257dd49078"
+  },
+  "templates/enforcement/tests/fp-reduction-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "7c6f7fe9be6f9fc3bbe5c068f2d91e736fa3c8d0"
+  },
+  "templates/enforcement/tests/fuzz-truth.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "8e0200e4bf906f170d3da77f874e3d88b20aa11d"
+  },
+  "templates/enforcement/tests/generated-policy-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e49bd27a2e8f338bebb0fe292e6de1028100b7ce"
+  },
+  "templates/enforcement/tests/generated-policy-v2-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "a117cdbad5d8bf6964ecbdc1e30024271d8c339e"
+  },
+  "templates/enforcement/tests/generated-policy-v3-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e5b86a8d78bb45b923e9c0c902c6f17d3e4ec7c1"
+  },
+  "templates/enforcement/tests/helm-keyname-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "aee9377525e5a653b202b04071e92516c6e8dda7"
+  },
+  "templates/enforcement/tests/import-resolution-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "aef3719195449a8b35595fb36eb62e8176a5fc09"
+  },
+  "templates/enforcement/tests/independent/corpus.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "737fe89c9cbaf00b21603c625ff33b7e5970e947"
+  },
+  "templates/enforcement/tests/independent/originals.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "37be83a472d17a2030bf7cd6884433bc1adb6b5b"
+  },
+  "templates/enforcement/tests/isolated-env.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "a38f165887e9e54a6002fc2d9b2995f1ed4c3a0b"
+  },
+  "templates/enforcement/tests/key-contract-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "105494d1cc3a099a51cca2beebdc0f97f78bd97a"
+  },
+  "templates/enforcement/tests/key-sensitivity-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e87d8a0b42557e2f0096d543992cfbe38d8e3cb9"
+  },
+  "templates/enforcement/tests/known-gaps.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "55da19ddcdb7adebcbb34a53bff43fc4c0bcf0f1"
+  },
+  "templates/enforcement/tests/linux-verify.sh": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "4f599033ca09758eca484977d1f715cb815b0271"
+  },
+  "templates/enforcement/tests/mutation/run.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "5be96975fc4163ead3a4d4b7f0dfa02a2bbdd7ba"
+  },
+  "templates/enforcement/tests/portability-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "5c78bab83e7b8442175572be05d1c23fc05a4fa1"
+  },
+  "templates/enforcement/tests/profile-contract-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "d5cf224303996814028000f67a27bc1c2d5a0800"
+  },
+  "templates/enforcement/tests/profile-dispatch-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "28a9e36dd975162f2b1ba940d4eefb869bef2f79"
+  },
+  "templates/enforcement/tests/redos-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "8ef53cc9f2f3a92d11f7582fafa1298e940f5426"
+  },
+  "templates/enforcement/tests/regex-literal-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "7b4f49f74dc091459d16b36c8e8232968c3562a0"
+  },
+  "templates/enforcement/tests/rule010-path-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "e211fa201f4813255c719f46394d4dd8f9b04f3b"
+  },
+  "templates/enforcement/tests/rule010-scope-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "7bf0422d1d54480663a734c466b8ca4c904bdf7b"
+  },
+  "templates/enforcement/tests/rules-diff-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "9d3771ac83b34f32007b0aaffdd7deb62e8599c7"
+  },
+  "templates/enforcement/tests/run.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "75d16f7c565947a9a53c6dd543abdc8bd2f8c5ec"
+  },
+  "templates/enforcement/tests/tsconfig-determinism-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "093a3bc5fe847227aa854887562cdea35eaa5a4d"
+  },
+  "templates/enforcement/tests/url-exempt-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "f7ed1e52b46626526de1efe45b6ee187349695a2"
+  },
+  "templates/enforcement/tests/verify/known-gaps.verify.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "c0a87d6e80d3317b6a1408afb88896633582e3c0"
+  },
+  "templates/enforcement/tests/verify/run.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "547f5d7849f473d63132f7fe74b8011c92cc3668"
+  },
+  "templates/enforcement/tests/verify/v2-secrets.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "4109bfa67215678bdbd4c744466311459d65c43e"
+  },
+  "templates/enforcement/tests/verify/v3-config.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "b5568f002428637fbf535111bbc4c64c79b42acd"
+  },
+  "templates/enforcement/tests/verify/v4-allowlist.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "1d0e29cb01f9ed5692253e38be1cdc4a77826e57"
+  },
+  "templates/enforcement/tests/verify/v5-env-git.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "f716a723771ab302e87a450c99c72c7eb37f5208"
+  },
+  "templates/enforcement/tests/verify/v9-rules-diff.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "b1e71170eb0797251895b443b8da60ec0d7a944e"
+  },
+  "templates/enforcement/tests/verify2/allowlist-ratchet-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "d9baf49fac398dfaa02f503bc51a570eee52918f"
+  },
+  "templates/enforcement/tests/verify2/config-comments-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "ba1faf939b5fcf07a138709216a55cfbc0eba187"
+  },
+  "templates/enforcement/tests/verify2/key-auth-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "41ec1fa52a9a652c5806e58237eb0dd7fc5f0d3a"
+  },
+  "templates/enforcement/tests/verify2/known-gaps.verify2.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "531570e04b08635407a2d7ba988b6d17f4bf7f8e"
+  },
+  "templates/enforcement/tests/verify2/run.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "edb9839b68ff6bdac53ea0d3ec93969567d6b3c6"
+  },
+  "templates/enforcement/tests/verify2/workflow-guard-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "98b59f40b29d672f98e892d8aae4d8a3524005e3"
+  },
+  "templates/enforcement/tests/verify3/cases.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "14c5cded1829b0b4a23ee3ebf36b2511f5464ed5"
+  },
+  "templates/enforcement/tests/verify3/known-gaps.verify3.json": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "dd54dc2c04b99e9cb741ad122c7a05f50f51b12f"
+  },
+  "templates/enforcement/tests/verify3/run.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "6ddb639252a54c6abeb46eb8724241a0b3cefb57"
+  },
+  "templates/enforcement/tests/wave2a5-cli-config-suite.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "6f93b8702c699c565043c88f118e97250972b9ae"
+  },
+  "templates/enforcement/tests/workflow-guard.ts": {
+    "mode": "100644",
+    "type": "blob",
+    "hash": "4d8b71c776b286300ed6a2ce8c2348309f026863"
+  }
+}
