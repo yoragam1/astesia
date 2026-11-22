@@ -110,11 +110,15 @@ function verifyManifest() {
   } else {
     // Check known/available manifests
     const auditDir = path.resolve(".astesia/audit");
-    const waves = ["wave3a", "wave3b"];
-    for (const w of waves) {
-      const mPath = path.join(auditDir, w, "MANIFEST.json");
-      if (fs.existsSync(mPath)) {
-        totalErrors += verifySingleManifest(mPath);
+    if (fs.existsSync(auditDir)) {
+      const subdirs = fs.readdirSync(auditDir, { withFileTypes: true })
+        .filter(d => d.isDirectory())
+        .map(d => d.name);
+      for (const w of subdirs) {
+        const mPath = path.join(auditDir, w, "MANIFEST.json");
+        if (fs.existsSync(mPath)) {
+          totalErrors += verifySingleManifest(mPath);
+        }
       }
     }
   }
