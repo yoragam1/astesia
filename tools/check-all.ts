@@ -25,16 +25,16 @@ const STEPS: Step[] = [
 ];
 
 async function runCheckAll() {
-  console.log("=================================================");
-  console.log("       ASTESIA COMPREHENSIVE HEALTH CHECK        ");
-  console.log("=================================================\n");
+  process.stdout.write(("=================================================") + "\n");
+  process.stdout.write(("       ASTESIA COMPREHENSIVE HEALTH CHECK        ") + "\n");
+  process.stdout.write(("=================================================\n") + "\n");
 
   const results: Array<{ name: string; success: boolean; durationMs: number; error?: string }> = [];
   let allPassed = true;
 
   for (const step of STEPS) {
     const start = Date.now();
-    console.log(`>>> Running [${step.name}]...`);
+    process.stdout.write((`>>> Running [${step.name}]...`) + "\n");
     try {
       execSync(step.command, {
         cwd: path.resolve(__dirname, ".."),
@@ -42,26 +42,26 @@ async function runCheckAll() {
         env: process.env,
       });
       const durationMs = Date.now() - start;
-      console.log(`[PASS] ${step.name} completed in ${(durationMs / 1000).toFixed(2)}s\n`);
+      process.stdout.write((`[PASS] ${step.name} completed in ${(durationMs / 1000).toFixed(2)}s\n`) + "\n");
       results.push({ name: step.name, success: true, durationMs });
-    } catch (err: any) {
+    } catch (err: unknown) {
       const durationMs = Date.now() - start;
       console.error(`[FAIL] ${step.name} failed after ${(durationMs / 1000).toFixed(2)}s\n`);
-      results.push({ name: step.name, success: false, durationMs, error: err.message });
+      results.push({ name: step.name, success: false, durationMs, error: (err instanceof Error ? err.message : String(err)) });
       allPassed = false;
       // Continue to run all checks or fail fast? Requirement says:
       // "menjalankan keempat pemeriksaan di atas secara sekuensial dan keluar dengan kode gabungan (0 jika semua sukses, 1 jika salah satu gagal)"
     }
   }
 
-  console.log("=================================================");
-  console.log("                 HEALTH SUMMARY                  ");
-  console.log("=================================================");
+  process.stdout.write(("=================================================") + "\n");
+  process.stdout.write(("                 HEALTH SUMMARY                  ") + "\n");
+  process.stdout.write(("=================================================") + "\n");
   for (const r of results) {
-    console.log(`  ${r.success ? "[PASS]" : "[FAIL]"} ${r.name.padEnd(35)} (${(r.durationMs / 1000).toFixed(2)}s)`);
+    process.stdout.write((`  ${r.success ? "[PASS]" : "[FAIL]"} ${r.name.padEnd(35)} (${(r.durationMs / 1000).toFixed(2)}s)`) + "\n");
   }
-  console.log("-------------------------------------------------");
-  console.log(`Final Status: ${allPassed ? "ALL CHECKS PASSED (0)" : "ONE OR MORE CHECKS FAILED (1)"}\n`);
+  process.stdout.write(("-------------------------------------------------") + "\n");
+  process.stdout.write((`Final Status: ${allPassed ? "ALL CHECKS PASSED (0)" : "ONE OR MORE CHECKS FAILED (1)"}\n`) + "\n");
 
   process.exit(allPassed ? 0 : 1);
 }

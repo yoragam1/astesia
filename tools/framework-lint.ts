@@ -46,8 +46,8 @@ export function loadLintConfig(configPath?: string): LintConfig {
   }
   try {
     return JSON.parse(readFileSync(p, "utf8"));
-  } catch (err: any) {
-    throw new Error(`Failed to parse lint config at ${p}: ${err.message}`);
+  } catch (err: unknown) {
+    throw new Error(`Failed to parse lint config at ${p}: ${(err instanceof Error ? err.message : String(err))}`);
   }
 }
 
@@ -77,11 +77,11 @@ export function loadToolMap(root: string): {
     console.error(`[TOOL_FAILED: runtime/tool-map.json missing at ${toolMapPath}]`);
     process.exit(2);
   }
-  let toolMap: any;
+  let toolMap: { capabilities?: Record<string, unknown> };
   try {
     toolMap = JSON.parse(readFileSync(toolMapPath, "utf8"));
-  } catch (err: any) {
-    console.error(`[TOOL_FAILED: invalid JSON in runtime/tool-map.json: ${err.message}]`);
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILED: invalid JSON in runtime/tool-map.json: ${(err instanceof Error ? err.message : String(err))}]`);
     process.exit(2);
   }
   if (!toolMap || typeof toolMap !== "object" || !toolMap.capabilities || typeof toolMap.capabilities !== "object") {
@@ -99,7 +99,7 @@ export function loadToolMap(root: string): {
       console.error(`[TOOL_FAILED: capability '${capName}' in tool-map.json must be an array]`);
       process.exit(2);
     }
-    for (const entry of entries as any[]) {
+    for (const entry of entries as Array<Record<string, string>>) {
       if (!entry || typeof entry !== "object" || !entry.name || !entry.status) {
         console.error(`[TOOL_FAILED: invalid entry in tool-map.json for capability '${capName}']`);
         process.exit(2);
@@ -394,11 +394,11 @@ export function checkConsistency(root: string, config: LintConfig): LintViolatio
           });
         }
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       violations.push({
         code: "FL-007",
         file: "runtime/context-map.json",
-        message: `runtime/context-map.json is not valid JSON: ${err.message}`,
+        message: `runtime/context-map.json is not valid JSON: ${(err instanceof Error ? err.message : String(err))}`,
       });
     }
   }
@@ -417,11 +417,11 @@ export function checkConsistency(root: string, config: LintConfig): LintViolatio
           message: `Version mismatch: plugin.json version (${plugin.version}) !== package.json version (${pkg.version})`,
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       violations.push({
         code: "FL-018",
         file: "plugin.json",
-        message: `Failed to compare plugin.json and package.json: ${err.message}`,
+        message: `Failed to compare plugin.json and package.json: ${(err instanceof Error ? err.message : String(err))}`,
       });
     }
   }
@@ -916,23 +916,23 @@ if (import.meta.main || require.main === module) {
     const result = runFrameworkLint(targetRoot, cfgPath);
 
     if (isJson) {
-      console.log(JSON.stringify(result, null, 2));
+      process.stdout.write((JSON.stringify(result, null, 2)) + "\n");
     } else {
-      console.log(`\n=== ASTESIA FRAMEWORK LINT ===`);
-      console.log(`Total Violations: ${result.total_violations}`);
+      process.stdout.write((`\n=== ASTESIA FRAMEWORK LINT ===`) + "\n");
+      process.stdout.write((`Total Violations: ${result.total_violations}`) + "\n");
       if (result.clean) {
-        console.log(`Status: CLEAN (0 violations)\n`);
+        process.stdout.write((`Status: CLEAN (0 violations)\n`) + "\n");
       } else {
-        console.log(`Status: FAILED (${result.total_violations} violations)\n`);
+        process.stdout.write((`Status: FAILED (${result.total_violations} violations)\n`) + "\n");
         for (const err of result.errors) {
-          console.log(`  [${err.code}] ${err.file}${err.line ? `:${err.line}` : ""}: ${err.message}`);
+          process.stdout.write((`  [${err.code}] ${err.file}${err.line ? `:${err.line}` : ""}: ${(err instanceof Error ? err.message : String(err))}`) + "\n");
         }
       }
     }
 
     process.exit(result.clean ? 0 : 1);
-  } catch (err: any) {
-    console.error(`[TOOL_FAILURE] ${err.message}`);
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILURE] ${(err instanceof Error ? err.message : String(err))}`);
     process.exit(2);
   }
 }

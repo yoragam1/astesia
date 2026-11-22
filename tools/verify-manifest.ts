@@ -24,15 +24,15 @@ function computeSha256(filePath: string): string {
 }
 
 function verifySingleManifest(manifestPath: string): number {
-  console.log(`\n=== VERIFYING AUDIT MANIFEST: ${manifestPath} ===`);
+  process.stdout.write((`\n=== VERIFYING AUDIT MANIFEST: ${manifestPath} ===`) + "\n");
   if (!fs.existsSync(manifestPath)) {
     console.error(`ERROR: Manifest file not found: ${manifestPath}`);
     return 1;
   }
 
   const manifest: Manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  console.log(`Loaded manifest for wave: ${manifest.wave}, head_commit: ${manifest.head_commit}`);
-  console.log(`Registered files count: ${manifest.files.length}`);
+  process.stdout.write((`Loaded manifest for wave: ${manifest.wave}, head_commit: ${manifest.head_commit}`) + "\n");
+  process.stdout.write((`Registered files count: ${manifest.files.length}`) + "\n");
 
   let errors = 0;
 
@@ -56,14 +56,14 @@ function verifySingleManifest(manifestPath: string): number {
       console.error(`[FAIL] SHA-256 mismatch for ${entry.path}:\n  manifest: ${entry.sha256}\n  actual:   ${actualSha}`);
       errors++;
     } else {
-      console.log(`[PASS] ${entry.path} (${entry.bytes} bytes, SHA verified)`);
+      process.stdout.write((`[PASS] ${entry.path} (${entry.bytes} bytes, SHA verified)`) + "\n");
     }
   }
 
   // 2. Check corresponding report references if report exists
   const reportPath = path.resolve(`.astesia/audit/${manifest.wave}-report.md`);
   if (fs.existsSync(reportPath)) {
-    console.log(`\nChecking .astesia/audit/** references in ${manifest.wave}-report.md...`);
+    process.stdout.write((`\nChecking .astesia/audit/** references in ${manifest.wave}-report.md...`) + "\n");
     const reportText = fs.readFileSync(reportPath, "utf8");
     const manifestPathSet = new Set(manifest.files.map(f => f.path.replace(/\\/g, "/")));
 
@@ -128,7 +128,7 @@ function verifyManifest() {
     process.exit(1);
   }
 
-  console.log("\n[SUCCESS] Manifest verification passed cleanly! All registered files match disk.");
+  process.stdout.write(("\n[SUCCESS] Manifest verification passed cleanly! All registered files match disk.") + "\n");
 }
 
 verifyManifest();

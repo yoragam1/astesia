@@ -190,39 +190,39 @@ if (import.meta.main || require.main === module) {
   }
 
   if (isJson) {
-    console.log(JSON.stringify(report, null, 2));
+    process.stdout.write((JSON.stringify(report, null, 2)) + "\n");
   } else {
-    console.log(`\n=== NORMATIVE RETENTION CHECK ===`);
-    console.log(`Base: ${report.base} | Head: ${report.head}`);
-    console.log(`Total Sections Scanned: ${report.total_sections}`);
-    console.log(`Uncompensated Losses (>=30% without Gate Ref): ${report.uncompensated_losses}`);
-    console.log(`Fractional Headings Found: ${report.fractional_headings.length}\n`);
+    process.stdout.write((`\n=== NORMATIVE RETENTION CHECK ===`) + "\n");
+    process.stdout.write((`Base: ${report.base} | Head: ${report.head}`) + "\n");
+    process.stdout.write((`Total Sections Scanned: ${report.total_sections}`) + "\n");
+    process.stdout.write((`Uncompensated Losses (>=30% without Gate Ref): ${report.uncompensated_losses}`) + "\n");
+    process.stdout.write((`Fractional Headings Found: ${report.fractional_headings.length}\n`) + "\n");
 
     if (report.fractional_headings.length > 0) {
-      console.log("Fractional Headings Detected:");
+      process.stdout.write(("Fractional Headings Detected:") + "\n");
       for (const fh of report.fractional_headings) {
-        console.log(`  [FAIL] ${fh.file}: "${fh.heading}"`);
+        process.stdout.write((`  [FAIL] ${fh.file}: "${fh.heading}"`) + "\n");
       }
-      console.log("");
+      process.stdout.write(("") + "\n");
     }
 
     if (report.uncompensated_losses > 0) {
-      console.log("Uncompensated Loss Sections:");
+      process.stdout.write(("Uncompensated Loss Sections:") + "\n");
       for (const d of report.details.filter((s) => s.uncompensatedLoss)) {
-        console.log(`  [FAIL] ${d.file} -> "${d.heading}": ${d.beforeNormative} -> ${d.afterNormative} (-${d.lossPct}%)`);
+        process.stdout.write((`  [FAIL] ${d.file} -> "${d.heading}": ${d.beforeNormative} -> ${d.afterNormative} (-${d.lossPct}%)`) + "\n");
       }
-      console.log("");
+      process.stdout.write(("") + "\n");
     }
   }
 
   if (report.uncompensated_losses > 0 || report.fractional_headings.length > 0) {
     if (!isJson) {
-      console.log("FAIL: Retention check failed.");
+      process.stdout.write(("FAIL: Retention check failed.") + "\n");
     }
     process.exit(1);
   } else {
     if (!isJson) {
-      console.log("PASS: Normative retention satisfied across all rules.");
+      process.stdout.write(("PASS: Normative retention satisfied across all rules.") + "\n");
     }
     process.exit(0);
   }

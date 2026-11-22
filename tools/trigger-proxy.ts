@@ -298,24 +298,24 @@ if (import.meta.main || require.main === module) {
       const comp = comparePairedTriggerResults(resolve(fileA), resolve(fileB));
       if (outPath) {
         writeFileSync(outPath, JSON.stringify(comp, null, 2), "utf8");
-        console.log(`Paired comparison saved to ${outPath}`);
+        process.stdout.write((`Paired comparison saved to ${outPath}`) + "\n");
       }
       if (isJson) {
-        console.log(JSON.stringify(comp, null, 2));
+        process.stdout.write((JSON.stringify(comp, null, 2)) + "\n");
       } else {
-        console.log(`\n=== PAIRED TRIGGER COMPARISON ===`);
-        console.log(`File A (Before): ${comp.fileA}`);
-        console.log(`File B (After):  ${comp.fileB}`);
-        console.log(`Paired Prompts:  ${comp.paired_count}`);
-        console.log(`Before Passed:   ${comp.before_passed}/${comp.paired_count} (${(comp.before_pass_rate * 100).toFixed(2)}%)`);
-        console.log(`After Passed:    ${comp.after_passed}/${comp.paired_count} (${(comp.after_pass_rate * 100).toFixed(2)}%)`);
-        console.log(`Degradations:    ${comp.degradations.length}`);
+        process.stdout.write((`\n=== PAIRED TRIGGER COMPARISON ===`) + "\n");
+        process.stdout.write((`File A (Before): ${comp.fileA}`) + "\n");
+        process.stdout.write((`File B (After):  ${comp.fileB}`) + "\n");
+        process.stdout.write((`Paired Prompts:  ${comp.paired_count}`) + "\n");
+        process.stdout.write((`Before Passed:   ${comp.before_passed}/${comp.paired_count} (${(comp.before_pass_rate * 100).toFixed(2)}%)`) + "\n");
+        process.stdout.write((`After Passed:    ${comp.after_passed}/${comp.paired_count} (${(comp.after_pass_rate * 100).toFixed(2)}%)`) + "\n");
+        process.stdout.write((`Degradations:    ${comp.degradations.length}`) + "\n");
 
         if (comp.degradations.length > 0) {
-          console.log("\nDegradation details:");
+          process.stdout.write(("\nDegradation details:") + "\n");
           for (const d of comp.degradations) {
-            console.log(`  [${d.skill}] (score: ${d.before_score} -> ${d.after_score}) Exempted: ${d.exempted ? "YES (" + d.reason + ")" : "NO"}`);
-            console.log(`    Prompt: "${d.prompt}"`);
+            process.stdout.write((`  [${d.skill}] (score: ${d.before_score} -> ${d.after_score}) Exempted: ${d.exempted ? "YES (" + d.reason + ")" : "NO"}`) + "\n");
+            process.stdout.write((`    Prompt: "${d.prompt}"`) + "\n");
           }
         }
       }
@@ -325,7 +325,7 @@ if (import.meta.main || require.main === module) {
         console.error(`\nFAIL: Found ${unexempted.length} unexempted trigger degradation(s).`);
         process.exit(1);
       } else {
-        console.log("\nPASS: No unexempted trigger degradations found.");
+        process.stdout.write(("\nPASS: No unexempted trigger degradations found.") + "\n");
         process.exit(0);
       }
     }
@@ -337,31 +337,31 @@ if (import.meta.main || require.main === module) {
 
     if (outPath) {
       writeFileSync(outPath, JSON.stringify(summary, null, 2), "utf8");
-      console.log(`Trigger evaluation saved to ${outPath}`);
+      process.stdout.write((`Trigger evaluation saved to ${outPath}`) + "\n");
     }
 
     if (isJson) {
-      console.log(JSON.stringify(summary, null, 2));
+      process.stdout.write((JSON.stringify(summary, null, 2)) + "\n");
     } else {
-      console.log(`\n=== SKILL TRIGGER PROXY EVALUATION ===`);
-      console.log(`Total Samples:  ${summary.total_samples}`);
-      console.log(`Passed Samples: ${summary.passed_samples}`);
-      console.log(`Failed Samples: ${summary.failed_samples}`);
-      console.log(`Pass Rate:      ${(summary.pass_rate * 100).toFixed(2)}%\n`);
+      process.stdout.write((`\n=== SKILL TRIGGER PROXY EVALUATION ===`) + "\n");
+      process.stdout.write((`Total Samples:  ${summary.total_samples}`) + "\n");
+      process.stdout.write((`Passed Samples: ${summary.passed_samples}`) + "\n");
+      process.stdout.write((`Failed Samples: ${summary.failed_samples}`) + "\n");
+      process.stdout.write((`Pass Rate:      ${(summary.pass_rate * 100).toFixed(2)}%\n`) + "\n");
 
       if (summary.failed_samples > 0) {
-        console.log(`Failed Samples Details:`);
+        process.stdout.write((`Failed Samples Details:`) + "\n");
         for (const res of summary.results.filter((r) => !r.passed)) {
-          console.log(`  [Sample #${res.sample_index}] Expected: ${res.expected_skill} (Rank: ${res.expected_rank}, Score: ${res.expected_score}) vs Top: ${res.top_skill} (Score: ${res.top_score})`);
-          console.log(`    Prompt: "${res.prompt}"`);
+          process.stdout.write((`  [Sample #${res.sample_index}] Expected: ${res.expected_skill} (Rank: ${res.expected_rank}, Score: ${res.expected_score}) vs Top: ${res.top_skill} (Score: ${res.top_score})`) + "\n");
+          process.stdout.write((`    Prompt: "${res.prompt}"`) + "\n");
         }
       }
     }
 
     // Proxy is informative and records baseline; exits 0
     process.exit(0);
-  } catch (err: any) {
-    console.error(`[TOOL_FAILURE] ${err.message}`);
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILURE] ${(err instanceof Error ? err.message : String(err))}`);
     process.exit(2);
   }
 }

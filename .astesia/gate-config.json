@@ -4,6 +4,10 @@
     {
       "path": "templates/enforcement/tests",
       "reason": "Test fixtures contain intentional violations for enforcement verification"
+    },
+    {
+      "path": "tools/tests",
+      "reason": "Test suites and fixtures contain intentional violations for tool verification"
     }
   ]
 }

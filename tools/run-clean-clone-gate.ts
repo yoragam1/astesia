@@ -4,7 +4,7 @@ import * as path from "path";
 import * as os from "os";
 
 export function runCleanCloneGate(outputFile?: string): string {
-  console.log("Running clean clone gate test...");
+  process.stdout.write(("Running clean clone gate test...") + "\n");
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "astesia-clean-clone-"));
   const emptyHome = path.join(tmpDir, "empty-home");
   fs.mkdirSync(emptyHome, { recursive: true });
@@ -12,10 +12,10 @@ export function runCleanCloneGate(outputFile?: string): string {
   const cloneDir = path.join(tmpDir, "repo");
   const repoRoot = path.resolve(".");
 
-  console.log(`Cloning repo with core.autocrlf=false into: ${cloneDir}`);
+  process.stdout.write((`Cloning repo with core.autocrlf=false into: ${cloneDir}`) + "\n");
   execSync(`git clone -c core.autocrlf=false --no-hardlinks "${repoRoot}" "${cloneDir}"`, { stdio: "inherit" });
 
-  console.log("Running templates/enforcement/tests/all.ts --json in isolated clone...");
+  process.stdout.write(("Running templates/enforcement/tests/all.ts --json in isolated clone...") + "\n");
   let testOutput = "";
   const env = {
     ...process.env,
@@ -33,20 +33,21 @@ export function runCleanCloneGate(outputFile?: string): string {
       env,
       maxBuffer: 50 * 1024 * 1024,
     });
-  } catch (err: any) {
-    testOutput = err.stdout ? err.stdout.toString() : err.message;
+  } catch (err: unknown) {
+    const eObj = err as { stdout?: Buffer | string; message?: string };
+    testOutput = eObj.stdout ? eObj.stdout.toString() : (eObj.message ?? String(err));
   } finally {
     try {
       fs.rmSync(tmpDir, { recursive: true, force: true });
-    } catch (e: any) {
-      console.warn("Cleanup warning:", e.message);
+    } catch (e: unknown) {
+      console.warn("Cleanup warning:", e instanceof Error ? e.message : String(e));
     }
   }
 
   if (outputFile) {
     fs.mkdirSync(path.dirname(outputFile), { recursive: true });
     fs.writeFileSync(outputFile, testOutput.trim() + "\n", "utf8");
-    console.log(`Saved clean clone output to ${outputFile}`);
+    process.stdout.write((`Saved clean clone output to ${outputFile}`) + "\n");
   }
 
   return testOutput;

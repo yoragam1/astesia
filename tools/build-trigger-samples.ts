@@ -222,4 +222,4 @@ const samples = [
 
 const outPath = join(__dirname, "trigger-samples.json");
 writeFileSync(outPath, JSON.stringify(samples, null, 2), "utf8");
-console.log(`Generated ${samples.length} trigger samples for ${samples.length / 2} skills at ${outPath}`);
+process.stdout.write((`Generated ${samples.length} trigger samples for ${samples.length / 2} skills at ${outPath}`) + "\n");

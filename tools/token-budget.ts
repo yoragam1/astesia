@@ -44,8 +44,8 @@ export function loadBudget(path = BUDGET_FILE): BudgetRecord | null {
   if (!existsSync(path)) return null;
   try {
     return JSON.parse(readFileSync(path, "utf8"));
-  } catch (err: any) {
-    throw new Error(`Failed to parse budget file ${path}: ${err.message}`);
+  } catch (err: unknown) {
+    throw new Error(`Failed to parse budget file ${path}: ${(err instanceof Error ? err.message : String(err))}`);
   }
 }
 
@@ -142,17 +142,17 @@ if (import.meta.main || require.main === module) {
     if (isMeasure) {
       const b = measureBootSet(REPO_ROOT);
       if (isJson) {
-        console.log(JSON.stringify(b, null, 2));
+        process.stdout.write((JSON.stringify(b, null, 2)) + "\n");
       } else {
-        console.log(`\n=== BOOT SET TOKEN MEASUREMENT ===`);
-        console.log(`Definition: ${b.definition}`);
-        console.log(`Total Bytes:  ${b.total_bytes}`);
-        console.log(`Total Tokens: ${b.total_tokens_est}`);
-        console.log(`\nPer-File Breakdown:`);
+        process.stdout.write((`\n=== BOOT SET TOKEN MEASUREMENT ===`) + "\n");
+        process.stdout.write((`Definition: ${b.definition}`) + "\n");
+        process.stdout.write((`Total Bytes:  ${b.total_bytes}`) + "\n");
+        process.stdout.write((`Total Tokens: ${b.total_tokens_est}`) + "\n");
+        process.stdout.write((`\nPer-File Breakdown:`) + "\n");
         for (const f of b.files) {
-          console.log(`  ${f.path.padEnd(30)} ${f.bytes.toString().padStart(6)} bytes  ${f.tokens_est.toString().padStart(5)} tokens`);
+          process.stdout.write((`  ${f.path.padEnd(30)} ${f.bytes.toString().padStart(6)} bytes  ${f.tokens_est.toString().padStart(5)} tokens`) + "\n");
         }
-        console.log(`  Skills Metadata (${b.skills_metadata.count} skills)     ${b.skills_metadata.bytes.toString().padStart(6)} bytes  ${b.skills_metadata.tokens_est.toString().padStart(5)} tokens\n`);
+        process.stdout.write((`  Skills Metadata (${b.skills_metadata.count} skills)     ${b.skills_metadata.bytes.toString().padStart(6)} bytes  ${b.skills_metadata.tokens_est.toString().padStart(5)} tokens\n`) + "\n");
       }
       process.exit(0);
     }
@@ -160,13 +160,13 @@ if (import.meta.main || require.main === module) {
     if (isCheck) {
       const res = checkBudget(REPO_ROOT, BUDGET_FILE);
       if (isJson) {
-        console.log(JSON.stringify(res, null, 2));
+        process.stdout.write((JSON.stringify(res, null, 2)) + "\n");
       } else {
-        console.log(`\n=== TOKEN BUDGET CHECK ===`);
-        console.log(`Current Tokens: ${res.current}`);
-        console.log(`Budget Limit:   ${res.budget}`);
-        console.log(`Difference:     ${res.diff > 0 ? `+${res.diff} (EXCEEDED)` : `${res.diff} (OK)`}`);
-        console.log(`Status:         ${res.passed ? "PASS (Within budget)" : "FAIL (Budget exceeded)"}\n`);
+        process.stdout.write((`\n=== TOKEN BUDGET CHECK ===`) + "\n");
+        process.stdout.write((`Current Tokens: ${res.current}`) + "\n");
+        process.stdout.write((`Budget Limit:   ${res.budget}`) + "\n");
+        process.stdout.write((`Difference:     ${res.diff > 0 ? `+${res.diff} (EXCEEDED)` : `${res.diff} (OK)`}`) + "\n");
+        process.stdout.write((`Status:         ${res.passed ? "PASS (Within budget)" : "FAIL (Budget exceeded)"}\n`) + "\n");
       }
       process.exit(res.passed ? 0 : 1);
     }
@@ -174,17 +174,17 @@ if (import.meta.main || require.main === module) {
     if (isUpdate) {
       const updated = updateBudget(REPO_ROOT, BUDGET_FILE, allowRaise, reason);
       if (isJson) {
-        console.log(JSON.stringify(updated, null, 2));
+        process.stdout.write((JSON.stringify(updated, null, 2)) + "\n");
       } else {
-        console.log(`Token budget updated successfully. Current limit: ${updated.boot_tokens_est} tokens.`);
+        process.stdout.write((`Token budget updated successfully. Current limit: ${updated.boot_tokens_est} tokens.`) + "\n");
       }
       process.exit(0);
     }
 
     console.error("Usage: bun tools/token-budget.ts (--measure | --check | --update [--allow-raise --reason <text>])");
     process.exit(2);
-  } catch (err: any) {
-    console.error(`[TOOL_FAILURE] ${err.message}`);
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILURE] ${(err instanceof Error ? err.message : String(err))}`);
     process.exit(2);
   }
 }

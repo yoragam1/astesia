@@ -5,7 +5,7 @@
 - START Commit: `10be56edba674b55779d554ce7595423496379df` (`10be56e`)
 - BASE 3B: `e7a60d4`
 - Status Gate: BEKU (`templates/enforcement/**` 62 berkas identik dengan START, hash blob cocok tanpa perbedaan)
-- Lingkungan eksekusi: Windows (PowerShell 5.1, Bun 1.1, Node.js v20)
+- Lingkungan eksekusi: Windows (PowerShell 5.1, Bun 1.3.9, Node.js v24.13.1)
 - Berkas manifes: `.astesia/audit/wave3c/MANIFEST.json`
 - Laporan diagnostik awal: `.astesia/audit/wave3c/start-checks.json`
 

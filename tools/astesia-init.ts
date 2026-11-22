@@ -94,11 +94,11 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
   let realTarget: string;
   try {
     realTarget = fs.realpathSync(targetDir);
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       success: false,
       exitCode: 2,
-      message: `[TARGET_ERROR] Target symlink resolution failed: ${err.message}`,
+      message: `[TARGET_ERROR] Target symlink resolution failed: ${(err instanceof Error ? err.message : String(err))}`,
       modifiedFiles: [],
     };
   }
@@ -143,7 +143,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
     if (fs.existsSync(manifestPath)) {
       try {
         manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (!force) {
           return {
             success: false,
@@ -167,7 +167,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
 
       if (isUnmodified || force) {
         if (dryRun) {
-          console.log(`[DRY-RUN] Would remove: ${entry.path}`);
+          process.stdout.write((`[DRY-RUN] Would remove: ${entry.path}`) + "\n");
         } else {
           fs.unlinkSync(fullPath);
           modifiedFiles.push(entry.path);
@@ -180,7 +180,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
 
     if (keptFilesCount === 0 || force) {
       if (dryRun) {
-        console.log(`[DRY-RUN] Would remove manifest: .astesia/install-manifest.json`);
+        process.stdout.write((`[DRY-RUN] Would remove manifest: .astesia/install-manifest.json`) + "\n");
       } else if (fs.existsSync(manifestPath)) {
         fs.unlinkSync(manifestPath);
         modifiedFiles.push(".astesia/install-manifest.json");
@@ -333,10 +333,10 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
           const timestamp = Date.now();
           const bakPath = `${fullTarget}.bak-${timestamp}`;
           if (dryRun) {
-            console.log(`[DRY-RUN] Would backup existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`);
+            process.stdout.write((`[DRY-RUN] Would backup existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`) + "\n");
           } else {
             fs.copyFileSync(fullTarget, bakPath);
-            console.log(`Backed up existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`);
+            process.stdout.write((`Backed up existing workflow to: ${mapping.targetRelPath}.bak-${timestamp}`) + "\n");
           }
         }
       }
@@ -369,7 +369,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
     }
 
     if (dryRun) {
-      console.log(`[DRY-RUN] Would ${targetExists ? "update" : "write"}: ${mapping.targetRelPath}`);
+      process.stdout.write((`[DRY-RUN] Would ${targetExists ? "update" : "write"}: ${mapping.targetRelPath}`) + "\n");
     } else {
       const targetSubdir = path.dirname(fullTarget);
       if (!fs.existsSync(targetSubdir)) {
@@ -394,7 +394,7 @@ export function runAstesiaInit(opts: InitOptions): { success: boolean; exitCode:
   };
 
   if (dryRun) {
-    console.log(`[DRY-RUN] Would write manifest: .astesia/install-manifest.json`);
+    process.stdout.write((`[DRY-RUN] Would write manifest: .astesia/install-manifest.json`) + "\n");
   } else {
     const astesiaDir = path.join(targetDir, ".astesia");
     if (!fs.existsSync(astesiaDir)) {
@@ -444,7 +444,7 @@ if (import.meta.main || require.main === module) {
 
   const result = runAstesiaInit({ target, dryRun, upgrade, uninstall, force });
   if (result.success) {
-    console.log(result.message);
+    process.stdout.write((result.message) + "\n");
     process.exit(0);
   } else {
     console.error(result.message);

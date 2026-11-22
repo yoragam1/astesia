@@ -95,8 +95,8 @@ export function extractGateContract(
   let flagDescriptions: Record<string, FlagDoc>;
   try {
     flagDescriptions = JSON.parse(descJsonRaw);
-  } catch (err: any) {
-    console.error("FAIL-CLOSED: Invalid JSON in gate-reference-descriptions.json:", err.message);
+  } catch (err: unknown) {
+    console.error("FAIL-CLOSED: Invalid JSON in gate-reference-descriptions.json:", (err instanceof Error ? err.message : String(err)));
     process.exit(2);
   }
 
@@ -208,11 +208,11 @@ export function extractGateContract(
   }
 
   // 6. Extract Rules from anti-patterns.json
-  let rulesData: any;
+  let rulesData: { rules?: Array<{ id: string; severity: string; description: string }> };
   try {
     rulesData = JSON.parse(rulesJsonRaw);
-  } catch (err: any) {
-    console.error("FAIL-CLOSED: anti-patterns.json invalid JSON:", err.message);
+  } catch (err: unknown) {
+    console.error("FAIL-CLOSED: anti-patterns.json invalid JSON:", (err instanceof Error ? err.message : String(err)));
     process.exit(2);
   }
 
@@ -357,18 +357,18 @@ if (import.meta.main || require.main === module) {
         console.error(`FAIL: ${targetPath} is out of sync with gate source!`);
         process.exit(1);
       }
-      console.log(`PASS: ${targetPath} is synchronized with gate source.`);
+      process.stdout.write((`PASS: ${targetPath} is synchronized with gate source.`) + "\n");
       process.exit(0);
     } else if (isWrite) {
       fs.writeFileSync(targetPath, expectedMd, "utf8");
-      console.log(`Generated and updated ${targetPath}`);
+      process.stdout.write((`Generated and updated ${targetPath}`) + "\n");
       process.exit(0);
     } else {
-      console.log(expectedMd);
+      process.stdout.write((expectedMd) + "\n");
       process.exit(0);
     }
-  } catch (err: any) {
-    console.error(`[TOOL_FAILED: ${err.message}]`);
+  } catch (err: unknown) {
+    console.error(`[TOOL_FAILED: ${(err instanceof Error ? err.message : String(err))}]`);
     process.exit(2);
   }
 }

@@ -192,13 +192,13 @@ if (import.meta.main || require.main === module) {
   const args = process.argv.slice(2);
   const targetReport = args[0] || ".astesia/audit/wave3c-report.md";
 
-  console.log(`=== ASTESIA REPORT LINTER (tools/report-lint.ts) ===`);
-  console.log(`Scanning report: ${targetReport}`);
+  process.stdout.write((`=== ASTESIA REPORT LINTER (tools/report-lint.ts) ===`) + "\n");
+  process.stdout.write((`Scanning report: ${targetReport}`) + "\n");
 
   const violations = lintReport(targetReport);
 
   if (violations.length === 0) {
-    console.log(`PASS: Report ${targetReport} passed all mechanical checks (0 violations).\n`);
+    process.stdout.write((`PASS: Report ${targetReport} passed all mechanical checks (0 violations).\n`) + "\n");
     process.exit(0);
   } else {
     console.error(`\nFAIL: Found ${violations.length} report violation(s):`);

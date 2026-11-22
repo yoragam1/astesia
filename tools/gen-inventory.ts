@@ -448,7 +448,7 @@ export function generateInventory(root = REPO_ROOT): InventoryReport {
     try {
       const parsed = JSON.parse(readFileSync(toolMapPath, "utf8"));
       if (parsed && parsed.capabilities) {
-        for (const entries of Object.values(parsed.capabilities) as any[]) {
+        for (const entries of Object.values(parsed.capabilities) as Array<Array<{ name: string; status: string }>>) {
           if (Array.isArray(entries)) {
             for (const ent of entries) {
               if (ent.status === "denied") deniedTools.push(ent.name);
@@ -664,7 +664,7 @@ ${inv.gate_sync.rule_ids.map((r) => `| \`${r.rule}\` | ${r.documented ? "Yes" : 
 `;
 
   writeFileSync(outPath, content, "utf8");
-  console.log(`Generated docs written to ${outPath}`);
+  process.stdout.write((`Generated docs written to ${outPath}`) + "\n");
 }
 
 // CLI entry point
@@ -685,8 +685,8 @@ if (import.meta.main || require.main === module) {
   if (outPath) {
     mkdirSync(dirname(outPath), { recursive: true });
     writeFileSync(outPath, jsonStr, "utf8");
-    console.log(`Inventory JSON written to ${outPath}`);
+    process.stdout.write((`Inventory JSON written to ${outPath}`) + "\n");
   } else if (!isWriteDocs) {
-    console.log(jsonStr);
+    process.stdout.write((jsonStr) + "\n");
   }
 }
