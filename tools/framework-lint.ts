@@ -523,28 +523,38 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
   gather(workflowsDir);
   gather(skillsDir);
 
-  const gateCliFlags = [
-    "--baseline",
-    "--update-baseline",
-    "--max-warn",
-    "--json",
-    "--root",
-    "--rules",
-    "--rules-diff",
-    "--check-workflow",
-    "--allow-raise",
-    "--reason",
-  ];
-
   const gateScript = join(root, "templates/enforcement/astesia-gate.ts");
+  const gateRefPath = join(root, "docs/GATE-REFERENCE.md");
+
+  if (!existsSync(gateRefPath)) {
+    violations.push({
+      code: "FL-014",
+      file: "docs/GATE-REFERENCE.md",
+      message: "docs/GATE-REFERENCE.md missing; must be generated from gate source",
+    });
+  }
+
+  let extractedFlags: string[] = [];
   if (existsSync(gateScript)) {
     const rawScript = readFileSync(gateScript, "utf8");
-    const foundFlags = rawScript.match(/--[a-z0-9-]+/g) || [];
-    for (const f of foundFlags) {
-      if (f.startsWith("--") && !f.startsWith("---") && !gateCliFlags.includes(f)) {
-        gateCliFlags.push(f);
-      }
-    }
+    const optsMatches = [...rawScript.matchAll(/opts\.get\(["']([^"']+)["']\)/g)].map((m) => "--" + m[1]);
+    const flagsMatches = [...rawScript.matchAll(/flags\.has\(["']([^"']+)["']\)/g)].map((m) => "--" + m[1]);
+    const directArgMatches = [...rawScript.matchAll(/args\.indexOf\(["']--([^"']+)["']\)/g)].map((m) => "--" + m[1]);
+    extractedFlags = [...new Set([...optsMatches, ...flagsMatches, ...directArgMatches])].sort();
+  } else {
+    extractedFlags = [
+      "--baseline",
+      "--update-baseline",
+      "--max-warn",
+      "--json",
+      "--root",
+      "--rules",
+      "--rules-diff",
+      "--check-workflow",
+      "--config",
+      "--allow-raise",
+      "--reason",
+    ];
   }
 
   const exemptFlags = new Set(
@@ -553,15 +563,55 @@ export function checkRulesAndDocs(root: string, config: LintConfig): LintViolati
       .map((e) => e.flag)
   );
 
-  for (const flag of gateCliFlags) {
+  for (const flag of extractedFlags) {
     if (exemptFlags.has(flag)) continue;
     const count = (allDocsText.match(new RegExp(flag.replace(/-/g, "\\-"), "g")) || []).length;
     if (count === 0) {
       violations.push({
         code: "FL-014",
-        file: "docs/astesia-audit-dossier.md",
+        file: "docs/GATE-REFERENCE.md",
         message: `CLI flag '${flag}' from astesia-gate.ts is not documented in framework docs/rules`,
       });
+    }
+  }
+
+  // FL-020: Known Limitations in docs/GATE-REFERENCE.md
+  if (existsSync(gateRefPath)) {
+    const gateRefContent = readFileSync(gateRefPath, "utf8");
+    const requiredLimitationPoints: Array<{ id: string; keywords: string[] }> = [
+      {
+        id: "P1_FALSE_POSITIVE",
+        keywords: ["false positive", "ASTESIA-000", "ASTESIA-004", "tinggi", "proyek nyata"],
+      },
+      {
+        id: "P2_PLATFORM_VALIDATION",
+        keywords: ["validasi", "Windows", "Linux", "diverifikasi", "gate"],
+      },
+      {
+        id: "P3_WORKFLOW_LINT",
+        keywords: ["--check-workflow", "lint", "workflow", "CODEOWNERS", "status check"],
+      },
+      {
+        id: "P4_GENERATED_BYPASS",
+        keywords: ["generated", "tokenizer", "bypass", "ratchet", "baseline"],
+      },
+      {
+        id: "P5_REGEX_HEURISTIC",
+        keywords: ["heuristik", "regex", "N+1", "lintas fungsi", "tidak terdeteksi"],
+      },
+    ];
+
+    for (const pt of requiredLimitationPoints) {
+      for (const kw of pt.keywords) {
+        const kwRegex = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+        if (!kwRegex.test(gateRefContent)) {
+          violations.push({
+            code: "FL-020",
+            file: "docs/GATE-REFERENCE.md",
+            message: `Known Limitations section missing required keyword '${kw}' for limitation ${pt.id}`,
+          });
+        }
+      }
     }
   }
 

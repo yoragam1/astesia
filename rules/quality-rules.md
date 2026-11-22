@@ -27,9 +27,8 @@ Prioritize code deletion over additions (`skills/anti-bloat-review/SKILL.md`). R
 
 ## 9. Deterministic Gate Ownership *(NEW - Verification-First)*
 - Run `bun .astesia/enforcement/astesia-gate.ts --json` on rebased head; any `error` = FAIL. Warns must not exceed `enforcement.max_warn`.
-- CLI flags: `--baseline`, `--update-baseline`, `--max-warn`, `--json`, `--root`, `--rules`, `--rules-diff`, `--check-workflow`, `--allow-raise`, `--reason` (see `docs/GENERATED-INVENTORY.md`).
-- Policy: `NEVER_BASELINE = [ASTESIA-000, ASTESIA-004, ASTESIA-010]`, `NEVER_INLINE_SUPPRESS = [ASTESIA-000, ASTESIA-004]`. Generated files protected.
-- Limitations: elevated FP on 000/004 on some repos; gate validated on Windows; `--check-workflow` is a static PR lint.
+- Gate flags & policies: see `docs/GATE-REFERENCE.md` (`--config`, `--baseline`, `--rules`, `--rules-diff`, `--check-workflow`, `--allow-raise`, `--reason`, `NEVER_BASELINE`, `NEVER_INLINE_SUPPRESS`).
+- Limitations: elevated FP on 000/004; Windows validated; `--check-workflow` is a static PR lint (see `docs/GATE-REFERENCE.md`).
 - Quality owns `.astesia/anti-patterns.json`; Executors may not modify it.
 
 ## 10. Mistake-to-Rule Ratchet *(NEW - Verification-First)*

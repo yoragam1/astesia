@@ -1,12 +1,7 @@
 {
   "description_max_length": 320,
   "description_length_exemptions": [],
-  "gate_internal_flags_exempt": [
-    {
-      "flag": "--stdin",
-      "reason": "Internal gate pipe option for streaming files to linter from subshells"
-    }
-  ],
+  "gate_internal_flags_exempt": [],
   "unmapped_skills_exempt": [],
   "token_budget_max": 8809
 }

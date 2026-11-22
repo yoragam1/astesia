@@ -348,7 +348,7 @@ Bagian ini mencatat evolusi mekanis penegakan arsitektur Astesia pasca-audit Gel
      - Seluruh GitHub Actions di-pin menggunakan 40-character commit SHA permanen.
      - Dilengkapi `CODEOWNERS.template` dan panduan `BRANCH-PROTECTION.md`.
 
-### 7.2 Daftar Aturan Registri Aktif (lihat docs/GENERATED-INVENTORY.md)
+### 7.2 Daftar Aturan Registri Aktif (lihat docs/GENERATED-INVENTORY.md dan docs/GATE-REFERENCE.md)
 | Rule ID | Severity | Kind | Scope | Target & Deskripsi |
 |---|---|---|---|---|
 | `ASTESIA-000` | `error` | `relative-import-exists` | `code` | Import relatif ESM/CJS, re-export, dan alias `@/` wajib menunjuk ke berkas fisik yang eksis. *(NEVER_BASELINE)* |

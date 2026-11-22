@@ -827,21 +827,89 @@ export const LINT_RULE_TESTS: TestCase[] = [
     },
   },
   {
+    id: "FL-014-POS-MUTANT-FLAG",
+    code: "FL-014",
+    type: "positive",
+    name: "Mutant flag in gate source triggers FL-014 when undocumented",
+    run: () => {
+      const root = createMockRepo("fl014-pos-mutant");
+      try {
+        mkdirSync(join(root, "templates", "enforcement"), { recursive: true });
+        writeFileSync(
+          join(root, "templates", "enforcement", "astesia-gate.ts"),
+          'const custom = opts.get("undocumented-mutant-flag");\n',
+          "utf8"
+        );
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), "# Gate Reference\n", "utf8");
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-014" && x.message.includes("--undocumented-mutant-flag"));
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
     id: "FL-014-NEG",
     code: "FL-014",
     type: "negative",
-    name: "All flags documented or exempted passes FL-014",
+    name: "All flags documented including --config passes FL-014",
     run: () => {
       const root = createMockRepo("fl014-neg");
       try {
         const flags = [
           "--baseline", "--update-baseline", "--max-warn", "--json",
           "--root", "--rules", "--rules-diff", "--check-workflow",
-          "--allow-raise", "--reason"
+          "--config", "--allow-raise", "--reason"
         ];
-        writeFileSync(join(root, "docs", "flags.md"), flags.join(" ") + "\n", "utf8");
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), flags.join(" ") + "\n", "utf8");
         const v = checkRulesAndDocs(root, defaultConfig);
         return !v.some((x) => x.code === "FL-014");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+
+  // FL-020: Known limitations in docs/GATE-REFERENCE.md
+  {
+    id: "FL-020-POS-MISSING-KW",
+    code: "FL-020",
+    type: "positive",
+    name: "Missing limitation keyword triggers FL-020",
+    run: () => {
+      const root = createMockRepo("fl020-pos");
+      try {
+        writeFileSync(
+          join(root, "docs", "GATE-REFERENCE.md"),
+          "# Gate Reference\n## Keterbatasan yang Diketahui\n1. False positive pada ASTESIA-000 dan ASTESIA-004 tinggi pada proyek nyata.\n",
+          "utf8"
+        );
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return v.some((x) => x.code === "FL-020");
+      } finally {
+        rmSync(root, { recursive: true, force: true });
+      }
+    },
+  },
+  {
+    id: "FL-020-NEG-FULL",
+    code: "FL-020",
+    type: "negative",
+    name: "Complete 5 limitation points with all 5 keywords pass FL-020",
+    run: () => {
+      const root = createMockRepo("fl020-neg");
+      try {
+        const fullContent = `# Gate Reference
+## Keterbatasan yang Diketahui
+1. False positive tinggi pada ASTESIA-000 dan ASTESIA-004 pada sebagian proyek nyata.
+2. Validasi gate baru dilakukan di Windows (Linux belum diverifikasi).
+3. --check-workflow hanya lint, PR dapat menghapus workflow tanpa CODEOWNERS dan required status check.
+4. Berkas generated dilewati tokenizer, bypass terbatas dikendalikan ratchet baseline.
+5. Heuristik regex; query N+1 lintas fungsi tidak terdeteksi.
+`;
+        writeFileSync(join(root, "docs", "GATE-REFERENCE.md"), fullContent, "utf8");
+        const v = checkRulesAndDocs(root, defaultConfig);
+        return !v.some((x) => x.code === "FL-020");
       } finally {
         rmSync(root, { recursive: true, force: true });
       }

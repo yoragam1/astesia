@@ -33,7 +33,7 @@ description: >-
 - Rules are **append-only**. Removal requires an ADR (`adr-management`).
 - `warn` → `error` promotion when warn count reaches 0, or set `--max-warn` to the current count and lower it each wave. The warn budget may only decrease.
 - Suppression requires `astesia-allow: <rule-id> -- <reason>` (≥15 characters); missing reason is a violation.
-- Invariants: `ASTESIA-000` and `ASTESIA-004` can NEVER be suppressed inline. `ASTESIA-000`, `ASTESIA-004`, and `ASTESIA-010` can NEVER be baselined (`NEVER_BASELINE`).
+- Invariants: Rules in `NEVER_INLINE_SUPPRESS` (`ASTESIA-000`, `004`, `010`, `TOKENIZER_DESYNC`, `LONG_LINE_SKIPPED`) can NEVER be suppressed inline. Rules in `NEVER_BASELINE` (`ASTESIA-000`, `004`, `010`) can NEVER be baselined (see `docs/GATE-REFERENCE.md`).
 - Baseline updates via `--update-baseline` require `--allow-raise --reason "<reason>"` to raise thresholds.
 - Cap: if a rule needs > 10 suppressions, it is the wrong rule — redesign it.
 
