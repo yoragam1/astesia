@@ -23,12 +23,11 @@ function computeSha256(filePath: string): string {
   return crypto.createHash("sha256").update(content).digest("hex");
 }
 
-function verifyManifest() {
-  console.log("=== VERIFYING AUDIT MANIFEST ===");
-  const manifestPath = path.resolve(".astesia/audit/wave3a/MANIFEST.json");
+function verifySingleManifest(manifestPath: string): number {
+  console.log(`\n=== VERIFYING AUDIT MANIFEST: ${manifestPath} ===`);
   if (!fs.existsSync(manifestPath)) {
     console.error(`ERROR: Manifest file not found: ${manifestPath}`);
-    process.exit(1);
+    return 1;
   }
 
   const manifest: Manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
@@ -61,10 +60,10 @@ function verifyManifest() {
     }
   }
 
-  // 2. Check wave3a-report.md references
-  const reportPath = path.resolve(".astesia/audit/wave3a-report.md");
+  // 2. Check corresponding report references if report exists
+  const reportPath = path.resolve(`.astesia/audit/${manifest.wave}-report.md`);
   if (fs.existsSync(reportPath)) {
-    console.log("\nChecking .astesia/audit/** references in wave3a-report.md...");
+    console.log(`\nChecking .astesia/audit/** references in ${manifest.wave}-report.md...`);
     const reportText = fs.readFileSync(reportPath, "utf8");
     const manifestPathSet = new Set(manifest.files.map(f => f.path.replace(/\\/g, "/")));
 
@@ -72,30 +71,56 @@ function verifyManifest() {
     const matches = reportText.match(refRegex) || [];
     const uniqueRefs = [...new Set(matches)];
 
+    const wavePrefix = `.astesia/audit/${manifest.wave}/`;
+
     for (const ref of uniqueRefs) {
-      // Normalize ref
       const cleanRef = ref.replace(/[\),:`"'\*]/g, "").trim();
-      // Skip directory references ending with / or MANIFEST.json itself
-      if (cleanRef.endsWith("/") || cleanRef === ".astesia/audit/wave3a/MANIFEST.json") continue;
+      if (cleanRef.endsWith("/") || cleanRef === `${wavePrefix}MANIFEST.json`) continue;
 
       if (!fs.existsSync(cleanRef)) {
-        // Only warn/fail if it refers to a wave3a audit artifact that should exist
-        if (cleanRef.startsWith(".astesia/audit/wave3a/")) {
-          console.error(`[FAIL] Report references non-existent wave3a file: ${cleanRef}`);
+        if (cleanRef.startsWith(wavePrefix)) {
+          console.error(`[FAIL] Report references non-existent ${manifest.wave} file: ${cleanRef}`);
           errors++;
         }
         continue;
       }
 
-      if (cleanRef.startsWith(".astesia/audit/wave3a/") && !manifestPathSet.has(cleanRef)) {
-        console.error(`[FAIL] Wave 3A file referenced in report but missing from MANIFEST.json: ${cleanRef}`);
+      if (cleanRef.startsWith(wavePrefix) && !manifestPathSet.has(cleanRef)) {
+        console.error(`[FAIL] File referenced in report but missing from MANIFEST.json: ${cleanRef}`);
         errors++;
       }
     }
   }
 
-  if (errors > 0) {
-    console.error(`\nManifest verification FAILED with ${errors} error(s).`);
+  return errors;
+}
+
+function verifyManifest() {
+  const args = process.argv.slice(2);
+  let targetWave = "";
+  const waveIdx = args.indexOf("--wave");
+  if (waveIdx !== -1 && args[waveIdx + 1]) {
+    targetWave = args[waveIdx + 1];
+  }
+
+  let totalErrors = 0;
+  if (targetWave) {
+    const manifestPath = path.resolve(`.astesia/audit/${targetWave}/MANIFEST.json`);
+    totalErrors += verifySingleManifest(manifestPath);
+  } else {
+    // Check known/available manifests
+    const auditDir = path.resolve(".astesia/audit");
+    const waves = ["wave3a", "wave3b"];
+    for (const w of waves) {
+      const mPath = path.join(auditDir, w, "MANIFEST.json");
+      if (fs.existsSync(mPath)) {
+        totalErrors += verifySingleManifest(mPath);
+      }
+    }
+  }
+
+  if (totalErrors > 0) {
+    console.error(`\nManifest verification FAILED with ${totalErrors} error(s).`);
     process.exit(1);
   }
 

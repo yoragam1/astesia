@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-11-22T06:20:27.835Z",
+  "wave": "wave3b",
+  "head_commit": "7f09ecf6270ec229f290024b1dddf365345fb668",
+  "files": [
+    {
+      "path": ".astesia/audit/wave3b/agent-tools.json",
+      "sha256": "81dd4c3fdd47cbc1786ddf7bf29ea6d95aad7085c767c8e95ba56a8f8e5c360d",
+      "bytes": 2663,
+      "description": "Live agent tool enumeration, unknown tool name sanitization, and whitelist/denylist validation (Task K1)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/checks-after.json",
+      "sha256": "0fd1b1698a0f97c9dcd9d6024f22baaf5b1c2109450b6b731215c2f5d9b1c5c3",
+      "bytes": 35484,
+      "description": "Full suite verification results after wave 3b implementation (Task K8)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/checks-before.json",
+      "sha256": "6721e07f32a644e3591bf5046c5e0dc0278e1b05a276f6e8a750ad33211d6df9",
+      "bytes": 653,
+      "description": "Check results before wave 3b implementation (Phase 1)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/clean-clone-end.json",
+      "sha256": "028c4a314f8f8a8aee741c91c214a78fffd132d59d24fb437a067392f61b3389",
+      "bytes": 12357,
+      "description": "Clean-clone gate test verification at end of Wave 3B (core.autocrlf=false)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/clean-clone-start.json",
+      "sha256": "a310eacf8442a710fd84f5cefc6a95b267385a6c98cd5127917f6d42776fc7ad",
+      "bytes": 12356,
+      "description": "Clean-clone gate test baseline at START commit (core.autocrlf=false)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/frozen-blobs-start.json",
+      "sha256": "5b160b5a9057692c7ca061b6b8b00c008ea574d2f46a5fb6a938015e8201b39c",
+      "bytes": 9822,
+      "description": "62 git blob SHA-1 hashes of frozen gate files at START commit"
+    },
+    {
+      "path": ".astesia/audit/wave3b/gate-doc-diff.json",
+      "sha256": "7e2ce0c25af4e09cb3519be05ee94bf50b01dd7437dc89785e975eb124944370",
+      "bytes": 3096,
+      "description": "Mechanical extraction and diff analysis between gate source code and documentation (Task K2)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/installer-diag.json",
+      "sha256": "5797aa4aba396d0c4344c7af2fe2a8ac8c48ba541f854424f0a46f4bf96fa9a6",
+      "bytes": 4217,
+      "description": "Diagnostic review of install.ps1, install.sh, and brownfield installer requirements (Phase 1)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/linter-diag.json",
+      "sha256": "e8497bcd76071b348292c20d5130512b32625a9ab90ae2a0514f2bff1802dd0c",
+      "bytes": 1710,
+      "description": "Diagnostic review of linter keyword extraction and test gaps (Phase 1)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/paired-trigger-after.json",
+      "sha256": "697f1accdf82d231c2e6e76a2af21f7a8cdd986041e987ca6ba316ae9f8046ce",
+      "bytes": 77548,
+      "description": "Skill trigger proxy evaluation after wave 3b changes (100 samples)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/paired-trigger-before.json",
+      "sha256": "f3a32e51bbd0dbbc33447da60a0fff4c7035f95eb305e4aa44be41aacc91473d",
+      "bytes": 10438,
+      "description": "Fair paired prompt trigger comparison (98 pairs, 0 degradations) (Task K3)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/retention-after.json",
+      "sha256": "85247e4d6eb81e3a0a9ae196cd5233d3f69b5a9d78dc342a2f9c80db2cb1edc9",
+      "bytes": 18107,
+      "description": "Sentence-level normative prose retention check after restoration (Task K4)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/retention-before.json",
+      "sha256": "32fb583e62655367a6c63a2f96d9c827586b93eb6317297e15a4a06a36f9f867",
+      "bytes": 19014,
+      "description": "Sentence-level normative prose retention check before restoration (Task K4)"
+    },
+    {
+      "path": ".astesia/audit/wave3b/start-checks.json",
+      "sha256": "e8e7125ad56caeadc745870cc869b6cea6a917f8549e74294d3d943037258507",
+      "bytes": 7808,
+      "description": "Baseline check-all execution results at START commit"
+    }
+  ]
+}
